@@ -44,3 +44,7 @@
 .sellBtn {
   @apply text-lime-600
 }
+
+.footer {
+  @apply bg-[#627A6E] text-white font-bold
+}
