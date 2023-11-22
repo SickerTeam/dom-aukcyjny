@@ -1,4 +1,9 @@
-import { ProfilePhoto, ProfileDetails, AboutMe } from "../../../../components";
+import {
+  ProfilePhoto,
+  ProfileDetails,
+  ProfilePosts,
+  AboutMe,
+} from "../../../../components";
 
 type UsersPageType = {
   params: {
@@ -13,7 +18,7 @@ const UsersPage = ({ params }: UsersPageType) => {
   // we receive will have certain type with all the properties needed
   const userProfileInfo = {
     name: "Gabriel Pedlowski",
-    // photoUrl: "https://www.something.com/",
+    photoUrl: "https://www.something.com/",
     country: "Poland",
     aboutMe:
       "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
@@ -25,16 +30,19 @@ const UsersPage = ({ params }: UsersPageType) => {
   // also need to fetch artworks, archived and posts with
   const artworks = [];
   const archive = [];
-  const posts = [{}];
+  const posts = ["siema", "jebac disa"];
 
   return (
     <div className="flex">
-      <div className="flex-1 ">
-        {/* <ProfilePhoto
+      <div className="flex-1">
+        <ProfilePhoto
           url={userProfileInfo.photoUrl}
           name={userProfileInfo.name}
-        /> */}
-        <ProfileDetails name={userProfileInfo.name} />
+        />
+        <ProfileDetails
+          name={userProfileInfo.name}
+          country={userProfileInfo.country}
+        />
       </div>
       <div className="flex-1 ">
         <AboutMe description={userProfileInfo.aboutMe} />

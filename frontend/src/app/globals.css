@@ -42,5 +42,5 @@
 }
 
 .sellBtn {
-  @apply text-lime-600
+  @apply text-lime-600;
 }

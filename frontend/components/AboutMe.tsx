@@ -3,7 +3,12 @@ type AboutMeType = {
 };
 
 const AboutMe = ({ description }: AboutMeType) => {
-  return <p>{description}</p>;
+  return (
+    <div>
+      <h2 className="pb-2">About me</h2>
+      <p>{description}</p>
+    </div>
+  );
 };
 
 export default AboutMe;
