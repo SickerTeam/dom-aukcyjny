@@ -7,7 +7,7 @@ type UserPageType = {
 };
 
 const UserPage = ({ params }: UserPageType) => {
-  return <UsersPage id={params.id} />;
+  return <UsersPage userId={params.id} />;
 };
 
 export default UserPage;

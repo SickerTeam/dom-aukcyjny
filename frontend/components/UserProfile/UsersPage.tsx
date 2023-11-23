@@ -3,12 +3,10 @@ import ProfileArtworks from "./ProfileArtworks";
 import ProfileArchive from "./ProfileArchive";
 
 type UsersPageType = {
-  id: string;
+  userId: string;
 };
 
-const UsersPage = ({ id }: UsersPageType) => {
-  const userId = id;
-
+const UsersPage = ({ userId }: UsersPageType) => {
   // fetch user profile info with the user id from params.id, later the user profile object that
   // we receive will have certain type with all the properties needed
   const userProfileInfo = {
@@ -23,7 +21,7 @@ const UsersPage = ({ id }: UsersPageType) => {
   };
 
   return (
-    <div className="grid grid-cols-6 grid-rows-6 gap-4 mt-12">
+    <div className="grid grid-cols-6 grid-rows-6 gap-4 pt-12">
       <div className="row-span-2">
         <ProfilePhoto
           url={userProfileInfo.photoUrl}
