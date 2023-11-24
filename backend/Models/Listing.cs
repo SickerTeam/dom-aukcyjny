@@ -1,11 +1,11 @@
-﻿namespace backend.Models
-{
-    public class Listing
-    {
-        private string title {  get; set; }
-        private string description {  get; set; }
-        private double price { get; set; }
+﻿using System.Net.Http.Headers;
 
-        public Listing() { }
+namespace backend.Models
+{
+    public abstract class Listing
+    {
+        private double price;
+        private Product product; 
+        private bool isArchived;
     }
 }

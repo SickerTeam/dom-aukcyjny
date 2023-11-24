@@ -1,7 +1,10 @@
-﻿using backend.Repository;
+﻿using AutoMapper;
+using backend.DTOs;
+using backend.Repository;
 using backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace backend.Controllers
 {
@@ -9,10 +12,12 @@ namespace backend.Controllers
     public class ListingController : ControllerBase
     {
         private readonly IListingService _listingService;
+        private readonly IMapper _mapper;
 
-        public ListingController(IListingService listingService)
+        public ListingController(IListingService listingService, IMapper mapper)
         {
             _listingService = listingService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -30,5 +35,13 @@ namespace backend.Controllers
             var listings = _listingService.GetListings();
             return Ok(listings);
         }
+
+
+//        public async Task<IActionResult> UpdateListing(int id)
+//        {
+//            var listing = await _listingService.GetListing(id) (u => u.Id == id);
+//
+//            var model = _mapper.Map<ListingDTO>(listing);
+//        }
     }
 }

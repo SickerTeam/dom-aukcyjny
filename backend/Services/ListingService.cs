@@ -1,6 +1,7 @@
 ﻿using backend.DTOs;
 using backend.Repository;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using AutoMapper;
 
 namespace backend.Services
 {
