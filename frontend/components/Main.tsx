@@ -9,9 +9,9 @@ const Main = () => {
         <h1 className="main__title">
           Bringing online auctions to a next level!
         </h1>
-
-        <p className="main__subtitle">
-          Elevate your auction experience with Zong.
+        
+         <p className="">
+            Elevate your auction experience with Zong.
         </p>
 
         <CustomButton
