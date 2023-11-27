@@ -2,6 +2,7 @@
 
 .vs/*
 .vscode/*
+/backend/.vs/*
 
 # dependencies
 /node_modules
