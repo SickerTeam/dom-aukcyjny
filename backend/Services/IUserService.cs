@@ -1,15 +1,16 @@
 ﻿using backend.DTOs;
 using backend.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace backend.Services
 {
     public interface IUserService
     {
-        //UserDTO GetUser(int id);
-        int GetUsers();
-        //public UserDTO CreateUser(UserDTO userDTO);
-        //public UserDTO UpdateUser(UserDTO userDTO);
-
-
+        Task<IEnumerable<UserDTO>> GetUsersAsync();
+        Task<UserDTO> GetUserByIdAsync(int id);
+        Task AddUserAsync(UserDTO userDto);
+        Task UpdateUserAsync(UserDTO userDto);
+        Task DeleteUserAsync(int id);
     }
 }
