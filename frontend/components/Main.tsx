@@ -14,7 +14,7 @@ const Main = () => {
             Bringing online auctions to a next level!
         </h1>
 
-        <p className="main__subtitle">
+        <p className="">
             Elevate your auction experience with Zong.
         </p>
 

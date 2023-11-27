@@ -48,3 +48,7 @@
 .footer {
   @apply bg-[#627A6E] text-white
 }
+
+.discovery {
+  @apply bg-[#627A6E]
+}
