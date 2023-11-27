@@ -9,7 +9,7 @@ export default function Home() {
   }
   return (
     <main className="overflow-hidden">
-      <Main/>
+    <Main/>
       
   
       <div className="padding-x padding-y mt-10">
@@ -38,5 +38,5 @@ export default function Home() {
             </div>
           </div>
     </main>
-  )
+  );
 }

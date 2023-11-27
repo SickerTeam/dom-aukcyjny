@@ -2,22 +2,22 @@ import './globals.css'
 import { Footer, Navbar } from '../../components'
 
 export const metadata = {
-  title: 'Dom Aukcyjny',
-  description: 'Welcome to Zong',
-}
+  title: "Dom Aukcyjny",
+  description: "Welcome to Zong",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className="relative">
+      <body className="padding-x">
         <Navbar />
         {children}
         <Footer />
       </body>
     </html>
-  )
+  );
 }
