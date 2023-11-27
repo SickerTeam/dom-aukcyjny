@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class instabuy
+public partial class Instabuy
 {
     public int instaid { get; set; }
 
@@ -13,5 +13,5 @@ public partial class instabuy
 
     public bool? archived { get; set; }
 
-    public virtual ICollection<instabuypurchase> instabuypurchases { get; set; } = new List<instabuypurchase>();
+    public virtual ICollection<InstabuyPurchase> instabuypurchases { get; set; } = new List<InstabuyPurchase>();
 }

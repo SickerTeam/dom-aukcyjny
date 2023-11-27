@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class user
+public class User
 {
     public int userid { get; set; }
 
@@ -25,11 +25,11 @@ public partial class user
 
     public string personal_link { get; set; }
 
-    public virtual ICollection<auctionpurchase> auctionpurchasebuyers { get; set; } = new List<auctionpurchase>();
+    public virtual ICollection<AuctionPurchase> auctionpurchasebuyers { get; set; } = new List<AuctionPurchase>();
 
-    public virtual ICollection<auctionpurchase> auctionpurchasesellers { get; set; } = new List<auctionpurchase>();
+    public virtual ICollection<AuctionPurchase> auctionpurchasesellers { get; set; } = new List<AuctionPurchase>();
 
-    public virtual ICollection<bid> bids { get; set; } = new List<bid>();
+    public virtual ICollection<Bid> bids { get; set; } = new List<Bid>();
 
-    public virtual ICollection<product> products { get; set; } = new List<product>();
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

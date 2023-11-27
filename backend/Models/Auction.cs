@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class auction
+public partial class Auction
 {
     public int auctionid { get; set; }
 
@@ -21,9 +21,9 @@ public partial class auction
 
     public bool? archived { get; set; }
 
-    public virtual ICollection<auctionpurchase> auctionpurchases { get; set; } = new List<auctionpurchase>();
+    public virtual ICollection<AuctionPurchase> auctionpurchases { get; set; } = new List<AuctionPurchase>();
 
-    public virtual ICollection<bid> bids { get; set; } = new List<bid>();
+    public virtual ICollection<Bid> bids { get; set; } = new List<Bid>();
 
-    public virtual product product { get; set; }
+    public virtual Product product { get; set; }
 }

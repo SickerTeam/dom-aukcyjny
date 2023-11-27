@@ -16,13 +16,13 @@ namespace backend.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [Route("users/{id}")]
-        public IActionResult GetUserById(int id)
-        {
-            var user = _userService.GetUser(id);
-            return Ok(user);
-        }
+        //[HttpGet]
+        //[Route("users/{id}")]
+        //public IActionResult GetUserById(int id)
+        //{
+        //    var user = _userService.GetUser(id);
+        //    return Ok(user);
+        //}
 
         [HttpGet]
         [Route("users")]

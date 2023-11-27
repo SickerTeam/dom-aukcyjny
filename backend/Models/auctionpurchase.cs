@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class auctionpurchase
+public partial class AuctionPurchase
 {
     public int purchaseid { get; set; }
 
@@ -19,9 +19,9 @@ public partial class auctionpurchase
 
     public DateTime? purchasetime { get; set; }
 
-    public virtual auction auction { get; set; }
+    public virtual Auction auction { get; set; }
 
-    public virtual user buyer { get; set; }
+    public virtual User buyer { get; set; }
 
-    public virtual user seller { get; set; }
+    public virtual User seller { get; set; }
 }

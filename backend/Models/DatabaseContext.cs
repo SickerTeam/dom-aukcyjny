@@ -6,30 +6,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models;
 
-public partial class CSCCSDS211_10407554Context : DbContext
+public partial class DatabaseContext : DbContext
 {
-    public CSCCSDS211_10407554Context()
+    public DatabaseContext()
     {
     }
 
-    public CSCCSDS211_10407554Context(DbContextOptions<CSCCSDS211_10407554Context> options)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<auction> auctions { get; set; }
+    public virtual DbSet<Auction> auctions { get; set; }
 
-    public virtual DbSet<auctionpurchase> auctionpurchases { get; set; }
+    public virtual DbSet<AuctionPurchase> auctionpurchases { get; set; }
 
-    public virtual DbSet<bid> bids { get; set; }
+    public virtual DbSet<Bid> bids { get; set; }
 
-    public virtual DbSet<instabuy> instabuys { get; set; }
+    public virtual DbSet<Instabuy> instabuys { get; set; }
 
-    public virtual DbSet<instabuypurchase> instabuypurchases { get; set; }
+    public virtual DbSet<InstabuyPurchase> instabuypurchases { get; set; }
 
-    public virtual DbSet<product> products { get; set; }
+    public virtual DbSet<Product> products { get; set; }
 
-    public virtual DbSet<user> users { get; set; }
+    public virtual DbSet<User> users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -37,7 +37,7 @@ public partial class CSCCSDS211_10407554Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<auction>(entity =>
+        modelBuilder.Entity<Auction>(entity =>
         {
             entity.HasKey(e => e.auctionid).HasName("PK__auction__64B08806EDEC2ACA");
 
@@ -50,7 +50,7 @@ public partial class CSCCSDS211_10407554Context : DbContext
                 .HasConstraintName("FK__auction__product__05D8E0BE");
         });
 
-        modelBuilder.Entity<auctionpurchase>(entity =>
+        modelBuilder.Entity<AuctionPurchase>(entity =>
         {
             entity.HasKey(e => e.purchaseid).HasName("PK__auctionp__02662E4410AB9591");
 
@@ -69,7 +69,7 @@ public partial class CSCCSDS211_10407554Context : DbContext
                 .HasConstraintName("FK__auctionpu__selle__08B54D69");
         });
 
-        modelBuilder.Entity<bid>(entity =>
+        modelBuilder.Entity<Bid>(entity =>
         {
             entity.HasKey(e => e.bidid).HasName("PK__bids__48F683705EA8B3C7");
 
@@ -82,14 +82,14 @@ public partial class CSCCSDS211_10407554Context : DbContext
                 .HasConstraintName("FK__bids__bidderid__0E6E26BF");
         });
 
-        modelBuilder.Entity<instabuy>(entity =>
+        modelBuilder.Entity<Instabuy>(entity =>
         {
             entity.HasKey(e => e.instaid).HasName("PK__instabuy__0072A1BC93F8137E");
 
             entity.ToTable("instabuy");
         });
 
-        modelBuilder.Entity<instabuypurchase>(entity =>
+        modelBuilder.Entity<InstabuyPurchase>(entity =>
         {
             entity.HasKey(e => e.purchaseid).HasName("PK__instabuy__02662E442CE9C313");
 
@@ -100,7 +100,7 @@ public partial class CSCCSDS211_10407554Context : DbContext
                 .HasConstraintName("FK__instabuyp__insta__02FC7413");
         });
 
-        modelBuilder.Entity<product>(entity =>
+        modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.productid).HasName("PK__product__2D172D32A65CD596");
 
@@ -113,12 +113,12 @@ public partial class CSCCSDS211_10407554Context : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.artis).WithMany(p => p.products)
+            entity.HasOne(d => d.artis).WithMany(p => p.Products)
                 .HasForeignKey(d => d.artisid)
                 .HasConstraintName("FK__product__artisid__7E37BEF6");
         });
 
-        modelBuilder.Entity<user>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.userid).HasName("PK__user__CBA1B257EF4AAC7F");
 

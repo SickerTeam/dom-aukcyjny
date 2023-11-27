@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class bid
+public partial class Bid
 {
     public int bidid { get; set; }
 
@@ -15,7 +15,7 @@ public partial class bid
 
     public float? bidamount { get; set; }
 
-    public virtual auction auction { get; set; }
+    public virtual Auction auction { get; set; }
 
-    public virtual user bidder { get; set; }
+    public virtual User bidder { get; set; }
 }
