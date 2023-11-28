@@ -17,42 +17,44 @@ namespace backend.Controllers
         public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-_mapper = mapper;
+            _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _userService.GetUsersAsync();
-            return Ok(users);
-        }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            var user = await _userService.GetUserByIdAsync(id);
-            return Ok(user);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(UserDTO userDto)
-        {
-            await _userService.AddUserAsync(userDto);
-            return Ok();
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> GetUsers()
+        //{
+        //    var users = await _userService.GetUsersAsync();
+        //    return Ok(users);
+        //}
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserDTO userDto)
-        {
-            await _userService.UpdateUserAsync(userDto);
-            return Ok();
-        }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetUserById(int id)
+        //{
+        //    var user = await _userService.GetUserByIdAsync(id);
+        //    return Ok(user);
+        //}
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            await _userService.DeleteUserAsync(id);
-            return Ok();
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> AddUser(UserDTO userDto)
+        //{
+        //    await _userService.AddUserAsync(userDto);
+        //    return Ok();
+        //}
+
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateUser(int id, UserDTO userDto)
+        //{
+        //    await _userService.UpdateUserAsync(userDto);
+        //    return Ok();
+        //}
+
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteUser(int id)
+        //{
+        //    await _userService.DeleteUserAsync(id);
+        //    return Ok();
+        //}
     }
 }
