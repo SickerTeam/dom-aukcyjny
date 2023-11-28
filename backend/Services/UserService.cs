@@ -31,7 +31,7 @@ namespace backend.Services
             {
                 Id = user.userid,
                 Email = user.email,
-                Password = user.pass,
+                //Password = user.pass,
                 FirstName = user.firstName,
                 LastName = user.lastName,
                 Bio = user.bio,
@@ -47,7 +47,7 @@ namespace backend.Services
             {
                 Id = user.userid,
                 Email = user.email,
-                Password = user.pass,
+                //Password = user.pass,
                 FirstName = user.firstName,
                 LastName = user.lastName,
                 Bio = user.bio,
@@ -62,7 +62,7 @@ namespace backend.Services
             {
                 userid = userDto.Id,
                 email = userDto.Email,
-                pass = userDto.Password,
+                //pass = userDto.Password,
                 firstName = userDto.FirstName,
                 lastName = userDto.LastName,
                 bio = userDto.Bio,
@@ -80,7 +80,7 @@ namespace backend.Services
             if (user == null) return;
 
             user.email = userDto.Email;
-            user.pass = userDto.Password;
+            //user.pass = userDto.Password;
             user.firstName = userDto.FirstName;
             user.lastName = userDto.LastName;
             user.bio = userDto.Bio;

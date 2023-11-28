@@ -17,13 +17,13 @@ namespace backend.DTOs
             this.Role = role;
         }
 
-        private int Id { get; set; }
-        private string Email { get; set; }
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private string Bio { get; set; }
-        private string Country { get; set; }
-        private string Link { get; set; }
-        private UserRole Role { get; set; }
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Bio { get; set; }
+        public string Country { get; set; }
+        public string Link { get; set; }
+        public UserRole Role { get; set; }
     }
 }

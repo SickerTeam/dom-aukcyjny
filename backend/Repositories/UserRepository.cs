@@ -29,7 +29,7 @@ namespace backend.Repositories
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FindAsync(x => x.userid == id);
         }
 
         public async Task AddUserAsync(User user)
