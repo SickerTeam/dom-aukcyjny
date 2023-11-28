@@ -13,7 +13,7 @@ namespace backend.Controllers
         public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-            _mapper = mapper;
+_mapper = mapper;
         }
 
         //[HttpGet]
