@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class Instabuy
+public partial class InstaBuy
 {
-    public int instaid { get; set; }
+    public int InstaId { get; set; }
 
-    public float? price { get; set; }
+    public float? Price { get; set; }
 
-    public bool? archived { get; set; }
+    public bool? Archived { get; set; }
 
-    public virtual ICollection<InstabuyPurchase> instabuypurchases { get; set; } = new List<InstabuyPurchase>();
+    public ICollection<InstaBuyPurchase> InstabuyPurchases { get; set; } = new List<InstaBuyPurchase>();
 }

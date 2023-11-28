@@ -1,7 +1,8 @@
-﻿using backend.DTOs;
+﻿using AutoMapper;
+using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
-using backend.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,14 +10,13 @@ namespace backend.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
-        private readonly DatabaseContext _context;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository) { _userRepository = userRepository; }        
-
-        public UserService(DatabaseContext context)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
-            _context = context;
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public int GetNumberOfUsers()
@@ -24,79 +24,55 @@ namespace backend.Services
             return _userRepository.GetNumberOfUsers();
         }
 
-        //public async Task<IEnumerable<UserDTO>> GetUsersAsync()
-        //{
-        //    var users = await _context.users.ToListAsync();
-        //    return users.Select(user => new UserDTO
-        //    {
-        //        Id = user.userid,
-        //        Email = user.email,
-        //        //Password = user.pass,
-        //        FirstName = user.firstName,
-        //        LastName = user.lastName,
-        //        Bio = user.bio,
-        //        Country = user.country,
-        //        Link = user.personal_link
-        //    });
-        //}
+        public async Task<IEnumerable<UserDTO>> GetUsersAsync()
+        {
+            var users = await _userRepository.GetUsersAsync();
+            var userDTOs = _mapper.Map<IEnumerable<UserDTO>>(users);
+            return userDTOs;
+        }
 
-        //public async Task<UserDTO> GetUserByIdAsync(int id)
-        //{
-        //    var user = await _context.users.FindAsync(id);
-        //    return user == null ? null : new UserDTO
-        //    {
-        //        Id = user.userid,
-        //        Email = user.email,
-        //        //Password = user.pass,
-        //        FirstName = user.firstName,
-        //        LastName = user.lastName,
-        //        Bio = user.bio,
-        //        Country = user.country,
-        //        Link = user.personal_link
-        //    };
-        //}
+        public async Task<UserDTO> GetUserByIdAsync(int id)
+        {
+            User user = await _userRepository.GetUserByIdAsync(id);
+            return new UserDTO(user.Id, user.Email, user.FirstName, user.LastName, user.Bio, user.Country, user.PersonalLink, UserRole.Admin);
+        }
 
-        //public async Task AddUserAsync(UserDTO userDto)
-        //{
-        //    var user = new user
-        //    {
-        //        userid = userDto.Id,
-        //        email = userDto.Email,
-        //        //pass = userDto.Password,
-        //        firstName = userDto.FirstName,
-        //        lastName = userDto.LastName,
-        //        bio = userDto.Bio,
-        //        country = userDto.Country,
-        //        personal_link = userDto.Link
-        //    };
+        public async Task AddUserAsync(UserDTO userDto)
+        {
+            var user = new User
+            {
+                Id = userDto.Id,
+                Email = userDto.Email,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Bio = userDto.Bio,
+                Country = userDto.Country,
+                PersonalLink = userDto.Link
+            };
 
-        //    _context.users.Add(user);
-        //    await _context.SaveChangesAsync();
-        //}
+            await _userRepository.AddUserAsync(user);
+        }
 
-        //public async Task UpdateUserAsync(UserDTO userDto)
-        //{
-        //    var user = await _context.users.FindAsync(userDto.Id);
-        //    if (user == null) return;
+        public async Task UpdateUserAsync(UserDTO userDto)
+        {
+           var user = await _userRepository.GetUserByIdAsync(userDto.Id);
+           if (user == null) return;
 
-        //    user.email = userDto.Email;
-        //    //user.pass = userDto.Password;
-        //    user.firstName = userDto.FirstName;
-        //    user.lastName = userDto.LastName;
-        //    user.bio = userDto.Bio;
-        //    user.country = userDto.Country;
-        //    user.personal_link = userDto.Link;
+            user.Email = userDto.Email;
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.Bio = userDto.Bio;
+            user.Country = userDto.Country;
+            user.PersonalLink = userDto.Link;
 
-        //    await _context.SaveChangesAsync();
-        //}
+            await _userRepository.UpdateUserAsync(user);
+        }
 
-        //public async Task DeleteUserAsync(int id)
-        //{
-        //    var user = await _context.users.FindAsync(id);
-        //    if (user == null) return;
-
-        //    _context.users.Remove(user);
-        //    await _context.SaveChangesAsync();
-        //}
+        public async Task DeleteUserAsync(int id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null) return;
+            await _userRepository.DeleteUserAsync(user.Id);
+        }
     }
 }

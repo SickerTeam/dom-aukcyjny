@@ -7,15 +7,15 @@ namespace backend.Models;
 
 public partial class Bid
 {
-    public int bidid { get; set; }
+    public int BidId { get; set; }
 
-    public int? auctionid { get; set; }
+    public int? AuctionId { get; set; }
 
-    public int? bidderid { get; set; }
+    public int? BidderId { get; set; }
 
-    public float? bidamount { get; set; }
+    public float? BidAmount { get; set; }
 
-    public virtual Auction auction { get; set; }
+    public Auction Auction { get; set; }
 
-    public virtual User bidder { get; set; }
+    public User Bidder { get; set; }
 }

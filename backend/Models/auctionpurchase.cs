@@ -7,21 +7,21 @@ namespace backend.Models;
 
 public partial class AuctionPurchase
 {
-    public int purchaseid { get; set; }
+    public int PurchaseId { get; set; }
 
-    public int? sellerid { get; set; }
+    public int? SellerId { get; set; }
 
-    public int? buyerid { get; set; }
+    public int? BuyerId { get; set; }
 
-    public int? auctionid { get; set; }
+    public int? AuctionId { get; set; }
 
-    public float? finalprice { get; set; }
+    public float? FinalPrice { get; set; }
 
-    public DateTime? purchasetime { get; set; }
+    public DateTime? PurchaseTime { get; set; }
 
-    public virtual Auction auction { get; set; }
+    public Auction Auction { get; set; }
 
-    public virtual User buyer { get; set; }
+    public User Buyer { get; set; }
 
-    public virtual User seller { get; set; }
+    public User Seller { get; set; }
 }

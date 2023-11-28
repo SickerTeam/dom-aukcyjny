@@ -7,23 +7,21 @@ namespace backend.Models;
 
 public partial class Product
 {
-    public int productid { get; set; }
+    public int Id { get; set; }
 
-    public float? height { get; set; }
+    public float? Height { get; set; }
 
-    public float? widht { get; set; }
+    public float? Widht { get; set; }
 
-    public float? depth { get; set; }
+    public float? Depth { get; set; }
 
-    public float? weight { get; set; }
+    public float? Weight { get; set; }
 
-    public string title { get; set; }
+    public string Title { get; set; }
 
-    public string description { get; set; }
+    public string Description { get; set; }
 
-    public int? artisid { get; set; }
+    public int? ArtistId { get; set; }
 
-    public virtual User artis { get; set; }
-
-    public virtual ICollection<Auction> auctions { get; set; } = new List<Auction>();
+    public User Artist { get; set; }
 }

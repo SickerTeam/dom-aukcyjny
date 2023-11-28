@@ -4,8 +4,8 @@ namespace backend.Models
 {
     public abstract class Listing
     {
-        private double price;
-        private Product product; 
-        private bool isArchived;
+        private double Price;
+        private Product Product; 
+        private bool IsArchived;
     }
 }
