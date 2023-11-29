@@ -10,14 +10,8 @@ namespace backend.Services
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;
-        private readonly DatabaseContext _context;
 
         public UserService(IUserRepository userRepository) { _userRepository = userRepository; }        
-
-        public UserService(DatabaseContext context)
-        {
-            _context = context;
-        }
 
         public int GetNumberOfUsers()
         {

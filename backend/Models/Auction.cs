@@ -7,7 +7,7 @@ namespace backend.Models;
 
 public partial class Auction
 {
-    public int auctionid { get; set; }
+    public int Id { get; set; }
 
     public DateTime? endtime { get; set; }
 

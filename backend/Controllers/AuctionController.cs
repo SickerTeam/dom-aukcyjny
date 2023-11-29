@@ -9,12 +9,11 @@ using System;
 namespace backend.Controllers
 {
     [ApiController]
-    public class ListingController : ControllerBase
+    public class AuctionController : ControllerBase
     {
-        private readonly IListingService _listingService;
         private readonly IMapper _mapper;
 
-        public ListingController(IListingService listingService, IMapper mapper)
+        public AuctionController(IListingService listingService, IMapper mapper)
         {
             _listingService = listingService;
             _mapper = mapper;

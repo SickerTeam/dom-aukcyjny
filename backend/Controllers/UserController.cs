@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace backend.Controllers
 {
     [ApiController]
-    [Route("[users]")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -20,41 +19,12 @@ namespace backend.Controllers
             _mapper = mapper;
         }
 
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetUsers()
-        //{
-        //    var users = await _userService.GetUsersAsync();
-        //    return Ok(users);
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUserById(int id)
-        //{
-        //    var user = await _userService.GetUserByIdAsync(id);
-        //    return Ok(user);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddUser(UserDTO userDto)
-        //{
-        //    await _userService.AddUserAsync(userDto);
-        //    return Ok();
-        //}
-
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateUser(int id, UserDTO userDto)
-        //{
-        //    await _userService.UpdateUserAsync(userDto);
-        //    return Ok();
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUser(int id)
-        //{
-        //    await _userService.DeleteUserAsync(id);
-        //    return Ok();
-        //}
+        [HttpGet]
+        [Route("users")]
+        public IActionResult Get()
+        {
+            int users = _userService.GetNumberOfUsers();
+            return Ok(users);
+        }
     }
 }
