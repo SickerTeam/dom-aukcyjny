@@ -16,12 +16,10 @@ namespace backend
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            //builder.Services.AddDbContext<DatabaseContext>(options =>
-            //{
-            //    options.UseSqlServer("Server=hildur.ucn.dk;Database=CSC-CSD-S211_10407554;User Id=CSC-CSD-S211_10407554;Password=Password1!;TrustServerCertificate=True;Encrypt=False;Connection Timeout=30;");
-            //});
-            //builder.Services.AddScoped<IUserRepository, UserRepository>();
-            //builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddDbContext<DatabaseContext>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
