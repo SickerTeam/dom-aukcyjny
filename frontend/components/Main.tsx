@@ -16,7 +16,7 @@ const Main = () => {
 
         <CustomButton
           title="Explore auctions"
-          containerStyles="bg-primary-blue text-white rounded-full mt-10"
+          containerStyles="bg-primary-blue text-black rounded-full mt-10"
           handleClick={() => console.log("Yooooo")}
         />
       </div>
