@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="padding-x">
+      <body className="">
         <Navbar />
         {children}
         <Footer />

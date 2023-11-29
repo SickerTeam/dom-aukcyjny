@@ -40,11 +40,6 @@
 .main__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
-
-.sellBtn {
-  @apply text-lime-600;
-}
-
 .footer {
   @apply bg-[#627A6E] text-white
 }
