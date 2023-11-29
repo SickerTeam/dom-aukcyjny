@@ -1,137 +1,152 @@
+-- Drop constraints and delete tables
+-- (Please note that dropping constraints and deleting tables will result in data loss)
 -- Drop foreign key constraints
-IF OBJECT_ID('FK_product_user', 'F') IS NOT NULL ALTER TABLE product DROP CONSTRAINT FK_product_user;
-IF OBJECT_ID('FK_instabuypurchases_instabuy', 'F') IS NOT NULL ALTER TABLE instabuypurchases DROP CONSTRAINT FK_instabuypurchases_instabuy;
-IF OBJECT_ID('FK_auction_product', 'F') IS NOT NULL ALTER TABLE auction DROP CONSTRAINT FK_auction_product;
-IF OBJECT_ID('FK_auctionpurchases_user_seller', 'F') IS NOT NULL ALTER TABLE auctionpurchases DROP CONSTRAINT FK_auctionpurchases_user_seller;
-IF OBJECT_ID('FK_auctionpurchases_user_buyer', 'F') IS NOT NULL ALTER TABLE auctionpurchases DROP CONSTRAINT FK_auctionpurchases_user_buyer;
-IF OBJECT_ID('FK_auctionpurchases_auction', 'F') IS NOT NULL ALTER TABLE auctionpurchases DROP CONSTRAINT FK_auctionpurchases_auction;
-IF OBJECT_ID('FK_bids_auction', 'F') IS NOT NULL ALTER TABLE bids DROP CONSTRAINT FK_bids_auction;
-IF OBJECT_ID('FK_bids_user', 'F') IS NOT NULL ALTER TABLE bids DROP CONSTRAINT FK_bids_user;
+ALTER TABLE InstaBuyPurchases DROP CONSTRAINT FK_InstaBuyPurchases_InstaBuy;
+ALTER TABLE Auction DROP CONSTRAINT FK_Auction_Product;
+ALTER TABLE AuctionPurchases DROP CONSTRAINT FK_AuctionPurchases_User_Seller;
+ALTER TABLE AuctionPurchases DROP CONSTRAINT FK_AuctionPurchases_User_Buyer;
+ALTER TABLE AuctionPurchases DROP CONSTRAINT FK_AuctionPurchases_Auction;
 
--- Drop existing tables and types
-IF OBJECT_ID('product', 'U') IS NOT NULL DROP TABLE product;
-IF OBJECT_ID('"user"', 'U') IS NOT NULL DROP TABLE "user";
-IF OBJECT_ID('instabuy', 'U') IS NOT NULL DROP TABLE instabuy;
-IF OBJECT_ID('instabuypurchases', 'U') IS NOT NULL DROP TABLE instabuypurchases;
-IF OBJECT_ID('auction', 'U') IS NOT NULL DROP TABLE auction;
-IF OBJECT_ID('auctionpurchases', 'U') IS NOT NULL DROP TABLE auctionpurchases;
-IF OBJECT_ID('bids', 'U') IS NOT NULL DROP TABLE bids;
+-- Drop tables
+DROP TABLE IF EXISTS Bids;
+DROP TABLE IF EXISTS AuctionPurchases;
+DROP TABLE IF EXISTS Auction;
+DROP TABLE IF EXISTS InstaBuyPurchases;
+DROP TABLE IF EXISTS InstaBuy;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS User;
 
-
--- Create "user" table
-CREATE TABLE "user" (
-    userid INT IDENTITY(1,1) PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    pass VARCHAR(255) NOT NULL,
-    firstName VARCHAR(255),
-    lastName VARCHAR(255),
-    UPID INT NOT NULL,
-    bio VARCHAR(255),
-    country VARCHAR(255),
-    personal_link VARCHAR(255)
+-- Create User table
+CREATE TABLE User (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Email VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Bio VARCHAR(255),
+    Country VARCHAR(255),
+    PersonalLink VARCHAR(255)
 );
 
--- Create product table
-CREATE TABLE product (
-    productid INT IDENTITY(1,1) PRIMARY KEY,
-    height REAL,
-    widht REAL,
-    [depth] REAL,
-    weight REAL,
-    title VARCHAR(255),
-    description VARCHAR(255),
-    artisid INT REFERENCES "user"
+-- Create Product table
+CREATE TABLE Product (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Height DECIMAL(18,2),
+    Width DECIMAL(18,2),
+    Depth DECIMAL(18,2),
+    Weight DECIMAL(18,2),
+    Title VARCHAR(255),
+    Description VARCHAR(255),
+    ArtistId INT REFERENCES User
 );
 
--- Create instabuy table
-CREATE TABLE instabuy (
-    instaid INT IDENTITY(1,1) PRIMARY KEY,
-    price REAL,
-    archived BIT
+-- Create InstaBuy table
+CREATE TABLE InstaBuy (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ProductId INT REFERENCES Product,
+    Price DECIMAL(18,2),
+    IsArchived BOOLEAN,
+    CreatedAt DATETIME
 );
 
--- Create instabuypurchases table
-CREATE TABLE instabuypurchases (
-    purchaseid INT IDENTITY(1,1) PRIMARY KEY,
-    userid INT,
-    instaid INT REFERENCES instabuy,
-    purchasetime DATETIME
+-- Create InstaBuyPurchases table
+CREATE TABLE InstaBuyPurchases (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT,
+    InstaId INT REFERENCES InstaBuy,
+    PurchasedAt DATETIME
 );
 
--- Create auction table
-CREATE TABLE auction (
-    auctionid INT IDENTITY(1,1) PRIMARY KEY,
-    endtime DATETIME,
-    firstprice INT,
-    productid INT REFERENCES product,
-    estimatedminimum REAL,
-    estimatedmaximum REAL,
-    archived BIT
+-- Create Auction table
+CREATE TABLE Auction (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    EndsAt DATETIME,
+    FirstPrice INT,
+    ProductId INT REFERENCES Product,
+    EstimatedMinimum DECIMAL(18,2),
+    EstimatedMaximum DECIMAL(18,2),
+    IsArchived BOOLEAN,
+    CreatedAt DATETIME
 );
 
--- Create auctionpurchases table
-CREATE TABLE auctionpurchases (
-    purchaseid INT IDENTITY(1,1) PRIMARY KEY,
-    sellerid INT REFERENCES "user",
-    buyerid INT REFERENCES "user",
-    auctionid INT REFERENCES auction,
-    finalprice REAL,
-    purchasetime DATETIME
+-- Create AuctionPurchases table
+CREATE TABLE AuctionPurchases (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    SellerId INT REFERENCES User,
+    BuyerId INT REFERENCES User,
+    AuctionId INT REFERENCES Auction,
+    FinalPrice DECIMAL(18,2),
+    PurchasedAt DATETIME
 );
 
--- Create bids table
-CREATE TABLE bids (
-    bidid INT IDENTITY(1,1) PRIMARY KEY,
-    auctionid INT REFERENCES auction,
-    bidderid INT REFERENCES "user",
-    bidamount REAL
+-- Create Bids table
+CREATE TABLE Bids (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AuctionId INT REFERENCES Auction,
+    BidderId INT REFERENCES User,
+    Amount DECIMAL(18,2),
+    PlacedAt DATETIME
 );
 
--- Insert data into "user" table
-INSERT INTO "user" (email, pass, firstName, lastName, UPID, bio, country, personal_link)
-VALUES 
-    ('user1@example.com', 'password1', 'John', 'Doe', 1, 'Bio for user 1', 'USA', 'http://personal-link-1.com'),
-    ('user2@example.com', 'password2', 'Jane', 'Smith', 2, 'Bio for user 2', 'Canada', 'http://personal-link-2.com'),
-    ('user3@example.com', 'password3', 'Alice', 'Johnson',  3, 'Bio for user 3', 'UK', 'http://personal-link-3.com');
+-- Insert data into User table
+INSERT INTO User (Email, Password, FirstName, LastName, Bio, Country, PersonalLink)
+VALUES
+    ('user1@example.com', 'password1', 'John', 'Doe', 'A bio about John', 'USA', 'https://personal.link/user1'),
+    ('user2@example.com', 'password2', 'Jane', 'Smith', 'A bio about Jane', 'Canada', 'https://personal.link/user2'),
+    ('user3@example.com', 'password3', 'Alice', 'Johnson', 'A bio about Alice', 'UK', 'https://personal.link/user3'),
+    ('user4@example.com', 'password4', 'Bob', 'Brown', 'A bio about Bob', 'Australia', 'https://personal.link/user4'),
+    ('user5@example.com', 'password5', 'Eve', 'White', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5');
 
--- Insert data into "product" table
-INSERT INTO product (height, widht, [depth], weight, title, description, artisid)
-VALUES 
-    (100, 80, 5, 10, 'Artwork 1', 'Description for Artwork 1', 2),
-    (120, 90, 6, 15, 'Artwork 2', 'Description for Artwork 2', 1),
-    (80, 60, 4, 8, 'Artwork 3', 'Description for Artwork 3', 3);
+-- Insert data into Product table
+INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, ArtistId)
+VALUES
+    (10.5, 20.5, 5.0, 2.3, 'Product 1', 'Description for Product 1', 1),
+    (15.0, 25.0, 8.2, 3.1, 'Product 2', 'Description for Product 2', 2),
+    (12.2, 18.0, 6.5, 2.8, 'Product 3', 'Description for Product 3', 3),
+    (18.5, 30.0, 10.0, 4.2, 'Product 4', 'Description for Product 4', 4),
+    (22.0, 35.5, 12.5, 5.5, 'Product 5', 'Description for Product 5', 5);
 
--- Insert data into "instabuy" table
-INSERT INTO instabuy (price, archived)
-VALUES 
-    (50.0, 0),
-    (75.0, 1),
-    (100.0, 0);
+-- Insert data into InstaBuy table
+INSERT INTO InstaBuy (ProductId, Price, IsArchived, CreatedAt)
+VALUES
+    (1, 50.99, 0, '2023-11-28T12:00:00'),
+    (2, 75.50, 0, '2023-11-28T12:15:00'),
+    (3, 60.25, 1, '2023-11-28T12:30:00'),
+    (4, 90.00, 0, '2023-11-28T12:45:00'),
+    (5, 110.75, 0, '2023-11-28T13:00:00');
 
--- Insert data into "instabuypurchases" table
-INSERT INTO instabuypurchases (userid, instaid, purchasetime)
-VALUES 
-    (1, 1, CURRENT_TIMESTAMP),
-    (2, 2, CURRENT_TIMESTAMP),
-    (3, 3, CURRENT_TIMESTAMP);
+-- Insert data into InstaBuyPurchases table
+INSERT INTO InstaBuyPurchases (UserId, InstaId, PurchasedAt)
+VALUES
+    (1, 1, '2023-11-28T12:05:00'),
+    (2, 2, '2023-11-28T12:20:00'),
+    (3, 3, '2023-11-28T12:35:00'),
+    (4, 4, '2023-11-28T12:50:00'),
+    (5, 5, '2023-11-28T13:05:00');
 
--- Insert data into "auction" table
-INSERT INTO auction (endtime, firstprice, productid, estimatedminimum, estimatedmaximum, archived)
-VALUES 
-    ('2023-12-01 12:00:00', 200, 1, 150.0, 300.0, 0),
-    ('2023-12-05 15:30:00', 150, 2, 100.0, 200.0, 0),
-    ('2023-12-10 10:00:00', 300, 3, 250.0, 400.0, 0);
+-- Insert data into Auction table
+INSERT INTO Auction (EndsAt, FirstPrice, ProductId, EstimatedMinimum, EstimatedMaximum, IsArchived, CreatedAt)
+VALUES
+    ('2023-12-01T12:00:00', 50, 1, 40.00, 80.00, 0, '2023-11-28T12:00:00'),
+    ('2023-12-02T12:00:00', 70, 2, 60.00, 100.00, 0, '2023-11-28T12:00:00'),
+    ('2023-12-03T12:00:00', 55, 3, 45.00, 90.00, 1, '2023-11-28T12:00:00'),
+    ('2023-12-04T12:00:00', 80, 4, 70.00, 120.00, 0, '2023-11-28T12:00:00'),
+    ('2023-12-05T12:00:00', 100, 5, 90.00, 150.00, 0, '2023-11-28T12:00:00');
 
--- Insert data into "auctionpurchases" table
-INSERT INTO auctionpurchases (sellerid, buyerid, auctionid, finalprice, purchasetime)
-VALUES 
-    (2, 1, 1, 250.0, CURRENT_TIMESTAMP),
-    (1, 3, 2, 180.0, CURRENT_TIMESTAMP),
-    (3, 2, 3, 350.0, CURRENT_TIMESTAMP);
+-- Insert data into AuctionPurchases table
+INSERT INTO AuctionPurchases (SellerId, BuyerId, AuctionId, FinalPrice, PurchasedAt)
+VALUES
+    (1, 2, 1, 60.50, '2023-12-01T12:30:00'),
+    (2, 3, 2, 85.75, '2023-12-02T12:30:00'),
+    (3, 4, 3, 70.25, '2023-12-03T12:30:00'),
+    (4, 5, 4, 100.00, '2023-12-04T12:30:00'),
+    (5, 1, 5, 120.50, '2023-12-05T12:30:00');
 
--- Insert data into "bids" table
-INSERT INTO bids (auctionid, bidderid, bidamount)
-VALUES 
-    (1, 3, 220.0),
-    (1, 1, 270.0),
-    (2, 2, 160.0);
+-- Insert data into Bids table
+INSERT INTO Bids (AuctionId, BidderId, Amount, PlacedAt)
+VALUES
+    (1, 2, 55.00, '2023-12-01T12:15:00'),
+    (2, 3, 80.00, '2023-12-02T12:15:00'),
+    (3, 4, 65.00, '2023-12-03T12:15:00'),
+    (4, 5, 95.00, '2023-12-04T12:15:00'),
+    (5, 1, 115.00, '2023-12-05T12:15:00');

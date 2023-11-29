@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class InstabuyPurchase
+public partial class InstaBuyPurchase
 {
-    public int purchaseid { get; set; }
+    public int Id { get; set; }
 
-    public int? userid { get; set; }
+    public int? UserId { get; set; }
 
-    public int? instaid { get; set; }
+    public int? InstaId { get; set; }
 
-    public DateTime? purchasetime { get; set; }
+    public DateTime? PurchaseTime { get; set; }
 
-    public virtual Instabuy insta { get; set; }
+    public InstaBuy Insta { get; set; }
 }

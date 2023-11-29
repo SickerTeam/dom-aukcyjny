@@ -23,9 +23,9 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Bid> bids { get; set; }
 
-    public virtual DbSet<Instabuy> instabuys { get; set; }
+    public virtual DbSet<InstaBuy> instabuys { get; set; }
 
-    public virtual DbSet<InstabuyPurchase> instabuypurchases { get; set; }
+    public virtual DbSet<InstaBuyPurchase> instabuypurchases { get; set; }
 
     public virtual DbSet<Product> products { get; set; }
 
@@ -43,108 +43,108 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("auction");
 
-            entity.Property(e => e.endtime).HasColumnType("datetime");
+            entity.Property(e => e.EndTime).HasColumnType("datetime");
 
-            entity.HasOne(d => d.product).WithMany(p => p.auctions)
-                .HasForeignKey(d => d.productid)
-                .HasConstraintName("FK__auction__product__05D8E0BE");
+            // entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
+            //     .HasForeignKey(d => d.productid)
+            //     .HasConstraintName("FK__auction__product__05D8E0BE");
         });
 
         modelBuilder.Entity<AuctionPurchase>(entity =>
         {
-            entity.HasKey(e => e.purchaseid).HasName("PK__auctionp__02662E4410AB9591");
+            entity.HasKey(e => e.PurchaseId).HasName("PK__auctionp__02662E4410AB9591");
 
-            entity.Property(e => e.purchasetime).HasColumnType("datetime");
+            entity.Property(e => e.PurchaseTime).HasColumnType("datetime");
 
-            entity.HasOne(d => d.auction).WithMany(p => p.auctionpurchases)
-                .HasForeignKey(d => d.auctionid)
+            entity.HasOne(d => d.Auction).WithMany(p => p.AuctionPurchases)
+                .HasForeignKey(d => d.AuctionId)
                 .HasConstraintName("FK__auctionpu__aucti__0A9D95DB");
 
-            entity.HasOne(d => d.buyer).WithMany(p => p.auctionpurchasebuyers)
-                .HasForeignKey(d => d.buyerid)
+            entity.HasOne(d => d.Buyer).WithMany(p => p.auctionpurchasebuyers)
+                .HasForeignKey(d => d.BuyerId)
                 .HasConstraintName("FK__auctionpu__buyer__09A971A2");
 
-            entity.HasOne(d => d.seller).WithMany(p => p.auctionpurchasesellers)
-                .HasForeignKey(d => d.sellerid)
+            entity.HasOne(d => d.Seller).WithMany(p => p.auctionpurchasesellers)
+                .HasForeignKey(d => d.SellerId)
                 .HasConstraintName("FK__auctionpu__selle__08B54D69");
         });
 
         modelBuilder.Entity<Bid>(entity =>
         {
-            entity.HasKey(e => e.bidid).HasName("PK__bids__48F683705EA8B3C7");
+            entity.HasKey(e => e.BidId).HasName("PK__bids__48F683705EA8B3C7");
 
-            entity.HasOne(d => d.auction).WithMany(p => p.bids)
-                .HasForeignKey(d => d.auctionid)
+            entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
+                .HasForeignKey(d => d.AuctionId)
                 .HasConstraintName("FK__bids__auctionid__0D7A0286");
 
-            entity.HasOne(d => d.bidder).WithMany(p => p.bids)
-                .HasForeignKey(d => d.bidderid)
+            entity.HasOne(d => d.Bidder).WithMany(p => p.bids)
+                .HasForeignKey(d => d.BidderId)
                 .HasConstraintName("FK__bids__bidderid__0E6E26BF");
         });
 
-        modelBuilder.Entity<Instabuy>(entity =>
+        modelBuilder.Entity<InstaBuy>(entity =>
         {
-            entity.HasKey(e => e.instaid).HasName("PK__instabuy__0072A1BC93F8137E");
+            entity.HasKey(e => e.InstaId).HasName("PK__instabuy__0072A1BC93F8137E");
 
             entity.ToTable("instabuy");
         });
 
-        modelBuilder.Entity<InstabuyPurchase>(entity =>
+        modelBuilder.Entity<InstaBuyPurchase>(entity =>
         {
-            entity.HasKey(e => e.purchaseid).HasName("PK__instabuy__02662E442CE9C313");
+            entity.HasKey(e => e.Id).HasName("PK__instabuy__02662E442CE9C313");
 
-            entity.Property(e => e.purchasetime).HasColumnType("datetime");
+            entity.Property(e => e.PurchaseTime).HasColumnType("datetime");
 
-            entity.HasOne(d => d.insta).WithMany(p => p.instabuypurchases)
-                .HasForeignKey(d => d.instaid)
+            entity.HasOne(d => d.Insta).WithMany(p => p.InstabuyPurchases)
+                .HasForeignKey(d => d.InstaId)
                 .HasConstraintName("FK__instabuyp__insta__02FC7413");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.productid).HasName("PK__product__2D172D32A65CD596");
+            entity.HasKey(e => e.Id).HasName("PK__product__2D172D32A65CD596");
 
             entity.ToTable("product");
 
-            entity.Property(e => e.description)
+            entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.title)
+            entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.artis).WithMany(p => p.Products)
-                .HasForeignKey(d => d.artisid)
+            entity.HasOne(d => d.Artist).WithMany(p => p.Products)
+                .HasForeignKey(d => d.ArtistId)
                 .HasConstraintName("FK__product__artisid__7E37BEF6");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.userid).HasName("PK__user__CBA1B257EF4AAC7F");
+            entity.HasKey(e => e.Id).HasName("PK__user__CBA1B257EF4AAC7F");
 
             entity.ToTable("user");
 
-            entity.Property(e => e.bio)
+            entity.Property(e => e.Bio)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.country)
+            entity.Property(e => e.Country)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.email)
+            entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.firstName)
+            entity.Property(e => e.FirstName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.lastName)
+            entity.Property(e => e.LastName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.pass)
+            entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.personal_link)
+            entity.Property(e => e.PersonalLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });
