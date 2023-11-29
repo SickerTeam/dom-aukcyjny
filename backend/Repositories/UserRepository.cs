@@ -18,7 +18,7 @@ namespace backend.Repositories
 
         public int GetNumberOfUsers()
         {
-            var numberOfUsers = _context.users.Count(x => x.Id == 2);
+            var numberOfUsers = _context.users.Count();
             return numberOfUsers;
         }
 

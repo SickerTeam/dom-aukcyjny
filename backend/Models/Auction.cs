@@ -11,13 +11,13 @@ public partial class Auction
 
     public DateTime? EndsAt { get; set; }
 
-    public int? FirstPrice { get; set; }
+    public float? FirstPrice { get; set; }
 
     public int? ProductId { get; set; }
 
-    public decimal? EstimatedMinimum { get; set; }
+    public float? EstimatedMinimum { get; set; }
 
-    public decimal? EstimatedMaximum { get; set; }
+    public float? EstimatedMaximum { get; set; }
 
     public bool? IsArchived { get; set; }
 
@@ -27,5 +27,5 @@ public partial class Auction
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 
-    public virtual Product Product { get; set; }
+    public Product Product { get; set; }
 }
