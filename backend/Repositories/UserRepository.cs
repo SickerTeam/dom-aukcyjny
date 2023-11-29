@@ -9,46 +9,46 @@ namespace backend.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly BitchDatabaseContext _context;
+        private readonly DatabaseContext _context;
 
-        public UserRepository(BitchDatabaseContext context)
+        public UserRepository(DatabaseContext context)
         {
             _context = context;
         }
 
         public int GetNumberOfUsers()
         {
-            var numberOfUsers = _context.users.Count();
+            var numberOfUsers = _context.Users.Count();
             return numberOfUsers;
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await _context.users.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-        return await _context.users.FindAsync(id);
+        return await _context.Users.FindAsync(id);
         }
 
 
         public async Task AddUserAsync(User user)
         {
-            await _context.users.AddAsync(user);
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateUserAsync(User user)
         {
-            _context.users.Update(user);
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(int id)
         {
-            var user = await _context.users.FindAsync(id);
-            _context.users.Remove(user);
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
     }

@@ -6,9 +6,9 @@ namespace backend.Repositories
 {
     public class AuctionRepository : IAuctionRepository
     {
-        private readonly BitchDatabaseContext _context;
+        private readonly DatabaseContext _context;
 
-        public AuctionRepository(BitchDatabaseContext context)
+        public AuctionRepository(DatabaseContext context)
         {
             _context = context;
         }
@@ -24,12 +24,12 @@ namespace backend.Repositories
 
         public async Task<Auction> GetAuctionByIdAsync(int id)
         {
-            return await _context.auctions.FindAsync(id);
+            return await _context.Auctions.FindAsync(id);
         }
 
         public async Task<IEnumerable<Auction>> GetAuctionsAsync()
         {
-            return await _context.auctions.ToListAsync();
+            return await _context.Auctions.ToListAsync();
         }
 
         public Task UpdateAuctionAsync(Auction auction)
