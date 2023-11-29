@@ -8,7 +8,7 @@ namespace backend
     {
         public MappingProfile()
         {
-            CreateMap<Listing, ListingDTO>();
+            CreateMap<Auction, AuctionDTO>();
             CreateMap<User, UserDTO>();
         }
     }

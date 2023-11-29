@@ -9,9 +9,9 @@ namespace backend.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DatabaseContext _context;
+        private readonly BitchDatabaseContext _context;
 
-        public UserRepository(DatabaseContext context)
+        public UserRepository(BitchDatabaseContext context)
         {
             _context = context;
         }

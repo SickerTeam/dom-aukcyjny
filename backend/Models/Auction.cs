@@ -9,21 +9,23 @@ public partial class Auction
 {
     public int Id { get; set; }
 
-    public DateTime? EndTime { get; set; }
+    public DateTime? EndsAt { get; set; }
 
     public int? FirstPrice { get; set; }
 
     public int? ProductId { get; set; }
 
-    public float? EstimatedMinimum { get; set; }
+    public decimal? EstimatedMinimum { get; set; }
 
-    public float? EstimatedMaximum { get; set; }
+    public decimal? EstimatedMaximum { get; set; }
 
-    public bool? Archived { get; set; }
+    public bool? IsArchived { get; set; }
 
-    public ICollection<AuctionPurchase> AuctionPurchases { get; set; } = new List<AuctionPurchase>();
+    public DateTime? CreatedAt { get; set; }
 
-    public ICollection<Bid> Bids { get; set; } = new List<Bid>();
+    public virtual ICollection<AuctionPurchase> AuctionPurchases { get; set; } = new List<AuctionPurchase>();
 
-    public Product Product { get; set; }
+    public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
+
+    public virtual Product Product { get; set; }
 }

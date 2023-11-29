@@ -7,11 +7,17 @@ namespace backend.Models;
 
 public partial class InstaBuy
 {
-    public int InstaId { get; set; }
+    public int Id { get; set; }
 
-    public float? Price { get; set; }
+    public int? ProductId { get; set; }
 
-    public bool? Archived { get; set; }
+    public decimal? Price { get; set; }
 
-    public ICollection<InstaBuyPurchase> InstabuyPurchases { get; set; } = new List<InstaBuyPurchase>();
+    public bool? IsArchived { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+
+    public virtual ICollection<InstaBuyPurchase> InstaBuyPurchases { get; set; } = new List<InstaBuyPurchase>();
+
+    public virtual Product Product { get; set; }
 }

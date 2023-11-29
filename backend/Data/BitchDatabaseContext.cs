@@ -3,136 +3,126 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using backend.Models;
+using Microsoft.AspNetCore.Hosting.Server;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace backend.Models;
+namespace backend.Data;
 
-public partial class DatabaseContext : DbContext
+public partial class BitchDatabaseContext : DbContext
 {
-    public DatabaseContext(DbContextOptions<DatabaseContext> options)
+
+    public BitchDatabaseContext(DbContextOptions<BitchDatabaseContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<Auction> Auctions { get; set; }
+    public virtual DbSet<Auction> auctions { get; set; }
 
-    public virtual DbSet<AuctionPurchase> AuctionPurchases { get; set; }
+    public virtual DbSet<AuctionPurchase> auctionpurchases { get; set; }
 
-    public virtual DbSet<Bid> Bids { get; set; }
+    public virtual DbSet<Bid> bids { get; set; }
 
-    public virtual DbSet<InstaBuy> InstaBuys { get; set; }
+    public virtual DbSet<InstaBuy> instabuys { get; set; }
 
-    public virtual DbSet<InstaBuyPurchase> InstaBuyPurchases { get; set; }
+    public virtual DbSet<InstaBuyPurchase> instabuypurchases { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<Product> products { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User> users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=hildur.ucn.dk; Database=CSC-CSD-S211_10407554;User Id=CSC-CSD-S211_10407554; Password=Password1!;TrustServerCertificate=True;Connection Timeout = 30; Integrated Security = False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Auction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC07808F1ADD");
+            entity.HasKey(e => e.Id).HasName("PK__auction__64B08806EDEC2ACA");
 
-            entity.ToTable("Auction");
+            entity.ToTable("auction");
 
-            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.EndsAt).HasColumnType("datetime");
-            entity.Property(e => e.EstimatedMaximum).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.EstimatedMinimum).HasColumnType("decimal(18, 2)");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Auction__Product__1BC821DD");
+            // entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
+            //     .HasForeignKey(d => d.productid)
+            //     .HasConstraintName("FK__auction__product__05D8E0BE");
         });
 
         modelBuilder.Entity<AuctionPurchase>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__AuctionP__3214EC07C83BB9B8");
+            entity.HasKey(e => e.Id).HasName("PK__auctionp__02662E4410AB9591");
 
-            entity.Property(e => e.FinalPrice).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.PurchasedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.AuctionPurchases)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__AuctionPu__Aucti__208CD6FA");
+                .HasConstraintName("FK__auctionpu__aucti__0A9D95DB");
 
             entity.HasOne(d => d.Buyer).WithMany(p => p.AuctionPurchaseBuyers)
                 .HasForeignKey(d => d.BuyerId)
-                .HasConstraintName("FK__AuctionPu__Buyer__1F98B2C1");
+                .HasConstraintName("FK__auctionpu__buyer__09A971A2");
 
             entity.HasOne(d => d.Seller).WithMany(p => p.AuctionPurchaseSellers)
                 .HasForeignKey(d => d.SellerId)
-                .HasConstraintName("FK__AuctionPu__Selle__1EA48E88");
+                .HasConstraintName("FK__auctionpu__selle__08B54D69");
         });
 
         modelBuilder.Entity<Bid>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bids__3214EC078BCDA67A");
-
-            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PlacedAt).HasColumnType("datetime");
+            entity.HasKey(e => e.Id).HasName("PK__bids__48F683705EA8B3C7");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__Bids__AuctionId__236943A5");
+                .HasConstraintName("FK__bids__auctionid__0D7A0286");
 
             entity.HasOne(d => d.Bidder).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.BidderId)
-                .HasConstraintName("FK__Bids__BidderId__245D67DE");
+                .HasConstraintName("FK__bids__bidderid__0E6E26BF");
         });
 
         modelBuilder.Entity<InstaBuy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InstaBuy__3214EC0781E4602B");
+            entity.HasKey(e => e.Id).HasName("PK__instabuy__0072A1BC93F8137E");
 
-            entity.ToTable("InstaBuy");
-
-            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.InstaBuys)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__InstaBuy__Produc__160F4887");
+            entity.ToTable("instabuy");
         });
 
         modelBuilder.Entity<InstaBuyPurchase>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InstaBuy__3214EC07EEBD59B9");
+            entity.HasKey(e => e.Id).HasName("PK__instabuy__02662E442CE9C313");
 
             entity.Property(e => e.PurchasedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Insta).WithMany(p => p.InstaBuyPurchases)
                 .HasForeignKey(d => d.InstaId)
-                .HasConstraintName("FK__InstaBuyP__Insta__18EBB532");
+                .HasConstraintName("FK__instabuyp__insta__02FC7413");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC0763456B68");
+            entity.HasKey(e => e.Id).HasName("PK__product__2D172D32A65CD596");
 
-            entity.ToTable("Product");
+            entity.ToTable("product");
 
-            entity.Property(e => e.Depth).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Height).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Weight).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Width).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.Artist).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ArtistId)
-                .HasConstraintName("FK__Product__ArtistI__1332DBDC");
+                .HasConstraintName("FK__product__artisid__7E37BEF6");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC072606A507");
+            entity.HasKey(e => e.Id).HasName("PK__user__CBA1B257EF4AAC7F");
 
-            entity.ToTable("User");
+            entity.ToTable("user");
 
             entity.Property(e => e.Bio)
                 .HasMaxLength(255)

@@ -17,9 +17,12 @@ namespace backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DatabaseContext>();
+            builder.Services.AddDbContext<BitchDatabaseContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            
+            builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+            builder.Services.AddScoped<IAuctionService, AuctionService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

@@ -4,7 +4,7 @@
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": true,
+   "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": "Models",
@@ -16,31 +16,31 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[auction]",
+         "Name": "[dbo].[Auction]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[auctionpurchases]",
+         "Name": "[dbo].[AuctionPurchases]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[bids]",
+         "Name": "[dbo].[Bids]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[instabuy]",
+         "Name": "[dbo].[InstaBuy]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[instabuypurchases]",
+         "Name": "[dbo].[InstaBuyPurchases]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[product]",
+         "Name": "[dbo].[Product]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[user]",
+         "Name": "[dbo].[User]",
          "ObjectType": 0
       }
    ],

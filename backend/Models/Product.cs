@@ -9,13 +9,13 @@ public partial class Product
 {
     public int Id { get; set; }
 
-    public float? Height { get; set; }
+    public decimal? Height { get; set; }
 
-    public float? Widht { get; set; }
+    public decimal? Width { get; set; }
 
-    public float? Depth { get; set; }
+    public decimal? Depth { get; set; }
 
-    public float? Weight { get; set; }
+    public decimal? Weight { get; set; }
 
     public string Title { get; set; }
 
@@ -23,5 +23,9 @@ public partial class Product
 
     public int? ArtistId { get; set; }
 
-    public User Artist { get; set; }
+    public virtual User Artist { get; set; }
+
+    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+
+    public virtual ICollection<InstaBuy> InstaBuys { get; set; } = new List<InstaBuy>();
 }

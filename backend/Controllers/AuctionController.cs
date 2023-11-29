@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
-using backend.Repository;
+using backend.Repositories;
 using backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,27 +11,28 @@ namespace backend.Controllers
     [ApiController]
     public class AuctionController : ControllerBase
     {
+        private readonly IAuctionService _auctionService;
         private readonly IMapper _mapper;
 
-        public AuctionController(IListingService listingService, IMapper mapper)
+        public AuctionController(IAuctionService auctionService, IMapper mapper)
         {
-            _listingService = listingService;
+            _auctionService = auctionService;
             _mapper = mapper;
         }
 
         [HttpGet]
-        [Route("listings/{id}")]
-        public IActionResult GetListingById(int id)
+        [Route("auctions/{id}")]
+        public IActionResult GetAuctionById(int id)
         {
-            var listing = _listingService.GetListing(id);
+            var listing = _auctionService.GetAuctionById(id);
             return Ok(listing);
         }
 
         [HttpGet]
-        [Route("listings")]
-        public IActionResult GetListings()
+        [Route("auctions")]
+        public IActionResult GetAuctions()
         {
-            var listings = _listingService.GetListings();
+            var listings = _auctionService.GetAuctions();
             return Ok(listings);
         }
 

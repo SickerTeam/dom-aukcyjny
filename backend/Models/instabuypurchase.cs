@@ -13,7 +13,7 @@ public partial class InstaBuyPurchase
 
     public int? InstaId { get; set; }
 
-    public DateTime? PurchaseTime { get; set; }
+    public DateTime? PurchasedAt { get; set; }
 
-    public InstaBuy Insta { get; set; }
+    public virtual InstaBuy Insta { get; set; }
 }
