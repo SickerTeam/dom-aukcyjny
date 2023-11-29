@@ -13,6 +13,8 @@ namespace backend.DTOs
         public string Link { get; set; }
         public UserRole Role { get; set; }
 
+        public UserDTO(){}
+
         public UserDTO(int id, string email, string firstName, string lastName, string bio, string country, string link, UserRole role)
         {
             Id = id;

@@ -31,10 +31,16 @@ namespace backend.Services
             return userDTOs;
         }
 
+        // public async Task<UserDTO> GetUserByIdAsync(int id)
+        // {
+        //     User user = await _userRepository.GetUserByIdAsync(id);
+        //     return new UserDTO(user.Id, user.Email, user.FirstName, user.LastName, user.Bio, user.Country, user.PersonalLink, UserRole.Admin);
+        // }
+
         public async Task<UserDTO> GetUserByIdAsync(int id)
         {
             User user = await _userRepository.GetUserByIdAsync(id);
-            return new UserDTO(user.Id, user.Email, user.FirstName, user.LastName, user.Bio, user.Country, user.PersonalLink, UserRole.Admin);
+            return _mapper.Map<UserDTO>(user);
         }
 
         public async Task AddUserAsync(UserDTO userDto)
