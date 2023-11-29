@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
+using backend.Models;
 using backend.Repositories;
 
 namespace backend.Services
@@ -20,9 +21,10 @@ namespace backend.Services
             throw new NotImplementedException();
         }
 
-        public AuctionDTO GetAuctionById(int id)
+        public async Task<AuctionDTO> GetAuctionById(int id)
         {
-            throw new NotImplementedException();
+            Auction auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            return _mapper.Map<AuctionDTO>(auction);
         }
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctions()
