@@ -11,13 +11,13 @@ public class Auction
 
     public DateTime? EndsAt { get; set; }
 
-    public float? FirstPrice { get; set; }
+    public decimal? FirstPrice { get; set; }
 
     public int? ProductId { get; set; }
 
-    public float? EstimatedMinimum { get; set; }
+    public decimal? EstimatedMinimum { get; set; }
 
-    public float? EstimatedMaximum { get; set; }
+    public decimal? EstimatedMaximum { get; set; }
 
     public bool? IsArchived { get; set; }
 

@@ -9,6 +9,7 @@ using System;
 namespace backend.Controllers
 {
     [ApiController]
+    [Route("auctions")]
     public class AuctionController : ControllerBase
     {
         private readonly IAuctionService _auctionService;
@@ -21,21 +22,23 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        [Route("auctions/{id}")]
-        public IActionResult GetAuctionById(int id)
+        public async Task<IActionResult> GetAuctions()
         {
-            var listing = _auctionService.GetAuctionById(id);
-            return Ok(listing);
-        }
-
-        [HttpGet]
-        [Route("auctions")]
-        public IActionResult GetAuctions()
-        {
-            var listings = _auctionService.GetAuctions();
+            var listings = await _auctionService.GetAuctions();
             return Ok(listings);
         }
 
+        [HttpGet("{id}")]
+        // public IActionResult GetAuctionById(int id)
+        // {
+        //     var listing = _auctionService.GetAuctionById(id);
+        //     return Ok(listing);
+        // }
+        public async Task<IActionResult> GetAuctionById(int id)
+        {
+            var listing = await _auctionService.GetAuctionById(id);
+            return Ok(listing);
+        }
 
 //        public async Task<IActionResult> UpdateListing(int id)
 //        {

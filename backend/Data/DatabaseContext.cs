@@ -42,8 +42,8 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.EndsAt).HasColumnType("datetime");
-            entity.Property(e => e.EstimatedMaximum).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.EstimatedMinimum).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.EstimatedMaximum).HasColumnType("double(18, 2)");
+            entity.Property(e => e.EstimatedMinimum).HasColumnType("double(18, 2)");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.ProductId)
@@ -54,7 +54,7 @@ public partial class DatabaseContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__AuctionP__3214EC07C83BB9B8");
 
-            entity.Property(e => e.FinalPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.FinalPrice).HasColumnType("double(18, 2)");
             entity.Property(e => e.PurchasedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.AuctionPurchases)
@@ -74,7 +74,7 @@ public partial class DatabaseContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Bids__3214EC078BCDA67A");
 
-            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Amount).HasColumnType("double(18, 2)");
             entity.Property(e => e.PlacedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
@@ -93,7 +93,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("InstaBuy");
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Price).HasColumnType("double(18, 2)");
 
             entity.HasOne(d => d.Product).WithMany(p => p.InstaBuys)
                 .HasForeignKey(d => d.ProductId)
@@ -117,16 +117,16 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Product");
 
-            entity.Property(e => e.Depth).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Depth).HasColumnType("double(18, 2)");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Height).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Height).HasColumnType("double(18, 2)");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Weight).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Width).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Weight).HasColumnType("double(18, 2)");
+            entity.Property(e => e.Width).HasColumnType("double(18, 2)");
 
             entity.HasOne(d => d.Artist).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ArtistId)
