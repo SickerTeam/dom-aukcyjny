@@ -1,27 +1,34 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { CustomButton } from '.';
+import Link from "next/link";
 
 const Navbar = () => {
-
   return (
-    <header className="w-full absolute z-10">
+    <header className="w-full py-4">
       <nav className="flex justify-between items-center">
-        <Link href="/" className='flex justify-center items-center ml-8'>
-          <Image src="/logo.svg" alt='Zong logo' width={118} height={18} className='object-contain'/>
+        <Link href="/">
+          <h1>ZONGERS</h1>
         </Link>
-        <div className="flex ml-20">
-          <input className="w-96 h-8 border-2 border-black rounded-full text-center" type="text" placeholder='Search by title,artist or category...'></input>
-            </div>
-            <div className='flex'>
-              <CustomButton title="Sell" btnType="button" containerStyles='sellBtn font-bold'/>
-              <CustomButton title="Pricing" btnType="button" containerStyles='text-primary-black font-bold'/>
-              <CustomButton title="Help" btnType="button" containerStyles='text-primary-black font-bold'/>
-              <CustomButton title="Log in" btnType="button" containerStyles='text-primary-black font-bold'/>
+        <div>
+          <input
+            className="w-96 h-8 border-2 border-black rounded-full text-center"
+            type="text"
+            placeholder="Search by title,artist or category..."
+          ></input>
+        </div>
+        <div className="flex">
+          <Link href="/sell" className="pr-4">
+            Sell
+          </Link>
+          <Link href="/pricing" className="pr-4">
+            Pricing
+          </Link>
+          <Link href="/help" className="pr-4">
+            Help
+          </Link>
+          <Link href="/log-in">Log in</Link>
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
