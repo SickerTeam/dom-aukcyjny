@@ -36,7 +36,7 @@ namespace backend.Tests
                     EstimatedMinimum = 50.0m, 
                     EstimatedMaximum = 200.0m, 
                     IsArchived = false, 
-                    Product = new Product { Id = 1, Title = "Product 1", Height = 10.0f, Width = 20.0f, Depth = 30.0f, Weight = 40.0f, Description = "Description of Product 1", ArtistId = 1 }
+                    Product = new Product { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
                 },
                 new Auction 
                 { 
@@ -47,7 +47,7 @@ namespace backend.Tests
                     EstimatedMinimum = 100.0m, 
                     EstimatedMaximum = 300.0m, 
                     IsArchived = false, 
-                    Product = new Product { Id = 2, Title = "Product 2", Height = 20.0f, Width = 30.0f, Depth = 40.0f, Weight = 50.0f, Description = "Description of Product 2", ArtistId = 2 }
+                    Product = new Product { Id = 2, Title = "Product 2", Height = 20.0m, Width = 30.0m, Depth = 40.0m, Weight = 50.0m, Description = "Description of Product 2", ArtistId = 2 }
                 }
             };
             var expectedAuctionDTOs = new List<AuctionDTO>
@@ -61,7 +61,7 @@ namespace backend.Tests
                     EstimatedMinimum = 50.0f, 
                     EstimatedMaximum = 200.0f, 
                     IsArchived = false, 
-                    Product = new Product { Id = 1, Title = "Product 1", Height = 10.0f, Width = 20.0f, Depth = 30.0f, Weight = 40.0f, Description = "Description of Product 1", ArtistId = 1 }
+                    Product = new Product { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
                 },
                 new AuctionDTO 
                 { 
@@ -72,7 +72,7 @@ namespace backend.Tests
                     EstimatedMinimum = 100.0f, 
                     EstimatedMaximum = 300.0f, 
                     IsArchived = false, 
-                    Product = new Product { Id = 1, Title = "Product 2", Height = 20.0f, Width = 30.0f, Depth = 40.0f, Weight = 50.0f, Description = "Description of Product 2", ArtistId = 2 }
+                    Product = new Product { Id = 1, Title = "Product 2", Height = 20.0m, Width = 30.0m, Depth = 40.0m, Weight = 50.0m, Description = "Description of Product 2", ArtistId = 2 }
                 }
             };
             _auctionRepositoryMock.Setup(ur => ur.GetAuctionsAsync()).ReturnsAsync(expectedAuctions);
