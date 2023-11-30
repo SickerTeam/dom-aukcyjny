@@ -1,13 +1,13 @@
-import { UserPage } from "../../../../components";
+import { UsersPage } from "../../../../components";
 
-type UserType = {
+type UserPageType = {
   params: {
     id: string;
   };
 };
 
-const User = ({ params }: UserType) => {
-  return <UserPage userId={params.id} />;
+const UserPage = ({ params }: UserPageType) => {
+  return <UsersPage userId={params.id} />;
 };
 
-export default User;
+export default UserPage;
