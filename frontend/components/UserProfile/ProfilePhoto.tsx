@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type ProfilePhotoType = {
   url: string;
   name: string;
@@ -11,7 +9,9 @@ const ProfilePhoto = ({ url, name }: ProfilePhotoType) => {
   const alt = `Profile photo of ${name}`;
   // <Image src={url} alt={alt} height={200} width={200} />;
 
-  return <div className="w-[200px] h-[200px] bg-gray-500 rounded-full"></div>;
+  return (
+    <div className="w-[200px] h-[200px] bg-gray-500 rounded-full">yooo</div>
+  );
 };
 
 export default ProfilePhoto;

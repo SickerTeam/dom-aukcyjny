@@ -1,7 +1,7 @@
 import { Artworks, Filters, Path } from "..";
 
 async function getAllAuctions() {
-  const res = await fetch("http://localhost:7141/auctions");
+  const res = await fetch("http://localhost:5156/auctions");
 
   if (!res.ok) {
     throw new Error("Failed to fetch auctions");
