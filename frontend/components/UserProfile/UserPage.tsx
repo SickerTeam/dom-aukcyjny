@@ -2,11 +2,11 @@ import { ProfilePhoto, ProfileDetails, ProfilePosts, AboutMe } from "..";
 import ProfileArtworks from "./ProfileArtworks";
 import ProfileArchive from "./ProfileArchive";
 
-type UsersPageType = {
+type UserPageType = {
   userId: string;
 };
 
-const UsersPage = ({ userId }: UsersPageType) => {
+const UserPage = ({ userId }: UserPageType) => {
   // fetch user profile info with the user id from params.id, later the user profile object that
   // we receive will have certain type with all the properties needed
   const userProfileInfo = {
@@ -50,4 +50,4 @@ const UsersPage = ({ userId }: UsersPageType) => {
   );
 };
 
-export default UsersPage;
+export default UserPage;

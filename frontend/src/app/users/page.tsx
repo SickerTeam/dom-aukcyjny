@@ -1,7 +1,5 @@
-// to be imlemented later, not so useful rn
-
-const UsersListPage = () => {
-  return <div>Its list of users page???</div>;
+const UsersList = () => {
+  return <div>List of users, to be implemented later...</div>;
 };
 
-export default UsersListPage;
+export default UsersList;
