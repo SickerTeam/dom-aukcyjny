@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 
-interface IArtworkCard {
+type ArtworkCardType = {
   artwork: any;
   handleClick: () => void;
-}
+};
 
-const ArtworkCard = ({ artwork, handleClick }: IArtworkCard) => {
+const ArtworkCard = ({ artwork, handleClick }: ArtworkCardType) => {
   return (
     <div className="cursor-pointer" onClick={handleClick}>
       <Image

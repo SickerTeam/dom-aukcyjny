@@ -11,11 +11,12 @@ const Artworks = ({ artworks }: IArtworks) => {
   const router = useRouter();
 
   const handleOnCardClick = (id: number) => {
-    router.push(`/artworks/${id}`);
+    // dispatch selected artwork, and then read the state
+    router.push(`/auctions/${id}`);
   };
 
   return (
-    <div className="grid grid-cols-5 gap-4 m-10">
+    <div className="grid grid-cols-5 gap-4">
       {artworks.map((artwork, index) => (
         <ArtworkCard
           key={index}
