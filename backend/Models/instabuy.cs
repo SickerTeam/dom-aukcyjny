@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class InstaBuy
+public partial class InstaBuy : Listing
 {
     public int Id { get; set; }
 

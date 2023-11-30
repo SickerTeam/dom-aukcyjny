@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-
-namespace backend.Models
+﻿namespace backend.Models
 {
     public abstract class Listing
     {

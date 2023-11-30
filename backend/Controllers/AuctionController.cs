@@ -1,50 +1,51 @@
 ﻿using AutoMapper;
 using backend.DTOs;
-using backend.Repositories;
 using backend.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace backend.Controllers
 {
     [ApiController]
-    [Route("auctions")]
-    public class AuctionController : ControllerBase
+    [Route("[controller]")]
+    public class AuctionController(IAuctionService auctionService, IMapper mapper) : ControllerBase
     {
-        private readonly IAuctionService _auctionService;
-        private readonly IMapper _mapper;
-
-        public AuctionController(IAuctionService auctionService, IMapper mapper)
-        {
-            _auctionService = auctionService;
-            _mapper = mapper;
-        }
+        private readonly IAuctionService _auctionService = auctionService;
+        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
         public async Task<IActionResult> GetAuctions()
         {
-            var listings = await _auctionService.GetAuctions();
+            var listings = await _auctionService.GetAuctionsAsync();
             return Ok(listings);
         }
 
         [HttpGet("{id}")]
-        // public IActionResult GetAuctionById(int id)
-        // {
-        //     var listing = _auctionService.GetAuctionById(id);
-        //     return Ok(listing);
-        // }
         public async Task<IActionResult> GetAuctionById(int id)
         {
-            var listing = await _auctionService.GetAuctionById(id);
+            var listing = await _auctionService.GetAuctionByIdAsync(id);
             return Ok(listing);
         }
 
-//        public async Task<IActionResult> UpdateListing(int id)
-//        {
-//            var listing = await _listingService.GetListing(id) (u => u.Id == id);
-//
-//            var model = _mapper.Map<ListingDTO>(listing);
-//        }
+        [HttpPost]
+        public async Task<IActionResult> AddAuction(AuctionDTO auctionDto)
+        {
+            await _auctionService.AddAuctionAsync(auctionDto);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAuction(AuctionDTO auctionDto)
+        {
+            await _auctionService.UpdateAuctionAsync(auctionDto);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAuction(int id)
+        {
+            await _auctionService.DeleteAuctionsAsync(id);
+            return Ok();
+        }
+
     }
 }

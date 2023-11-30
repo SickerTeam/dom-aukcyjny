@@ -1,20 +1,13 @@
-using backend.DTOs;
+
 using backend.Models;
 using backend.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(DatabaseContext context) : IUserRepository
     {
-        private readonly DatabaseContext _context;
-
-        public UserRepository(DatabaseContext context)
-        {
-            _context = context;
-        }
+        private readonly DatabaseContext _context = context;
 
         public int GetNumberOfUsers()
         {
@@ -29,9 +22,9 @@ namespace backend.Repositories
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-        return await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
+            return user ?? throw new ArgumentException("User not found");
         }
-
 
         public async Task AddUserAsync(User user)
         {
@@ -47,7 +40,7 @@ namespace backend.Repositories
 
         public async Task DeleteUserAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(id) ?? throw new ArgumentException("User not found");
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

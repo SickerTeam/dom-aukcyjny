@@ -1,24 +1,16 @@
 ﻿using AutoMapper;
 using backend.Services;
 using backend.DTOs;
-using backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace backend.Controllers
 {
    [ApiController]
-   [Route("users")]
-   public class UserController : ControllerBase
+   [Route("[controller]")]
+   public class UserController(IUserService userService, IMapper mapper) : ControllerBase
    {
-      private readonly IUserService _userService;
-      private readonly IMapper _mapper;
-
-      public UserController(IUserService userService, IMapper mapper)
-      {
-         _userService = userService;
-         _mapper = mapper;
-      }
+      private readonly IUserService _userService = userService;
+      private readonly IMapper _mapper = mapper;
 
       [HttpGet]
       [Route("count")]
@@ -43,7 +35,7 @@ namespace backend.Controllers
       }
 
       [HttpPost]
-      public async Task<IActionResult> AddUser(UserDTO userDto)
+      public async Task<IActionResult> AddUser(UserRegisterationDTO userDto)
       {
          await _userService.AddUserAsync(userDto);
          return Ok();

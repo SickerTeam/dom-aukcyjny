@@ -42,8 +42,7 @@ namespace backend.Testing
             // Arrange
             var users = new List<User>
             {
-                new User 
-                { 
+                new() { 
                     Id = 1, 
                     Email = "test1@test.com", 
                     FirstName = "Test", 
@@ -52,8 +51,7 @@ namespace backend.Testing
                     Country = "Country One", 
                     PersonalLink = "Link One" 
                 },
-                new User 
-                { 
+                new() { 
                     Id = 2, 
                     Email = "test2@test.com", 
                     FirstName = "Test", 
@@ -66,8 +64,8 @@ namespace backend.Testing
 
             var userDTOs = new List<UserDTO>
             {
-                new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin),
-                new UserDTO(2, "test2@test.com", "Test", "Two", "Bio Two", "Country Two", "Link Two", UserRole.Admin)
+                new(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin),
+                new(2, "test2@test.com", "Test", "Two", "Bio Two", "Country Two", "Link Two", UserRole.Admin)
             };
 
             _userRepositoryMock.Setup(repo => repo.GetUsersAsync()).ReturnsAsync(users);
@@ -116,7 +114,7 @@ namespace backend.Testing
         public async Task AddUserAsync_AddsUser()
         {
             // Arrange
-            var userDto = new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin);
+            var userDto = new UserRegisterationDTO("test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin);
             _userRepositoryMock.Setup(ur => ur.AddUserAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
 
             // Act

@@ -27,8 +27,7 @@ namespace backend.Tests
             // Arrange
             var expectedAuctions = new List<Auction>
             {
-                new Auction 
-                { 
+                new() { 
                     Id = 1, 
                     CreatedAt = DateTime.Now, 
                     EndsAt = DateTime.Now.AddDays(7), 
@@ -38,8 +37,7 @@ namespace backend.Tests
                     IsArchived = false, 
                     Product = new Product { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
                 },
-                new Auction 
-                { 
+                new() { 
                     Id = 2, 
                     CreatedAt = DateTime.Now, 
                     EndsAt = DateTime.Now.AddDays(7), 
@@ -52,8 +50,7 @@ namespace backend.Tests
             };
             var expectedAuctionDTOs = new List<AuctionDTO>
             {
-                new AuctionDTO 
-                { 
+                new() { 
                     Id = 1, 
                     CreatedAt = DateTime.Now, 
                     EndsAt = DateTime.Now.AddDays(7), 
@@ -63,8 +60,7 @@ namespace backend.Tests
                     IsArchived = false, 
                     Product = new Product { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
                 },
-                new AuctionDTO 
-                { 
+                new() { 
                     Id = 2, 
                     CreatedAt = DateTime.Now, 
                     EndsAt = DateTime.Now.AddDays(7), 
@@ -79,7 +75,7 @@ namespace backend.Tests
             _mapperMock.Setup(m => m.Map<IEnumerable<AuctionDTO>>(It.IsAny<IEnumerable<Auction>>())).Returns(expectedAuctionDTOs);
 
             // Act
-            var auctions = await _auctionService.GetAuctions();
+            var auctions = await _auctionService.GetAuctionsAsync();
 
             // Assert
             Assert.Equal(expectedAuctionDTOs, auctions);

@@ -19,9 +19,11 @@ namespace backend
 
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+            builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
 
             var mapperConfig = new MapperConfiguration(mc =>

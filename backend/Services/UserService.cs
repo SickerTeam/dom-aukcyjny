@@ -2,22 +2,13 @@
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace backend.Services
 {
-    public class UserService : IUserService
+    public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-
-        public UserService(IUserRepository userRepository, IMapper mapper)
-        {
-            _userRepository = userRepository;
-            _mapper = mapper;
-        }
+        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IMapper _mapper = mapper;
 
         public int GetNumberOfUsers()
         {
@@ -31,23 +22,16 @@ namespace backend.Services
             return userDTOs;
         }
 
-        // public async Task<UserDTO> GetUserByIdAsync(int id)
-        // {
-        //     User user = await _userRepository.GetUserByIdAsync(id);
-        //     return new UserDTO(user.Id, user.Email, user.FirstName, user.LastName, user.Bio, user.Country, user.PersonalLink, UserRole.Admin);
-        // }
-
         public async Task<UserDTO> GetUserByIdAsync(int id)
         {
             User user = await _userRepository.GetUserByIdAsync(id);
             return _mapper.Map<UserDTO>(user);
         }
 
-        public async Task AddUserAsync(UserDTO userDto)
+        public async Task AddUserAsync(UserRegisterationDTO userDto)
         {
             var user = new User
             {
-                Id = userDto.Id,
                 Email = userDto.Email,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
@@ -64,6 +48,7 @@ namespace backend.Services
            var user = await _userRepository.GetUserByIdAsync(userDto.Id);
            if (user == null) return;
 
+            user.Id = userDto.Id;
             user.Email = userDto.Email;
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;

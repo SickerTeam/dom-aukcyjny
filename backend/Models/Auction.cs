@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public class Auction
+public class Auction : Listing
 {
     public int Id { get; set; }
 
