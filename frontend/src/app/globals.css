@@ -40,10 +40,11 @@
 .main__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
-.footer {
-  @apply bg-[#627A6E] text-white
+
+.sellBtn {
+  @apply text-lime-600
 }
 
-.discovery {
-  @apply bg-[#627A6E]
+.footer {
+  @apply bg-[#627A6E] text-white
 }
