@@ -1,9 +1,12 @@
-import { Main } from "../../components";
+import Image from 'next/image'
+import { Footer, Main, Navbar } from '../../components'
 
 export default function Home() {
   return (
-    <main className="overflow-hidden">
-      <Main />
+    <main className='overflow-hidden'>
+      <Navbar/>
+      <Main/>
+      <Footer/>
     </main>
-  );
+  )
 }
