@@ -3,7 +3,7 @@
 .vs/*
 
 # dependencies
-/frontend/node_modules
+/frontend/node_modules 
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -38,22 +38,21 @@ yarn-error.log*
 next-env.d.ts
 
 # dotnet
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-bin/
-obj/
+/backend/[Dd]ebug/
+/backend/[Dd]ebugPublic/
+/backend/[Rr]elease/
+/backend/[Rr]eleases/
+/backend/x64/
+/backend/x86/
+/backend/bld/
+/backend/[Bb]in/
+/backend/[Oo]bj/
+/backend/[Ll]og/
+/backend/bin/
+/backend/obj/
 *.nupkg
 **/packages/*
 !**/packages/build/
 *.nuget.props
 *.nuget.targets
-publish/
-
+/backend/publish/
