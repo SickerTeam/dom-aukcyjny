@@ -4,12 +4,12 @@ import Image from "next/image";
 
 type ArtworkCardType = {
   artwork: any;
-  // handleClick: () => void;
+  handleClick: () => void;
 };
 
-const ArtworkCard = ({ artwork }: ArtworkCardType) => {
+const ArtworkCard = ({ artwork, handleClick }: ArtworkCardType) => {
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer" onClick={handleClick}>
       <Image
         src="/../cv2.png"
         alt="Zong logo"

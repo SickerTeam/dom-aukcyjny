@@ -3,6 +3,7 @@ import { AuctionPage } from "../../../../components";
 type AuctionType = {
   params: {
     id: string;
+    auction: any;
   };
 };
 
