@@ -54,10 +54,6 @@ p {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
-.main {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
-}
-
 .main__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
@@ -68,10 +64,4 @@ p {
 
 .footer {
   @apply bg-[#627A6E] text-white;
-}
-
-/* Navbar styles */
-.navbar-wrapper {
-  background-color: #333; /* Set your desired background color for Navbar */
-  padding: 10px; /* Set your desired padding for Navbar content */
 }

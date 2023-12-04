@@ -9,9 +9,7 @@ const ProfilePhoto = ({ url, name }: ProfilePhotoType) => {
   const alt = `Profile photo of ${name}`;
   // <Image src={url} alt={alt} height={200} width={200} />;
 
-  return (
-    <div className="w-[200px] h-[200px] bg-gray-500 rounded-full">yooo</div>
-  );
+  return <div className="w-[200px] h-[200px] bg-gray-500 rounded-full"></div>;
 };
 
 export default ProfilePhoto;
