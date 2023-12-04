@@ -3,8 +3,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using backend.Models;
 
-namespace backend.Models;
+namespace backend.Data;
 
 public partial class DatabaseContext : DbContext
 {

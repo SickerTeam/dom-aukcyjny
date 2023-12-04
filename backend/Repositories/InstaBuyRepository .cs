@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
-public class InstaBuyRepository(BackupDatabaseContext context) : IInstaBuyRepository
+public class InstaBuyRepository(DatabaseContext context) : IInstaBuyRepository
     {
-        private readonly BackupDatabaseContext _context = context;
+        private readonly DatabaseContext _context = context;
 
         public async Task<IEnumerable<InstaBuy>> GetAllInstaBuysAsync()
         {

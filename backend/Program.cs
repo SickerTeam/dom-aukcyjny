@@ -17,7 +17,7 @@ namespace backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<BackupDatabaseContext>();
+            builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
