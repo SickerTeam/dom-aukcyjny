@@ -21,7 +21,5 @@ public partial class Product
 
     public string Description { get; set; }
 
-    public int? ArtistId { get; set; }
-
     public virtual User Artist { get; set; }
 }

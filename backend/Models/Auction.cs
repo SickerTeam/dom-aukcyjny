@@ -7,13 +7,13 @@ namespace backend.Models;
 
 public partial class Auction
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     public DateTime? EndsAt { get; set; }
 
     public decimal? FirstPrice { get; set; }
 
-    public int? ProductId { get; set; }
+    public Product Product { get; set; }
 
     public decimal? EstimatedMinimum { get; set; }
 
@@ -26,6 +26,4 @@ public partial class Auction
     public virtual ICollection<AuctionPurchase> AuctionPurchases { get; set; } = new List<AuctionPurchase>();
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
-
-    public Product Product { get; set; }
 }

@@ -8,13 +8,26 @@ namespace backend
     {
         public MappingProfile()
         {
+            CreateMap<AuctionRegistrationDTO, Auction>();
+            CreateMap<AuctionDTO, Auction>();
             CreateMap<Auction, AuctionDTO>();
-            CreateMap<Product, ProductDTO>();
+
+            CreateMap<UserRegisterationDTO, User>();
+            CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
+
             CreateMap<Like, LikeDTO>();
             CreateMap<Picture, PictureDTO>();
             CreateMap<Post, PostDTO>();
             CreateMap<Comment, CommentDTO>();
+
+            CreateMap<InstaBuyRegistrationDTO, InstaBuy>();
+            CreateMap<InstaBuyDTO, InstaBuy>();
+            CreateMap<InstaBuy, InstaBuyDTO>();
+            
+            CreateMap<Product, ProductDTO>();
+            CreateMap<ProductDTO, Product>();
+
         }
     }
 }

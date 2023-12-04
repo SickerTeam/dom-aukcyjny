@@ -7,6 +7,7 @@ namespace backend.DTOs
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Password { get; set; }
         public string Bio { get; set; }
         public string Country { get; set; }
         public string Link { get; set; }
@@ -14,11 +15,12 @@ namespace backend.DTOs
 
         public UserRegisterationDTO(){}
 
-        public UserRegisterationDTO( string email, string firstName, string lastName, string bio, string country, string link, UserRole role)
+        public UserRegisterationDTO(string email, string firstName, string lastName, string password, string bio, string country, string link, UserRole role)
         {
             Email = email;
             FirstName = firstName;
             LastName = lastName;
+            Password = password;
             Bio = bio;
             Country = country;
             Link = link;
