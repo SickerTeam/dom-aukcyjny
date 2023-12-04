@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Source+Sans+Pro:wght@400;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,25 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #fcfcfc;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
+}
+
+h4,
+h5,
+h6,
+p {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 /* START: General styles */
@@ -46,5 +67,11 @@
 }
 
 .footer {
-  @apply bg-[#627A6E] text-white
+  @apply bg-[#627A6E] text-white;
+}
+
+/* Navbar styles */
+.navbar-wrapper {
+  background-color: #333; /* Set your desired background color for Navbar */
+  padding: 10px; /* Set your desired padding for Navbar content */
 }

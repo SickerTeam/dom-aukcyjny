@@ -15,12 +15,12 @@ const AuctionPage = ({ id }: AuctionPageType) => {
   const auction = {
     id: id,
     title: "Mona Lisa by Leonardo da Vinci",
-    photos: [1, 2, 3],
+    photos: [1, 2, 3, 4, 5, 6, 7],
   };
 
   return (
     <div className="grid grid-cols-4 grid-rows-7 gap-4">
-      <div className="col-span-3 row-span-5 bg-gray-300">
+      <div className="col-span-3 row-span-5">
         <Path />
         <ArtworkTitle title={auction.title} />
         <PhotoDisplay photos={auction.photos} />

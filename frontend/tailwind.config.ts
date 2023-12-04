@@ -4,30 +4,30 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   mode: "jit",
   theme: {
     extend: {
-      fontFamily: {
-        inter: ["Inter", "sans-serif"],
+      fontSize: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        base: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "4rem",
       },
       colors: {
-        "black-100": "#2B2C35",
-        "primary-blue": {
-          DEFAULT: "#2B59FF",
-          100: "#F5F8FF",
-        },
-        "secondary-orange": "#f79761",
-        "light-white": {
-          DEFAULT: "rgba(59,60,152,0.03)",
-          100: "rgba(59,60,152,0.02)",
-        },
-        grey: "#747A88",
+        black: "#171717",
+        white: "#FCFCFC",
+        "light-gray": "#C6C9C9",
+        "dark-gray": "#797777",
+        "main-green": "#627A6E",
       },
-      backgroundImage: {
-        'pattern': "url('/pattern.png')",
-        'hero-bg': "url('/hero-bg.png')"
-      }
     },
   },
   plugins: [],

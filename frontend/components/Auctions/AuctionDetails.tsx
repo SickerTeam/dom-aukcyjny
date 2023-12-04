@@ -1,5 +1,5 @@
 const AuctionDetails = () => {
-  return <div>Details</div>;
+  return <div className="h-[1000px]">Details</div>;
 };
 
 export default AuctionDetails;

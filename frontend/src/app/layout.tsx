@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Navbar } from "../../components";
+import { Footer, Navbar } from "../../components";
 
 export const metadata = {
   title: "Dom Aukcyjny",
@@ -13,10 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="padding-x">
-        <Navbar />
+      <body>
+        <div className="navbar-wrapper">
+          <Navbar />
+        </div>
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
