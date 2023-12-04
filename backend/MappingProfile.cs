@@ -11,6 +11,10 @@ namespace backend
             CreateMap<Auction, AuctionDTO>();
             CreateMap<Product, ProductDTO>();
             CreateMap<User, UserDTO>();
+            CreateMap<Like, LikeDTO>();
+            CreateMap<Picture, PictureDTO>();
+            CreateMap<Post, PostDTO>();
+            CreateMap<Comment, CommentDTO>();
         }
     }
 }

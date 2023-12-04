@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class Like
+public class Like
 {
     public int Id { get; set; }
 
@@ -15,7 +15,4 @@ public partial class Like
 
     public DateTime? TimeLiked { get; set; }
 
-    public virtual Post Post { get; set; }
-
-    public virtual User User { get; set; }
 }

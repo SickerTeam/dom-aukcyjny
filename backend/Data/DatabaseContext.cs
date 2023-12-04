@@ -87,10 +87,6 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Text).IsUnicode(false);
             entity.Property(e => e.TimePosted).HasColumnType("datetime");
-
-            entity.HasOne(d => d.Post).WithMany(p => p.Comments)
-                .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Comment__PostId__719CDDE7");
         });
 
         modelBuilder.Entity<InstaBuy>(entity =>
@@ -119,10 +115,6 @@ public partial class DatabaseContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Likes__3214EC076FDBD8D0");
 
             entity.Property(e => e.TimeLiked).HasColumnType("datetime");
-
-            entity.HasOne(d => d.Post).WithMany(p => p.Likes)
-                .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Likes__PostId__7849DB76");
         });
 
         modelBuilder.Entity<Picture>(entity =>
@@ -130,10 +122,6 @@ public partial class DatabaseContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Pictures__3214EC07DFA325CB");
 
             entity.Property(e => e.PictureUrl).IsUnicode(false);
-
-            entity.HasOne(d => d.Post).WithMany(p => p.Pictures)
-                .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Pictures__PostId__756D6ECB");
         });
 
         modelBuilder.Entity<Post>(entity =>
