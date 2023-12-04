@@ -4,7 +4,7 @@ namespace backend.Repositories
 {
     public interface IAuctionRepository
     {
-        Task<IEnumerable<Auction>> GetAuctionsAsync();
+        Task<IList<Auction>> GetAuctionsAsync();
         Task<Auction> GetAuctionByIdAsync(int id);
         Task AddAuctionAsync(Auction auction);
         Task UpdateAuctionAsync(Auction auction);

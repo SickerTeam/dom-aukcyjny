@@ -8,14 +8,19 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<Auction>> GetAuctionsAsync()
+        public async Task<IList<Auction>> GetAuctionsAsync()
         {
-            return await _context.Auctions.ToListAsync();
+            return await _context.Auctions.Include(auction => auction.Product)
+            .ThenInclude(product => product.Artist)
+            .ToListAsync();
         }
 
         public async Task<Auction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id);
+            var auction = await _context.Auctions.Where(x => x.Id == id)
+            .Include(auction => auction.Product)
+            .ThenInclude(product => product.Artist)
+            .FirstOrDefaultAsync();
             return auction ?? throw new ArgumentException("Auction not found");
         }
 

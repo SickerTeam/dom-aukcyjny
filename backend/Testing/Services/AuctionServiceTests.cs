@@ -58,7 +58,7 @@ namespace backend.Tests
                     EstimatedMinimum = 50.0f, 
                     EstimatedMaximum = 200.0f, 
                     IsArchived = false, 
-                    Product = new Product { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
+                    Product = new ProductDTO { Id = 1, Title = "Product 1", Height = 10.0m, Width = 20.0m, Depth = 30.0m, Weight = 40.0m, Description = "Description of Product 1", ArtistId = 1 }
                 },
                 new() { 
                     Id = 2, 
@@ -68,7 +68,7 @@ namespace backend.Tests
                     EstimatedMinimum = 100.0f, 
                     EstimatedMaximum = 300.0f, 
                     IsArchived = false, 
-                    Product = new Product { Id = 1, Title = "Product 2", Height = 20.0m, Width = 30.0m, Depth = 40.0m, Weight = 50.0m, Description = "Description of Product 2", ArtistId = 2 }
+                    Product = new ProductDTO { Id = 1, Title = "Product 2", Height = 20.0m, Width = 30.0m, Depth = 40.0m, Weight = 50.0m, Description = "Description of Product 2", ArtistId = 2 }
                 }
             };
             _auctionRepositoryMock.Setup(ur => ur.GetAuctionsAsync()).ReturnsAsync(expectedAuctions);
