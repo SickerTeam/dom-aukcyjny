@@ -1,6 +1,4 @@
-﻿using backend.Models;
-
-namespace backend.DTOs
+﻿namespace backend.DTOs
 {
     public class AuctionDTO
     {
@@ -11,13 +9,13 @@ namespace backend.DTOs
         public double? EstimatedMinimum { get; set; }
         public double? EstimatedMaximum { get; set; }
         public bool IsArchived { get; set; }
-        public Product? Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
         public AuctionDTO() {}
 
         public AuctionDTO(int id, DateTime createdAt, DateTime endsAt, double firstPrice,
                       double? estimatedMinimum, double? estimatedMaximum, bool isArchived,
-                      Product product)
+                      ProductDTO product)
         {
             Id = id;
             CreatedAt = createdAt;
