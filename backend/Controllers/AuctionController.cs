@@ -27,7 +27,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAuction(AuctionRegistrationDTO auctionDto)
+        public async Task<IActionResult> AddAuction(AuctionDTO auctionDto)
         {
             await _auctionService.AddAuctionAsync(auctionDto);
             return Ok();

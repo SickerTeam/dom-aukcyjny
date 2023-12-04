@@ -35,14 +35,14 @@ namespace backend.Controllers
       }
 
       [HttpPost]
-      public async Task<IActionResult> AddUser(UserRegisterationDTO userDto)
+      public async Task<IActionResult> AddUser(UserDTO userDto)
       {
          await _userService.AddUserAsync(userDto);
          return Ok();
       }
 
-      [HttpPut("{id}")]
-      public async Task<IActionResult> UpdateUser(int id, UserDTO userDto)
+      [HttpPut]
+      public async Task<IActionResult> UpdateUser(UserDTO userDto)
       {
          await _userService.UpdateUserAsync(userDto);
          return Ok();

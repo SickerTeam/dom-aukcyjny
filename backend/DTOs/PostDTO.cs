@@ -2,41 +2,14 @@
 
 namespace backend.DTOs
 {
-    public class PostDTO
+   public class PostDTO(int? id, UserDTO user, string text, DateTime timePosted, ICollection<CommentDTO> comments, ICollection<LikeDTO> likes, ICollection<PictureDTO> pictures)
     {
-        public int Id { get; set; }
-
-        public int? UserId { get; set; }
-
-        public string Text { get; set; }
-
-        public DateTime? TimePosted { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
-        public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
-
-        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
-
-        public PostDTO(){}
-
-        public PostDTO(int id, int? userId, string text, DateTime? timePosted)
-        {
-            Id = id;
-            UserId = userId;
-            Text = text;
-            TimePosted = timePosted;
-        }
-
-        public PostDTO(int id, int? userId, string text, DateTime? timePosted, ICollection<Comment> comments, ICollection<Like> likes, ICollection<Picture> pictures)
-        {
-            Id = id;
-            UserId = userId;
-            Text = text;
-            TimePosted = timePosted;
-            Comments = comments;
-            Likes = likes;
-            Pictures = pictures;
-        }
+        public int? Id { get; set; } = id;
+        public UserDTO User { get; set; } = user;
+        public string Text { get; set; } = text;
+        public DateTime TimePosted { get; set; } = timePosted;
+        public virtual ICollection<CommentDTO> Comments { get; set; } = comments;
+        public virtual ICollection<LikeDTO> Likes { get; set; } = likes;
+        public virtual ICollection<PictureDTO> Pictures { get; set; } = pictures; // != null ? new List<PictureDTO>() : [];
     }
 }

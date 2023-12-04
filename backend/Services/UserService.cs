@@ -27,7 +27,7 @@ namespace backend.Services
             return _mapper.Map<UserDTO>(user);
         }
 
-        public async Task AddUserAsync(UserRegisterationDTO userDto)
+        public async Task AddUserAsync(UserDTO userDto)
         {
             var user = _mapper.Map<User>(userDto);
             await _userRepository.AddUserAsync(user);
@@ -35,7 +35,8 @@ namespace backend.Services
 
         public async Task UpdateUserAsync(UserDTO userDto)
         {
-            var user = await _userRepository.GetUserByIdAsync(userDto.Id);
+            if (userDto.Id == null) return;
+            var user = await _userRepository.GetUserByIdAsync((int)userDto.Id);
             if (user == null) return;
 
             _mapper.Map(userDto, user);

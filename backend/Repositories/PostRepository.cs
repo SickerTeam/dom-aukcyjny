@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<Post>> GetPostAsync()
+        public async Task<IEnumerable<Post>> GetPostsAsync()
         {
             return await _context.Posts.ToListAsync();
         }
@@ -38,38 +38,39 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Like>> GetLikesByPostIdAsync(int postId)
-        {
-            return await _context.Likes.Where(like => like.PostId == postId).ToListAsync() ?? throw new ArgumentException("Like not found");
-        }
+        // /////////////////     Move to separate repositories     /////////////////
+        // public async Task<IList<Like>> GetLikesByPostIdAsync(int postId)
+        // {
+        //     return await _context.Likes.Where(like => like.PostId == postId).ToListAsync() ?? throw new ArgumentException("Like not found");
+        // }
 
-        public async Task<IList<Comment>> GetCommentsByPostIdAsync(int postId)
-        {
-            return await _context.Comments.Where(comment => comment.PostId == postId).ToListAsync() ?? throw new ArgumentException("Comment not found");
-        }
+        // public async Task<IList<Comment>> GetCommentsByPostIdAsync(int postId)
+        // {
+        //     return await _context.Comments.Where(comment => comment.PostId == postId).ToListAsync() ?? throw new ArgumentException("Comment not found");
+        // }
 
-        public async Task<IList<Picture>> GetPicturesByPostIdAsync(int postId)
-        {
-            return await _context.Pictures.Where(picture => picture.PostId == postId).ToListAsync() ?? throw new ArgumentException("Picture not found");
-        }
+        // public async Task<IList<Picture>> GetPicturesByPostIdAsync(int postId)
+        // {
+        //     return await _context.Pictures.Where(picture => picture.PostId == postId).ToListAsync() ?? throw new ArgumentException("Picture not found");
+        // }
 
-        public async Task DeleteLikeAsync(Like like)
-        {
-            _context.Likes.Remove(like);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeleteLikeAsync(Like like)
+        // {
+        //     _context.Likes.Remove(like);
+        //     await _context.SaveChangesAsync();
+        // }
 
-        public async Task DeleteCommentAsync(Comment comment)
-        {
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeleteCommentAsync(Comment comment)
+        // {
+        //     _context.Comments.Remove(comment);
+        //     await _context.SaveChangesAsync();
+        // }
 
-        public async Task DeletePictureAsync(Picture picture)
-        {
-            _context.Pictures.Remove(picture);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeletePictureAsync(Picture picture)
+        // {
+        //     _context.Pictures.Remove(picture);
+        //     await _context.SaveChangesAsync();
+        // }
         /*
         public async Task<IList<Auction>> GetAuctionsAsync()
         {

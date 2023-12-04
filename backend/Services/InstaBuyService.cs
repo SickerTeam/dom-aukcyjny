@@ -22,7 +22,7 @@ namespace backend.Services
             return _mapper.Map<InstaBuyDTO>(instaBuy);
         }
 
-        public async Task AddInstaBuyAsync(InstaBuyRegistrationDTO instaBuyDto)
+        public async Task AddInstaBuyAsync(InstaBuyDTO instaBuyDto)
         {
             var instaBuy = _mapper.Map<InstaBuy>(instaBuyDto);
             await _instaBuyRepository.AddInstaBuyAsync(instaBuy);
@@ -30,7 +30,8 @@ namespace backend.Services
 
         public async Task UpdateInstaBuyAsync(InstaBuyDTO instaBuyDto)
         {
-            var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync(instaBuyDto.Id);
+            if (instaBuyDto.Id == null) return;
+            var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync((int)instaBuyDto.Id);
             if (instaBuy == null) return;
 
             _mapper.Map(instaBuyDto, instaBuy);

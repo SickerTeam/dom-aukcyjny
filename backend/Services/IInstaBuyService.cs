@@ -4,7 +4,7 @@ namespace backend.Services
 {
     public interface IInstaBuyService
     {
-        Task AddInstaBuyAsync(InstaBuyRegistrationDTO instaBuyDto);
+        Task AddInstaBuyAsync(InstaBuyDTO instaBuyDto);
         Task UpdateInstaBuyAsync(InstaBuyDTO instaBuyDto);
         Task DeleteInstaBuyAsync(int id);
         Task<IEnumerable<InstaBuyDTO>> GetAllInstaBuysAsync();

@@ -2,63 +2,57 @@
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace backend.Services
 {
-    public class PostService(IPostRepository PostRepository, IMapper mapper) : IPostService
+    public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository = PostRepository;
-        private readonly IMapper _mapper = mapper;
+        private readonly IPostRepository _postRepository;
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Post>> GetPostsAsync()
+        public PostService(IPostRepository postRepository, IMapper mapper)
         {
-            var posts = await _postRepository.GetPostAsync();
-
-            var postDtos = _mapper.Map<IEnumerable<PostDTO>>(posts);
-
-            foreach (var postDto in postDtos)
-            {
-                var likes = await _postRepository.GetLikesByPostIdAsync(postDto.Id);
-                var comments = await _postRepository.GetCommentsByPostIdAsync(postDto.Id);
-                var pictures = await _postRepository.GetPicturesByPostIdAsync(postDto.Id);
-
-                postDto.Likes = new List<Like>((IEnumerable<Like>)likes);
-                postDto.Comments = new List<Comment>((IEnumerable<Comment>)comments);
-                postDto.Pictures = new List<Picture>((IEnumerable<Picture>)pictures);
-            }
-
-            return posts;
+            _postRepository = postRepository;
+            _mapper = mapper;
         }
-            
+
+        public async Task<IEnumerable<PostDTO>> GetPostsAsync()
+        {
+            var posts = await _postRepository.GetPostsAsync();
+            return _mapper.Map<IEnumerable<PostDTO>>(posts);
+        }
+
         public async Task<PostDTO> GetPostByIdAsync(int id)
         {
-            var likes = await _postRepository.GetLikesByPostIdAsync(id);
-            var comments = await _postRepository.GetCommentsByPostIdAsync(id);
-            var pictures = await _postRepository.GetPicturesByPostIdAsync(id);
-
             var post = await _postRepository.GetPostByIdAsync(id);
-            var postDto = _mapper.Map<PostDTO>(post);
-            
-                postDto.Likes = new List<Like>((IEnumerable<Like>)likes);
-                postDto.Comments = new List<Comment>((IEnumerable<Comment>)comments);
-                postDto.Pictures = new List<Picture>((IEnumerable<Picture>)pictures);
-
-            return postDto;
+            return _mapper.Map<PostDTO>(post);
         }
 
-        public async Task AddPostAsync(PostDTO PostDto)
+        public async Task AddPostAsync(PostDTO postDto)
         {
-            throw new NotImplementedException();
-        }   
+            var post = _mapper.Map<Post>(postDto);
+            await _postRepository.AddPostAsync(post);
+        }
 
-        public async Task UpdatePostAsync(PostDTO PostDto)
+        public async Task UpdatePostAsync(PostDTO postDto)
         {
-            throw new NotImplementedException();
-        }  
+            if (postDto.Id == null) return;
+            
+            var post = await _postRepository.GetPostByIdAsync((int)postDto.Id);
+            if (post == null) return;
+
+            _mapper.Map(postDto, post);
+            await _postRepository.UpdatePostAsync(post);
+        }
 
         public async Task DeletePostsAsync(int id)
         {
-           throw new NotImplementedException();
+            var post = await _postRepository.GetPostByIdAsync(id);
+            if (post == null) return;
+
+            await _postRepository.DeletePostAsync(post.Id);
         }
-     }
+    }
 }

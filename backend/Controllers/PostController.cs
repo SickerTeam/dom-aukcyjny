@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
 using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +6,7 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostController(IPostService postService, IMapper mapper) : ControllerBase
+    public class PostController(IPostService postService) : ControllerBase
     {
         private readonly IPostService _postService = postService;
 
@@ -30,21 +25,24 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddInstaBuy(InstaBuyDTO instaBuyDto)
+        public async Task<ActionResult> AddPostAsync(PostDTO postDto)
         {
-            throw new NotImplementedException();
+            await _postService.AddPostAsync(postDto);
+            return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateInstaBuy(int id, InstaBuyDTO instaBuyDto)
+        [HttpPut]
+        public async Task<ActionResult> UpdatePostAsync(PostDTO postDto)
         {
-           throw new NotImplementedException();
+            await _postService.UpdatePostAsync(postDto);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteInstaBuy(int id)
         {
-            throw new NotImplementedException();
+            await _postService.DeletePostsAsync(id);
+            return Ok();
         }
     }
 }

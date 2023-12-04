@@ -27,14 +27,14 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddInstaBuy(InstaBuyRegistrationDTO instaBuyDto)
+        public async Task<ActionResult> AddInstaBuy(InstaBuyDTO instaBuyDto)
         {
             await _instaBuyService.AddInstaBuyAsync(instaBuyDto);
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateInstaBuy(int id, InstaBuyDTO instaBuyDto)
+        [HttpPut]
+        public async Task<ActionResult> UpdateInstaBuy(InstaBuyDTO instaBuyDto)
         {
             await _instaBuyService.UpdateInstaBuyAsync(instaBuyDto);
             return Ok();
