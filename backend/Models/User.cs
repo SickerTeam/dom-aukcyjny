@@ -22,18 +22,4 @@ public partial class User
     public string Country { get; set; }
 
     public string PersonalLink { get; set; }
-
-    public virtual ICollection<AuctionPurchase> AuctionPurchaseBuyers { get; set; } = new List<AuctionPurchase>();
-
-    public virtual ICollection<AuctionPurchase> AuctionPurchaseSellers { get; set; } = new List<AuctionPurchase>();
-
-    public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
-
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
-    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
-
-    public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
-
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

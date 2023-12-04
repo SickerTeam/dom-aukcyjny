@@ -65,14 +65,6 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Auction).WithMany(p => p.AuctionPurchases)
                 .HasForeignKey(d => d.AuctionId)
                 .HasConstraintName("FK__AuctionPu__Aucti__09746778");
-
-            entity.HasOne(d => d.Buyer).WithMany(p => p.AuctionPurchaseBuyers)
-                .HasForeignKey(d => d.BuyerId)
-                .HasConstraintName("FK__AuctionPu__Buyer__0880433F");
-
-            entity.HasOne(d => d.Seller).WithMany(p => p.AuctionPurchaseSellers)
-                .HasForeignKey(d => d.SellerId)
-                .HasConstraintName("FK__AuctionPu__Selle__078C1F06");
         });
 
         modelBuilder.Entity<Bid>(entity =>
@@ -85,10 +77,6 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
                 .HasConstraintName("FK__Bids__AuctionId__0C50D423");
-
-            entity.HasOne(d => d.Bidder).WithMany(p => p.Bids)
-                .HasForeignKey(d => d.BidderId)
-                .HasConstraintName("FK__Bids__BidderId__0D44F85C");
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -103,10 +91,6 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Post).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.PostId)
                 .HasConstraintName("FK__Comment__PostId__719CDDE7");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Comments)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Comment__UserId__72910220");
         });
 
         modelBuilder.Entity<InstaBuy>(entity =>
@@ -139,10 +123,6 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Post).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.PostId)
                 .HasConstraintName("FK__Likes__PostId__7849DB76");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Likes)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Likes__UserId__793DFFAF");
         });
 
         modelBuilder.Entity<Picture>(entity =>
@@ -164,10 +144,6 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Text).IsUnicode(false);
             entity.Property(e => e.TimePosted).HasColumnType("datetime");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Posts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Post__UserId__6EC0713C");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -186,10 +162,6 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Weight).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Width).HasColumnType("decimal(18, 2)");
-
-            entity.HasOne(d => d.Artist).WithMany(p => p.Products)
-                .HasForeignKey(d => d.ArtistId)
-                .HasConstraintName("FK__Product__ArtistI__7C1A6C5A");
         });
 
         modelBuilder.Entity<User>(entity =>

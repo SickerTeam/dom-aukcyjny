@@ -15,7 +15,10 @@ namespace backend.Repositories
 
         public async Task<Auction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id);
+            var auction = await _context.Auctions.Where(x => x.Id == id)
+            .Include(a => a.Product)
+            .ThenInclude(x => x.Artist)
+            .FirstOrDefaultAsync();
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
