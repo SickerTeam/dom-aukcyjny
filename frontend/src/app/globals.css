@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Source+Sans+Pro:wght@400;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,25 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #fcfcfc;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
+}
+
+h4,
+h5,
+h6,
+p {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 /* START: General styles */
@@ -33,18 +54,14 @@
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
-.main {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
-}
-
 .main__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
 
 .sellBtn {
-  @apply text-lime-600
+  @apply text-lime-600;
 }
 
 .footer {
-  @apply bg-[#627A6E] text-white
+  @apply bg-[#627A6E] text-white;
 }
