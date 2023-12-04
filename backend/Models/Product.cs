@@ -24,8 +24,4 @@ public partial class Product
     public int? ArtistId { get; set; }
 
     public virtual User Artist { get; set; }
-
-    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
-
-    public virtual ICollection<InstaBuy> InstaBuys { get; set; } = new List<InstaBuy>();
 }

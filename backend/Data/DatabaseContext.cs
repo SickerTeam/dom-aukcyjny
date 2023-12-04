@@ -53,10 +53,6 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.EstimatedMaximum).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.EstimatedMinimum).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.FirstPrice).HasColumnType("decimal(18, 2)");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Auction__Product__04AFB25B");
         });
 
         modelBuilder.Entity<AuctionPurchase>(entity =>
@@ -121,10 +117,6 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.InstaBuys)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__InstaBuy__Produc__7EF6D905");
         });
 
         modelBuilder.Entity<InstaBuyPurchase>(entity =>

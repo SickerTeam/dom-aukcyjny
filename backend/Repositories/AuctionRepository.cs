@@ -10,7 +10,7 @@ namespace backend.Repositories
 
         public async Task<IEnumerable<Auction>> GetAuctionsAsync()
         {
-            return await _context.Auctions.ToListAsync();
+            return await _context.Auctions.Include(a => a.Product).ToListAsync();
         }
 
         public async Task<Auction> GetAuctionByIdAsync(int id)
