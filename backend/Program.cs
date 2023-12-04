@@ -1,7 +1,9 @@
 using AutoMapper;
 using backend.Data;
+using backend.Models;
 using backend.Repositories;
 using backend.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend
 {

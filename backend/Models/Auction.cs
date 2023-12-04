@@ -5,7 +5,11 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
+<<<<<<< HEAD
 public partial class Auction
+=======
+public class Auction : Listing
+>>>>>>> main
 {
     public int Id { get; set; }
 

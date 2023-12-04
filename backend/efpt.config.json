@@ -28,27 +28,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Comment]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[InstaBuy]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[InstaBuyPurchases]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Likes]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Pictures]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Post]",
          "ObjectType": 0
       },
       {
