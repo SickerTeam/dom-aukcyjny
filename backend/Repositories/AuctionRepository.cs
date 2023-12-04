@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
-    public class AuctionRepository(DatabaseContext context) : IAuctionRepository
+    public class AuctionRepository(BackupDatabaseContext context) : IAuctionRepository
     {
-        private readonly DatabaseContext _context = context;
+        private readonly BackupDatabaseContext _context = context;
 
         public async Task<IEnumerable<Auction>> GetAuctionsAsync()
         {

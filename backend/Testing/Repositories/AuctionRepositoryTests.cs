@@ -8,16 +8,16 @@ namespace backend.Tests
 {
    public class AuctionRepositoryTests
    {
-       private readonly DatabaseContext _context;
+       private readonly BackupDatabaseContext _context;
        private readonly AuctionRepository _auctionRepository;
 
        public AuctionRepositoryTests()
        {
-           var options = new DbContextOptionsBuilder<DatabaseContext>()
+           var options = new DbContextOptionsBuilder<BackupDatabaseContext>()
                .UseSqlServer("YourTestDatabaseConnectionString")
                .Options;
 
-           _context = new DatabaseContext(options);
+           _context = new BackupDatabaseContext(options);
            _auctionRepository = new AuctionRepository(_context);
        }
 

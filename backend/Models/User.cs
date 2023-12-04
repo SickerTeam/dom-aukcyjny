@@ -29,5 +29,11 @@ public partial class User
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
+
+    public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

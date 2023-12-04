@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
-    public class UserRepository(DatabaseContext context) : IUserRepository
+    public class UserRepository(BackupDatabaseContext context) : IUserRepository
     {
-        private readonly DatabaseContext _context = context;
+        private readonly BackupDatabaseContext _context = context;
 
         public int GetNumberOfUsers()
         {
