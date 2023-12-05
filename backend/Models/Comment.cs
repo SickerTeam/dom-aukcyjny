@@ -1,7 +1,6 @@
-﻿
-namespace backend.Models;
+﻿namespace backend.Models;
 
-public  class Comment
+public class Comment
 {
     public int Id { get; set; }
 

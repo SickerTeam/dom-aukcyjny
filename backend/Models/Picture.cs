@@ -1,6 +1,6 @@
 ﻿namespace backend.Models;
 
-public  class Picture
+public class Picture
 {
     public int Id { get; set; }
 
