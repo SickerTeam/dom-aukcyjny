@@ -1,5 +1,7 @@
+import DiscoveryCard from "./DiscoveryCard";
+
 const DailyDiscovery = () => {
-  const discoveryStuff = [1, 2, 3, 4, 5, 6];
+  const discoveryPictures = [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="daily-discovery-container grid bg-main-green h-[400px] p-4 my-4">
@@ -20,10 +22,8 @@ const DailyDiscovery = () => {
           </button>
         </div>
         <div className="col-span-3 row-span-2 flex gap-2">
-          {discoveryStuff.map((stuff, index) => (
-            <div key={index} className="w-[200px] h-auto bg-light-gray">
-              {stuff}
-            </div>
+          {discoveryPictures.map((picture, index) => (
+            <DiscoveryCard key={index} picture={picture} />
           ))}
         </div>
       </div>

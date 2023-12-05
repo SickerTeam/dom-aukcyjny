@@ -9,9 +9,9 @@ const Navbar = () => {
         </Link>
         <div>
           <input
-            className="w-96 h-8 border-2 border-black rounded-full text-center"
+            className="border-2 border-light-gray rounded text-center py-1 w-96"
             type="text"
-            placeholder="Search by title,artist or category..."
+            placeholder="Search by title, artist or category..."
           ></input>
         </div>
         <div className="flex">
