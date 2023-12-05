@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[700px] bg-main-green">
+    <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[700px] bg-main-green shadow-md px-40">
       <div className="w-fit self-center">
         <h1 className="w-auto text-3xl text-white">
           Here put some{" "}
@@ -12,7 +12,7 @@ const Banner = () => {
         </p>
         <button
           type="button"
-          className="bg-light-gray italic text-xl py-2 w-full rounded shadow-sm"
+          className="bg-light-gray italic text-black text-xl py-2 w-full rounded shadow-sm"
         >
           <h2>Cool button</h2>
         </button>

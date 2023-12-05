@@ -19,6 +19,9 @@ const ArtistsOverview = () => {
     { name: "John Johny", specialization: "Boss of all the bosses" },
     { name: "John Johny", specialization: "Boss of all the bosses" },
     { name: "John Johny", specialization: "Boss of all the bosses" },
+    { name: "John Johny", specialization: "Boss of all the bosses" },
+    { name: "John Johny", specialization: "Boss of all the bosses" },
+    { name: "John Johny", specialization: "Boss of all the bosses" },
   ];
 
   const scrollContainer = useRef<HTMLDivElement>(null);
@@ -28,7 +31,7 @@ const ArtistsOverview = () => {
     const container = scrollContainer.current;
 
     if (container) {
-      const scrollAmount = 400; // Adjust this value based on your design
+      const scrollAmount = 400;
       const newPosition =
         direction === "right"
           ? container.scrollLeft + scrollAmount
@@ -55,12 +58,11 @@ const ArtistsOverview = () => {
     }
   };
 
-  // Attach the handleScrollVisibility function to the scroll event
   useEffect(() => {
     const container = scrollContainer.current;
 
     if (container) {
-      handleScrollVisibility(); // Initial visibility check
+      handleScrollVisibility();
       container.addEventListener("scroll", handleScrollVisibility);
       return () => {
         container.removeEventListener("scroll", handleScrollVisibility);
@@ -69,32 +71,31 @@ const ArtistsOverview = () => {
   }, []);
 
   return (
-    <div
-      className="main-artists-overview my-4"
-      style={{ position: "relative" }}
-    >
-      <h2 className="text-xl">
+    <div style={{ position: "relative" }}>
+      <h2 className="text-xl px-40">
         Buy or bid on over{" "}
         <span className="italic text-main-green">2,137 objects</span> every
         week, created by{" "}
         <span className="italic text-main-green">420+ artists</span>
       </h2>
-      <div className="scroll-arrows">
-        {showArrows.left ? (
-          <button className="left" onClick={() => handleScroll("left")}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-        ) : (
-          <div></div>
-        )}
-        {showArrows.right && (
-          <button className="right" onClick={() => handleScroll("right")}>
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
-        )}
+      <div className="flex justify-center">
+        <div className="scroll-arrows">
+          {showArrows.left ? (
+            <button className="left" onClick={() => handleScroll("left")}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+          ) : (
+            <div></div>
+          )}
+          {showArrows.right && (
+            <button className="right" onClick={() => handleScroll("right")}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          )}
+        </div>
       </div>
       <div className="artists-scroll-container" ref={scrollContainer}>
-        <div className="flex gap-4 flex-nowrap my-2">
+        <div className="flex gap-6 flex-nowrap my-2 px-40">
           {artists.map((artist, index) => (
             <ArtistCard key={index} artist={artist} />
           ))}

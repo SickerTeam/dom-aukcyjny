@@ -5,7 +5,7 @@ import PopularAuctions from "./PopularAuctions";
 
 const Main = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-14">
       <Banner />
       <ArtistsOverview />
       <DailyDiscovery />

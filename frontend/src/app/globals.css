@@ -40,7 +40,7 @@ p {
   transform: translateY(-50%);
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 80%;
   z-index: 1;
 }
 
@@ -68,6 +68,6 @@ p {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
-.footer {
-  @apply bg-[#627A6E] text-white;
+nav a:hover {
+  @apply text-dark-gray;
 }

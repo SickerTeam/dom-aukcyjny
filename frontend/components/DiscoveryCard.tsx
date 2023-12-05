@@ -3,7 +3,9 @@ type DiscoveryCardType = {
 };
 
 const DiscoveryCard = ({ picture }: DiscoveryCardType) => {
-  return <div className="w-[200px] h-auto bg-light-gray">{picture}</div>;
+  return (
+    <div className="w-[200px] h-auto bg-main-green rounded shadow-sm"></div>
+  );
 };
 
 export default DiscoveryCard;
