@@ -1,10 +1,14 @@
+import PictureCard from "./PictureCard";
 import UserCard from "./UserCard";
+
+
+
 
 const PostCard = () => {
   return (
     <div className="flex justify-center items-center flex-row">
-      <div className="w-1/5">
-        <div className="w-full ">
+      <div className="w-2/3">
+        <div className=" ">
           <div className="mt-6">
             <ul className="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
               <UserCard />
@@ -17,15 +21,17 @@ const PostCard = () => {
           </div>
         </div>
         <p>Fuck niggas</p>
-
-        <img className="rounded-md" src="/../../cv3.png" alt="Post Image" />
-        <div className="likes-comments">
+        <PictureCard/>
+        <div className="likes-comments mt-4">
+            <div className="flex items-center space-x-2"> {/* Use space-x utility class for horizontal spacing */}
+                <img src="/../../comment.ico" alt="" />
+                <img src="/../../like.ico" alt="" />
+            </div>
           <div className="likes">
             <i className="fa fa-thumbs-up rounded"></i>
             <span>10 Likes</span>
           </div>
           <div className="comments">
-            <i className="fa-solid fa-comment"></i>
             <span>5 Comments</span>
           </div>
         </div>
