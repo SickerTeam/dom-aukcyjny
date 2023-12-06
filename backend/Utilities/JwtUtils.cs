@@ -10,6 +10,10 @@ namespace backend.Utilities
     {
         public static string GenerateJwtToken(User user, string secretKey, string issuer, string audience, double expirationInMinutes)
         {
+            if(user == null)
+            {
+                throw new ArgumentException(nameof(user), "User cannot be null");
+            }
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor

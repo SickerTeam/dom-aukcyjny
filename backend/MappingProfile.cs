@@ -12,7 +12,8 @@ namespace backend
             CreateMap<AuctionDTO, Auction>();
             CreateMap<Auction, AuctionDTO>();
 
-            CreateMap<UserRegisterationDTO, User>();
+            CreateMap<UserRegistrationDTO, User>();
+            CreateMap<User, UserRegistrationDTO>();
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
 

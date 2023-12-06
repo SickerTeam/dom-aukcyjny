@@ -3,6 +3,7 @@ using AutoMapper;
 using backend.Data;
 using backend.Repositories;
 using backend.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend
 {
@@ -22,12 +23,15 @@ namespace backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
+
+            
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

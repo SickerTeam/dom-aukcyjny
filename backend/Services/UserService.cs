@@ -2,13 +2,22 @@
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend.Services
 {
-    public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
+    public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly IMapper _mapper = mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        private readonly IAuthenticationService _authenticationService;
+
+        public UserService(IUserRepository userRepository, IMapper mapper, IAuthenticationService authenticationService)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _authenticationService = authenticationService;
+        }
 
         public int GetNumberOfUsers()
         {
@@ -27,10 +36,13 @@ namespace backend.Services
             return _mapper.Map<UserDTO>(user);
         }
 
-        public async Task AddUserAsync(UserDTO userDto)
+        public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
         {
+            
             var user = _mapper.Map<User>(userDto);
             await _userRepository.AddUserAsync(user);
+            var registeredUser = await  _authenticationService.RegisterUserAsync(userDto);
+            return null;
         }
 
         public async Task UpdateUserAsync(UserDTO userDto)
@@ -49,6 +61,16 @@ namespace backend.Services
             if (user == null) return;
 
             await _userRepository.DeleteUserAsync(user.Id);
+        }
+
+        public async Task<string> LoginUserAsync(UserLoginDTO loginDTO)
+        {
+            return await _authenticationService.LoginUserAsync(loginDTO);
+        }
+
+        public async Task LogoutUserAsync(int id)
+        {
+            await _authenticationService.LogoutUserAsync(id);
         }
     }
 
