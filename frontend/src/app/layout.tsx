@@ -1,5 +1,5 @@
-import './globals.css'
-import { Footer, Navbar } from '../../components'
+import "./globals.css";
+import { Footer, Navbar } from "../../components";
 
 export const metadata = {
   title: "Dom Aukcyjny",
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
+      <body>
         <Navbar />
         {children}
         <Footer />

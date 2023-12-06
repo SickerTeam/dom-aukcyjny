@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type ProfilePhotoType = {
   url: string;
   name: string;

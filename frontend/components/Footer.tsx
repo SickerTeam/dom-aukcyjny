@@ -1,53 +1,50 @@
-import Link from "next/link";
+import React from "react";
 
-const Footer = () => {
+export const Footer = () => {
   return (
-    <footer className='footer w-full flex flex-wrap justify-between mt-10 '>
-      <div className='flex-col flex ml-5 items-center py-10'>
-        <p className='font-bold pb-5'>Random stuff</p>
-        <Link href="/">
-          idk
-        </Link>
+    <footer className="bg-main-green text-white mt-14 rounded-t-3xl flex justify-between pt-8 px-40">
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">About Zongers</h4>
+        <a href="/about" className="text-lg">
+          About Zongers
+        </a>
       </div>
-
-      <div className='flex-col flex items-center py-10'>
-        <p className='font-bold pb-5'>Company</p>
-        <Link href="/" className="mb-2">
-          Careers
-        </Link>
-        <Link href="/" className="mb-2">
-          Privacy policy
-        </Link>
-        <Link href="/" className="mb-2">
-          Terms of service
-        </Link>
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">Buy</h4>
+        <a href="/how-to-buy" className="text-lg">
+          How to Buy
+        </a>
+        <a href="/buyer-protection" className="text-lg">
+          Buyer Protection
+        </a>
+        <a href="/buyer-terms" className="text-lg">
+          Buyer terms
+        </a>
       </div>
-
-      <div className='flex-col flex items-center py-10'>
-        <p className='font-bold pb-5'>Support</p>
-        <Link href="/" className="mb-2">
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">Sell</h4>
+        <a href="/how-to-sell" className="text-lg">
+          How to Sell
+        </a>
+        <a href="/submission-guidelines" className="text-lg">
+          Submission guidelines
+        </a>
+        <a href="/seller-terms" className="text-lg">
+          Seller terms
+        </a>
+      </div>
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">My Zongers</h4>
+        <a href="/sign-in" className="text-lg">
+          Sign in
+        </a>
+        <a href="/register" className="text-lg">
+          Register
+        </a>
+        <a href="/help" className="text-lg">
           Help
-        </Link>
-        <Link href="/" className="mb-2">
-          Plans and price
-        </Link>
-        <Link href="/" className="mb-2">
-          Upcoming stuff
-        </Link>
+        </a>
       </div>
-
-      <div className='flex-col flex mr-5 items-center py-10'>
-        <p className='font-bold pb-5'>Follow us</p>
-        <Link href="/" className="mb-2">
-          Facebook
-        </Link>
-        <Link href="/" className="mb-2">
-          Instagram
-        </Link>
-        <Link href="/" className="mb-2">
-          Twitter
-        </Link>
-      </div> 
     </footer>
   );
 };

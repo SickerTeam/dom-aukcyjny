@@ -1,20 +1,19 @@
-import ArtworkCard from './ArtworkCard'
+"use client";
+
+import ArtworkCard from "./ArtworkCard";
 
 interface IArtworks {
-  artworks: any[]
+  artworks: any[];
 }
 
-const Artworks = ({artworks}: IArtworks) => {
-    
+const Artworks = ({ artworks }: IArtworks) => {
   return (
-    <div className="grid grid-cols-5 gap-4 m-10">
+    <div className="grid grid-cols-6 gap-4">
       {artworks.map((artwork, index) => (
-        <div key={index}>
-          <ArtworkCard artwork={artwork}/>
-        </div>
+        <ArtworkCard key={index} artwork={artwork} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Artworks
+export default Artworks;
