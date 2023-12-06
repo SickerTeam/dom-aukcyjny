@@ -5,9 +5,10 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper) : IAuctionService
+   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
    {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
+        private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
 
             public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
@@ -28,6 +29,7 @@ namespace backend.Services
            var auction = _mapper.Map<Auction>(auctionDto);
            auction.CreatedAt = DateTime.Now;
            auction.IsArchived = false;
+           auction.Product = await _productService.GetModelById(auctionDto.ProductId);
            await _auctionRepository.AddAuctionAsync(auction);
         }  
 

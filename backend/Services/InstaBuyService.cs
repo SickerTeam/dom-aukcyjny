@@ -5,9 +5,11 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-    public class InstaBuyService(IInstaBuyRepository instaBuyRepository, IMapper mapper) : IInstaBuyService
+    public class InstaBuyService(IInstaBuyRepository instaBuyRepository, IMapper mapper, IProductService productService) : IInstaBuyService
     {
         private readonly IInstaBuyRepository _instaBuyRepository = instaBuyRepository;
+        private readonly IProductService _productService = productService;
+
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<InstaBuyDTO>> GetAllInstaBuysAsync()
@@ -25,6 +27,9 @@ namespace backend.Services
         public async Task AddInstaBuyAsync(InstaBuyRegistrationDTO instaBuyDto)
         {
             var instaBuy = _mapper.Map<InstaBuy>(instaBuyDto);
+            instaBuy.IsArchived = false;
+            instaBuy.CreatedAt = DateTime.Now;
+            // instaBuy.Product = await _productService.GetProductByIdAsync(instaBuyDto.ProductId);
             await _instaBuyRepository.AddInstaBuyAsync(instaBuy);
         }
 
