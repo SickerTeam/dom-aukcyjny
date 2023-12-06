@@ -9,13 +9,13 @@
         public double? EstimatedMinimum { get; set; }
         public double? EstimatedMaximum { get; set; }
         public bool IsArchived { get; set; }
-        public ProductDTO? Product { get; set; }
+        public int ProductId { get; set; }
 
         public AuctionDTO() {}
 
         public AuctionDTO(int id, DateTime createdAt, DateTime endsAt, double firstPrice,
                       double? estimatedMinimum, double? estimatedMaximum, bool isArchived,
-                      ProductDTO product)
+                      int productId)
         {
             Id = id;
             CreatedAt = createdAt;
@@ -24,7 +24,7 @@
             EstimatedMinimum = estimatedMinimum;
             EstimatedMaximum = estimatedMaximum;
             IsArchived = isArchived;
-            Product = product;
+            ProductId = productId;
         }
     }
 }

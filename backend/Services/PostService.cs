@@ -37,9 +37,8 @@ namespace backend.Services
         }
 
         public async Task UpdatePostAsync(PostDTO postDto)
-        {
+        {          
             if (postDto.Id == null) return;
-            
             var post = await _postRepository.GetPostByIdAsync((int)postDto.Id);
             if (post == null) return;
 

@@ -16,14 +16,15 @@ namespace backend
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<DatabaseContext>();
+            
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+            builder.Services.AddScoped<IPostRepository, PostRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
-            builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
 
             var mapperConfig = new MapperConfiguration(mc =>

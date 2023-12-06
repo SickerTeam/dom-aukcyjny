@@ -1,18 +1,34 @@
-using backend.Models;
-using System;
-
+using System.ComponentModel.DataAnnotations;
+using backend.Validation;
 namespace backend.DTOs
+
 {
-    public class AuctionRegistrationDTO(DateTime createdAt, DateTime endsAt, double firstPrice,
-                  double? estimatedMinimum, double? estimatedMaximum, bool isArchived,
-                  ProductDTO product)
+    public class AuctionRegistrationDTO
     {
-        public DateTime CreatedAt { get; set; } = createdAt;
-        public DateTime EndsAt { get; set; } = endsAt;
-        public double FirstPrice { get; set; } = firstPrice;
-        public double? EstimatedMinimum { get; set; } = estimatedMinimum;
-        public double? EstimatedMaximum { get; set; } = estimatedMaximum;
-        public bool IsArchived { get; set; } = isArchived;
-        public ProductDTO ProductDto { get; set; } = product;
+        [Required]
+        public DateTime CreatedAt { get; set; }
+        
+        [Required]
+        [FutureDate(15)]
+        public DateTime EndsAt { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double FirstPrice { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double? EstimatedMinimum { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double? EstimatedMaximum { get; set; }
+
+        [Required]
+        [MustBeTrue(ErrorMessage = "This field must be true.")]
+        public bool IsArchived { get; set; }
+
+        [Required]
+        public int ProductId { get; set; }
     }
 }
