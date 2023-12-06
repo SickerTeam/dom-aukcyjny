@@ -19,7 +19,7 @@ const AuctionPage = ({ id }: AuctionPageType) => {
   };
 
   return (
-    <div className="grid grid-cols-4 grid-rows-7 gap-4">
+    <div className="grid grid-cols-4 grid-rows-7 gap-4 px-40">
       <div className="col-span-3 row-span-5">
         <Path />
         <ArtworkTitle title={auction.title} />
