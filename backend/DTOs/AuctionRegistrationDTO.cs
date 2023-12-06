@@ -6,10 +6,11 @@ namespace backend.DTOs
     public class AuctionRegistrationDTO
     {
         [Required]
+        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime CreatedAt { get; set; }
         
         [Required]
-        [FutureDate(15)]
+        [FutureDate]
         public DateTime EndsAt { get; set; }
 
         [Required]
@@ -29,6 +30,7 @@ namespace backend.DTOs
         public bool IsArchived { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         public int ProductId { get; set; }
     }
 }
