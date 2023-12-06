@@ -5,9 +5,9 @@ namespace backend.DTOs
 {
     public class AuctionRegistrationDTO
     {
-        [Required]
-        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        public DateTime CreatedAt { get; set; }
+        // [Required]
+        // [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
+        // public DateTime CreatedAt { get; set; }
         
         [Required]
         [FutureDate]
@@ -19,15 +19,15 @@ namespace backend.DTOs
 
         [Required]
         [Range(0.01, double.MaxValue)]
-        public double? EstimatedMinimum { get; set; }
+        public double EstimatedMinimum { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue)]
-        public double? EstimatedMaximum { get; set; }
+        public double EstimatedMaximum { get; set; }
 
-        [Required]
-        [MustBeTrue(ErrorMessage = "This field must be true.")]
-        public bool IsArchived { get; set; }
+        // [Required]
+        // [MustBeFalse(ErrorMessage = "This field must be false.")]
+        // public bool IsArchived { get; set; }
 
         [Required]
         [Range(1, int.MaxValue)]

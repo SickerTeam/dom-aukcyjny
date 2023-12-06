@@ -12,12 +12,12 @@ namespace Testing.Validation
         {
             _auctionRegistrationDTO = new AuctionRegistrationDTO
             {
-                CreatedAt = DateTime.Now.AddSeconds(-30),
+                // CreatedAt = DateTime.Now.AddSeconds(-59),
                 EndsAt = DateTime.Now.AddSeconds(10),
                 FirstPrice = 0.01,
                 EstimatedMinimum = 0.01,
                 EstimatedMaximum = 0.01,
-                IsArchived = true,
+                // IsArchived = false,
                 ProductId = 1
             };
         }
@@ -32,7 +32,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-5);
+            // _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-5);
             _auctionRegistrationDTO.EndsAt = DateTime.Now.AddDays(14);
             _auctionRegistrationDTO.FirstPrice = double.MaxValue;
             _auctionRegistrationDTO.EstimatedMinimum = double.MaxValue;
@@ -42,21 +42,21 @@ namespace Testing.Validation
             Assert.True(result);
         }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddMinutes(-2);
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Min()
+        // {
+        //     _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
+        //     var result = ValidateModel(_auctionRegistrationDTO);
+        //     Assert.False(result);
+        // }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddMinutes(1);
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Max()
+        // {
+        //     _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(2);
+        //     var result = ValidateModel(_auctionRegistrationDTO);
+        //     Assert.False(result);
+        // }
 
         [Fact]
         public void Should_Fail_FirstPrice_Min()
@@ -106,13 +106,13 @@ namespace Testing.Validation
             Assert.False(result);
         }
 
-        [Fact]
-        public void Should_Validate_IsArchived()
-        {
-            _auctionRegistrationDTO.IsArchived = false;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
-        }
+        // [Fact]
+        // public void Should_Validate_IsArchived()
+        // {
+        //     _auctionRegistrationDTO.IsArchived = true;
+        //     var result = ValidateModel(_auctionRegistrationDTO);
+        //     Assert.False(result);
+        // }
 
         private static bool ValidateModel(object model)
         {

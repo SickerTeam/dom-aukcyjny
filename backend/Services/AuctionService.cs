@@ -26,6 +26,8 @@ namespace backend.Services
         public async Task AddAuctionAsync(AuctionRegistrationDTO auctionDto)
         {
            var auction = _mapper.Map<Auction>(auctionDto);
+           auction.CreatedAt = DateTime.Now;
+           auction.IsArchived = false;
            await _auctionRepository.AddAuctionAsync(auction);
         }  
 
