@@ -33,7 +33,7 @@ export default function Home() {
             <p className=' text-white'>Log in and explore Zongers to get personalised finds.Updated daily.</p>
             <CustomButton
              title="Discover all"
-             containerStyles="bg-black text-black rounded-full mt-10"
+             containerStyles="bg-white text-black rounded-full mt-10"
              handleClick={handleScroll}
              /> 
           </div>
