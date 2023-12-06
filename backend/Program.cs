@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.Repositories;
@@ -14,12 +15,14 @@ namespace backend
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAuthentication().AddJwtBearer();
+            builder.Services.AddAuthorization();
 
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
-            
+
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
@@ -46,7 +49,8 @@ namespace backend
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.MapGet("/secret", (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}. My secret")
+                .RequireAuthorization();
 
             app.MapControllers();
 
