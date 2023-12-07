@@ -12,6 +12,7 @@ namespace Testing.Validation
         {
             _auctionDTO = new AuctionDTO
             {
+                Id = 1,
                 CreatedAt = DateTime.Now.AddSeconds(-59),
                 EndsAt = DateTime.Now.AddSeconds(5),
                 FirstPrice = 0.01,
@@ -31,6 +32,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
+            _auctionDTO.Id = int.MaxValue;
             _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(-5);
             _auctionDTO.EndsAt = DateTime.Now.AddDays(14);
             _auctionDTO.FirstPrice = double.MaxValue;
@@ -39,6 +41,14 @@ namespace Testing.Validation
             _auctionDTO.ProductId = int.MaxValue;
             var result = ValidateModel(_auctionDTO);
             Assert.True(result);
+        }
+
+        [Fact]
+        public void Should_Fail_Id_Min()
+        {
+            _auctionDTO.Id = 0;
+            var result = ValidateModel(_auctionDTO);
+            Assert.False(result);
         }
 
         [Fact]

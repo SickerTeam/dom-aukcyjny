@@ -30,7 +30,7 @@ namespace backend.Services
            auction.IsArchived = false;
            auction.Product = await _productService.GetModelById(auctionDto.ProductId);
            await _auctionRepository.AddAuctionAsync(auction);
-        }  
+        }
 
         public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
         {

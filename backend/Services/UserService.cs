@@ -27,6 +27,11 @@ namespace backend.Services
             return _mapper.Map<UserDTO>(user);
         }
 
+        public async Task<User> GetModelById(int id)
+        {
+            return await _userRepository.GetUserByIdAsync(id);
+        }
+
         public async Task AddUserAsync(UserRegistrationDTO userDto)
         {
             var user = _mapper.Map<User>(userDto);

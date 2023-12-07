@@ -24,7 +24,7 @@ namespace backend.Repositories
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
-         public async Task AddAuctionAsync(Auction auction)
+        public async Task AddAuctionAsync(Auction auction)
         {
             await _context.Auctions.AddAsync(auction);
             await _context.SaveChangesAsync();
