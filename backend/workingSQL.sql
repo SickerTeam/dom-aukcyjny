@@ -51,8 +51,8 @@ IF OBJECT_ID('[User]', 'U') IS NOT NULL
 IF OBJECT_ID('Bids', 'U') IS NOT NULL
     DROP TABLE Bids;
 
-	IF OBJECT_ID('Likes', 'U') IS NOT NULL
-    DROP TABLE Likes;
+IF OBJECT_ID('Likes', 'U') IS NOT NULL
+    DROP TABLE Likes;   
 
 IF OBJECT_ID('Pictures', 'U') IS NOT NULL
     DROP TABLE Pictures;
@@ -67,9 +67,6 @@ IF OBJECT_ID('[User]', 'U') IS NOT NULL
     DROP TABLE [User];
 
 
-
-
-
 -- Create [User] table
 CREATE TABLE [User] (
     Id INT IDENTITY(1,1) PRIMARY KEY,
@@ -79,7 +76,8 @@ CREATE TABLE [User] (
     LastName VARCHAR(255),
     Bio VARCHAR(255),
     Country VARCHAR(255),
-    PersonalLink VARCHAR(255) 
+    PersonalLink VARCHAR(255),
+    ProfilePictureLink VARCHAR(255)
 );
 
 -- Create Post table
