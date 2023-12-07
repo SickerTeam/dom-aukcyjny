@@ -1,9 +1,12 @@
 using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
+using backend.Models;
 using backend.Repositories;
 using backend.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+
 
 namespace backend
 {
@@ -12,6 +15,10 @@ namespace backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            var configuration = builder.Configuration;
+            builder.Services.AddSingleton<IConfiguration>(configuration);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +38,9 @@ namespace backend
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
 
-            
+            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+            builder.Services.AddScoped<UserManager<User>>();
+            builder.Services.AddScoped<SignInManager<User>>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

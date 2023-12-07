@@ -1,6 +1,7 @@
 using AutoMapper;
 using backend.DTOs;
 using backend.Models;
+using backend.Utilities;
 using Microsoft.AspNetCore.Identity;
 
 namespace backend.Services
@@ -8,29 +9,32 @@ namespace backend.Services
 public class AuthenticationService : IAuthenticationService
 {
     private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
-    private readonly IUserService _userService;
+    private readonly JwtUtils jwtUtils;
 
-    public AuthenticationService( SignInManager<User> signInManager, IMapper mapper, IUserService userService)
+    public AuthenticationService(SignInManager<User> signInManager, UserManager<User> userManager, IMapper mapper)
     {
         _signInManager = signInManager;
+        _userManager = userManager;
         _mapper = mapper;
-        _userService = userService;
-    }
-
-    public async Task<string> RegisterUserAsync(UserRegistrationDTO dto)
-    {
-        //Line below has to be updated with the actual properties
-        var user = _mapper.Map<User>(dto); 
-        var result = await _userService.AddUserAsync(dto);
-
-        if (true)
-        {
-            await _signInManager.SignInAsync(user, isPersistent: false);
-           // return Utilities.JwtUtils.GenerateJwtToken(user, "your-secret-key", "your-issuer", "your-audience", 60);
         }
 
-        throw new Exception("Registration failed");
+        public async Task<string> RegisterUserAsync(UserRegistrationDTO dto)
+    {
+        var user = _mapper.Map<User>(dto);
+        var identityUser = _mapper.Map<IdentityUser>(user);
+        identityUser.UserName = user.Email;
+
+        var result = await _userManager.CreateAsync(user, dto.Password);
+        if (result.Succeeded)
+        {
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            return jwtUtils.GenerateJwtToken(user);
+        }
+
+        throw new Exception($"Registration failed: {string.Join(", ", result.Errors.Select(e => e.Description))}");
     }
 
       public async Task<string> LoginUserAsync(UserLoginDTO dto)
@@ -39,8 +43,12 @@ public class AuthenticationService : IAuthenticationService
 
         if (result.Succeeded)
         {
-            var user = await _userService.GetUserByIdAsync(1);
-            //return Utilities.JwtUtils.GenerateJwtToken(user, "your-secret-key", "your-issuer", "your-audience", 60);
+            var user = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
+
+            if (user != null)
+            {
+            return jwtUtils.GenerateJwtToken(user);
+            }
         }
 
         throw new Exception("Login failed");

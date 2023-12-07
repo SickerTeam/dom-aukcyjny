@@ -6,16 +6,22 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace backend.Utilities
 {
-    public static class JwtUtils
+    public class JwtUtils
     {
-        public static string GenerateJwtToken(User user, string secretKey, string issuer, string audience, double expirationInMinutes)
+        private readonly IConfiguration _configuration;
+
+        public JwtUtils(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public string GenerateJwtToken(User user)
         {
             if(user == null)
             {
                 throw new ArgumentException(nameof(user), "User cannot be null");
             }
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secretKey);
+            var key = Encoding.ASCII.GetBytes(_configuration["Authentication:Schemes:Bearer:SecretKey"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -23,9 +29,9 @@ namespace backend.Utilities
                 new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             }),
-                Issuer = issuer,
-                Audience = audience,
-                Expires = DateTime.UtcNow.AddMinutes(expirationInMinutes),
+                Issuer = _configuration["Authentication:Schemes:Bearer:ValidIssuer"],
+                Audience = _configuration["Authentication:Schemes:Bearer:ValidAudiences:60"],
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Authentication:Schemes:Bearer:ExpirationInMinutes"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

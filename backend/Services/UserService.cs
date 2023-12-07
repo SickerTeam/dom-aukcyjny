@@ -38,12 +38,28 @@ namespace backend.Services
 
         public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
         {
-            
+            try
+            {
             var user = _mapper.Map<User>(userDto);
-            await _userRepository.AddUserAsync(user);
-            var registeredUser = await  _authenticationService.RegisterUserAsync(userDto);
-            return null;
+            var result = await _userRepository.AddUserAsync(user);
+
+            if (result != null)
+            {
+                await _authenticationService.RegisterUserAsync(userDto);
+                return _mapper.Map<UserDTO>(user);
+            }
+            else
+            {
+                throw new Exception("User creation failed");
+            }
         }
+        catch (Exception ex)
+        {
+           throw new Exception("User creation failed", ex);     
+        }
+        
+        
+}
 
         public async Task UpdateUserAsync(UserDTO userDto)
         {

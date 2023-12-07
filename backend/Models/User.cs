@@ -1,8 +1,10 @@
 ﻿#nullable disable
 
+using Microsoft.AspNetCore.Identity;
+
 namespace backend.Models;
 
-public class User
+public class User : IdentityUser
 {
     public int Id { get; set; }
 

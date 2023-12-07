@@ -1,5 +1,6 @@
 using AutoMapper;
 using backend.DTOs;
+using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +24,13 @@ public class AuthController : ControllerBase
     {
         try
         {
+            var user = _mapper.Map<User>(registrationDto);
             var token = await _authenticationService.RegisterUserAsync(registrationDto);
-            return Ok(new { Token = token });
+            return Ok(token);
         }
         catch (Exception ex)
         {
-            return BadRequest(new { Message = ex.Message });
+            return BadRequest(new { Message = "An error occured while registering the user" });
         }
     }
 
