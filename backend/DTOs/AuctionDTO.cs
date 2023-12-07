@@ -6,7 +6,6 @@ namespace backend.DTOs
     {
         public int Id { get; set; }
 
-        [Required]
         [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime? CreatedAt { get; set; }
 
