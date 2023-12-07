@@ -86,7 +86,7 @@ CREATE TABLE [User] (
 CREATE TABLE Post (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     UserId INT REFERENCES [User],
-    Text VARCHAR(MAX),
+    Text VARCHAR(2047),
     TimePosted DATETIME
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE Comment (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     PostId INT REFERENCES Post,
     UserId INT REFERENCES [User],
-    Text VARCHAR(MAX),
+    Text VARCHAR(1023),
     TimePosted DATETIME
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE Comment (
 CREATE TABLE Pictures (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     PostId INT REFERENCES Post,
-    PictureUrl VARCHAR(MAX)
+    PictureUrl VARCHAR(2047)
 );
 
 -- Create Likes table
