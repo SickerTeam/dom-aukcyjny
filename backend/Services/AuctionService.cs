@@ -14,8 +14,7 @@ namespace backend.Services
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
             var auctions = await _auctionRepository.GetAuctionsAsync();
-            var auctionDTOs = _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
-            return auctionDTOs;
+            return  _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
         }
 
         public async Task<AuctionDTO> GetAuctionByIdAsync(int id)

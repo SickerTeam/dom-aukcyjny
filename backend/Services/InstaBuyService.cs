@@ -9,7 +9,6 @@ namespace backend.Services
     {
         private readonly IInstaBuyRepository _instaBuyRepository = instaBuyRepository;
         private readonly IProductService _productService = productService;
-
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<InstaBuyDTO>> GetAllInstaBuysAsync()
@@ -29,13 +28,12 @@ namespace backend.Services
             var instaBuy = _mapper.Map<InstaBuy>(instaBuyDto);
             instaBuy.IsArchived = false;
             instaBuy.CreatedAt = DateTime.Now;
-            // instaBuy.Product = await _productService.GetProductByIdAsync(instaBuyDto.ProductId);
+            instaBuy.Product = await _productService.GetModelById(instaBuyDto.ProductId);
             await _instaBuyRepository.AddInstaBuyAsync(instaBuy);
         }
 
         public async Task UpdateInstaBuyAsync(InstaBuyDTO instaBuyDto)
         {
-            if (instaBuyDto.Id == null) return;
             var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync((int)instaBuyDto.Id);
             if (instaBuy == null) return;
 

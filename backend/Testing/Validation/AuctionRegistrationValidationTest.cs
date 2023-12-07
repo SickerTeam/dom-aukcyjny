@@ -13,7 +13,7 @@ namespace Testing.Validation
             _auctionRegistrationDTO = new AuctionRegistrationDTO
             {
                 // CreatedAt = DateTime.Now.AddSeconds(-59),
-                EndsAt = DateTime.Now.AddSeconds(10),
+                EndsAt = DateTime.Now.AddSeconds(1),
                 FirstPrice = 0.01,
                 EstimatedMinimum = 0.01,
                 EstimatedMaximum = 0.01,
@@ -93,7 +93,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Validate_EndsAt_Max()
         {
-            _auctionRegistrationDTO.EndsAt = DateTime.Now.AddDays(14).AddMinutes(2);
+            _auctionRegistrationDTO.EndsAt = DateTime.Now.AddDays(14).AddSeconds(61);
             var result = ValidateModel(_auctionRegistrationDTO);
             Assert.False(result);
         }
@@ -101,7 +101,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Validate_EndsAt_Min()
         {
-            _auctionRegistrationDTO.EndsAt = DateTime.Now.AddMinutes(-1);
+            _auctionRegistrationDTO.EndsAt = DateTime.Now.AddSeconds(-1);
             var result = ValidateModel(_auctionRegistrationDTO);
             Assert.False(result);
         }

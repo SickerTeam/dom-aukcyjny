@@ -12,8 +12,7 @@ namespace backend.Services
 
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
-            return _mapper.Map<ProductDTO>(product);
+            return _mapper.Map<ProductDTO>(await GetModelById(id));
         }
 
         public async Task<Product> GetModelById(int id)
