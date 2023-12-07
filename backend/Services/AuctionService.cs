@@ -11,7 +11,7 @@ namespace backend.Services
         private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
 
-            public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
+        public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
             var auctions = await _auctionRepository.GetAuctionsAsync();
             var auctionDTOs = _mapper.Map<IEnumerable<AuctionDTO>>(auctions);

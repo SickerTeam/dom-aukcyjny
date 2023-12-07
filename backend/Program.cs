@@ -21,11 +21,13 @@ namespace backend
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IPostRepository, PostRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
             builder.Services.AddScoped<IPostService, PostService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
