@@ -42,11 +42,10 @@ namespace backend.Services
             int postId = await _postRepository.AddPostAsync(post);
             PostDTO postDtoFromDb = await GetPostByIdAsync(postId);
 
-            // Create new PictureDTO list with postIds and PictureURLs from registration
-            ICollection<PictureDTO> pictures = postDtoFromDb.Pictures;
+            // Create new PictureDTO list with postId and PictureURLs
             var updatedPictures = new List<PictureDTO>();
 
-            for (int i = 0; i < pictures.Count; i++) 
+            for (int i = 0; i < postDtoFromDb.Pictures.Count; i++) 
             {
                 var updatedPicture = new PictureDTO
                 {
@@ -56,7 +55,7 @@ namespace backend.Services
                 updatedPictures.Add(updatedPicture);
             }
 
-            // Update pictures in post
+            // Update pictures in PostDTO
             postDtoFromDb.Pictures = updatedPictures;
             await UpdatePostAsync(postDtoFromDb);
         }
