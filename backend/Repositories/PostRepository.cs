@@ -8,21 +8,34 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<Post>> GetPostAsync()
+        public async Task<IEnumerable<Post>> GetPostsAsync()
         {
-            return await _context.Posts.ToListAsync();
+            return await _context.Posts
+                .Include(p => p.Likes)
+                .Include(p => p.Comments)
+                .Include(p => p.Pictures)
+                .ToListAsync();
         }
 
         public async Task<Post> GetPostByIdAsync(int id)
         {
-            var Post = await _context.Posts.FindAsync(id);
-            return Post ?? throw new ArgumentException("Post not found");
+            var post = await _context.Posts
+                .Include(p => p.Likes)
+                .Include(p => p.Comments)
+                .Include(p => p.Pictures)
+                .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
+            return post;
         }
 
-         public async Task AddPostAsync(Post Post)
+        public async Task<int> AddPostAsync(Post Post)
         {
             await _context.Posts.AddAsync(Post);
             await _context.SaveChangesAsync();
+            if (Post.Id == null) 
+            {
+                throw new ArgumentException("Couldn't add post");
+            }
+            return (int)Post.Id;
         }
 
         public async Task UpdatePostAsync(Post Post)
@@ -38,38 +51,39 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Like>> GetLikesByPostIdAsync(int postId)
-        {
-            return await _context.Likes.Where(like => like.PostId == postId).ToListAsync() ?? throw new ArgumentException("Like not found");
-        }
+        // /////////////////     Move to separate repositories     /////////////////
+        // public async Task<IList<Like>> GetLikesByPostIdAsync(int postId)
+        // {
+        //     return await _context.Likes.Where(like => like.PostId == postId).ToListAsync() ?? throw new ArgumentException("Like not found");
+        // }
 
-        public async Task<IList<Comment>> GetCommentsByPostIdAsync(int postId)
-        {
-            return await _context.Comments.Where(comment => comment.PostId == postId).ToListAsync() ?? throw new ArgumentException("Comment not found");
-        }
+        // public async Task<IList<Comment>> GetCommentsByPostIdAsync(int postId)
+        // {
+        //     return await _context.Comments.Where(comment => comment.PostId == postId).ToListAsync() ?? throw new ArgumentException("Comment not found");
+        // }
 
-        public async Task<IList<Picture>> GetPicturesByPostIdAsync(int postId)
-        {
-            return await _context.Pictures.Where(picture => picture.PostId == postId).ToListAsync() ?? throw new ArgumentException("Picture not found");
-        }
+        // public async Task<IList<Picture>> GetPicturesByPostIdAsync(int postId)
+        // {
+        //     return await _context.Pictures.Where(picture => picture.PostId == postId).ToListAsync() ?? throw new ArgumentException("Picture not found");
+        // }
 
-        public async Task DeleteLikeAsync(Like like)
-        {
-            _context.Likes.Remove(like);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeleteLikeAsync(Like like)
+        // {
+        //     _context.Likes.Remove(like);
+        //     await _context.SaveChangesAsync();
+        // }
 
-        public async Task DeleteCommentAsync(Comment comment)
-        {
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeleteCommentAsync(Comment comment)
+        // {
+        //     _context.Comments.Remove(comment);
+        //     await _context.SaveChangesAsync();
+        // }
 
-        public async Task DeletePictureAsync(Picture picture)
-        {
-            _context.Pictures.Remove(picture);
-            await _context.SaveChangesAsync();
-        }
+        // public async Task DeletePictureAsync(Picture picture)
+        // {
+        //     _context.Pictures.Remove(picture);
+        //     await _context.SaveChangesAsync();
+        // }
         /*
         public async Task<IList<Auction>> GetAuctionsAsync()
         {

@@ -11,7 +11,9 @@ public class InstaBuyRepository(DatabaseContext context) : IInstaBuyRepository
 
         public async Task<IEnumerable<InstaBuy>> GetAllInstaBuysAsync()
         {
-            return await _context.InstaBuys.ToListAsync();
+            return await _context.InstaBuys.Include(instaBuy => instaBuy.Product)
+            .ThenInclude(product => product.Artist)
+            .ToListAsync();
         }
 
         public async Task AddInstaBuyAsync(InstaBuy instaBuy)
@@ -28,8 +30,7 @@ public class InstaBuyRepository(DatabaseContext context) : IInstaBuyRepository
 
         public async Task DeleteInstaBuyAsync(int id)
         {
-            var instaBuy = await _context.InstaBuys.FindAsync(id);
-            if (instaBuy == null) return;
+            var instaBuy = await _context.InstaBuys.FindAsync(id)  ?? throw new ArgumentException("InstaBuy not found");
 
             _context.InstaBuys.Remove(instaBuy);
             await _context.SaveChangesAsync();
@@ -37,7 +38,11 @@ public class InstaBuyRepository(DatabaseContext context) : IInstaBuyRepository
 
         public async Task<InstaBuy> GetInstaBuyByIdAsync(int id)
         {
-            return await _context.InstaBuys.FindAsync(id);
+            var instaBuy = await _context.InstaBuys.Where(x => x.Id == id)
+            .Include(instaBuy => instaBuy.Product)
+            .ThenInclude(product => product.Artist)
+            .FirstOrDefaultAsync();
+            return instaBuy ?? throw new ArgumentException("InstaBuy not found");
         }
     }
 }

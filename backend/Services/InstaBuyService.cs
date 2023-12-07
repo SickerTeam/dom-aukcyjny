@@ -5,52 +5,48 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-    public class InstaBuyService(IInstaBuyRepository instaBuyRepository) : IInstaBuyService
+    public class InstaBuyService(IInstaBuyRepository instaBuyRepository, IMapper mapper, IProductService productService) : IInstaBuyService
     {
         private readonly IInstaBuyRepository _instaBuyRepository = instaBuyRepository;
+        private readonly IProductService _productService = productService;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<InstaBuyDTO>> GetAllInstaBuysAsync()
         {
             var instaBuys = await _instaBuyRepository.GetAllInstaBuysAsync();
-            return instaBuys.Select(i => new InstaBuyDTO(i.Id, i.ProductId, i.Price, i.IsArchived, i.CreatedAt));
+            return _mapper.Map<IEnumerable<InstaBuyDTO>>(instaBuys);
         }
 
         public async Task<InstaBuyDTO> GetInstaBuyByIdAsync(int id)
         {
             var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync(id);
-            return new InstaBuyDTO(instaBuy.Id, instaBuy.ProductId, instaBuy.Price, instaBuy.IsArchived, instaBuy.CreatedAt);
+            return _mapper.Map<InstaBuyDTO>(instaBuy);
         }
-        
-        public async Task AddInstaBuyAsync(InstaBuyDTO instaBuyDto)
-        {
-            var instaBuy = new InstaBuy
-            {
-                Id = instaBuyDto.Id,
-                ProductId = instaBuyDto.ProductId,
-                Price = instaBuyDto.Price,
-                IsArchived = instaBuyDto.IsArchived,
-                CreatedAt = instaBuyDto.CreatedAt
-            };
 
+        public async Task AddInstaBuyAsync(InstaBuyRegistrationDTO instaBuyDto)
+        {
+            var instaBuy = _mapper.Map<InstaBuy>(instaBuyDto);
+            instaBuy.IsArchived = false;
+            instaBuy.CreatedAt = DateTime.Now;
+            instaBuy.Product = await _productService.GetModelById(instaBuyDto.ProductId);
             await _instaBuyRepository.AddInstaBuyAsync(instaBuy);
         }
 
         public async Task UpdateInstaBuyAsync(InstaBuyDTO instaBuyDto)
         {
-            var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync(instaBuyDto.Id);
+            var instaBuy = await _instaBuyRepository.GetInstaBuyByIdAsync((int)instaBuyDto.Id);
             if (instaBuy == null) return;
 
-            instaBuy.ProductId = instaBuyDto.ProductId;
-            instaBuy.Price = instaBuyDto.Price;
-            instaBuy.IsArchived = instaBuyDto.IsArchived;
-            instaBuy.CreatedAt = instaBuyDto.CreatedAt;
-
+            _mapper.Map(instaBuyDto, instaBuy);
             await _instaBuyRepository.UpdateInstaBuyAsync(instaBuy);
         }
 
         public async Task DeleteInstaBuyAsync(int id)
         {
-            await _instaBuyRepository.DeleteInstaBuyAsync(id);
+            var insta = await _instaBuyRepository.GetInstaBuyByIdAsync(id);
+            if (insta != null && !(insta.IsArchived ?? false)) {
+                await _instaBuyRepository.DeleteInstaBuyAsync(id);
+            }
         }
     }
 }

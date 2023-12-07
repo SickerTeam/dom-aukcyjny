@@ -5,16 +5,16 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-    public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper) : IAuctionService
-    {
+   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
+   {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
+        private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
             var auctions = await _auctionRepository.GetAuctionsAsync();
-            var auctionDTOs = _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
-            return auctionDTOs;
+            return  _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
         }
 
         public async Task<AuctionDTO> GetAuctionByIdAsync(int id)
@@ -23,51 +23,33 @@ namespace backend.Services
             return _mapper.Map<AuctionDTO>(auction);
         }
 
-        public async Task AddAuctionAsync(AuctionDTO auctionDto)
+        public async Task AddAuctionAsync(AuctionRegistrationDTO auctionDto)
         {
-            var auction = new Auction
-            {
-                CreatedAt = auctionDto.CreatedAt,
-                EndsAt = auctionDto.EndsAt,
-                FirstPrice = (decimal)auctionDto.FirstPrice,
-                EstimatedMinimum = auctionDto.EstimatedMinimum.HasValue 
-                    ? (decimal)auctionDto.EstimatedMinimum.Value 
-                    : null,
-                EstimatedMaximum = auctionDto.EstimatedMaximum.HasValue 
-                    ? (decimal)auctionDto.EstimatedMaximum.Value 
-                    : null,
-                IsArchived = auctionDto.IsArchived,
-                ProductId = auctionDto.Product?.Id
-            };
-
-            await _auctionRepository.AddAuctionAsync(auction);
-        }   
+           var auction = _mapper.Map<Auction>(auctionDto);
+           auction.CreatedAt = DateTime.Now;
+           auction.IsArchived = false;
+           auction.Product = await _productService.GetModelById(auctionDto.ProductId);
+           await _auctionRepository.AddAuctionAsync(auction);
+        }
 
         public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
         {
             var auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
             if (auction == null) return;
 
-            auction.CreatedAt = auctionDto.CreatedAt;
-            auction.EndsAt = auctionDto.EndsAt;
-            auction.FirstPrice = (decimal)auctionDto.FirstPrice;
-            auction.EstimatedMinimum = auctionDto.EstimatedMinimum.HasValue 
-                ? (decimal)auctionDto.EstimatedMinimum.Value 
-                : null;
-            auction.EstimatedMaximum = auctionDto.EstimatedMaximum.HasValue 
-                ? (decimal)auctionDto.EstimatedMaximum.Value 
-                : null;
-            auction.IsArchived = auctionDto.IsArchived;
-            auction.ProductId = auctionDto.Product?.Id;
+            _mapper.Map(auctionDto, auction);
 
             await _auctionRepository.UpdateAuctionAsync(auction);
-        }  
+        } 
 
         public async Task DeleteAuctionsAsync(int id)
         {
             var auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
-            await _auctionRepository.DeleteAuctionAsync(auction.Id);
+            if (auction.Id != null)
+            {
+                await _auctionRepository.DeleteAuctionAsync((int)auction.Id);
+            }
         }
-     }
+    }
 }
