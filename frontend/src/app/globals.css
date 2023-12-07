@@ -29,39 +29,45 @@ p {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-/* START: General styles */
-.max-width {
-  @apply max-w-[1440px] mx-auto;
+.artists-scroll-container {
+  overflow-x: hidden;
+  position: relative;
 }
 
-.padding-x {
-  @apply sm:px-16 px-6;
+.scroll-arrows {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  z-index: 1;
 }
 
-.padding-y {
-  @apply py-4;
+.scroll-arrows button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  outline: none;
 }
 
-.flex-center {
-  @apply flex items-center justify-center;
+.scroll-arrows button:hover {
+  @apply text-light-gray;
 }
 
-.flex-between {
-  @apply flex justify-between items-center;
+.scroll-arrows button.left {
+  left: 16px; /* Adjust the position from the left */
+}
+
+.scroll-arrows button.right {
+  right: 16px; /* Adjust the position from the right */
 }
 
 .custom-btn {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
-.main__title {
-  @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
-}
-
-.sellBtn {
-  @apply text-lime-600;
-}
-
-.footer {
-  @apply bg-[#627A6E] text-white;
+nav a:hover {
+  @apply text-dark-gray;
 }
