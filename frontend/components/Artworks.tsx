@@ -1,17 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ArtworkCard from "./ArtworkCard";
+import apiService from "../services/apiService";
 
-interface IArtworks {
-  artworks: any[];
-}
+const Artworks = () => {
+  const [auctions, setAuctions] = useState<[]>([]);
 
-const Artworks = ({ artworks }: IArtworks) => {
+  useEffect(() => {
+    apiService
+      .get(`/auction`) // still need to change the names of controllers xd
+      .then((data) => setAuctions(data))
+      .catch((error) => console.error("Error: ", error));
+  }, []);
+
   return (
     <div className="grid grid-cols-6 gap-4">
-      {artworks.map((artwork, index) => (
-        <ArtworkCard key={index} artwork={artwork} />
-      ))}
+      {auctions &&
+        auctions.map((auction: any, index: number) => (
+          <ArtworkCard key={index} artwork={auction} />
+        ))}
     </div>
   );
 };
