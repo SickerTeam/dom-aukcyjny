@@ -1,7 +1,7 @@
 import { Artworks, Filters, Path } from "..";
 
 async function getAllAuctions() {
-  const res = await fetch("http://localhost:5156/auction");
+  const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/auction");
 
   if (!res.ok) {
     throw new Error("Failed to fetch auctions");
@@ -11,8 +11,8 @@ async function getAllAuctions() {
 }
 
 const AuctionsListPage = async () => {
- // const auctions = await getAllAuctions();
- const auctions = [1, 2, 3]
+  const auctions = await getAllAuctions();
+
 
   return (
     <div>
