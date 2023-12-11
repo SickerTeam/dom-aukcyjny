@@ -13,15 +13,13 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPosts()
         {
-            var posts = await _postService.GetPostsAsync();
-            return Ok(posts);
+            return Ok(await _postService.GetPostsAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<InstaBuyDTO>> GetInstaBuyById(int id)
         {
-            var posts = await _postService.GetPostByIdAsync(id);
-            return Ok(posts);
+            return Ok(await _postService.GetPostByIdAsync(id));
         }
 
         [HttpPost]

@@ -14,8 +14,7 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InstaBuyDTO>>> GetAllInstaBuys()
         {
-            var instaBuys = await _instaBuyService.GetAllInstaBuysAsync();
-            return Ok(instaBuys);
+            return Ok(await _instaBuyService.GetAllInstaBuysAsync());
         }
 
         [HttpGet("{id}")]

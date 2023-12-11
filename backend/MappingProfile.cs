@@ -38,6 +38,10 @@ namespace backend
             CreateMap<CommentRegistrationDTO, Comment>();
             CreateMap<Comment, CommentDTO>();
             CreateMap<CommentDTO, Comment>();
+
+            CreateMap<BidRegistrationDTO, Bid>();
+            CreateMap<Bid, BidDTO>();
+            CreateMap<BidDTO, Bid>();
         }
     }
 }
