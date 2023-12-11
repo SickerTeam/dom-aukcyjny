@@ -19,4 +19,6 @@ public class User
     public string Country { get; set; }
 
     public string PersonalLink { get; set; }
+
+    public string ProfilePictureLink { get; set; }
 }

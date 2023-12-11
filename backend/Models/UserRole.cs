@@ -2,8 +2,7 @@
 {
     public enum UserRole
     {
-        Buyer,
-        Artist,
+        User,
         Admin
     }
 }

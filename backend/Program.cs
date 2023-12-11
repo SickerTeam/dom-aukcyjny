@@ -11,6 +11,7 @@ namespace backend
     {
         public static void Main(string[] args)
         {
+            var  policyName = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
@@ -35,6 +36,18 @@ namespace backend
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IProductService, ProductService>();
 
+            builder.Services.AddCors(options =>
+{
+            options.AddPolicy(name: policyName,
+                      builder =>
+                      {
+                          builder
+                            .WithOrigins("http://localhost:3000") // specifying the allowed origin
+                            .WithMethods("GET") // defining the allowed HTTP method
+                            .AllowAnyHeader(); // allowing any header to be sent
+                      });
+});
+
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -53,6 +66,8 @@ namespace backend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(policyName);
 
             app.UseAuthorization();
 

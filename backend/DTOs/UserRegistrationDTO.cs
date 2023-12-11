@@ -18,19 +18,16 @@ namespace backend.DTOs
         public string ConfirmPassword { get; set; }
         [Required]
         public string Country { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
+
         [Required]
-        public UserRole Role { get; set; }
+        public string PersonalLink { get; set;}
 
-        public UserRegistrationDTO() { }
+        [Required]
+        public string ProfilePictureLink {get; set;}
 
-        public UserRegistrationDTO(string email, string firstName, string lastName, string password, string country, UserRole role)
-        {
-            Email = email;
-            FirstName = firstName;
-            LastName = lastName;
-            Password = password;
-            Country = country;
-            Role = role;
-        }
+        [Required]
+        public string Bio { get; set; }
+
     }
 }

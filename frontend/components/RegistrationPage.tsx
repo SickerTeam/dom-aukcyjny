@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 type RegistrationPageProps = {
- formData: { email: string; password: string; firstName: string; lastName: string; bio: string; country: string };
+ formData: { email: string; password: string; confirmPassword: string; firstName: string; lastName: string; bio: string; country: string; personalLink: string; profilePictureLink: string; };
  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
@@ -40,6 +40,20 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
          value={formData.password}
          onChange={handleChange}
          placeholder="Enter your password"
+       />
+     </div>
+     <div className="mb-4">
+       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
+        Confirm Password:
+       </label>
+       <input
+         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         id="confirmPassword"
+         type="password"
+         name="confirmPassword"
+         value={formData.confirmPassword}
+         onChange={handleChange}
+         placeholder="Confirm your password"
        />
      </div>
      <div className="mb-4">
@@ -97,12 +111,42 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
          placeholder="Enter your country"
        />
      </div>
+     <div className="mb-4">
+       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="personalLink">
+         Personal link :
+       </label>
+       <input
+         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         id="personalLink"
+         type="text"
+         name="personalLink"
+         value={formData.personalLink}
+         onChange={handleChange}
+         placeholder="Enter your personal link"
+       />
+     </div>
+     <div className="mb-4">
+       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePictureLink">
+         Profile picture link:
+       </label>
+       <input
+         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+         id="profilePictureLink"
+         type="text"
+         name="profilePictureLink"
+         value={formData.profilePictureLink}
+         onChange={handleChange}
+         placeholder="Enter your profile picture link"
+       />
+     </div>
      <div className="flex items-center justify-end">
        <button
          className="bg-black text-white w-full py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto block"
          type="submit"
        >
+        <a href="/yourProfile"> 
          Register
+        </a>
        </button>
      </div>
    </form>
