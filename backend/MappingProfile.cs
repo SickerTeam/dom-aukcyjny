@@ -31,6 +31,7 @@ namespace backend
             CreateMap<Picture, PictureDTO>();
             CreateMap<PictureDTO, Picture>();
 
+            CreateMap<LikeRegistrationDTO, Like>();         
             CreateMap<Like, LikeDTO>();
             CreateMap<LikeDTO, Like>();
 
