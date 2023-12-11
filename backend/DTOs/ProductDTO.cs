@@ -19,7 +19,5 @@ public class ProductDTO
 
     public string Description { get; set; }
 
-    public int? ArtistId { get; set; }
-
     public virtual UserDTO Artist { get; set; }
 }

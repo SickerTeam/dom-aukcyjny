@@ -10,7 +10,8 @@ namespace backend.Services
         int GetNumberOfUsers();
         Task<IEnumerable<UserDTO>> GetUsersAsync();
         Task<UserDTO> GetUserByIdAsync(int id);
-        Task AddUserAsync(UserRegisterationDTO userDto);
+        Task<User> GetModelById(int id);
+        Task AddUserAsync(UserRegistrationDTO userDto);
         Task UpdateUserAsync(UserDTO userDto);
         Task DeleteUserAsync(int id);
     }
