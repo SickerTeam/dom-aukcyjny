@@ -12,10 +12,14 @@ type AuctionPageType = {
 
 const AuctionPage = ({ id }: AuctionPageType) => {
   // fetch given auction or pass auction from the auction list page - no need to fetch the same auction again
-  
+  const auction = {
+    id: id,
+    title: "Mona Lisa by Leonardo da Vinci",
+    photos: [1, 2, 3, 4, 5, 6, 7],
+  };
 
   return (
-    <div className="grid grid-cols-4 grid-rows-7 gap-4">
+    <div className="grid grid-cols-4 grid-rows-7 gap-4 px-40">
       <div className="col-span-3 row-span-5">
         <Path />
         <ArtworkTitle title={auction.title} />
