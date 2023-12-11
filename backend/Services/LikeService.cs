@@ -30,6 +30,7 @@ namespace backend.Services
         public async Task AddLikesAsync(LikeRegistrationDTO likeDto)
         {
             var like = _mapper.Map<Like>(likeDto);
+            like.TimeLiked = DateTime.Now;
             await _likeRepository.AddLikesAsync(like);
         }
 

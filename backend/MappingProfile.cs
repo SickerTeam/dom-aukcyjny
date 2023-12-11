@@ -35,6 +35,7 @@ namespace backend
             CreateMap<Like, LikeDTO>();
             CreateMap<LikeDTO, Like>();
 
+            CreateMap<CommentRegistrationDTO, Comment>();
             CreateMap<Comment, CommentDTO>();
             CreateMap<CommentDTO, Comment>();
         }

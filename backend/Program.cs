@@ -29,6 +29,7 @@ namespace backend
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
@@ -36,6 +37,7 @@ namespace backend
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
