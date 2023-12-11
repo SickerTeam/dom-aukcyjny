@@ -19,7 +19,7 @@ const Navbar = () => {
           <Link href="/instabuys">Buy now</Link>
           <Link href="/pricing">Pricing</Link>
           <Link href="/help">Help</Link>
-          <Link href="/log-in">Log in</Link>
+          <Link href="/login">Log in</Link>
         </div>
       </nav>
     </header>

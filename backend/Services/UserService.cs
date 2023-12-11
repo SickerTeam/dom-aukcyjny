@@ -29,6 +29,7 @@ namespace backend.Services
 
         public async Task<User> GetModelById(int id)
         {
+
             return await _userRepository.GetUserByIdAsync(id);
         }
 
