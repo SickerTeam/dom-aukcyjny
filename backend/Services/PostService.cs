@@ -62,7 +62,7 @@ namespace backend.Services
 
         public async Task UpdatePostAsync(PostDTO postDto)
         {          
-            var post = await _postRepository.GetPostByIdAsync((int)postDto.Id);
+            var post = await _postRepository.GetPostByIdAsync(postDto.Id);
             if (post == null) return;
 
             _mapper.Map(postDto, post);
