@@ -13,9 +13,11 @@ namespace backend.DTOs
         public string Link { get; set; }
         public UserRole Role { get; set; }
 
+        public string ProfilePictureLink { get; set; }
+
         public UserDTO(){}
 
-        public UserDTO(int id, string email, string firstName, string lastName, string bio, string country, string link, UserRole role)
+        public UserDTO(int id, string email, string firstName, string lastName, string bio, string country, string link, UserRole role, string profilePictureLink )
         {
             Id = id;
             Email = email;
@@ -25,6 +27,7 @@ namespace backend.DTOs
             Country = country;
             Link = link;
             Role = role;
+            ProfilePictureLink = profilePictureLink;
         }
     }
 }
