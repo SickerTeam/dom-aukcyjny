@@ -10,11 +10,8 @@ namespace backend.Repositories
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
         {
-            return await _context.Posts
-                .Include(p => p.Likes)
-                .Include(p => p.Comments)
-                .Include(p => p.Pictures)
-                .ToListAsync();
+
+            return await _context.Posts.Include( x => x.User).ToListAsync();
         }
 
         public async Task<Post> GetPostByIdAsync(int id)
