@@ -11,7 +11,7 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
   return (
     <div>
       <h2>Closes in 3d 21h 47m 15s</h2>
-      <div className="panel-container bg-gray-300 p-2 ">
+      <div className="panel-container bg-light-gray p-2 ">
         <div className="panel-price-container my-2">
           <p className="current-bid uppercase">current bid</p>
           <h2>€ 12,400</h2>
@@ -29,7 +29,6 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
         </div>
         <div className="panel-bid-container my-2">
           <div className="suggested-bids flex gap-2">
-            {/* change divs to buttons i guess */}
             <button className="border border-black rounded bg-white">
               € 12,600
             </button>

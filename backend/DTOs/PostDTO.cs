@@ -1,42 +1,28 @@
-﻿using backend.Models;
+#nullable disable
+
+using System.ComponentModel.DataAnnotations;
+using backend.Validation;
 
 namespace backend.DTOs
 {
     public class PostDTO
     {
+        [Required]
+        [Range(1, int.MaxValue)]
         public int Id { get; set; }
 
-        public UserDTO? User { get; set; }
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int UserId { get; set; }
 
+        [Required]
+        [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public string Text { get; set; }
 
+        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime? TimePosted { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
-        public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
-
-        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
-
-        public PostDTO(){}
-
-        public PostDTO(int id, UserDTO user, string text, DateTime? timePosted)
-        {
-            Id = id;
-            User = user;
-            Text = text;
-            TimePosted = timePosted;
-        }
-
-        public PostDTO(int id, UserDTO user, string text, DateTime? timePosted, ICollection<Comment> comments, ICollection<Like> likes, ICollection<Picture> pictures)
-        {
-            Id = id;
-            User = user;
-            Text = text;
-            TimePosted = timePosted;
-            Comments = comments;
-            Likes = likes;
-            Pictures = pictures;
-        }
+        public virtual ICollection<CommentDTO> Comments { get; set; }
+        public virtual ICollection<LikeDTO> Likes { get; set; }
+        public virtual ICollection<PictureDTO> Pictures { get; set; }
     }
 }
