@@ -1,18 +1,36 @@
-using backend.Models;
-using System;
-
+using System.ComponentModel.DataAnnotations;
+using backend.Validation;
 namespace backend.DTOs
+
 {
-    public class AuctionRegistrationDTO(DateTime createdAt, DateTime endsAt, double firstPrice,
-                  double? estimatedMinimum, double? estimatedMaximum, bool isArchived,
-                  ProductDTO product)
+    public class AuctionRegistrationDTO
     {
-        public DateTime CreatedAt { get; set; } = createdAt;
-        public DateTime EndsAt { get; set; } = endsAt;
-        public double FirstPrice { get; set; } = firstPrice;
-        public double? EstimatedMinimum { get; set; } = estimatedMinimum;
-        public double? EstimatedMaximum { get; set; } = estimatedMaximum;
-        public bool IsArchived { get; set; } = isArchived;
-        public ProductDTO ProductDto { get; set; } = product;
+        // [Required]
+        // [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
+        // public DateTime CreatedAt { get; set; }
+        
+        [Required]
+        [FutureDate]
+        public DateTime EndsAt { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double FirstPrice { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double EstimatedMinimum { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public double EstimatedMaximum { get; set; }
+
+        // [Required]
+        // [MustBeFalse(ErrorMessage = "This field must be false.")]
+        // public bool IsArchived { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int ProductId { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPostAsync(PostDTO postDto)
+        public async Task<ActionResult> AddPostAsync(PostRegistrationDTO postDto)
         {
             await _postService.AddPostAsync(postDto);
             return Ok();

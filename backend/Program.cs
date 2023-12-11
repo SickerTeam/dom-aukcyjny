@@ -2,8 +2,8 @@ using AutoMapper;
 using backend.Data;
 using backend.Repositories;
 using backend.Services;
-using backend.Utilities;
 using Microsoft.EntityFrameworkCore;
+using backend.Utilities;
 
 namespace backend
 {
@@ -12,6 +12,9 @@ namespace backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var configuration = builder.Configuration;
+
+            builder.Services.AddSingleton<IConfiguration>(configuration);
 
 
             var configuration = builder.Configuration;
@@ -33,10 +36,20 @@ namespace backend
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+            builder.Services.AddScoped<IPostRepository, PostRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
-            builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IPictureService, PictureService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

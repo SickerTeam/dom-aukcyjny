@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Source+Sans+Pro:wght@400;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,43 +10,64 @@
   box-sizing: border-box;
 }
 
-/* START: General styles */
-.max-width {
-  @apply max-w-[1440px] mx-auto;
+html,
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #fcfcfc;
 }
 
-.padding-x {
-  @apply sm:px-16 px-6;
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
 }
 
-.padding-y {
-  @apply py-4;
+h4,
+h5,
+h6,
+p {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
-.flex-center {
-  @apply flex items-center justify-center;
+.artists-scroll-container {
+  overflow-x: hidden;
+  position: relative;
 }
 
-.flex-between {
-  @apply flex justify-between items-center;
+.scroll-arrows {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  z-index: 1;
+}
+
+.scroll-arrows button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  outline: none;
+}
+
+.scroll-arrows button:hover {
+  @apply text-light-gray;
+}
+
+.scroll-arrows button.left {
+  left: 16px; /* Adjust the position from the left */
+}
+
+.scroll-arrows button.right {
+  right: 16px; /* Adjust the position from the right */
 }
 
 .custom-btn {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
-.main {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
-}
-
-.main__title {
-  @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
-}
-
-.sellBtn {
-  @apply text-lime-600
-}
-
-.footer {
-  @apply bg-[#627A6E] text-white
+nav a:hover {
+  @apply text-dark-gray;
 }

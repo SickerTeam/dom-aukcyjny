@@ -10,19 +10,29 @@ namespace backend.Repositories
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
         {
-            return await _context.Posts.ToListAsync();
+
+            return await _context.Posts.Include( x => x.User).ToListAsync();
         }
 
         public async Task<Post> GetPostByIdAsync(int id)
         {
-            var Post = await _context.Posts.FindAsync(id);
-            return Post ?? throw new ArgumentException("Post not found");
+            var post = await _context.Posts
+                .Include(p => p.Likes)
+                .Include(p => p.Comments)
+                .Include(p => p.Pictures)
+                .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
+            return post;
         }
 
-         public async Task AddPostAsync(Post Post)
+        public async Task<int> AddPostAsync(Post Post)
         {
             await _context.Posts.AddAsync(Post);
             await _context.SaveChangesAsync();
+            if (Post.Id == null) 
+            {
+                throw new ArgumentException("Couldn't add post");
+            }
+            return (int)Post.Id;
         }
 
         public async Task UpdatePostAsync(Post Post)

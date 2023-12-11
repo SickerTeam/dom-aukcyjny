@@ -4,15 +4,15 @@ namespace backend.Models;
 
 public class AuctionPurchase
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
-    public int? SellerId { get; set; }
+    public int SellerId { get; set; }
 
-    public int? BuyerId { get; set; }
+    public int BuyerId { get; set; }
 
-    public int? AuctionId { get; set; }
+    public int AuctionId { get; set; }
 
-    public decimal? FinalPrice { get; set; }
+    public decimal FinalPrice { get; set; }
 
     public DateTime? PurchasedAt { get; set; }
 

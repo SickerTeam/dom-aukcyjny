@@ -1,10 +1,12 @@
 ﻿using backend.DTOs;
+using backend.Models;
 
 namespace backend.Services
 {
     public interface IProductService
     {
         Task<ProductDTO> GetProductByIdAsync(int id);
+        Task<Product> GetModelById(int id);
         Task<IEnumerable<ProductDTO>> GetAllProductsAsync();
         Task AddProductAsync(ProductDTO productDTO);
         Task UpdateProductAsync(ProductDTO productDTO);

@@ -68,20 +68,9 @@ namespace backend.Services
         public async Task DeleteUserAsync(int id)
         {
             var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null) return;
+            if (user == null || user.Id == null) return;
 
-            await _userRepository.DeleteUserAsync(user.Id);
-        }
-
-        public async Task<string> LoginUserAsync(UserLoginDTO loginDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task LogoutUserAsync(int id)
-        {
-            throw new NotImplementedException();
-            //await _authenticationService.LogoutUserAsync(id);
+            await _userRepository.DeleteUserAsync((int)user.Id);
         }
     }
 

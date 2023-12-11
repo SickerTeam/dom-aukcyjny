@@ -6,7 +6,7 @@ namespace backend.Repositories
     {
         Task<IEnumerable<Post>> GetPostsAsync();
         Task<Post> GetPostByIdAsync(int id);
-        Task AddPostAsync(Post post);
+        Task<int> AddPostAsync(Post post);
         Task UpdatePostAsync(Post post);
         Task DeletePostAsync(int id);
         // Task<IList<Like>> GetLikesByPostIdAsync(int id);

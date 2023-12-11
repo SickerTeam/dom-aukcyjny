@@ -27,7 +27,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddInstaBuy(InstaBuyDTO instaBuyDto)
+        public async Task<ActionResult> AddInstaBuy(InstaBuyRegistrationDTO instaBuyDto)
         {
             await _instaBuyService.AddInstaBuyAsync(instaBuyDto);
             return Ok();

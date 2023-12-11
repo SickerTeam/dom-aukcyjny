@@ -6,15 +6,15 @@ public class Auction
 {
     public int? Id { get; set; }
 
-    public DateTime? EndsAt { get; set; }
+    public DateTime EndsAt { get; set; }
 
-    public decimal? FirstPrice { get; set; }
+    public decimal FirstPrice { get; set; }
 
     public Product Product { get; set; }
 
-    public decimal? EstimatedMinimum { get; set; }
+    public decimal EstimatedMinimum { get; set; }
 
-    public decimal? EstimatedMaximum { get; set; }
+    public decimal EstimatedMaximum { get; set; }
 
     public bool? IsArchived { get; set; }
 
