@@ -11,7 +11,8 @@ async function getAllAuctions() {
 }
 
 const AuctionsListPage = async () => {
-  const auctions = await getAllAuctions();
+ // const auctions = await getAllAuctions();
+ const auctions = [1, 2, 3]
 
   return (
     <div>
