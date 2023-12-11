@@ -16,10 +16,6 @@ namespace backend
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
 
-
-            var configuration = builder.Configuration;
-            builder.Services.AddSingleton<IConfiguration>(configuration);
-
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
