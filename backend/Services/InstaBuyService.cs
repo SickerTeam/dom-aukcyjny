@@ -28,7 +28,7 @@ namespace backend.Services
             var instaBuy = _mapper.Map<InstaBuy>(instaBuyDto);
             instaBuy.IsArchived = false;
             instaBuy.CreatedAt = DateTime.Now;
-            instaBuy.Product = await _productService.GetModelById(instaBuyDto.ProductId);
+            // instaBuy.Product = await _productService.GetModelById(instaBuyDto.ProductId);
             await _instaBuyRepository.AddInstaBuyAsync(instaBuy);
         }
 

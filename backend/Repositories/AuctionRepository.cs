@@ -1,5 +1,7 @@
 ﻿using backend.Data;
+using backend.Data.Models;
 using backend.Models;
+using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -8,38 +10,51 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IList<Auction>> GetAuctionsAsync()
+        public async Task<IList<DbAuction>> GetAuctionsAsync()
         {
-            return await _context.Auctions.Include(auction => auction.Product)
-            .ThenInclude(product => product.Artist)
-            .ToListAsync();
+            return await _context.Auction
+                .Include(auction => auction.Product)
+                .ToListAsync();
         }
 
-        public async Task<Auction> GetAuctionByIdAsync(int id)
+        public async Task<DbAuction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auctions.Where(x => x.Id == id)
-            .Include(auction => auction.Product)
-            .ThenInclude(product => product.Artist)
-            .FirstOrDefaultAsync();
+            var auction = await _context.Auction
+                .Where(x => x.Id == id)
+                .Include(auction => auction.Product)
+                .FirstOrDefaultAsync();
+
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
-        public async Task AddAuctionAsync(Auction auction)
+        public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction, int productId)
         {
-            await _context.Auctions.AddAsync(auction);
+            var dbAuction = new DbAuction
+            {
+                EndsAt = auction.EndsAt,
+                EstimatedMinimum = auction.EstimatedMinimum,
+                EstimatedMaximum = auction.EstimatedMaximum,
+                StartingPrice = auction.StartingPrice,
+                MinimumPrice = auction.MinimumPrice,
+                ProductId = productId,
+            };
+
+            await _context.Auction.AddAsync(dbAuction);
             await _context.SaveChangesAsync();
+
+            return dbAuction;
         }
 
         public async Task UpdateAuctionAsync(Auction auction)
         {
-            _context.Auctions.Update(auction);
+            // _context.Auctions.Update(auction);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAuctionAsync(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id) ?? throw new ArgumentException("Auction not found");
-            _context.Auctions.Remove(auction);
+            var auction = await _context.Auction.FindAsync(id) ?? throw new ArgumentException("Auction not found");
+            _context.Auction.Remove(auction);
             await _context.SaveChangesAsync();
         }
     }

@@ -6,19 +6,19 @@ namespace Testing.Validation
 {
     public class AuctionRegistrationValidationTest
     {
-        private readonly AuctionRegistrationDTO _auctionRegistrationDTO;
+        private readonly AuctionCreationDTO _auctionRegistrationDTO;
 
         public AuctionRegistrationValidationTest()
         {
-            _auctionRegistrationDTO = new AuctionRegistrationDTO
+            _auctionRegistrationDTO = new AuctionCreationDTO
             {
                 // CreatedAt = DateTime.Now.AddSeconds(-59),
                 EndsAt = DateTime.Now.AddSeconds(1),
-                FirstPrice = 0.01,
+                StartingPrice = 0.01,
                 EstimatedMinimum = 0.01,
                 EstimatedMaximum = 0.01,
                 // IsArchived = false,
-                ProductId = 1
+                // ProductId = 1
             };
         }
 
@@ -34,10 +34,10 @@ namespace Testing.Validation
         {
             // _auctionRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-5);
             _auctionRegistrationDTO.EndsAt = DateTime.Now.AddDays(14);
-            _auctionRegistrationDTO.FirstPrice = double.MaxValue;
+            _auctionRegistrationDTO.StartingPrice = double.MaxValue;
             _auctionRegistrationDTO.EstimatedMinimum = double.MaxValue;
             _auctionRegistrationDTO.EstimatedMaximum = double.MaxValue;
-            _auctionRegistrationDTO.ProductId = int.MaxValue;
+            // _auctionRegistrationDTO.ProductId = int.MaxValue;
             var result = ValidateModel(_auctionRegistrationDTO);
             Assert.True(result);
         }
@@ -61,7 +61,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_FirstPrice_Min()
         {
-            _auctionRegistrationDTO.FirstPrice = 0;
+            _auctionRegistrationDTO.StartingPrice = 0;
             var result = ValidateModel(_auctionRegistrationDTO);
             Assert.False(result);
         }
@@ -85,7 +85,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
-            _auctionRegistrationDTO.ProductId = 0;
+            // _auctionRegistrationDTO.ProductId = 0;
             var result = ValidateModel(_auctionRegistrationDTO);
             Assert.False(result);
         }

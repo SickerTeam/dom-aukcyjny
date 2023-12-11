@@ -6,7 +6,7 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostController(IPostService postService) : ControllerBase
+    public class PostsController(IPostService postService) : ControllerBase
     {
         private readonly IPostService _postService = postService;
 

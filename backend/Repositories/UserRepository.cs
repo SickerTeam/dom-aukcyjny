@@ -2,6 +2,7 @@
 using backend.Models;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
+using backend.Data.Models;
 
 namespace backend.Repositories
 {
@@ -15,18 +16,18 @@ namespace backend.Repositories
             return numberOfUsers;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<DbUser>> GetUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<DbUser> GetUserByIdAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
             return user ?? throw new ArgumentException("User not found");
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task AddUserAsync(DbUser user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -34,7 +35,7 @@ namespace backend.Repositories
 
         public async Task UpdateUserAsync(User user)
         {
-            _context.Users.Update(user);
+            // _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
 

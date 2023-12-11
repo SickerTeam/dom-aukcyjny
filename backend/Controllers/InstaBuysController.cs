@@ -7,7 +7,7 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InstaBuyController(IInstaBuyService instaBuyService) : ControllerBase
+    public class InstaBuysController(IInstaBuyService instaBuyService) : ControllerBase
     {
         private readonly IInstaBuyService _instaBuyService = instaBuyService;
 
