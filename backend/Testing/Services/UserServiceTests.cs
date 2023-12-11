@@ -49,7 +49,8 @@ namespace backend.Testing
                     LastName = "One", 
                     Bio = "Bio One", 
                     Country = "Country One", 
-                    PersonalLink = "Link One" 
+                    PersonalLink = "Link One",
+                    ProfilePictureLink = "ProfilePictureLink One"
                 },
                 new() { 
                     Id = 2, 
@@ -58,14 +59,15 @@ namespace backend.Testing
                     LastName = "Two", 
                     Bio = "Bio Two", 
                     Country = "Country Two", 
-                    PersonalLink = "Link Two" 
+                    PersonalLink = "Link Two",
+                    ProfilePictureLink = "ProfilePictureLink One"
                 }
             };
 
             var userDTOs = new List<UserDTO>
             {
-                new(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin),
-                new(2, "test2@test.com", "Test", "Two", "Bio Two", "Country Two", "Link Two", UserRole.Admin)
+                new(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin, "link"),
+                new(2, "test2@test.com", "Test", "Two", "Bio Two", "Country Two", "Link Two", UserRole.Admin,"link")
             };
 
             _userRepositoryMock.Setup(repo => repo.GetUsersAsync()).ReturnsAsync(users);
@@ -82,7 +84,7 @@ namespace backend.Testing
         public async Task GetUserByIdAsync_UserExists_ReturnsUser()
         {
             // Arrange
-            var expectedUser = new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin);
+            var expectedUser = new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin,"Link");
             _userRepositoryMock.Setup(ur => ur.GetUserByIdAsync(expectedUser.Id))
                 .ReturnsAsync(new User 
                 { 
@@ -93,6 +95,7 @@ namespace backend.Testing
                     Bio = expectedUser.Bio,
                     Country = expectedUser.Country,
                     PersonalLink = expectedUser.Link,
+                    ProfilePictureLink = expectedUser.ProfilePictureLink
                 });
             _mapperMock.Setup(m => m.Map<UserDTO>(It.IsAny<User>())).Returns(expectedUser);
 
@@ -128,7 +131,7 @@ namespace backend.Testing
         public async Task UpdateUserAsync_UpdatesUser()
         {
             // Arrange
-            var userDto = new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin);
+            var userDto = new UserDTO(1, "test1@test.com", "Test", "One", "Bio One", "Country One", "Link One", UserRole.Admin, "Link");
             _userRepositoryMock.Setup(ur => ur.GetUserByIdAsync(userDto.Id)).ReturnsAsync(new User());
             _userRepositoryMock.Setup(ur => ur.UpdateUserAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
 

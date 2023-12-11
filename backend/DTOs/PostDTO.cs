@@ -6,7 +6,7 @@ namespace backend.DTOs
     {
         public int Id { get; set; }
 
-        public int? UserId { get; set; }
+        public UserDTO? User { get; set; }
 
         public string Text { get; set; }
 
@@ -20,18 +20,18 @@ namespace backend.DTOs
 
         public PostDTO(){}
 
-        public PostDTO(int id, int? userId, string text, DateTime? timePosted)
+        public PostDTO(int id, UserDTO user, string text, DateTime? timePosted)
         {
             Id = id;
-            UserId = userId;
+            User = user;
             Text = text;
             TimePosted = timePosted;
         }
 
-        public PostDTO(int id, int? userId, string text, DateTime? timePosted, ICollection<Comment> comments, ICollection<Like> likes, ICollection<Picture> pictures)
+        public PostDTO(int id, UserDTO user, string text, DateTime? timePosted, ICollection<Comment> comments, ICollection<Like> likes, ICollection<Picture> pictures)
         {
             Id = id;
-            UserId = userId;
+            User = user;
             Text = text;
             TimePosted = timePosted;
             Comments = comments;

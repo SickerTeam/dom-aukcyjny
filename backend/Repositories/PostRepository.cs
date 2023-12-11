@@ -10,7 +10,7 @@ namespace backend.Repositories
 
         public async Task<IEnumerable<Post>> GetPostAsync()
         {
-            return await _context.Posts.ToListAsync();
+            return await _context.Posts.Include( x => x.User).ToListAsync();
         }
 
         public async Task<Post> GetPostByIdAsync(int id)

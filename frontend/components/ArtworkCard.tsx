@@ -18,13 +18,13 @@ const ArtworkCard = ({ artwork, handleClick }: ArtworkCardType) => {
         height={350}
       />
       <h1 className="w-full text-black text-2xl font-semibold font-['Playfair Display']">
-        {artwork.title}
+        {artwork.product && artwork.product.title}
       </h1>
       <div className="text-neutral-500 text-base font-normal font-['Source Sans Pro']">
         CURRENT BID
       </div>
       <h2 className="text-neutral-900 text-2xl font-semibold font-['Source Sans Pro']">
-        €{artwork.price}
+        €{artwork.firstPrice}
       </h2>
       <p className="text-neutral-500 text-base font-semibold font-['Source Sans Pro']">
         {artwork.time} days left

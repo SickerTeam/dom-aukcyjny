@@ -37,7 +37,8 @@ namespace backend.Services
                 LastName = userDto.LastName,
                 Bio = userDto.Bio,
                 Country = userDto.Country,
-                PersonalLink = userDto.Link
+                PersonalLink = userDto.Link,
+                
             };
 
             await _userRepository.AddUserAsync(user);

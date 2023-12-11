@@ -11,9 +11,8 @@ async function getAllAuctions() {
 }
 
 const AuctionsListPage = async () => {
-  //const auctions = await getAllAuctions();
-  //console.log(auctions);
-const auctions = [1, 2, 3]
+  const auctions = await getAllAuctions();
+
   return (
     <div>
       <Path />
