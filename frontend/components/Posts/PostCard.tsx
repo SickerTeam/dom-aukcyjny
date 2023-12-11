@@ -14,8 +14,26 @@ type PostCardType = {
     post : any
 }
 
+const calculateTimeAgo = (post : any) => {
+  const postTime = new Date(post.timePosted);
+  const currentTime = new Date();
+  const timeDifference = currentTime.getTime() - postTime.getTime();
+
+  const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysDifference > 0
+    ? `${daysDifference} days ago`
+    : hoursDifference > 0
+    ? `${hoursDifference} hours ago`
+    : `${minutesDifference} minutes ago`;
+};
+
 const PostCard = async ({ post }: PostCardType) => {
   const user = await getUserById(post.userId);
+  const timeAgo = calculateTimeAgo(post);
+  console.log(post)
   return (
     <div className="flex justify-center items-center flex-row">
       <div className="w-2/3">
@@ -25,7 +43,7 @@ const PostCard = async ({ post }: PostCardType) => {
               <UserCard user={user}/>
               <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6 ml-auto">
                 <div className="text-sm leading-4">
-                  <div className="text-slate-900 dark:text-slate-400">20s</div>
+                  <div className="text-slate-900 dark:text-slate-400">{timeAgo}</div>
                 </div>
               </li>
             </ul>

@@ -11,7 +11,7 @@ const UserCard = async ({user} : UserCardType ) => {
                 <div className="text-sm leading-4">
                     <div className="text-slate-900 dark:text-slate-800">{user && user.firstName} {user && user.lastName} </div>
                     <div className="mt-1">
-                        <a href="https://www.youtube.com/watch?v=6yTpJFgTB8s&ab_channel=Jasperium" className="text-sky-500 hover:text-sky-600 dark:text-sky-400">we dont have user names and im not gonna implement it</a>
+                        <a href="https://www.youtube.com/watch?v=6yTpJFgTB8s&ab_channel=Jasperium" className="text-sky-500 hover:text-sky-600 dark:text-sky-400">username</a>
                     </div>
                 </div>
             </li>
