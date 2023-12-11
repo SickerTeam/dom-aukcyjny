@@ -2,61 +2,66 @@ using AutoMapper;
 using backend.DTOs;
 using backend.Models;
 using backend.Utilities;
-using Microsoft.AspNetCore.Identity;
 
 namespace backend.Services
 {
-public class AuthenticationService : IAuthenticationService
-{
-    private readonly SignInManager<User> _signInManager;
-    private readonly UserManager<User> _userManager;
-    private readonly IMapper _mapper;
-    private readonly JwtUtils jwtUtils;
-
-    public AuthenticationService(SignInManager<User> signInManager, UserManager<User> userManager, IMapper mapper)
+    public class AuthenticationService : IAuthenticationService
     {
-        _signInManager = signInManager;
-        _userManager = userManager;
-        _mapper = mapper;
+        private readonly IMapper _mapper;
+
+        private readonly IUserService _userService;
+        private readonly JwtUtils _jwtUtils;
+
+        public AuthenticationService(IMapper mapper, IUserService userService, JwtUtils jwtUtils)
+        {
+            _mapper = mapper;
+            _userService = userService;
+            _jwtUtils = jwtUtils;
         }
 
-        public async Task<string> RegisterUserAsync(UserRegistrationDTO dto)
-    {
-        var user = _mapper.Map<User>(dto);
-        var identityUser = _mapper.Map<IdentityUser>(user);
-        identityUser.UserName = user.Email;
-
-        var result = await _userManager.CreateAsync(user, dto.Password);
-        if (result.Succeeded)
+        public async Task<string> RegisterUserAsync(UserRegistrationDTO registrationDto)
         {
-            await _signInManager.SignInAsync(user, isPersistent: false);
-
-            return jwtUtils.GenerateJwtToken(user);
-        }
-
-        throw new Exception($"Registration failed: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-    }
-
-      public async Task<string> LoginUserAsync(UserLoginDTO dto)
-    {
-        var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.KeepLoggedIn, lockoutOnFailure: false);
-
-        if (result.Succeeded)
-        {
-            var user = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
-
-            if (user != null)
+            if (registrationDto == null)
             {
-            return jwtUtils.GenerateJwtToken(user);
+                throw new ArgumentNullException(nameof(registrationDto));
             }
+
+            registrationDto.Password = PasswordUtils.HashPassword(registrationDto.Password);
+            User user = _mapper.Map<User>(registrationDto);
+            await _userService.AddUserAsync(registrationDto);
+
+            var token = _jwtUtils.GenerateJwtToken(user);
+
+            return token;
         }
 
-        throw new Exception("Login failed");
-    }
+        public async Task<string> LoginUserAsync(UserLoginDTO loginDto)
+        {
+            if (loginDto == null)
+            {
+                throw new ArgumentNullException(nameof(loginDto));
+            }
 
-    public async Task LogoutUserAsync(int id)
-    {
-        await _signInManager.SignOutAsync();
+            User user = await _userService.GetUserByEmailAsync(loginDto.Email);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            if (!PasswordUtils.VerifyPassword(user.Password, loginDto.Password))
+            {
+                throw new Exception("Invalid password.");
+            }
+
+            if (user.Password == null)
+            {
+                throw new Exception("User password is null.");
+            }
+
+            var token = _jwtUtils.GenerateJwtToken(user);
+
+            return token;
+        }
     }
-}
 }

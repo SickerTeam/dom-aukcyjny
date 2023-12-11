@@ -14,14 +14,15 @@ namespace backend.Utilities
         {
             _configuration = configuration;
         }
+
         public string GenerateJwtToken(User user)
         {
-            if(user == null)
+            if (user == null)
             {
                 throw new ArgumentException(nameof(user), "User cannot be null");
             }
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Authentication:Schemes:Bearer:SecretKey"]);
+            var key = Encoding.UTF8.GetBytes(_configuration["Authentication:Schemes:Bearer:SecretKey"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -30,7 +31,7 @@ namespace backend.Utilities
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             }),
                 Issuer = _configuration["Authentication:Schemes:Bearer:ValidIssuer"],
-                Audience = _configuration["Authentication:Schemes:Bearer:ValidAudiences:60"],
+                Audience = _configuration["Authentication:Schemes:Bearer:ValidAudiences:0"],
                 Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Authentication:Schemes:Bearer:ExpirationInMinutes"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

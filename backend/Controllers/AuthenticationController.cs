@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers
 {
 [ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+[Route("[controller]")]
+public class AuthenticationController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
     private readonly IMapper _mapper;
 
-    public AuthController(IAuthenticationService authenticationService, IMapper mapper)
+    public AuthenticationController(IAuthenticationService authenticationService, IMapper mapper)
     {
         _authenticationService = authenticationService;
         _mapper = mapper;
@@ -24,13 +24,12 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var user = _mapper.Map<User>(registrationDto);
             var token = await _authenticationService.RegisterUserAsync(registrationDto);
-            return Ok(token);
+            return Ok(new { Token = token });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { Message = "An error occured while registering the user" });
+            return BadRequest(new { Message = ex.Message });
         }
     }
 

@@ -2,7 +2,6 @@
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
-using Microsoft.AspNetCore.Identity;
 
 namespace backend.Services
 {
@@ -10,13 +9,11 @@ namespace backend.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly IAuthenticationService _authenticationService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, IAuthenticationService authenticationService)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _authenticationService = authenticationService;
         }
 
         public int GetNumberOfUsers()
@@ -36,30 +33,27 @@ namespace backend.Services
             return _mapper.Map<UserDTO>(user);
         }
 
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userRepository.GetUserByEmailAsync(email);
+        }
+
         public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
         {
+            User user = null;
             try
             {
-            var user = _mapper.Map<User>(userDto);
-            var result = await _userRepository.AddUserAsync(user);
+                user = _mapper.Map<User>(userDto);
+                var result = await _userRepository.AddUserAsync(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("User creation failed", ex);
+            }
 
-            if (result != null)
-            {
-                await _authenticationService.RegisterUserAsync(userDto);
-                return _mapper.Map<UserDTO>(user);
-            }
-            else
-            {
-                throw new Exception("User creation failed");
-            }
+            return _mapper.Map<UserDTO>(user);
+
         }
-        catch (Exception ex)
-        {
-           throw new Exception("User creation failed", ex);     
-        }
-        
-        
-}
 
         public async Task UpdateUserAsync(UserDTO userDto)
         {
@@ -81,12 +75,13 @@ namespace backend.Services
 
         public async Task<string> LoginUserAsync(UserLoginDTO loginDTO)
         {
-            return await _authenticationService.LoginUserAsync(loginDTO);
+            throw new NotImplementedException();
         }
 
         public async Task LogoutUserAsync(int id)
         {
-            await _authenticationService.LogoutUserAsync(id);
+            throw new NotImplementedException();
+            //await _authenticationService.LogoutUserAsync(id);
         }
     }
 

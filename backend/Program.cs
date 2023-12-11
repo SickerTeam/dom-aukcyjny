@@ -1,12 +1,9 @@
-using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
-using backend.Models;
 using backend.Repositories;
 using backend.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-
+using backend.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend
 {
@@ -26,7 +23,10 @@ namespace backend
             builder.Services.AddAuthentication().AddJwtBearer();
             builder.Services.AddAuthorization();
 
-            builder.Services.AddDbContext<DatabaseContext>();
+            builder.Services.AddScoped<JwtUtils>();
+
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DatabaseContext")));
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -37,10 +37,6 @@ namespace backend
             builder.Services.AddScoped<IAuctionService, AuctionService>();
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
-
-            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
-            builder.Services.AddScoped<UserManager<User>>();
-            builder.Services.AddScoped<SignInManager<User>>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -60,10 +56,6 @@ namespace backend
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-            app.MapGet("/secret", (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}. My secret")
-                .RequireAuthorization();
 
             app.MapControllers();
 
