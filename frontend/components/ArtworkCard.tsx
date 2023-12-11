@@ -4,11 +4,11 @@ import Image from "next/image";
 
 type ArtworkCardType = {
   artwork: any;
-  handleClick: () => void;
 };
 
-const ArtworkCard = ({ artwork, handleClick }: ArtworkCardType) => {
+const ArtworkCard = ({ artwork }: ArtworkCardType) => {
   return (
+
     <div className="cursor-pointer" onClick={handleClick}>
       <Image
         src="/../cv2.png"
@@ -30,6 +30,7 @@ const ArtworkCard = ({ artwork, handleClick }: ArtworkCardType) => {
         {artwork.time} days left
       </p>
     </div>
+
   );
 };
 export default ArtworkCard;

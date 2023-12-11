@@ -1,34 +1,52 @@
-import React from 'react'
-import { CustomButton } from '.'
+import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className='footer w-full flex flex-wrap justify-between mt-10 border-t'>
-        <div className='flex-col flex ml-5 items-center py-10'>
-        <p className='font-bold pb-5'>Random stuff</p>
-            <CustomButton title="idk" btnType="button"/>
-        </div>
-        <div className='flex-col flex items-center py-10'>
-        <p className='font-bold pb-5'>Company</p>
-            <CustomButton title="Careers" btnType="button"/>
-            <CustomButton title="Privacy policy" btnType="button"/>
-            <CustomButton title="Terms of service" btnType="button"/>
-        </div>
-        <div className='flex-col flex items-center py-10'>
-        <p className='font-bold pb-5'>Support</p>
-            <CustomButton title="Help" btnType="button"/>
-            <CustomButton title="Plans & Price" btnType="button"/>
-            <CustomButton title="Upcoming stuff" btnType="button"/>
-            
-        </div>
-        <div className='flex-col flex mr-5 items-center py-10'>
-            <p className='font-bold pb-5'>Follow us</p>
-            <CustomButton title="Twitter" btnType="button"/>
-            <CustomButton title="Instagram" btnType="button"/>
-            <CustomButton title="Facebook" btnType="button"/>
-        </div> 
+    <footer className="bg-main-green text-white mt-14 rounded-t-3xl flex justify-between pt-8 px-40">
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">About Zongers</h4>
+        <a href="/about" className="text-lg">
+          About Zongers
+        </a>
+      </div>
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">Buy</h4>
+        <a href="/how-to-buy" className="text-lg">
+          How to Buy
+        </a>
+        <a href="/buyer-protection" className="text-lg">
+          Buyer Protection
+        </a>
+        <a href="/buyer-terms" className="text-lg">
+          Buyer terms
+        </a>
+      </div>
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">Sell</h4>
+        <a href="/how-to-sell" className="text-lg">
+          How to Sell
+        </a>
+        <a href="/submission-guidelines" className="text-lg">
+          Submission guidelines
+        </a>
+        <a href="/seller-terms" className="text-lg">
+          Seller terms
+        </a>
+      </div>
+      <div className="w-1/5 flex flex-col">
+        <h4 className="text-2xl">My Zongers</h4>
+        <a href="/sign-in" className="text-lg">
+          Sign in
+        </a>
+        <a href="/register" className="text-lg">
+          Register
+        </a>
+        <a href="/help" className="text-lg">
+          Help
+        </a>
+      </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
