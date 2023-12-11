@@ -5,7 +5,7 @@ import SideRecommendation from "./SideRecommendation";
 
 
 async function getAllPosts() {
-    const res = await fetch("http://localhost:5156/Post");
+    const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/Post");
 
     if (!res.ok) {
       throw new Error("Failed to fetch auctions");
@@ -15,7 +15,7 @@ async function getAllPosts() {
 }
 
 async function getAllUsers() {
-  const res = await fetch("http://localhost:5156/User");
+  const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/User");
 
         
     if (!res.ok) {

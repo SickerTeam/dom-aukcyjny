@@ -3,7 +3,7 @@ import PictureCard from "./PictureCard";
 import UserCard from "./UserCard";
 
 async function getUserById(id: number) {
-  const res = await fetch(`http://localhost:5156/User/${id}`);        
+  const res = await fetch(`https://sea-turtle-app-yvb56.ondigitalocean.app/User/${id}`);        
     if (!res.ok) {
       throw new Error("Failed to fetch nig");
     }
