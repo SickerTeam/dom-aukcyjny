@@ -3,7 +3,6 @@ using backend.Data;
 using backend.Repositories;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace backend
 {
@@ -76,7 +75,6 @@ namespace backend
             app.UseCors(policyName);
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
