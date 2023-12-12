@@ -13,16 +13,22 @@ const MyProfile = () => {
         </Link>
       </div>
       <div className="bg-white p-4 rounded shadow-md">
+      <Link href="/yourprofile/addresses">
         <h3 className="text-lg font-semibold mb-2">Addresses</h3>
         <p className="text-gray-600">Manage your shipping addresses.</p>
+        </Link>
       </div>
       <div className="bg-white p-4 rounded shadow-md">
+      <Link href="/yourprofile/payments">
         <h3 className="text-lg font-semibold mb-2">Payments</h3>
         <p className="text-gray-600">View and update payment methods.</p>
+        </Link>
       </div>
       <div className="bg-white p-4 rounded shadow-md">
+      <Link href="/yourprofile/myfavourites">
         <h3 className="text-lg font-semibold mb-2">My favourites</h3>
         <p className="text-gray-600">Preview your saved arts.</p>
+        </Link>
       </div>
       <div className="bg-white p-4 rounded shadow-md">
         <h3 className="text-lg font-semibold mb-2">Logout</h3>
