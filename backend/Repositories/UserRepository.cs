@@ -26,10 +26,17 @@ namespace backend.Repositories
             return user ?? throw new ArgumentException("User not found");
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+            return user ?? throw new ArgumentException("User not found");
+        }
+
+        public async Task<User> AddUserAsync(User user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task UpdateUserAsync(User user)
