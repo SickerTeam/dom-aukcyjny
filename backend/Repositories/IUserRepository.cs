@@ -13,7 +13,7 @@ namespace backend.Repositories
         Task<IEnumerable<DbUser>> GetUsersAsync();
         Task<DbUser> GetUserByIdAsync(int id);
         Task<User> GetUserByEmailAsync(string email);
-        Task<User> AddUserAsync(DbUser user);
+        Task AddUserAsync(DbUser user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
     }

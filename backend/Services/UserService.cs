@@ -42,29 +42,13 @@ namespace backend.Services
         }
         public async Task<User> GetModelById(int id)
         {
-            return await _userRepository.GetUserByIdAsync(id);
+            // return await _userRepository.GetUserByIdAsync(id);
+            throw new NotImplementedException();
         }
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _userRepository.GetUserByEmailAsync(email);
-        }
-
-        public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
-        {
-            User user = null;
-            try
-            {
-                user = _mapper.Map<User>(userDto);
-                var result = await _userRepository.AddUserAsync(user);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("User creation failed", ex);
-            }
-
-            return _mapper.Map<UserDTO>(user);
-
         }
 
         public async Task UpdateUserAsync(UserDTO userDto)

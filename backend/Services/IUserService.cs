@@ -13,7 +13,6 @@ namespace backend.Services
         Task AddUserAsync(UserRegistrationDTO userDto);
         Task<User> GetModelById(int id);
         Task<User> GetUserByEmailAsync(string email);
-        Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto);
         Task UpdateUserAsync(UserDTO userDto);
         Task DeleteUserAsync(int id);
     }
