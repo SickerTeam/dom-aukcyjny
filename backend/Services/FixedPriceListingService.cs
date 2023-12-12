@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
-using backend.Models;
+using backend.Data.Models;
 using backend.Repositories;
 
 namespace backend.Services
@@ -25,7 +25,7 @@ namespace backend.Services
 
         public async Task AddFixedPriceListingAsync(FixedPriceListingRegistrationDTO fixedPriceListingDto)
         {
-            var fixedPriceListing = _mapper.Map<FixedPriceListing>(fixedPriceListingDto);
+            var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;
             fixedPriceListing.CreatedAt = DateTime.Now;
             // fixedPriceListing.Product = await _productService.GetModelById(fixedPriceListingDto.ProductId);

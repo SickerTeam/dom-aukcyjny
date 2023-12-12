@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
-using backend.Models;
+using backend.Data.Models;
 using backend.Repositories;
 
 namespace backend.Services
@@ -29,7 +29,7 @@ namespace backend.Services
 
         public async Task AddCommentsAsync(CommentRegistrationDTO commentDto)
         {
-            var comment = _mapper.Map<Comment>(commentDto);
+            var comment = _mapper.Map<DbComment>(commentDto);
             comment.CreatedAt = DateTime.Now;
             await _commentRepository.AddCommentsAsync(comment);
         }
