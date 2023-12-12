@@ -3,7 +3,7 @@ using backend.Validation;
 
 namespace backend.DTOs
 {
-    public class InstaBuyDTO
+    public class FixedPriceListingDTO
     {
         [Required]
         [Range(1, int.MaxValue)]

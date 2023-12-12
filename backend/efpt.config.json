@@ -1,6 +1,6 @@
 ﻿{
    "CodeGenerationMode": 4,
-   "ContextClassName": "CSC-CSD-S211_10407554Context",
+   "ContextClassName": "DatabaseContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
@@ -20,11 +20,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[AuctionPurchases]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Bids]",
+         "Name": "[dbo].[Bid]",
          "ObjectType": 0
       },
       {
@@ -32,19 +28,15 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[InstaBuy]",
+         "Name": "[dbo].[FixedPriceListing]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[InstaBuyPurchases]",
+         "Name": "[dbo].[FixedPriceListingPurchase]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Likes]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Pictures]",
+         "Name": "[dbo].[Like]",
          "ObjectType": 0
       },
       {
@@ -60,7 +52,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "it-sql02-dmzskn.CSC-CSD-S211_10407554.dbo",
+   "UiHint": "it-sql02-dmzskn.CSC-CSD-S211_10407553.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,

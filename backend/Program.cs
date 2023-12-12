@@ -28,7 +28,7 @@ namespace backend
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DatabaseContext")));
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
+            builder.Services.AddScoped<IFixedPriceListingRepository, FixedPriceListingRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
@@ -37,16 +37,14 @@ namespace backend
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-            builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
+            builder.Services.AddScoped<IFixedPriceListingService, FixedPriceListingService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
-            builder.Services.AddScoped<IPictureService, PictureService>();
 
             builder.Services.AddCors(options =>
 {

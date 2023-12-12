@@ -5,21 +5,13 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class Auction
+public partial class FixedPriceListing
 {
     public int Id { get; set; }
 
     public int ProductId { get; set; }
 
-    public decimal StartingPrice { get; set; }
-
-    public decimal ReservePrice { get; set; }
-
-    public decimal EstimateMinPrice { get; set; }
-
-    public decimal EstimateMaxPrice { get; set; }
-
-    public DateTime EndsAt { get; set; }
+    public decimal Price { get; set; }
 
     public bool IsArchived { get; set; }
 

@@ -23,40 +23,42 @@ namespace backend.Services
             return _mapper.Map<PostDTO>(post);
         }
 
-        public async Task AddPostAsync(PostRegistrationDTO postDto)
+        public async Task AddPostAsync(PostCreationDTO postDto)
         {
-            // map to model
-            var post = _mapper.Map<Post>(postDto);
+            // // map to model
+            // var post = _mapper.Map<Post>(postDto);
 
-            // get picture urls - u can access the picture urls directly from the postDto.Pictures, the select is not needed
-            var pictureUrls = postDto.Pictures.Select(p => p.PictureUrl).ToList();
+            // // get picture urls - u can access the picture urls directly from the postDto.Pictures, the select is not needed
+            // var pictureUrls = postDto.Pictures.Select(p => p.PictureUrl).ToList();
 
-            // map additional values
-            post.TimePosted = DateTime.Now;
+            // // map additional values
+            // post.CreatedAt = DateTime.Now;
 
-            // make pictures null so the IDs dont conflit when adding later on
-            post.Pictures = null;
+            // // make pictures null so the IDs dont conflit when adding later on
+            // post.Pictures = null;
 
-            // get postId + postDTO from DB
-            int postId = await _postRepository.AddPostAsync(post);
-            PostDTO postDtoFromDb = await GetPostByIdAsync(postId);
+            // // get postId + postDTO from DB
+            // int postId = await _postRepository.AddPostAsync(post);
+            // PostDTO postDtoFromDb = await GetPostByIdAsync(postId);
 
-            // Create new PictureDTO list with postId and PictureURLs
-            var updatedPictures = new List<PictureDTO>();
+            // // Create new PictureDTO list with postId and PictureURLs
+            // var updatedPictures = new List<PictureDTO>();
 
-            for (int i = 0; i < postDtoFromDb.Pictures.Count; i++) 
-            {
-                var updatedPicture = new PictureDTO
-                {
-                    PostId = postId,
-                    PictureUrl = pictureUrls[i],
-                };
-                updatedPictures.Add(updatedPicture);
-            }
+            // for (int i = 0; i < postDtoFromDb.Pictures.Count; i++) 
+            // {
+            //     var updatedPicture = new PictureDTO
+            //     {
+            //         PostId = postId,
+            //         PictureUrl = pictureUrls[i],
+            //     };
+            //     updatedPictures.Add(updatedPicture);
+            // }
 
-            // Update pictures in PostDTO
-            postDtoFromDb.Pictures = updatedPictures;
-            await UpdatePostAsync(postDtoFromDb);
+            // // Update pictures in PostDTO
+            // postDtoFromDb.Pictures = updatedPictures;
+            // await UpdatePostAsync(postDtoFromDb);
+
+            throw new NotImplementedException();
         }
 
         public async Task UpdatePostAsync(PostDTO postDto)

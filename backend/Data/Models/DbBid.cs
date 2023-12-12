@@ -6,9 +6,9 @@
 
         public DbAuction Auction { get; set; }
 
-        public int BidderId { get; set; }
+        public int UserId { get; set; }
 
-        public DbUser Bidder { get; set; }
+        public DbUser User { get; set; }
 
         public decimal Amount { get; set; }
     }

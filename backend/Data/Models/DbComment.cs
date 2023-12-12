@@ -3,11 +3,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace backend.Models;
+namespace backend.Data.Models;
 
-public partial class Post
+public partial class DbComment
 {
     public int Id { get; set; }
+
+    public int PostId { get; set; }
 
     public int UserId { get; set; }
 
@@ -15,5 +17,7 @@ public partial class Post
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual DbPost Post { get; set; }
+
+    public virtual DbUser User { get; set; }
 }

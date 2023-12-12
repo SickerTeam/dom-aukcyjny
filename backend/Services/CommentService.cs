@@ -30,7 +30,7 @@ namespace backend.Services
         public async Task AddCommentsAsync(CommentRegistrationDTO commentDto)
         {
             var comment = _mapper.Map<Comment>(commentDto);
-            comment.TimePosted = DateTime.Now;
+            comment.CreatedAt = DateTime.Now;
             await _commentRepository.AddCommentsAsync(comment);
         }
 

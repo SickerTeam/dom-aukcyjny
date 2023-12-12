@@ -18,7 +18,7 @@ namespace backend.DTOs
         public string Text { get; set; }
 
         [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        public DateTime? TimePosted { get; set; }
+        public DateTime? CreatedAt { get; set; }
         
         [Required]
         [Range(1, int.MaxValue)]
@@ -32,7 +32,7 @@ namespace backend.DTOs
             Id = id;
             PostId = postId;
             Text = text;
-            TimePosted = timePosted;
+            CreatedAt = timePosted;
             UserId = userId;
         }
     }

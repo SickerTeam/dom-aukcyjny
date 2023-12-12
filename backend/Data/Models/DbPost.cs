@@ -3,9 +3,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace backend.Models;
+namespace backend.Data.Models;
 
-public partial class Post
+public partial class DbPost
 {
     public int Id { get; set; }
 
@@ -15,5 +15,9 @@ public partial class Post
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual ICollection<DbComment> Comments { get; set; } = new List<DbComment>();
+
+    public virtual ICollection<DbLike> Likes { get; set; } = new List<DbLike>();
+
+    public virtual DbUser User { get; set; }
 }

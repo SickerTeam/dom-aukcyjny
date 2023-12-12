@@ -5,15 +5,17 @@ using System.Collections.Generic;
 
 namespace backend.Models;
 
-public partial class Post
+public partial class FixedPriceListingPurchase
 {
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public int BuyerId { get; set; }
 
-    public string Text { get; set; }
+    public int FixedPriceListingId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual User Buyer { get; set; }
+
+    public virtual FixedPriceListing FixedPriceListing { get; set; }
 }

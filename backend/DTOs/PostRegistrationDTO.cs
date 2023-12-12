@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-   public class PostRegistrationDTO
+   public class PostCreationDTO
     {
         [Required]
         [Range(1, int.MaxValue)]
@@ -13,6 +13,5 @@ namespace backend.DTOs
         [Required]
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public string Text { get; set; }
-        public virtual ICollection<PictureRegistrationDTO> Pictures { get; set; } // != null ? new List<PictureDTO>() : [];
     }
 }

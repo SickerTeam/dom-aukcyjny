@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-   public class InstaBuyRegistrationDTO(int productId, decimal price)
+   public class FixedPriceListingRegistrationDTO(int productId, decimal price)
     {
         [Required]
         [Range(1, int.MaxValue)]

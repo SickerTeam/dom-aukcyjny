@@ -18,14 +18,14 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<InstaBuyDTO>> GetInstaBuyById(int id)
+        public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
         {
             var posts = await _postService.GetPostByIdAsync(id);
             return Ok(posts);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPostAsync(PostRegistrationDTO postDto)
+        public async Task<ActionResult> AddPostAsync(PostCreationDTO postDto)
         {
             await _postService.AddPostAsync(postDto);
             return Ok();
@@ -39,7 +39,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteInstaBuy(int id)
+        public async Task<ActionResult> DeleteFixedPriceListing(int id)
         {
             await _postService.DeletePostsAsync(id);
             return Ok();

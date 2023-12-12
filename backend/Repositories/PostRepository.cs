@@ -19,7 +19,7 @@ namespace backend.Repositories
             var post = await _context.Posts
                 .Include(p => p.Likes)
                 .Include(p => p.Comments)
-                .Include(p => p.Pictures)
+                //.Include(p => p.Pictures)
                 .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
             return post;
         }

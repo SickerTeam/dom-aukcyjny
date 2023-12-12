@@ -15,23 +15,19 @@ public partial class DatabaseContext : DbContext
     {
     }
 
-    public virtual DbSet<DbAuction> Auction { get; set; }
-
-    public virtual DbSet<AuctionPurchase> AuctionPurchases { get; set; }
+    public virtual DbSet<DbAuction> Auctions { get; set; }
 
     public virtual DbSet<DbBid> Bids { get; set; }
 
-    public virtual DbSet<Comment> Comments { get; set; }
+    public virtual DbSet<DbComment> Comments { get; set; }
 
-    public virtual DbSet<InstaBuy> InstaBuys { get; set; }
+    public virtual DbSet<DbFixedPriceListing> FixedPriceListings { get; set; }
 
-    public virtual DbSet<InstaBuyPurchase> InstaBuyPurchases { get; set; }
+    public virtual DbSet<DbFixedPriceListingPurchase> FixedPriceListingPurchases { get; set; }
 
-    public virtual DbSet<Like> Likes { get; set; }
+    public virtual DbSet<DbLike> Likes { get; set; }
 
-    public virtual DbSet<Picture> Pictures { get; set; }
-
-    public virtual DbSet<Post> Posts { get; set; }
+    public virtual DbSet<DbPost> Posts { get; set; }
 
     public virtual DbSet<DbProduct> Products { get; set; }
 
@@ -39,136 +35,194 @@ public partial class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Auction>(entity =>
+        modelBuilder.Entity<DbAuction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC079EFB0EE2");
+            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC07E98FCF57");
 
             entity.ToTable("Auction");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.EndsAt).HasColumnType("datetime");
-            entity.Property(e => e.EstimatedMaximum).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.EstimatedMinimum).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.FirstPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.EstimateMaxPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.EstimateMinPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.ReservePrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.StartingPrice).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Auction__Product__6C190EBB");
         });
 
-        modelBuilder.Entity<AuctionPurchase>(entity =>
+        modelBuilder.Entity<DbBid>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__AuctionP__3214EC0792BAD9F6");
+            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC076A6C4D73");
 
-            entity.Property(e => e.FinalPrice).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PurchasedAt).HasColumnType("datetime");
+            entity.ToTable("Bid");
 
-            entity.HasOne(d => d.Auction).WithMany(p => p.AuctionPurchases)
-                .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__AuctionPu__Aucti__09746778");
-        });
-
-        modelBuilder.Entity<Bid>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Bids__3214EC070ABD2750");
-
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PlacedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__Bids__AuctionId__0C50D423");
+                .HasConstraintName("FK__Bid__AuctionId__6EF57B66");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Bids)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Bid__UserId__6FE99F9F");
         });
 
-        modelBuilder.Entity<Comment>(entity =>
+        modelBuilder.Entity<DbComment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC077AD20965");
+            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC076243BED4");
 
             entity.ToTable("Comment");
 
-            entity.Property(e => e.Text).IsUnicode(false);
-            entity.Property(e => e.TimePosted).HasColumnType("datetime");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Text)
+                .IsRequired()
+                .HasMaxLength(1024)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Post).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.PostId)
+                .HasConstraintName("FK__Comment__PostId__75A278F5");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Comment__UserId__76969D2E");
         });
 
-        modelBuilder.Entity<InstaBuy>(entity =>
+        modelBuilder.Entity<DbFixedPriceListing>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InstaBuy__3214EC07333064FD");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07EA08D03E");
 
-            entity.ToTable("InstaBuy");
+            entity.ToTable("FixedPriceListing");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.FixedPriceListings)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__FixedPric__Produ__7D439ABD");
         });
 
-        modelBuilder.Entity<InstaBuyPurchase>(entity =>
+        modelBuilder.Entity<DbFixedPriceListingPurchase>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InstaBuy__3214EC076BAF49DF");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07FCF7769A");
 
-            entity.Property(e => e.PurchasedAt).HasColumnType("datetime");
+            entity.ToTable("FixedPriceListingPurchase");
 
-            entity.HasOne(d => d.Insta).WithMany(p => p.InstaBuyPurchases)
-                .HasForeignKey(d => d.InstaId)
-                .HasConstraintName("FK__InstaBuyP__Insta__01D345B0");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Buyer).WithMany(p => p.FixedPriceListingPurchases)
+                .HasForeignKey(d => d.BuyerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__FixedPric__Buyer__00200768");
+
+            entity.HasOne(d => d.FixedPriceListing).WithMany(p => p.FixedPriceListingPurchases)
+                .HasForeignKey(d => d.FixedPriceListingId)
+                .HasConstraintName("FK__FixedPric__Fixed__01142BA1");
         });
 
-        modelBuilder.Entity<Like>(entity =>
+        modelBuilder.Entity<DbLike>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Likes__3214EC076FDBD8D0");
+            entity.HasKey(e => e.Id).HasName("PK__Like__3214EC073802F4E8");
 
-            entity.Property(e => e.TimeLiked).HasColumnType("datetime");
+            entity.ToTable("Like");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Post).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.PostId)
+                .HasConstraintName("FK__Like__PostId__797309D9");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Like__UserId__7A672E12");
         });
 
-        modelBuilder.Entity<Picture>(entity =>
+        modelBuilder.Entity<DbPost>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pictures__3214EC07DFA325CB");
-
-            entity.Property(e => e.PictureUrl).IsUnicode(false);
-        });
-
-        modelBuilder.Entity<Post>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC0727F5C211");
+            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC0762DECBBE");
 
             entity.ToTable("Post");
 
-            entity.Property(e => e.Text).IsUnicode(false);
-            entity.Property(e => e.TimePosted).HasColumnType("datetime");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Text)
+                .IsRequired()
+                .HasMaxLength(2048)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.User).WithMany(p => p.Posts)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Post__UserId__72C60C4A");
         });
 
-        modelBuilder.Entity<Product>(entity =>
+        modelBuilder.Entity<DbProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07C60A696C");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07B4E77B2C");
 
             entity.ToTable("Product");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Artist)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Depth).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Description)
-                .HasMaxLength(255)
+                .IsRequired()
                 .IsUnicode(false);
             entity.Property(e => e.Height).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Title)
+                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.Weight).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Width).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Seller).WithMany(p => p.Products)
+                .HasForeignKey(d => d.SellerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Product__SellerI__693CA210");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<DbUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07F76EC8BA");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC070010D646");
 
             entity.ToTable("User");
 
-            entity.Property(e => e.Bio)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Bio).IsUnicode(false);
             entity.Property(e => e.Country)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.FirstName)
+                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.LastName)
+                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.Password)
@@ -176,9 +230,6 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.PersonalLink)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.ProfilePictureLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });

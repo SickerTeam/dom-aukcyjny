@@ -18,13 +18,12 @@ namespace backend
             CreateMap<User, UserDTO>();
 
             CreateMap<Like, LikeDTO>();
-            CreateMap<Picture, PictureDTO>();
             CreateMap<Post, PostDTO>();
             CreateMap<Comment, CommentDTO>();
 
-            CreateMap<InstaBuyRegistrationDTO, InstaBuy>();
-            CreateMap<InstaBuyDTO, InstaBuy>();
-            CreateMap<InstaBuy, InstaBuyDTO>();
+            CreateMap<FixedPriceListingRegistrationDTO, FixedPriceListing>();
+            CreateMap<FixedPriceListingDTO, FixedPriceListing>();
+            CreateMap<FixedPriceListing, FixedPriceListingDTO>();
 
             CreateMap<Product, ProductDTO>();
             CreateMap<ProductDTO, Product>();
@@ -33,13 +32,9 @@ namespace backend
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
 
-            CreateMap<PostRegistrationDTO, Post>();
+            CreateMap<PostCreationDTO, Post>();
             CreateMap<Post, PostDTO>();
             CreateMap<PostDTO, Post>();
-
-            CreateMap<PictureRegistrationDTO, Picture>();
-            CreateMap<Picture, PictureDTO>();
-            CreateMap<PictureDTO, Picture>();
 
             CreateMap<LikeRegistrationDTO, Like>();         
             CreateMap<Like, LikeDTO>();
