@@ -1,9 +1,8 @@
-import React from 'react'
+import MyProfile from "../../../components/MyProfile/Dashboard";
 
 const YourProfile = () => {
-  return (
-    <div className='h-screen'>Your Profile</div>
-  )
+  return < MyProfile />;
+  
 }
 
 export default YourProfile
