@@ -15,13 +15,13 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
             .ToListAsync();
         }
 
-        public async Task AddFixedPriceListingAsync(FixedPriceListing fixedPriceListing)
+        public async Task AddFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
         {
             _context.FixedPriceListings.Add(fixedPriceListing);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateFixedPriceListingAsync(FixedPriceListing fixedPriceListing)
+        public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
         {
             _context.FixedPriceListings.Update(fixedPriceListing);
             await _context.SaveChangesAsync();
@@ -35,7 +35,7 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
             await _context.SaveChangesAsync();
         }
 
-        public async Task<FixedPriceListing> GetFixedPriceListingByIdAsync(int id)
+        public async Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id)
         {
             var fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
             .Include(fixedPriceListing => fixedPriceListing.Product)

@@ -1,17 +1,13 @@
-﻿using backend.DTOs;
-using backend.Models;
-using backend.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using backend.Data.Models;
 
 namespace backend.Repositories
 {
     public interface IFixedPriceListingRepository
     {
-        Task AddFixedPriceListingAsync(FixedPriceListing fixedPriceListing);
-        Task UpdateFixedPriceListingAsync(FixedPriceListing fixedPriceListing);
+        Task AddFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing);
+        Task UpdateFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing);
         Task DeleteFixedPriceListingAsync(int id);
-        Task<FixedPriceListing> GetFixedPriceListingByIdAsync(int id);
-        Task<IEnumerable<FixedPriceListing>> GetAllFixedPriceListingsAsync();
+        Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id);
+        Task<IEnumerable<DbFixedPriceListing>> GetAllFixedPriceListingsAsync();
     }
 }
