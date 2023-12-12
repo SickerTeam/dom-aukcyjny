@@ -1,5 +1,5 @@
 ﻿using backend.Data;
-using backend.Models;
+using backend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
         
-        public async Task<IList<Comment>> GetCommentsAsync()
+        public async Task<IList<DbComment>> GetCommentsAsync()
         {
             return await _context.Comments.ToListAsync();
         }
@@ -20,13 +20,13 @@ namespace backend.Repositories
                 .CountAsync();
         }
 
-        public async Task<Comment> GetCommentsByIdAsync(int id)
+        public async Task<DbComment> GetCommentsByIdAsync(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
             return comment ?? throw new ArgumentException("Comment not found");            
         }
 
-        public async Task AddCommentsAsync(Comment comment)
+        public async Task AddCommentsAsync(DbComment comment)
         {
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
