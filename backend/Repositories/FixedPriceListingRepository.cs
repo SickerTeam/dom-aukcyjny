@@ -1,6 +1,5 @@
-﻿
-using backend.Models;
-using backend.Data;
+﻿using backend.Data;
+using backend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -9,7 +8,7 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<FixedPriceListing>> GetAllFixedPriceListingsAsync()
+        public async Task<IEnumerable<DbFixedPriceListing>> GetAllFixedPriceListingsAsync()
         {
             return await _context.FixedPriceListings.Include(fixedPriceListing => fixedPriceListing.Product)
             .ThenInclude(product => product.Artist)

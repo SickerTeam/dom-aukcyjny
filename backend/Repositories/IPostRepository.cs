@@ -1,13 +1,13 @@
-﻿using backend.Models;
+﻿using backend.Data.Models;
 
 namespace backend.Repositories
 {
     public interface IPostRepository
     {
-        Task<IEnumerable<Post>> GetPostsAsync();
-        Task<Post> GetPostByIdAsync(int id);
-        Task<int> AddPostAsync(Post post);
-        Task UpdatePostAsync(Post post);
+        Task<IEnumerable<DbPost>> GetPostsAsync();
+        Task<DbPost> GetPostByIdAsync(int id);
+        Task<int> AddPostAsync(DbPost post);
+        Task UpdatePostAsync(DbPost post);
         Task DeletePostAsync(int id);
         // Task<IList<Like>> GetLikesByPostIdAsync(int id);
         // Task<IList<Comment>> GetCommentsByPostIdAsync(int id);

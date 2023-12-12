@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
-using backend.Models;
+using backend.Data.Models;
 using backend.Repositories;
 
 namespace backend.Services
@@ -29,7 +29,7 @@ namespace backend.Services
 
         public async Task AddLikesAsync(LikeRegistrationDTO likeDto)
         {
-            var like = _mapper.Map<Like>(likeDto);
+            var like = _mapper.Map<DbLike>(likeDto);
             like.CreatedAt = DateTime.Now;
             await _likeRepository.AddLikesAsync(like);
         }

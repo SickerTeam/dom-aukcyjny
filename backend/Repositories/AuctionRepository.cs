@@ -12,14 +12,14 @@ namespace backend.Repositories
 
         public async Task<IList<DbAuction>> GetAuctionsAsync()
         {
-            return await _context.Auction
+            return await _context.Auctions
                 .Include(auction => auction.Product)
                 .ToListAsync();
         }
 
         public async Task<DbAuction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auction
+            var auction = await _context.Auctions
                 .Where(x => x.Id == id)
                 .Include(auction => auction.Product)
                 .FirstOrDefaultAsync();
@@ -32,14 +32,14 @@ namespace backend.Repositories
             var dbAuction = new DbAuction
             {
                 EndsAt = auction.EndsAt,
-                EstimatedMinimum = auction.EstimatedMinimum,
-                EstimatedMaximum = auction.EstimatedMaximum,
+                EstimateMinPrice = auction.EstimatedMinimum,
+                EstimateMaxPrice = auction.EstimatedMaximum,
                 StartingPrice = auction.StartingPrice,
-                MinimumPrice = auction.MinimumPrice,
+                ReservePrice = auction.MinimumPrice,
                 ProductId = productId,
             };
 
-            await _context.Auction.AddAsync(dbAuction);
+            await _context.Auctions.AddAsync(dbAuction);
             await _context.SaveChangesAsync();
 
             return dbAuction;
@@ -53,8 +53,8 @@ namespace backend.Repositories
 
         public async Task DeleteAuctionAsync(int id)
         {
-            var auction = await _context.Auction.FindAsync(id) ?? throw new ArgumentException("Auction not found");
-            _context.Auction.Remove(auction);
+            var auction = await _context.Auctions.FindAsync(id) ?? throw new ArgumentException("Auction not found");
+            _context.Auctions.Remove(auction);
             await _context.SaveChangesAsync();
         }
     }

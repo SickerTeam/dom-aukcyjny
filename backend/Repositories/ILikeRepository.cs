@@ -1,13 +1,13 @@
-﻿using backend.Models;
+﻿using backend.Data.Models;
 
 namespace backend.Repositories
 {
     public interface ILikeRepository
     {
-        Task<IList<Like>> GetLikesAsync();
+        Task<IList<DbLike>> GetLikesAsync();
         Task<int> GetAmountOfLikesForPostById(int postId);
-        Task<Like> GetLikesByIdAsync(int id);
-        Task AddLikesAsync(Like like);
+        Task<DbLike> GetLikesByIdAsync(int id);
+        Task AddLikesAsync(DbLike like);
         Task DeleteLikesAsync(int id);
     }
 }

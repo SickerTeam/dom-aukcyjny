@@ -1,6 +1,4 @@
-﻿using backend.Data.Models;
-
-namespace backend.Data.Models
+﻿namespace backend.Data.Models
 {
     public class DbProduct : BaseDbModel
     {

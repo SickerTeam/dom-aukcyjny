@@ -1,4 +1,5 @@
 ﻿using backend.Data;
+using backend.Data.Models;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,13 +9,13 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<Post>> GetPostsAsync()
+        public async Task<IEnumerable<DbPost>> GetPostsAsync()
         {
 
             return await _context.Posts.Include( x => x.User).ToListAsync();
         }
 
-        public async Task<Post> GetPostByIdAsync(int id)
+        public async Task<DbPost> GetPostByIdAsync(int id)
         {
             var post = await _context.Posts
                 .Include(p => p.Likes)
@@ -24,7 +25,7 @@ namespace backend.Repositories
             return post;
         }
 
-        public async Task<int> AddPostAsync(Post Post)
+        public async Task<int> AddPostAsync(DbPost Post)
         {
             await _context.Posts.AddAsync(Post);
             await _context.SaveChangesAsync();
@@ -35,7 +36,7 @@ namespace backend.Repositories
             return (int)Post.Id;
         }
 
-        public async Task UpdatePostAsync(Post Post)
+        public async Task UpdatePostAsync(DbPost Post)
         {
             _context.Posts.Update(Post);
             await _context.SaveChangesAsync();
