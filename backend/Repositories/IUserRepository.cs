@@ -12,7 +12,8 @@ namespace backend.Repositories
         int GetNumberOfUsers();
         Task<IEnumerable<DbUser>> GetUsersAsync();
         Task<DbUser> GetUserByIdAsync(int id);
-        Task AddUserAsync(DbUser user);
+        Task<User> GetUserByEmailAsync(string email);
+        Task<User> AddUserAsync(DbUser user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
     }

@@ -6,10 +6,16 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-    public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
+    public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly IMapper _mapper = mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+
+        public UserService(IUserRepository userRepository, IMapper mapper)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+        }
 
         public int GetNumberOfUsers()
         {
@@ -32,6 +38,33 @@ namespace backend.Services
         {
             var user = _mapper.Map<DbUser>(userDto);
             await _userRepository.AddUserAsync(user);
+
+        }
+        public async Task<User> GetModelById(int id)
+        {
+            return await _userRepository.GetUserByIdAsync(id);
+        }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userRepository.GetUserByEmailAsync(email);
+        }
+
+        public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
+        {
+            User user = null;
+            try
+            {
+                user = _mapper.Map<User>(userDto);
+                var result = await _userRepository.AddUserAsync(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("User creation failed", ex);
+            }
+
+            return _mapper.Map<UserDTO>(user);
+
         }
 
         public async Task UpdateUserAsync(UserDTO userDto)
@@ -51,4 +84,5 @@ namespace backend.Services
             await _userRepository.DeleteUserAsync((int)user.Id);
         }
     }
+
 }

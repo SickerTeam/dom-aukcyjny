@@ -3,6 +3,7 @@ using backend.Data;
 using backend.Repositories;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
+using backend.Utilities;
 
 namespace backend
 {
@@ -14,17 +15,23 @@ namespace backend
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
+            builder.Services.AddSingleton<IConfiguration>(configuration);
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAuthentication().AddJwtBearer();
+            builder.Services.AddAuthorization();
 
-            //builder.Services.AddDbContext<DatabaseContext>();
-            
+            builder.Services.AddScoped<JwtUtils>();
+
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DatabaseContext")));
-
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInstaBuyRepository, InstaBuyRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
