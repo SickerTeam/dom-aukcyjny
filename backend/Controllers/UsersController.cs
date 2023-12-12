@@ -7,7 +7,7 @@ namespace backend.Controllers
 {
    [ApiController]
    [Route("[controller]")]
-   public class UserController(IUserService userService, IMapper mapper) : ControllerBase
+   public class UsersController(IUserService userService, IMapper mapper) : ControllerBase
    {
       private readonly IUserService _userService = userService;
       private readonly IMapper _mapper = mapper;

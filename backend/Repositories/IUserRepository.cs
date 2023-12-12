@@ -3,15 +3,16 @@ using backend.Models;
 using backend.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using backend.Data.Models;
 
 namespace backend.Repositories
 {
     public interface IUserRepository
     {
         int GetNumberOfUsers();
-        Task<IEnumerable<User>> GetUsersAsync();
-        Task<User> GetUserByIdAsync(int id);
-        Task AddUserAsync(User user);
+        Task<IEnumerable<DbUser>> GetUsersAsync();
+        Task<DbUser> GetUserByIdAsync(int id);
+        Task AddUserAsync(DbUser user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
     }

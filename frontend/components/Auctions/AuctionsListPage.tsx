@@ -1,7 +1,8 @@
 import { Artworks, Filters, Path } from "..";
+import apiService from "../../services/apiService";
 
 async function getAllAuctions() {
-  const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/auction");
+  const res = await apiService.get("/auctions");
 
   if (!res.ok) {
     throw new Error("Failed to fetch auctions");
@@ -11,16 +12,16 @@ async function getAllAuctions() {
 }
 
 const AuctionsListPage = async () => {
+  const auctions = await getAllAuctions();
 
-  //const auctions = await getAllAuctions();
-  //console.log(auctions);
-
-  const auctions = [{ id: 1 }, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div className="px-40">
       <Path />
       <Filters />
-      <Artworks artworks={auctions} />
+
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Artworks />
+      {/* </Suspense> */}
     </div>
   );
 };

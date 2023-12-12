@@ -1,4 +1,5 @@
 ﻿using backend.DTOs;
+using backend.Data.Models;
 
 namespace backend.Services
 {
@@ -6,7 +7,7 @@ namespace backend.Services
     {
         Task<IEnumerable<AuctionDTO>> GetAuctionsAsync();
         Task<AuctionDTO> GetAuctionByIdAsync(int id);
-        Task AddAuctionAsync(AuctionRegistrationDTO auctionDto);
+        Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction);
         Task UpdateAuctionAsync(AuctionDTO auctionDto);
         Task DeleteAuctionsAsync(int id);
     }

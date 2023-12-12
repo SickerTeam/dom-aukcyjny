@@ -7,7 +7,7 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuctionController(IAuctionService auctionService, IMapper mapper) : ControllerBase
+    public class AuctionsController(IAuctionService auctionService, IMapper mapper) : ControllerBase
     {
         private readonly IAuctionService _auctionService = auctionService;
         private readonly IMapper _mapper = mapper;
@@ -27,10 +27,11 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAuction(AuctionRegistrationDTO auctionDto)
+        public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {
-            await _auctionService.AddAuctionAsync(auctionDto);
-            return Ok();
+            var auction = await _auctionService.CreateAuctionAsync(auctionDto);
+            var dto = await _auctionService.GetAuctionByIdAsync(auction.Id);
+            return Ok(dto);
         }
 
         [HttpPut]

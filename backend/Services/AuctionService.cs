@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using backend.DTOs;
+using backend.Data.Models;
 using backend.Models;
 using backend.Repositories;
 
 namespace backend.Services
 {
-   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
+   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductRepository productRepository) : IAuctionService
    {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
-        private readonly IProductService _productService = productService;
+        private readonly IProductRepository _productRepository = productRepository;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
@@ -19,17 +20,14 @@ namespace backend.Services
 
         public async Task<AuctionDTO> GetAuctionByIdAsync(int id)
         {
-            Auction auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             return _mapper.Map<AuctionDTO>(auction);
         }
 
-        public async Task AddAuctionAsync(AuctionRegistrationDTO auctionDto)
+        public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auctionDto)
         {
-           var auction = _mapper.Map<Auction>(auctionDto);
-           auction.CreatedAt = DateTime.Now;
-           auction.IsArchived = false;
-           auction.Product = await _productService.GetModelById(auctionDto.ProductId);
-           await _auctionRepository.AddAuctionAsync(auction);
+            var product = await _productRepository.CreateProductAsync(auctionDto.Product);
+            return await _auctionRepository.CreateAuctionAsync(auctionDto, product.Id);
         }
 
         public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
@@ -39,7 +37,7 @@ namespace backend.Services
 
             _mapper.Map(auctionDto, auction);
 
-            await _auctionRepository.UpdateAuctionAsync(auction);
+            // await _auctionRepository.UpdateAuctionAsync(auction);
         } 
 
         public async Task DeleteAuctionsAsync(int id)

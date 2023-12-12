@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using backend.Models;
+using backend.Data.Models;
 
 namespace backend.Data;
 
@@ -14,11 +15,11 @@ public partial class DatabaseContext : DbContext
     {
     }
 
-    public virtual DbSet<Auction> Auctions { get; set; }
+    public virtual DbSet<DbAuction> Auction { get; set; }
 
     public virtual DbSet<AuctionPurchase> AuctionPurchases { get; set; }
 
-    public virtual DbSet<Bid> Bids { get; set; }
+    public virtual DbSet<DbBid> Bids { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
 
@@ -32,9 +33,9 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Post> Posts { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<DbProduct> Products { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<DbUser> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

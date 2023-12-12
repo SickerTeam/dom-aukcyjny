@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.Data.Models;
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
@@ -10,26 +11,20 @@ namespace backend.Services
         private readonly IProductRepository _productRepository = productRepository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<ProductDTO> GetProductByIdAsync(int id)
-        {
-            return _mapper.Map<ProductDTO>(await GetModelById(id));
-        }
-
-        public async Task<Product> GetModelById(int id)
+        public async Task<DbProduct> GetProductByIdAsync(int id)
         {
             return await _productRepository.GetProductByIdAsync(id);
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
+        public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
         {
-            var products = await _productRepository.GetAllProductsAsync();
-            return _mapper.Map<IEnumerable<ProductDTO>>(products);
+            return await _productRepository.GetAllProductsAsync();
         }
 
-        public async Task AddProductAsync(ProductDTO productDTO)
+        public async Task AddProductAsync(ProductCreationDTO productDTO)
         {
-            var product = _mapper.Map<Product>(productDTO);
-            await _productRepository.AddProductAsync(product);
+            var product = _mapper.Map<ProductCreationDTO>(productDTO);
+            await _productRepository.CreateProductAsync(product);
         }
 
         public async Task UpdateProductAsync(ProductDTO productDTO)

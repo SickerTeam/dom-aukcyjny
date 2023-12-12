@@ -28,12 +28,11 @@ namespace backend.Services
             // map to model
             var post = _mapper.Map<Post>(postDto);
 
-            // get picture urls
+            // get picture urls - u can access the picture urls directly from the postDto.Pictures, the select is not needed
             var pictureUrls = postDto.Pictures.Select(p => p.PictureUrl).ToList();
 
             // map additional values
             post.TimePosted = DateTime.Now;
-            post.User = await _userService.GetModelById(postDto.UserId);
 
             // make pictures null so the IDs dont conflit when adding later on
             post.Pictures = null;

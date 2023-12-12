@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import {
   ArtworkTitle,
   AuctionDetails,
@@ -5,18 +8,21 @@ import {
   Path,
   PhotoDisplay,
 } from "..";
+import apiService from "../../services/apiService";
 
 type AuctionPageType = {
   id: string;
 };
 
 const AuctionPage = ({ id }: AuctionPageType) => {
-  // fetch given auction or pass auction from the auction list page - no need to fetch the same auction again
-  const auction = {
-    id: id,
-    title: "Mona Lisa by Leonardo da Vinci",
-    photos: [1, 2, 3, 4, 5, 6, 7],
-  };
+  const [auction, setAuction] = useState({ title: "", photos: [] });
+
+  useEffect(() => {
+    apiService
+      .get(`/auction/${id}`)
+      .then((data) => setAuction(data))
+      .catch((error) => console.error("Error: ", error));
+  }, [id]);
 
   return (
     <div className="grid grid-cols-4 grid-rows-7 gap-4 px-40">
