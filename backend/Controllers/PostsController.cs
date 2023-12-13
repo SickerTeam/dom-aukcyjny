@@ -10,13 +10,6 @@ namespace backend.Controllers
     {
         private readonly IPostService _postService = postService;
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
-        {
-            var posts = await _postService.GetAllPostsAsync();
-            return Ok(posts);
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
         {
@@ -32,7 +25,7 @@ namespace backend.Controllers
             return Ok(dto);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePostAsync(PostDTO postDto)
         {
             await _postService.UpdatePostAsync(postDto);

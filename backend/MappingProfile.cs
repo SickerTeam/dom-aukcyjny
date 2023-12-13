@@ -16,7 +16,9 @@ namespace backend
             CreateMap<DbUser, UserDTO>();
 
             CreateMap<PostCreationDTO, DbPost>();
+            CreateMap<PostCreationDTO, DbPost>();
             CreateMap<DbPost, PostDTO>();
+            CreateMap<PostDTO, DbPost>();
 
             CreateMap<CommentCreationDTO, DbComment>();
             CreateMap<DbComment, CommentDTO>();
