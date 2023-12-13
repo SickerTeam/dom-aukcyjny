@@ -7,7 +7,7 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LikeController(ILikeService likeService, IMapper mapper) : ControllerBase
+    public class LikesController(ILikeService likeService, IMapper mapper) : ControllerBase
     {
         private readonly ILikeService _likeService = likeService;
         private readonly IMapper _mapper = mapper;

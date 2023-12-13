@@ -7,12 +7,12 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CommentController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService, IMapper mapper)
+        public CommentsController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
             _mapper = mapper;
