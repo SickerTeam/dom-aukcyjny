@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using backend.DTOs;
+﻿using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,23 +6,22 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuctionsController(IAuctionService auctionService, IMapper mapper) : ControllerBase
+    public class AuctionsController(IAuctionService auctionService) : ControllerBase
     {
         private readonly IAuctionService _auctionService = auctionService;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
         public async Task<IActionResult> GetAuctions()
         {
-            var listings = await _auctionService.GetAuctionsAsync();
-            return Ok(listings);
+            var auctions = await _auctionService.GetAuctionsAsync();
+            return Ok(auctions);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAuctionById(int id)
         {
-            var listing = await _auctionService.GetAuctionByIdAsync(id);
-            return Ok(listing);
+            var auction = await _auctionService.GetAuctionByIdAsync(id);
+            return Ok(auction);
         }
 
         [HttpPost]
