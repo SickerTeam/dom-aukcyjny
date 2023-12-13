@@ -10,15 +10,20 @@ namespace backend.Repositories
     public class ProductRepository(DatabaseContext context) : IProductRepository
     {
         private readonly DatabaseContext _context = context;
+        
+        public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
+        {
+            return await _context.Products
+                .Include(product => product.Seller)
+                .ToListAsync();
+        }
 
         public async Task<DbProduct> GetProductByIdAsync(int id)
         {
-            return await _context.Products.FindAsync(id) ?? throw new Exception("Product not found");
-        }
-
-        public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
-        {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Where(x => x.Id == id)
+                .Include(product => product.Seller)
+                .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
         }
 
         public async Task<DbProduct> CreateProductAsync(ProductCreationDTO product)
@@ -32,7 +37,7 @@ namespace backend.Repositories
                 Title = product.Title,
                 Description = product.Description,
                 Artist = product.Artist,
-                SellerId = 2137,
+                SellerId = product.SellerId,
             };
 
             _context.Products.Add(dbProduct);
