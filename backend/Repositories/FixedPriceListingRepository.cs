@@ -1,5 +1,6 @@
 ﻿using backend.Data;
 using backend.Data.Models;
+using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -10,7 +11,9 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
 
         public async Task<IEnumerable<DbFixedPriceListing>> GetAllFixedPriceListingsAsync()
         {
-            return await _context.FixedPriceListings.Include(fixedPriceListing => fixedPriceListing.Product)
+            return await _context.FixedPriceListings
+            .Include(fixedPriceListing => fixedPriceListing.Product)
+            .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
             .ToListAsync();
         }
 
@@ -38,6 +41,7 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
         {
             var fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
             .Include(fixedPriceListing => fixedPriceListing.Product)
+            .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
             .FirstOrDefaultAsync();
             return fixedPriceListing ?? throw new ArgumentException("FixedPriceListing not found");
         }

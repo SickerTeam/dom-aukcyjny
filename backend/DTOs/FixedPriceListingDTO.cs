@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using backend.Validation;
 
 namespace backend.DTOs
 {
@@ -12,6 +11,7 @@ namespace backend.DTOs
         [Required]
         [Range(1, int.MaxValue)]
         public int ProductId { get; set; }
+        public ProductDTO Product { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue)]
