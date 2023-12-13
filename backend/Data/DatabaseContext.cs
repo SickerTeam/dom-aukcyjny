@@ -41,7 +41,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Auction");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.EndsAt).HasColumnType("datetime");
             entity.Property(e => e.EstimateMaxPrice).HasColumnType("decimal(18, 2)");
@@ -61,7 +61,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Bid");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -81,7 +81,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Comment");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Text)
                 .IsRequired()
@@ -104,7 +104,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("FixedPriceListing");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
@@ -120,7 +120,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("FixedPriceListingPurchase");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Buyer).WithMany(p => p.FixedPriceListingPurchases)
@@ -139,7 +139,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Like");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
             entity.HasOne(d => d.Post).WithMany(p => p.Likes)
@@ -158,7 +158,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Post");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Text)
                 .IsRequired()
@@ -177,7 +177,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("Product");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Artist)
                 .IsRequired()
                 .HasMaxLength(255)
@@ -207,7 +207,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Bio).IsUnicode(false);
             entity.Property(e => e.Country)
                 .HasMaxLength(255)
