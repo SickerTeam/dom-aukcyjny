@@ -28,13 +28,13 @@ namespace backend.Services
             var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;
             fixedPriceListing.CreatedAt = DateTime.Now;
-            // fixedPriceListing.Product = await _productService.GetModelById(fixedPriceListingDto.ProductId);
+            fixedPriceListing.Product = await _productService.GetProductByIdAsync(fixedPriceListingDto.ProductId);
             await _fixedPriceListingRepository.AddFixedPriceListingAsync(fixedPriceListing);
         }
 
         public async Task UpdateFixedPriceListingAsync(FixedPriceListingDTO fixedPriceListingDto)
         {
-            var fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync((int)fixedPriceListingDto.Id);
+            var fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(fixedPriceListingDto.Id);
             if (fixedPriceListing == null) return;
 
             _mapper.Map(fixedPriceListingDto, fixedPriceListing);

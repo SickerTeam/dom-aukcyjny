@@ -22,6 +22,7 @@ namespace backend
             CreateMap<DbComment, CommentDTO>();
 
             CreateMap<FixedPriceListingCreationDTO, DbFixedPriceListing>();
+            CreateMap<FixedPriceListingDTO, DbFixedPriceListing>();
             CreateMap<DbFixedPriceListing, FixedPriceListingDTO>();
 
             CreateMap<ProductCreationDTO, Product>();
