@@ -11,7 +11,7 @@
 
 import asyncio, json, websockets, random
 
-auction_id = 1
+auction_id = 2
 amount = 1000
 uri = "ws://localhost:5156/Auction/" + str(auction_id) + "/Bid"
 
