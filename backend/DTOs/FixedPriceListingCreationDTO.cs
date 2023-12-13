@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-   public class FixedPriceListingRegistrationDTO(int productId, decimal price)
+   public class FixedPriceListingCreationDTO(int productId, decimal price)
     {
         [Required]
         [Range(1, int.MaxValue)]

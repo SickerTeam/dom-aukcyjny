@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.Data.Models;
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
@@ -11,9 +12,9 @@ namespace backend.Services
         private readonly IMapper _mapper = mapper;
         private readonly IUserService _userService = userService;
 
-        public async Task<IEnumerable<PostDTO>> GetPostsAsync()
+        public async Task<IEnumerable<PostDTO>> GetAllPostsAsync()
         {
-            var posts = await _postRepository.GetPostsAsync();
+            var posts = await _postRepository.GetAllPostsAsync();
             return _mapper.Map<IEnumerable<PostDTO>>(posts);
         }
 
@@ -23,7 +24,7 @@ namespace backend.Services
             return _mapper.Map<PostDTO>(post);
         }
 
-        public async Task AddPostAsync(PostCreationDTO postDto)
+        public async Task<DbPost> CreatePostAsync(PostCreationDTO postDto)
         {
             // // map to model
             // var post = _mapper.Map<Post>(postDto);
@@ -58,7 +59,7 @@ namespace backend.Services
             // postDtoFromDb.Pictures = updatedPictures;
             // await UpdatePostAsync(postDtoFromDb);
 
-            throw new NotImplementedException();
+            return await _postRepository.CreatePostAsync(postDto);
         }
 
         public async Task UpdatePostAsync(PostDTO postDto)

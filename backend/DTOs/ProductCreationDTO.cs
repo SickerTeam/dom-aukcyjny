@@ -17,5 +17,7 @@ namespace backend.DTOs
         public string Description { get; set; }
 
         public string Artist { get; set; }
+        
+        public int SellerId { get; set; }
     }
 }

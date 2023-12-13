@@ -24,7 +24,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<UserDTO>> GetUsersAsync()
         {
-            var users = await _userRepository.GetUsersAsync();
+            var users = await _userRepository.GetAllUsersAsync();
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
@@ -34,7 +34,7 @@ namespace backend.Services
             return _mapper.Map<UserDTO>(user);
         }
         
-        public async Task AddUserAsync(UserRegistrationDTO userDto)
+        public async Task AddUserAsync(UserCreationDTO userDto)
         {
             var user = _mapper.Map<DbUser>(userDto);
             await _userRepository.AddUserAsync(user);

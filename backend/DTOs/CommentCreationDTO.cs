@@ -3,7 +3,7 @@
 
 namespace backend.DTOs
 {
-    public class CommentRegistrationDTO
+    public class CommentCreationDTO
     {
         [Required]
         [Range(1, int.MaxValue)]
@@ -16,14 +16,5 @@ namespace backend.DTOs
         [Required]
         [Range(1, int.MaxValue)]
         public int UserId { get; set; }
-
-        public CommentRegistrationDTO(){}
-
-        public CommentRegistrationDTO(int postId, string text, int userId)
-        {
-            PostId = postId;
-            Text = text;
-            UserId = userId;
-        }
     }
 }

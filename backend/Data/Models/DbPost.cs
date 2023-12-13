@@ -6,9 +6,9 @@ public class DbPost : BaseDbModel
 
     public string Text { get; set; }
 
-    public virtual ICollection<DbComment> Comments { get; set; } = new List<DbComment>();
+    public virtual DbUser? User { get; set; }
 
-    public virtual ICollection<DbLike> Likes { get; set; } = new List<DbLike>();
+    public virtual ICollection<DbComment>? Comments { get; set; } = new List<DbComment>();
 
-    public virtual DbUser User { get; set; }
+    public virtual ICollection<DbLike>? Likes { get; set; } = new List<DbLike>();
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.Data.Models;
 using backend.DTOs;
 using backend.Models;
 
@@ -8,41 +9,26 @@ namespace backend
     {
         public MappingProfile()
         {
-            CreateMap<AuctionCreationDTO, Auction>();
-            CreateMap<AuctionDTO, Auction>();
-            CreateMap<Auction, AuctionDTO>();
+            CreateMap<AuctionCreationDTO, DbAuction>();
+            CreateMap<DbAuction, AuctionDTO>();
 
-            CreateMap<UserRegistrationDTO, User>();
-            CreateMap<User, UserRegistrationDTO>();
-            CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
+            CreateMap<UserCreationDTO, DbUser>();
+            CreateMap<DbUser, UserDTO>();
 
-            CreateMap<Like, LikeDTO>();
-            CreateMap<Post, PostDTO>();
-            CreateMap<Comment, CommentDTO>();
+            CreateMap<PostCreationDTO, DbPost>();
+            CreateMap<DbPost, PostDTO>();
 
-            CreateMap<FixedPriceListingRegistrationDTO, FixedPriceListing>();
-            CreateMap<FixedPriceListingDTO, FixedPriceListing>();
-            CreateMap<FixedPriceListing, FixedPriceListingDTO>();
+            CreateMap<CommentCreationDTO, DbComment>();
+            CreateMap<DbComment, CommentDTO>();
 
-            CreateMap<Product, ProductDTO>();
-            CreateMap<ProductDTO, Product>();
+            CreateMap<FixedPriceListingCreationDTO, DbFixedPriceListing>();
+            CreateMap<DbFixedPriceListing, FixedPriceListingDTO>();
 
-            CreateMap<UserRegistrationDTO, User>();
-            CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
+            CreateMap<ProductCreationDTO, Product>();
+            CreateMap<DbProduct, ProductDTO>();
 
-            CreateMap<PostCreationDTO, Post>();
-            CreateMap<Post, PostDTO>();
-            CreateMap<PostDTO, Post>();
-
-            CreateMap<LikeRegistrationDTO, Like>();         
-            CreateMap<Like, LikeDTO>();
-            CreateMap<LikeDTO, Like>();
-
-            CreateMap<CommentRegistrationDTO, Comment>();
-            CreateMap<Comment, CommentDTO>();
-            CreateMap<CommentDTO, Comment>();
+            CreateMap<LikeCreationDTO, DbLike>();         
+            CreateMap<DbLike, LikeDTO>();
         }
     }
 }

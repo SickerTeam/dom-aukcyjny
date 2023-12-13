@@ -27,7 +27,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddFixedPriceListing(FixedPriceListingRegistrationDTO fixedPriceListingDto)
+        public async Task<ActionResult> AddFixedPriceListing(FixedPriceListingCreationDTO fixedPriceListingDto)
         {
             await _fixedPriceListingService.AddFixedPriceListingAsync(fixedPriceListingDto);
             return Ok();

@@ -3,7 +3,7 @@ using backend.Validation;
 
 namespace backend.DTOs
 {
-    public class LikeRegistrationDTO
+    public class LikeCreationDTO
     {       
         [Required]
         [Range(1, int.MaxValue)]
@@ -12,13 +12,5 @@ namespace backend.DTOs
         [Required]
         [Range(1, int.MaxValue)]
         public int UserId { get; set; }
-
-        public LikeRegistrationDTO(){}
-
-        public LikeRegistrationDTO(int postId, int userId)
-        {
-            PostId = postId;
-            UserId = userId;
-        }
     }
 }

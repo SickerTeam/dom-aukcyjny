@@ -27,7 +27,7 @@ namespace backend.Services
             return _mapper.Map<LikeDTO>(like);
         }
 
-        public async Task AddLikesAsync(LikeRegistrationDTO likeDto)
+        public async Task AddLikesAsync(LikeCreationDTO likeDto)
         {
             var like = _mapper.Map<DbLike>(likeDto);
             like.CreatedAt = DateTime.Now;

@@ -23,7 +23,7 @@ namespace backend.Services
             return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
         }
 
-        public async Task AddFixedPriceListingAsync(FixedPriceListingRegistrationDTO fixedPriceListingDto)
+        public async Task AddFixedPriceListingAsync(FixedPriceListingCreationDTO fixedPriceListingDto)
         {
             var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;

@@ -16,17 +16,17 @@
 
         public string PersonalLink { get; set; }
 
-        public virtual ICollection<DbBid> Bids { get; set; } = new List<DbBid>();
+        public virtual ICollection<DbBid>? Bids { get; set; } = new List<DbBid>();
 
-        public virtual ICollection<DbComment> Comments { get; set; } = new List<DbComment>();
+        public virtual ICollection<DbComment>? Comments { get; set; } = new List<DbComment>();
 
-        public virtual ICollection<DbFixedPriceListingPurchase> FixedPriceListingPurchases { get; set; } = new List<DbFixedPriceListingPurchase>();
+        public virtual ICollection<DbFixedPriceListingPurchase>? FixedPriceListingPurchases { get; set; } = new List<DbFixedPriceListingPurchase>();
 
-        public virtual ICollection<DbLike> Likes { get; set; } = new List<DbLike>();
+        public virtual ICollection<DbLike>? Likes { get; set; } = new List<DbLike>();
 
-        public virtual ICollection<DbPost> Posts { get; set; } = new List<DbPost>();
+        public virtual ICollection<DbPost>? Posts { get; set; } = new List<DbPost>();
 
-        public virtual ICollection<DbProduct> Products { get; set; } = new List<DbProduct>();
+        public virtual ICollection<DbProduct>? Products { get; set; } = new List<DbProduct>();
 
     }
 }

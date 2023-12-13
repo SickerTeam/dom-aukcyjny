@@ -3,7 +3,7 @@ using backend.Enums;
 
 namespace backend.DTOs
 {
-    public class UserRegistrationDTO
+    public class UserCreationDTO
     {
         [Required]
         public string Email { get; set; }

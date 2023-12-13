@@ -20,7 +20,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserRegistrationDTO registrationDto)
+    public async Task<IActionResult> Register(UserCreationDTO registrationDto)
     {
         try
         {

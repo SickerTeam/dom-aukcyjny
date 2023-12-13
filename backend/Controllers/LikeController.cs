@@ -34,7 +34,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLikesAsync(LikeRegistrationDTO likeDto)
+        public async Task<IActionResult> AddLikesAsync(LikeCreationDTO likeDto)
         {
             await _likeService.AddLikesAsync(likeDto);
             return Ok();

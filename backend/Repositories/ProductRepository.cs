@@ -32,6 +32,7 @@ namespace backend.Repositories
                 Title = product.Title,
                 Description = product.Description,
                 Artist = product.Artist,
+                SellerId = 2137,
             };
 
             _context.Products.Add(dbProduct);

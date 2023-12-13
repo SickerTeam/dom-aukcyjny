@@ -4,7 +4,7 @@ namespace backend.Services
 {
     public interface IAuthenticationService
     {
-        Task<string> RegisterUserAsync(UserRegistrationDTO userRegistrationDTO);
+        Task<string> RegisterUserAsync(UserCreationDTO userRegistrationDTO);
         Task<string> LoginUserAsync(UserLoginDTO userLoginDTO);
     }
 }

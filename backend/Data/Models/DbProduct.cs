@@ -1,4 +1,6 @@
-﻿namespace backend.Data.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace backend.Data.Models
 {
     public class DbProduct : BaseDbModel
     {
@@ -17,10 +19,10 @@
         public string Artist { get; set; }
 
         public int SellerId { get; set; }
-        public DbUser Seller { get; set; }
+        public DbUser? Seller { get; set; }
 
-        public virtual ICollection<DbAuction> Auctions { get; set; } = new List<DbAuction>();
-        public virtual ICollection<DbFixedPriceListing> FixedPriceListings { get; set; } = new List<DbFixedPriceListing>();
+        public virtual ICollection<DbAuction>? Auctions { get; set; } = new List<DbAuction>();
+        public virtual ICollection<DbFixedPriceListing>? FixedPriceListings { get; set; } = new List<DbFixedPriceListing>();
 
     }
 }

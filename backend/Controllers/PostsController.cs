@@ -13,7 +13,7 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPosts()
         {
-            var posts = await _postService.GetPostsAsync();
+            var posts = await _postService.GetAllPostsAsync();
             return Ok(posts);
         }
 
@@ -25,10 +25,11 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPostAsync(PostCreationDTO postDto)
+        public async Task<ActionResult> CreatePostAsync(PostCreationDTO postDto)
         {
-            await _postService.AddPostAsync(postDto);
-            return Ok();
+            var dbPost = await _postService.CreatePostAsync(postDto);
+            var dto = await _postService.GetPostByIdAsync(dbPost.Id);
+            return Ok(dto);
         }
 
         [HttpPut]

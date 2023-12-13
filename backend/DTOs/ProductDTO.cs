@@ -19,5 +19,5 @@ public class ProductDTO
 
     public string Description { get; set; }
 
-    public virtual UserDTO Artist { get; set; }
+    public virtual UserDTO Seller { get; set; }
 }

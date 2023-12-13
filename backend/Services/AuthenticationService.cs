@@ -19,7 +19,7 @@ namespace backend.Services
             _jwtUtils = jwtUtils;
         }
 
-        public async Task<string> RegisterUserAsync(UserRegistrationDTO registrationDto)
+        public async Task<string> RegisterUserAsync(UserCreationDTO registrationDto)
         {
             if (registrationDto == null)
             {

@@ -10,7 +10,7 @@ namespace backend.Repositories
     public interface IUserRepository
     {
         int GetNumberOfUsers();
-        Task<IEnumerable<DbUser>> GetUsersAsync();
+        Task<IEnumerable<DbUser>> GetAllUsersAsync();
         Task<DbUser> GetUserByIdAsync(int id);
         Task<User> GetUserByEmailAsync(string email);
         Task AddUserAsync(DbUser user);

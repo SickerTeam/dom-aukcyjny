@@ -35,7 +35,7 @@ namespace backend.Controllers
       }
 
       [HttpPost]
-      public async Task<IActionResult> AddUser(UserRegistrationDTO userDto)
+      public async Task<IActionResult> AddUser(UserCreationDTO userDto)
       {
          await _userService.AddUserAsync(userDto);
          return Ok();

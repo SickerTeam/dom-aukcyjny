@@ -27,7 +27,7 @@ namespace backend.Services
             return _mapper.Map<CommentDTO>(comment);
         }
 
-        public async Task AddCommentsAsync(CommentRegistrationDTO commentDto)
+        public async Task AddCommentsAsync(CommentCreationDTO commentDto)
         {
             var comment = _mapper.Map<DbComment>(commentDto);
             comment.CreatedAt = DateTime.Now;

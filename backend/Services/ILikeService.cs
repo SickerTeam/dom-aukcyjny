@@ -8,7 +8,7 @@ namespace backend.Services
         Task<IList<LikeDTO>> GetLikesAsync();
         Task<int> GetAmountOfLikesForPostById(int postId);
         Task<LikeDTO> GetLikesByIdAsync(int id);
-        Task AddLikesAsync(LikeRegistrationDTO likeDto);
+        Task AddLikesAsync(LikeCreationDTO likeDto);
         Task DeleteLikesAsync(int id);
     }
 }

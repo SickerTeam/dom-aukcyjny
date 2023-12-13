@@ -16,7 +16,7 @@ namespace backend.Repositories
             return numberOfUsers;
         }
 
-        public async Task<IEnumerable<DbUser>> GetUsersAsync()
+        public async Task<IEnumerable<DbUser>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }

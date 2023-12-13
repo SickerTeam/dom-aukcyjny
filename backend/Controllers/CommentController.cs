@@ -40,7 +40,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCommentsAsync([FromBody] CommentRegistrationDTO commentDto)
+        public async Task<IActionResult> AddCommentsAsync([FromBody] CommentCreationDTO commentDto)
         {
             await _commentService.AddCommentsAsync(commentDto);
             return Ok();
