@@ -7,7 +7,7 @@ const ProfileArtworks = () => {
   return (
     <div>
       <h2>Artworks</h2>
-      <div className="grid grid-cols-3 grid-rows-1 gap-4">
+      <div className="flex gap-2">
         {artworks.map((artwork, index) => (
           <ProfileArtworksCard key={index} artwork={artwork} />
         ))}

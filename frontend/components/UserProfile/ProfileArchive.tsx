@@ -7,7 +7,7 @@ const ProfileArchive = () => {
   return (
     <div>
       <h2>Archived</h2>
-      <div className="grid grid-cols-3 grid-rows-1 gap-4">
+      <div className="flex gap-2">
         {archives.map((archive, index) => (
           <ArchiveCard key={index} archive={archive} />
         ))}

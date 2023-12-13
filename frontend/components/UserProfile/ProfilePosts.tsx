@@ -7,7 +7,7 @@ const ProfilePosts = () => {
   return (
     <div>
       <h2>Posts</h2>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="flex gap-2">
         {posts.map((post, index) => (
           <ProfilePostCard key={index} post={post} />
         ))}

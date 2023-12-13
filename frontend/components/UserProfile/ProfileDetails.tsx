@@ -11,9 +11,8 @@ const ProfileDetails = ({ name, country }: ProfileDetailsType) => {
 
   return (
     <div>
-      <h1>{firstName}</h1>
-      <h1>{lastName}</h1>
-      <h2>{country}</h2>
+      <h1 className="inline-block text-2xl font-semibold">{name}</h1>
+      <h2 className=" font-semibold">{country}</h2>
     </div>
   );
 };

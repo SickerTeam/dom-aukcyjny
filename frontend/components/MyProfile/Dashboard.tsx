@@ -1,43 +1,60 @@
-import Link from "next/link"
+import { ProfilePhoto, ProfileDetails, ProfilePosts, AboutMe } from "..";
+import ProfileArtworks from "../UserProfile/ProfileArtworks";
+import ProfileArchive from "../UserProfile/ProfileArchive";
 
-const MyProfile = () => {
-    return (
-      <div className="max-w-5xl mx-auto p-4">
-    <h2 className="text-2xl font-bold mb-4">My profile</h2>
-    <p>Welcome back, bro! </p>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
-      <div className="bg-white p-4 rounded shadow-md">
-        <Link href="/yourprofile/edit">
-        <h3 className="text-lg font-semibold mb-2">Settings</h3>
-        <p className="text-gray-600">Configure your account settings.</p>
-        </Link>
+type UserPageType = {
+  userId: string;
+};
+
+const UserPage = ({ userId }: UserPageType) => {
+  const userProfileInfo = {
+    name: "Jakob Hujek",
+    photoUrl: "",
+    country: "Poland",
+    aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    socialFb: "https://www.facebook.com/",
+    socialIg: "https://www.instagram.com/",
+    socialYt: "https://www.youtube.com/",
+  };
+
+  return (
+    <div className='flex'>
+      <div className="sidebar text-black w-1/5 p-8 mt-12">
+        <ul>
+          <li className="mb-2"><a href="/yourprofile/edit">Settings</a></li>
+          <li className="mb-2"><a href="/yourprofile/addresses">Addresses</a></li>
+          <li className="mb-2"><a href="/yourprofile/payments">Payments</a></li>
+          <li className="mb-2"><a href="/yourprofile/myfavourites">My favourites</a></li>
+        </ul>
       </div>
-      <div className="bg-white p-4 rounded shadow-md">
-      <Link href="/yourprofile/addresses">
-        <h3 className="text-lg font-semibold mb-2">Addresses</h3>
-        <p className="text-gray-600">Manage your shipping addresses.</p>
-        </Link>
-      </div>
-      <div className="bg-white p-4 rounded shadow-md">
-      <Link href="/yourprofile/payments">
-        <h3 className="text-lg font-semibold mb-2">Payments</h3>
-        <p className="text-gray-600">View and update payment methods.</p>
-        </Link>
-      </div>
-      <div className="bg-white p-4 rounded shadow-md">
-      <Link href="/yourprofile/myfavourites">
-        <h3 className="text-lg font-semibold mb-2">My favourites</h3>
-        <p className="text-gray-600">Preview your saved arts.</p>
-        </Link>
-      </div>
-      <div className="bg-white p-4 rounded shadow-md">
-        <h3 className="text-lg font-semibold mb-2">Logout</h3>
-        <p className="text-gray-600">Log out of your profile.</p>
+      <div className="grid grid-cols-6 gap-2 pt-8">
+        <div className="col-start-2 ">
+          <ProfilePhoto
+            url={userProfileInfo.photoUrl}
+            name={userProfileInfo.name}
+          />
+        </div>
+        <div className="col-start-3 col-span-4 flex ml-14 mt-6">
+          <ProfileDetails
+            name={userProfileInfo.name}
+            country={userProfileInfo.country}
+          />
+        </div>
+        <div className="col-start-2 col-span-4 mb-8 mt-8">
+          <AboutMe description={userProfileInfo.aboutMe} />
+        </div>
+        <div className="col-start-2 col-span-4 ">
+          <ProfilePosts />
+        </div>
+        <div className="col-start-2 col-span-4">
+          <ProfileArtworks />
+        </div>
+        <div className="col-start-2 col-span-4">
+          <ProfileArchive />
+        </div>
       </div>
     </div>
-  </div>
-  
-    )
-  }
-  
-  export default MyProfile
+  );
+};
+
+export default UserPage;
