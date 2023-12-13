@@ -1,5 +1,3 @@
-
-using backend.Models;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
 using backend.Data.Models;
@@ -27,11 +25,10 @@ namespace backend.Repositories
             return user ?? throw new ArgumentException("User not found");
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<DbUser> GetUserByEmailAsync(string email)
         {
-            var user = await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
-            throw new ArgumentException("User not found"); 
-            // ^ this throws exception either way, and the function doesnt return anything
+            DbUser dbUser = await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+            return dbUser ?? throw new ArgumentException("User not found");
         }
 
         public async Task AddUserAsync(DbUser user)

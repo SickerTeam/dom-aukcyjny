@@ -41,7 +41,7 @@ namespace backend.Services
 
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<DbUser> GetUserByEmailAsync(string email)
         {
             return await _userRepository.GetUserByEmailAsync(email);
         }

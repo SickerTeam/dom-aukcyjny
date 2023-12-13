@@ -1,6 +1,4 @@
-using AutoMapper;
 using backend.DTOs;
-using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,25 +9,23 @@ namespace backend.Controllers
 public class AuthenticationController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
-    private readonly IMapper _mapper;
 
-    public AuthenticationController(IAuthenticationService authenticationService, IMapper mapper)
+    public AuthenticationController(IAuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
-        _mapper = mapper;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserCreationDTO registrationDto)
+    public async Task<IActionResult> Register(UserCreationDTO userCreationDTO)
     {
         try
         {
-            var token = await _authenticationService.RegisterUserAsync(registrationDto);
+            var token = await _authenticationService.RegisterUserAsync(userCreationDTO);
             return Ok(new { Token = token });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { Message = ex.Message });
+            return BadRequest(new { ex.Message });
         }
     }
 
@@ -43,7 +39,7 @@ public class AuthenticationController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(new { Message = ex.Message });
+            return BadRequest(new { ex.Message });
         }
     }
 }

@@ -60,6 +60,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(MAX),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
+    Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
@@ -135,13 +136,13 @@ CREATE TABLE FixedPriceListingPurchase (
 );
 
 -- Insert mock data into the tables
-INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, CreatedAt)
+INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
