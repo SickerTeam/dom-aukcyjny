@@ -9,17 +9,17 @@ namespace backend.DTOs
 
         [Required]
         [Range(1, int.MaxValue)]         
-        public int BidderId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue)]
         public decimal Amount { get; set; }
 
         public BidRegistrationDTO() {}
-        public BidRegistrationDTO(int auctionId, int bidderId, decimal amount)
+        public BidRegistrationDTO(int auctionId, int userId, decimal amount)
         {
             AuctionId = auctionId;
-            BidderId = bidderId;
+            UserId = userId;
             Amount = amount;
         }
     }

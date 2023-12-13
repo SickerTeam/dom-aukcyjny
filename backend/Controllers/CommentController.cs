@@ -7,16 +7,10 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CommentController : ControllerBase
+    public class CommentController(ICommentService commentService, IMapper mapper) : ControllerBase
     {
-        private readonly ICommentService _commentService;
-        private readonly IMapper _mapper;
-
-        public CommentController(ICommentService commentService, IMapper mapper)
-        {
-            _commentService = commentService;
-            _mapper = mapper;
-        }
+        private readonly ICommentService _commentService = commentService;
+        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
         public async Task<IActionResult> GetCommentsAsync()

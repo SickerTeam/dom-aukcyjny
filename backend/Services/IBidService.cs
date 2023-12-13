@@ -1,11 +1,11 @@
 using backend.Models;
 using backend.DTOs;
 
-namespace backend.Repositories
+namespace backend.Services
 {
   public interface IBidService
   {
     Task<IEnumerable<BidDTO>> GetAllBidsForAuctionAsync(int auctionId);
-    Task AddBidAsync(BidRegistrationDTO bidRegistrationDTO);
+    Task<BidDTO> AddBidAsync(BidRegistrationDTO bidRegistrationDTO);
   }
 }

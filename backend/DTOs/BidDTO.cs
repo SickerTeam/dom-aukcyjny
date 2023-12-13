@@ -4,17 +4,17 @@ namespace backend.DTOs
 {
     public class BidDTO
     {
-        [Required]
+        // [Required]
         [Range(1, int.MaxValue)]       
         public int? Id { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]         
+        [Range(1, int.MaxValue)]
         public int AuctionId { get; set; }
-
+        
         [Required]
-        [Range(1, int.MaxValue)]         
-        public int BidderId { get; set; }
+        [Range(1, int.MaxValue)]
+        public int UserId { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue)]
@@ -24,11 +24,11 @@ namespace backend.DTOs
         public DateTime? PlacedAt { get; set; }
 
         public BidDTO() {}
-        public BidDTO(int id, int auctionId, int bidderId, decimal amount, DateTime? placedAt)
+        public BidDTO(int id, int auctionId, int userId, decimal amount, DateTime? placedAt)
         {
             Id = id;
             AuctionId = auctionId;
-            BidderId = bidderId;
+            UserId = userId;
             Amount = amount;
             PlacedAt = placedAt;
         }

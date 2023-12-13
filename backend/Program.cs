@@ -17,8 +17,6 @@ namespace backend
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-            //builder.Services.AddDbContext<DatabaseContext>();
             
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DatabaseContext")));
@@ -31,6 +29,7 @@ namespace backend
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
             builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+            builder.Services.AddScoped<IBidRepository, BidRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IInstaBuyService, InstaBuyService>();
@@ -40,6 +39,7 @@ namespace backend
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IPictureService, PictureService>();
+            builder.Services.AddScoped<IBidService, BidService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -58,13 +58,18 @@ namespace backend
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            app.Use((context, next) =>
+            {
+                if (!context.Request.Path.StartsWithSegments("/Auction/{id}/Bid"))
+                {
+                    app.UseHttpsRedirection();
+                }
+                return next();
+            });
 
             app.UseAuthorization();
-
-
+            app.UseWebSockets();
             app.MapControllers();
-
             app.Run();
         }
     }
