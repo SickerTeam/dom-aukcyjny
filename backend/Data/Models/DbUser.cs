@@ -1,4 +1,6 @@
-﻿namespace backend.Data.Models
+﻿using backend.Enums;
+
+namespace backend.Data.Models
 {
     public class DbUser : BaseDbModel
     {
@@ -15,6 +17,8 @@
         public string Country { get; set; }
 
         public string PersonalLink { get; set; }
+
+        public UserRole Role { get; set; }
 
         public virtual ICollection<DbBid>? Bids { get; set; } = new List<DbBid>();
 

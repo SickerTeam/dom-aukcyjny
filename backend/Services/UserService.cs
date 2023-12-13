@@ -40,11 +40,6 @@ namespace backend.Services
             await _userRepository.AddUserAsync(user);
 
         }
-        public async Task<User> GetModelById(int id)
-        {
-            // return await _userRepository.GetUserByIdAsync(id);
-            throw new NotImplementedException();
-        }
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
@@ -57,7 +52,7 @@ namespace backend.Services
             if (user == null) return;
 
             _mapper.Map(userDto, user);
-            // await _userRepository.UpdateUserAsync(user);
+            await _userRepository.UpdateUserAsync(user);
         }
 
         public async Task DeleteUserAsync(int id)

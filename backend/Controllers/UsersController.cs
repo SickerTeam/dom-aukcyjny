@@ -41,7 +41,7 @@ namespace backend.Controllers
          return Ok();
       }
 
-      [HttpPut]
+      [HttpPut("{id}")]
       public async Task<IActionResult> UpdateUser(UserDTO userDto)
       {
          await _userService.UpdateUserAsync(userDto);

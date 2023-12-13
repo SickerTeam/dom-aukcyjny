@@ -238,4 +238,17 @@ public partial class DatabaseContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public List<string> ApplyMigrations()
+    {
+        var pending = Database.GetPendingMigrations();
+
+        if(pending.Any())
+        {
+            Database.Migrate();
+            return pending.ToList();
+        }
+
+        return new List<string>();
+    }
 }

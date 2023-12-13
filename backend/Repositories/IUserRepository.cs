@@ -14,7 +14,7 @@ namespace backend.Repositories
         Task<DbUser> GetUserByIdAsync(int id);
         Task<User> GetUserByEmailAsync(string email);
         Task AddUserAsync(DbUser user);
-        Task UpdateUserAsync(User user);
+        Task UpdateUserAsync(DbUser user);
         Task DeleteUserAsync(int id);
     }
 }
