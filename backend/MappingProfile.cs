@@ -17,12 +17,15 @@ namespace backend
             CreateMap<UserDTO, DbUser>();
 
             CreateMap<PostCreationDTO, DbPost>();
+            CreateMap<PostCreationDTO, DbPost>();
             CreateMap<DbPost, PostDTO>();
+            CreateMap<PostDTO, DbPost>();
 
             CreateMap<CommentCreationDTO, DbComment>();
             CreateMap<DbComment, CommentDTO>();
 
             CreateMap<FixedPriceListingCreationDTO, DbFixedPriceListing>();
+            CreateMap<FixedPriceListingDTO, DbFixedPriceListing>();
             CreateMap<DbFixedPriceListing, FixedPriceListingDTO>();
 
             CreateMap<ProductCreationDTO, Product>();
