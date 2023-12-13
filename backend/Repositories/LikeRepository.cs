@@ -1,5 +1,5 @@
 ﻿using backend.Data;
-using backend.Models;
+using backend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IList<Like>> GetLikesAsync()
+        public async Task<IList<DbLike>> GetLikesAsync()
         {
             return await _context.Likes.ToListAsync();
         }
@@ -20,12 +20,12 @@ namespace backend.Repositories
                 .CountAsync();
         }
 
-        public async Task<Like> GetLikesByIdAsync(int id)
+        public async Task<DbLike> GetLikesByIdAsync(int id)
         {
             return await _context.Likes.FindAsync(id) ?? throw new ArgumentException("Like not found");
         }
 
-        public async Task AddLikesAsync(Like like)
+        public async Task AddLikesAsync(DbLike like)
         {
             await _context.Likes.AddAsync(like);
             await _context.SaveChangesAsync();

@@ -1,5 +1,6 @@
 ﻿using backend.Data;
-using backend.Models;
+using backend.Data.Models;
+using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -8,34 +9,34 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IEnumerable<Post>> GetPostsAsync()
+        public async Task<IEnumerable<DbPost>> GetAllPostsAsync()
         {
 
-            return await _context.Posts.Include( x => x.User).ToListAsync();
+            return await _context.Posts.ToListAsync();
         }
 
-        public async Task<Post> GetPostByIdAsync(int id)
+        public async Task<DbPost> GetPostByIdAsync(int id)
         {
             var post = await _context.Posts
-                .Include(p => p.Likes)
-                .Include(p => p.Comments)
-                .Include(p => p.Pictures)
                 .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
             return post;
         }
 
-        public async Task<int> AddPostAsync(Post Post)
+        public async Task<DbPost> CreatePostAsync(PostCreationDTO post)
         {
-            await _context.Posts.AddAsync(Post);
-            await _context.SaveChangesAsync();
-            if (Post.Id == null) 
+            var dbPost = new DbPost
             {
-                throw new ArgumentException("Couldn't add post");
-            }
-            return (int)Post.Id;
+               UserId = post.UserId,
+               Text = post.Text,
+            };
+
+            await _context.Posts.AddAsync(dbPost);
+            await _context.SaveChangesAsync();
+            
+            return dbPost;
         }
 
-        public async Task UpdatePostAsync(Post Post)
+        public async Task UpdatePostAsync(DbPost Post)
         {
             _context.Posts.Update(Post);
             await _context.SaveChangesAsync();

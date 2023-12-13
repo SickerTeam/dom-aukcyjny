@@ -1,4 +1,4 @@
-using backend.Models;
+using backend.Data.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
@@ -15,7 +15,7 @@ namespace backend.Utilities
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(User user)
+        public string GenerateJwtToken(DbUser user)
         {
             if (user == null)
             {

@@ -2,6 +2,7 @@
 
 .vs/*
 backend/appsettings.json
+backend/.vs/*
 
 # dependencies
 /frontend/node_modules 

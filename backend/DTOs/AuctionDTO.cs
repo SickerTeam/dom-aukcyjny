@@ -4,48 +4,24 @@ namespace backend.DTOs
 {
     public class AuctionDTO
     {
-        [Required]
-        [Range(1, int.MaxValue)]
         public int Id { get; set; }
 
-        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        [Required]
-        [FutureDate]
         public DateTime EndsAt { get; set; }
 
-        [Required]
-        [Range(0.01, double.MaxValue)]
-        public double FirstPrice { get; set; }
+        public double EstimateMinPrice { get; set; }
 
-        [Required]
-        [Range(0.01, double.MaxValue)]
-        public double EstimatedMinimum { get; set; }
+        public double EstimateMaxPrice { get; set; }
 
-        [Required]
-        [Range(0.01, double.MaxValue)]
-        public double EstimatedMaximum { get; set; }
+        public double StartingPrice { get; set; }
+
+        public double ReservePrice { get; set; }
+
         public bool IsArchived { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
         public int ProductId { get; set; }
 
-        public AuctionDTO() {}
-
-        public AuctionDTO(int id, DateTime? createdAt, DateTime endsAt, double firstPrice,
-                      double estimatedMinimum, double estimatedMaximum, bool isArchived,
-                      int productId)
-        {
-            Id = id;
-            CreatedAt = createdAt;
-            EndsAt = endsAt;
-            FirstPrice = firstPrice;
-            EstimatedMinimum = estimatedMinimum;
-            EstimatedMaximum = estimatedMaximum;
-            IsArchived = isArchived;
-            ProductId = productId;
-        }
+        public ProductDTO Product { get; set; }
     }
 }

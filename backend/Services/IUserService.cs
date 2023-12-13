@@ -1,7 +1,5 @@
 ﻿using backend.DTOs;
-using backend.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using backend.Data.Models;
 
 namespace backend.Services
 {
@@ -10,9 +8,8 @@ namespace backend.Services
         int GetNumberOfUsers();
         Task<IEnumerable<UserDTO>> GetUsersAsync();
         Task<UserDTO> GetUserByIdAsync(int id);
-        Task<User> GetModelById(int id);
-        Task<User> GetUserByEmailAsync(string email);
-        Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto);
+        Task AddUserAsync(UserCreationDTO userDto);
+        Task<DbUser> GetUserByEmailAsync(string email);
         Task UpdateUserAsync(UserDTO userDto);
         Task DeleteUserAsync(int id);
     }

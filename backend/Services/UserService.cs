@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.Data.Models;
 using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
@@ -23,7 +24,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<UserDTO>> GetUsersAsync()
         {
-            var users = await _userRepository.GetUsersAsync();
+            var users = await _userRepository.GetAllUsersAsync();
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
@@ -32,38 +33,22 @@ namespace backend.Services
             var user = await _userRepository.GetUserByIdAsync(id);
             return _mapper.Map<UserDTO>(user);
         }
-
-        public async Task<User> GetModelById(int id)
+        
+        public async Task AddUserAsync(UserCreationDTO userDto)
         {
-            return await _userRepository.GetUserByIdAsync(id);
+            var user = _mapper.Map<DbUser>(userDto);
+            await _userRepository.AddUserAsync(user);
+
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<DbUser> GetUserByEmailAsync(string email)
         {
             return await _userRepository.GetUserByEmailAsync(email);
         }
 
-        public async Task<UserDTO> AddUserAsync(UserRegistrationDTO userDto)
-        {
-            User user = null;
-            try
-            {
-                user = _mapper.Map<User>(userDto);
-                var result = await _userRepository.AddUserAsync(user);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("User creation failed", ex);
-            }
-
-            return _mapper.Map<UserDTO>(user);
-
-        }
-
         public async Task UpdateUserAsync(UserDTO userDto)
         {
-            if (userDto.Id == null) return;
-            var user = await _userRepository.GetUserByIdAsync((int)userDto.Id);
+            var user = await _userRepository.GetUserByIdAsync(userDto.Id);
             if (user == null) return;
 
             _mapper.Map(userDto, user);
@@ -73,7 +58,7 @@ namespace backend.Services
         public async Task DeleteUserAsync(int id)
         {
             var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null || user.Id == null) return;
+            if (user == null) return;
 
             await _userRepository.DeleteUserAsync((int)user.Id);
         }

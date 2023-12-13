@@ -1,5 +1,7 @@
 ﻿using backend.Data;
+using backend.Data.Models;
 using backend.Models;
+using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -8,31 +10,46 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IList<Auction>> GetAuctionsAsync()
+        public async Task<IList<DbAuction>> GetAuctionsAsync()
         {
-            return await _context.Auctions.Include(auction => auction.Product)
-            .ThenInclude(product => product.Artist)
-            .ToListAsync();
+            return await _context.Auctions
+                .Include(auction => auction.Product)
+                .Include(auction => auction.Product.Seller)
+                .ToListAsync();
         }
 
-        public async Task<Auction> GetAuctionByIdAsync(int id)
+        public async Task<DbAuction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auctions.Where(x => x.Id == id)
-            .Include(auction => auction.Product)
-            .ThenInclude(product => product.Artist)
-            .FirstOrDefaultAsync();
+            var auction = await _context.Auctions
+                .Where(x => x.Id == id)
+                .Include(auction => auction.Product)
+                .Include(auction => auction.Product.Seller)
+                .FirstOrDefaultAsync();
+
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
-        public async Task AddAuctionAsync(Auction auction)
+        public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction, int productId)
         {
-            await _context.Auctions.AddAsync(auction);
+            var dbAuction = new DbAuction
+            {
+                EndsAt = auction.EndsAt,
+                EstimateMinPrice = auction.EstimatedMinimum,
+                EstimateMaxPrice = auction.EstimatedMaximum,
+                StartingPrice = auction.StartingPrice,
+                ReservePrice = auction.MinimumPrice,
+                ProductId = productId,
+            };
+
+            await _context.Auctions.AddAsync(dbAuction);
             await _context.SaveChangesAsync();
+
+            return dbAuction;
         }
 
         public async Task UpdateAuctionAsync(Auction auction)
         {
-            _context.Auctions.Update(auction);
+            // _context.Auctions.Update(auction);
             await _context.SaveChangesAsync();
         }
 

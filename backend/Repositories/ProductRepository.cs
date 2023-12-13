@@ -1,5 +1,7 @@
 ﻿using backend.Data;
+using backend.Data.Models;
 using backend.Models;
+using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -8,26 +10,45 @@ namespace backend.Repositories
     public class ProductRepository(DatabaseContext context) : IProductRepository
     {
         private readonly DatabaseContext _context = context;
-
-        public async Task<Product> GetProductByIdAsync(int id)
+        
+        public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
         {
-            return await _context.Products.FindAsync(id) ?? throw new Exception("Product not found");
+            return await _context.Products
+                .Include(product => product.Seller)
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<DbProduct> GetProductByIdAsync(int id)
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Where(x => x.Id == id)
+                .Include(product => product.Seller)
+                .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
         }
 
-        public async Task AddProductAsync(Product product)
+        public async Task<DbProduct> CreateProductAsync(ProductCreationDTO product)
         {
-            _context.Products.Add(product);
+            var dbProduct = new DbProduct
+            {
+                Height = product.Height,
+                Width = product.Width,
+                Depth = product.Depth,
+                Weight = product.Weight,
+                Title = product.Title,
+                Description = product.Description,
+                Artist = product.Artist,
+                SellerId = product.SellerId,
+            };
+
+            _context.Products.Add(dbProduct);
             await _context.SaveChangesAsync();
+
+            return dbProduct;
         }
 
         public async Task UpdateProductAsync(Product product)
         {
-            _context.Products.Update(product);
+            // _context.Products.Update(product);
             await _context.SaveChangesAsync();
         }
 
