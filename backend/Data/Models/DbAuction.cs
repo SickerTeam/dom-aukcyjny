@@ -16,7 +16,7 @@
 
         public int ProductId { get; set; }
 
-        public DbProduct Product { get; set; }
+        public DbProduct? Product { get; set; }
 
         public List<DbBid>? Bids { get; set; }
     }

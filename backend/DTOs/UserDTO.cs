@@ -18,7 +18,7 @@ namespace backend.DTOs
 
         public string PersonalLink { get; set; }
 
-        public string ProfilePictureLink { get; set; }
+        public string? ProfilePictureLink { get; set; }
 
         public UserRole Role { get; set; }
     }
