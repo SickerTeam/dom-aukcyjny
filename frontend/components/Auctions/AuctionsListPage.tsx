@@ -2,7 +2,7 @@ import { Artworks, Filters, Path } from "..";
 
 const AuctionsListPage = async () => {
   return (
-    <div className="px-40">
+    <div className=" ">
       <Path />
       <Filters />
 

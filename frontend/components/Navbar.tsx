@@ -2,14 +2,14 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <header className="py-5 px-40">
+    <header className="py-5 mb-8">
       <nav className="flex justify-between items-center">
         <Link href="/">
           <h1 className="text-xl">ZONGERS</h1>
         </Link>
         <div>
           <input
-            className="border-[3px] border-light-gray rounded text-center py-1 w-96"
+            className="border-[1px] border-light-gray rounded text-center py-1 w-96"
             type="text"
             placeholder="Search by title, artist or category..."
           ></input>
