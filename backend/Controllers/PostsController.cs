@@ -17,6 +17,13 @@ namespace backend.Controllers
             return Ok(posts);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetPosts()
+        {
+            var posts = await _postService.GetAllPostsAsync();
+            return Ok(posts);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreatePostAsync(PostCreationDTO postDto)
         {

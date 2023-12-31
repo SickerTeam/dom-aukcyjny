@@ -7,7 +7,7 @@ const UserCard = async ({user} : UserCardType ) => {
     return (
         <div>
             <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6">
-                <img src={user.profilePictureLink || '/../../cv3.png'} alt="" className="mr-3 w-9 h-9 rounded-full bg-slate-50 dark:bg-slate-800" decoding="async" />
+                <img src={`https://zongbucket.s3.eu-north-1.amazonaws.com/users/${user.id}` || '/../../cv3.png'} alt="" className="mr-3 w-9 h-9 rounded-full bg-slate-50 dark:bg-slate-800" decoding="async" />
                 <div className="text-sm leading-4">
                     <div className="text-slate-900 dark:text-slate-800">{user && user.firstName} {user && user.lastName} </div>
                     <div className="mt-1">

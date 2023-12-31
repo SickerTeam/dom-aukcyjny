@@ -18,10 +18,10 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string key)
         {
-            var bucketName = _configuration["AWS:BucketName"]; 
+            var bucketName = _configuration["AWS_BucketName"]; 
             RegionEndpoint bucketRegion = Amazon.RegionEndpoint.EUNorth1;
-            var AccessKey = _configuration["AWS:AccessKey"];
-            var SecretKey = _configuration["AWS:SecretKey"]; 
+            var AccessKey = _configuration["AWS_AccessKey"];
+            var SecretKey = _configuration["AWS_SecretKey"]; 
             var client = new AmazonS3Client(AccessKey, SecretKey,bucketRegion);
 
             GetPreSignedUrlRequest preSignedUrlRequest = new  GetPreSignedUrlRequest

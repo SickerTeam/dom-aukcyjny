@@ -15,6 +15,12 @@ namespace backend.Services
             return _mapper.Map<PostDTO>(post);
         }
 
+        public async Task<List<PostDTO>> GetAllPostsAsync()
+        {
+            var posts = await _postRepository.GetAllPostsAsync();
+            return _mapper.Map<List<PostDTO>>(posts);
+        }
+        
         public async Task<DbPost> CreatePostAsync(PostCreationDTO postCreationDto)
         {
             postCreationDto.CreatedAt = DateTime.Now;

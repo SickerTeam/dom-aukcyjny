@@ -3,9 +3,9 @@ import PictureCard from "./PictureCard";
 import UserCard from "./UserCard";
 
 async function getUserById(id: number) {
-  const res = await fetch(`https://sea-turtle-app-yvb56.ondigitalocean.app/User/${id}`);        
+  const res = await fetch(`https://sea-turtle-app-yvb56.ondigitalocean.app/Users/${id}`);        
     if (!res.ok) {
-      throw new Error("Failed to fetch nig");
+      throw new Error("Failed to fetch user");
     }
     return res.json();
 }
@@ -13,7 +13,7 @@ async function getUserById(id: number) {
 type PostCardType = {
     post : any
 }
-
+//get image link/post/postid
 const calculateTimeAgo = (post : any) => {
   const postTime = new Date(post.timePosted);
   const currentTime = new Date();
@@ -33,6 +33,7 @@ const calculateTimeAgo = (post : any) => {
 const PostCard = async ({ post }: PostCardType) => {
   const user = await getUserById(post.userId);
   const timeAgo = calculateTimeAgo(post);
+  const imageUrl = `https://zongbucket.s3.eu-north-1.amazonaws.com/posts/${post.id}`;
   console.log(post)
   return (
     <div className="flex justify-center items-center flex-row">
@@ -50,7 +51,7 @@ const PostCard = async ({ post }: PostCardType) => {
           </div>
         </div>
         <p>{post.text}</p>
-        <PictureCard/>
+        <PictureCard imageUrl={imageUrl}/>
         <div className="likes-comments mt-4">
             <div>
               <span>{post.likes.length} likes </span>

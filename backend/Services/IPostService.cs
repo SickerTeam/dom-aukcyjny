@@ -6,6 +6,7 @@ namespace backend.Services
     public interface IPostService
     {
         Task<PostDTO> GetPostByIdAsync(int id);
+        Task<List<PostDTO>> GetAllPostsAsync();
         Task<DbPost> CreatePostAsync(PostCreationDTO PostDto);
         Task UpdatePostAsync(PostDTO PostDto);
         Task DeletePostsAsync(int id);
