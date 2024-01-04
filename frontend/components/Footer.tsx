@@ -3,7 +3,7 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-main-green text-light-gray my-14 full-bleed">
+    <footer className="bg-main-green text-light-gray mt-14 full-bleed">
       <div className="flex justify-between py-16">
         <div className="w-1/5 flex flex-col">
           <h4 className="text-xl text-white">About Zongers</h4>

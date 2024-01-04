@@ -27,7 +27,7 @@ namespace backend
             CreateMap<FixedPriceListingDTO, DbFixedPriceListing>();
             CreateMap<DbFixedPriceListing, FixedPriceListingDTO>();
 
-            CreateMap<ProductCreationDTO, Product>();
+            CreateMap<ProductCreationDTO, DbProduct>();
             CreateMap<DbProduct, ProductDTO>();
 
             CreateMap<LikeCreationDTO, DbLike>();         
