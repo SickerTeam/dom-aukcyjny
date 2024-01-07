@@ -17,18 +17,9 @@ namespace backend.DTOs
         [Range(1, int.MaxValue)]
         public int UserId { get; set; }
 
-        //[CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        // Sorry Ondrej
+        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime? CreatedAt { get; set; }
 
         public LikeDTO(){}
-
-        public LikeDTO(int id, int postId, int userId, DateTime? timeLiked)
-        {
-            Id = id;
-            PostId = postId;
-            UserId = userId;
-            CreatedAt = timeLiked;
-        }
     }
 }
