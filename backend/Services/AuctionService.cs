@@ -43,10 +43,7 @@ namespace backend.Services
         {
             var auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
-            if (auction.Id != null)
-            {
-                await _auctionRepository.DeleteAuctionAsync((int)auction.Id);
-            }
+            await _auctionRepository.DeleteAuctionAsync((int)auction.Id);
         }
     }
 }

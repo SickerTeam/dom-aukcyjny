@@ -70,7 +70,7 @@ namespace Testing.Validation
         }
 
         [Fact]
-        public void Should_Fail_FirstPrice_Min()
+        public void Should_Fail_StartingPrice_Min()
         {
             _auctionRegistrationDTO.StartingPrice = 0;
             var result = ValidateModel(_auctionRegistrationDTO);
@@ -87,14 +87,6 @@ namespace Testing.Validation
 
         [Fact]
         public void Should_Fail_EstimatedMaximum_Min()
-        {
-            _auctionRegistrationDTO.EstimatedMaximum = 0;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void Should_Fail_MinimumPrice_Min()
         {
             _auctionRegistrationDTO.EstimatedMaximum = 0;
             var result = ValidateModel(_auctionRegistrationDTO);

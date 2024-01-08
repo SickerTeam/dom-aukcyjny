@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#nullable disable
+
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
@@ -31,7 +33,11 @@ namespace backend.DTOs
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public string Artist { get; set; }
-        
+
+        [Required]
+        [Range(0, 2024)]
+        public int Year { get; set; }
+
         [Required]
         [Range(1, int.MaxValue)]
         public int SellerId { get; set; }

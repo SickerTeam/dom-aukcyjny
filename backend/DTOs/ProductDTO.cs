@@ -1,7 +1,6 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using backend.Validation;
 
 namespace backend.DTOs;
 
@@ -39,8 +38,7 @@ public class ProductDTO
     [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
     public string Artist { get; set; }
 
-    [Required]
-    [Range(0.01, 2024)]
+    [Range(0, 2024)]
     public int? Year { get; set; }
 
     [Required]
