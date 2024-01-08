@@ -14,7 +14,6 @@ namespace Testing.Validation
             {
                 UserId = 1,
                 Text = "Sample text",
-                CreatedAt = DateTime.Now
             };
         }
 
@@ -28,7 +27,6 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _postRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-1);
             _postRegistrationDTO.UserId = int.MaxValue;
             _postRegistrationDTO.Text = new string('a', 2047);
             var result = ValidateModel(_postRegistrationDTO);
@@ -55,22 +53,6 @@ namespace Testing.Validation
         public void Should_Fail_Text_Max()
         {
             _postRegistrationDTO.Text = new string('a', 2048);
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _postRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _postRegistrationDTO.CreatedAt = DateTime.Now.AddSeconds(1);
             var result = ValidateModel(_postRegistrationDTO);
             Assert.False(result);
         }

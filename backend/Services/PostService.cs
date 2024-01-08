@@ -17,8 +17,6 @@ namespace backend.Services
 
         public async Task<DbPost> CreatePostAsync(PostCreationDTO postCreationDto)
         {
-            postCreationDto.CreatedAt = DateTime.Now;
-
             DbPost dbPost = await _postRepository.CreatePostAsync(postCreationDto);
             PostDTO postDtoFromDb = _mapper.Map<PostDTO>(dbPost);
 

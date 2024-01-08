@@ -35,12 +35,12 @@ namespace backend.DTOs
         public string Country { get; set; }
 
         [Required]
-        // [Url]
+        [Url]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public string PersonalLink { get; set; }
 
         [Required]
-        // [Url]
+        [Url]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public string ProfilePictureLink { get; set; }
 
