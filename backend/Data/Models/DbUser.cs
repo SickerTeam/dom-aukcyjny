@@ -1,4 +1,6 @@
-﻿using backend.Enums;
+﻿#nullable disable
+
+using backend.Enums;
 
 namespace backend.Data.Models
 {

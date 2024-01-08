@@ -25,9 +25,10 @@ namespace backend.Repositories
         public async Task<DbPost> CreatePostAsync(PostCreationDTO post)
         {
             var dbPost = new DbPost
-            {
+            { 
                UserId = post.UserId,
                Text = post.Text,
+               CreatedAt = DateTime.Now
             };
 
             await _context.Posts.AddAsync(dbPost);

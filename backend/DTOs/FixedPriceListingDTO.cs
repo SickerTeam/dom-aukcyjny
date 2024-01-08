@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#nullable disable
+
+using System.ComponentModel.DataAnnotations;
+using backend.Validation;
 
 namespace backend.DTOs
 {
@@ -18,10 +21,10 @@ namespace backend.DTOs
         public decimal Price { get; set; }
 
         [Required]
+        [MustBeFalse]
         public bool IsArchived { get; set; }
 
-        //[CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        // Sorry Ondrej
+        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime? CreatedAt { get; set; }
     }
 }

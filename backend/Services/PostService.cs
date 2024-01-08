@@ -17,8 +17,6 @@ namespace backend.Services
 
         public async Task<DbPost> CreatePostAsync(PostCreationDTO postCreationDto)
         {
-            postCreationDto.CreatedAt = DateTime.Now;
-
             DbPost dbPost = await _postRepository.CreatePostAsync(postCreationDto);
             PostDTO postDtoFromDb = _mapper.Map<PostDTO>(dbPost);
 
@@ -39,7 +37,7 @@ namespace backend.Services
         public async Task DeletePostsAsync(int id)
         {
             var post = await _postRepository.GetPostByIdAsync(id);
-            if (post == null || post.Id == null) return;
+            if (post == null) return;
 
             await _postRepository.DeletePostAsync(post.Id);
         }

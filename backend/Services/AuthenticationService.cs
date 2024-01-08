@@ -4,34 +4,19 @@ using backend.Utilities;
 
 namespace backend.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService(IUserService userService, JwtUtils jwtUtils) : IAuthenticationService
     {
-        private readonly IUserService _userService;
-        private readonly JwtUtils _jwtUtils;
-
-        public AuthenticationService(IUserService userService, JwtUtils jwtUtils)
-        {
-            _userService = userService;
-            _jwtUtils = jwtUtils;
-        }
+        private readonly IUserService _userService = userService;
+        private readonly JwtUtils _jwtUtils = jwtUtils;
 
         public async Task<string> RegisterUserAsync(UserCreationDTO registrationDto)
         {
-            if (registrationDto == null)
-            {
-                throw new ArgumentNullException(nameof(registrationDto));
-            }
+            ArgumentNullException.ThrowIfNull(registrationDto);
 
             registrationDto.Password = PasswordUtils.HashPassword(registrationDto.Password);
             await _userService.AddUserAsync(registrationDto);
 
-            DbUser user = await _userService.GetUserByEmailAsync(registrationDto.Email);
-            
-            if (user == null) 
-            {
-                throw new Exception("User not found");
-            }
-
+            DbUser user = await _userService.GetUserByEmailAsync(registrationDto.Email) ?? throw new Exception("User not found");
             var token = _jwtUtils.GenerateJwtToken(user);
 
             return token;
@@ -39,18 +24,9 @@ namespace backend.Services
 
         public async Task<string> LoginUserAsync(UserLoginDTO loginDto)
         {
-            if (loginDto == null)
-            {
-                throw new ArgumentNullException(nameof(loginDto));
-            }
+            ArgumentNullException.ThrowIfNull(loginDto);
 
-            DbUser user = await _userService.GetUserByEmailAsync(loginDto.Email);
-
-            if (user == null)
-            {
-                throw new Exception("User not found.");
-            }
-
+            DbUser user = await _userService.GetUserByEmailAsync(loginDto.Email) ?? throw new Exception("User not found.");
             if (!PasswordUtils.VerifyPassword(user.Password, loginDto.Password))
             {
                 throw new Exception("Invalid password.");
