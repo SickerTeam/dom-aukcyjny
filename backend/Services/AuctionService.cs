@@ -35,8 +35,6 @@ namespace backend.Services
             if (auction == null) return;
 
             _mapper.Map(auctionDto, auction);
-
-            // await _auctionRepository.UpdateAuctionAsync(auction);
         } 
 
         public async Task DeleteAuctionsAsync(int id)

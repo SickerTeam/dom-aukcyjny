@@ -37,7 +37,7 @@ namespace backend.Services
         public async Task DeletePostsAsync(int id)
         {
             var post = await _postRepository.GetPostByIdAsync(id);
-            if (post == null || post.Id == null) return;
+            if (post == null) return;
 
             await _postRepository.DeletePostAsync(post.Id);
         }
