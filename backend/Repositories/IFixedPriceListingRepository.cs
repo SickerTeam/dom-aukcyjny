@@ -8,6 +8,6 @@ namespace backend.Repositories
         Task UpdateFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing);
         Task DeleteFixedPriceListingAsync(int id);
         Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id);
-        Task<IEnumerable<DbFixedPriceListing>> GetAllFixedPriceListingsAsync();
+        Task<IList<DbFixedPriceListing>> GetAllFixedPriceListingsAsync();
     }
 }

@@ -23,19 +23,21 @@ namespace backend.Services
 
         public async Task<LikeDTO> GetLikesByIdAsync(int id)
         {
-            var like = await _likeRepository.GetLikesByIdAsync(id);
+            DbLike like = await _likeRepository.GetLikesByIdAsync(id);
             return _mapper.Map<LikeDTO>(like);
         }
 
         public async Task AddLikesAsync(LikeCreationDTO likeDto)
         {
-            var like = _mapper.Map<DbLike>(likeDto);
+            DbLike like = _mapper.Map<DbLike>(likeDto);
             like.CreatedAt = DateTime.Now;
             await _likeRepository.AddLikesAsync(like);
         }
 
         public async Task DeleteLikesAsync(int id)
         {
+            // DbAuction auction = await _likeRepository.Ger(id);
+            // if (auction == null) return;
             await _likeRepository.DeleteLikesAsync(id);
         }   
     }

@@ -5,15 +5,15 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductRepository productRepository) : IAuctionService
+   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
    {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
-        private readonly IProductRepository _productRepository = productRepository;
+        private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
-            var auctions = await _auctionRepository.GetAuctionsAsync();
+            IEnumerable<DbAuction> auctions = await _auctionRepository.GetAuctionsAsync();
             return  _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
         }
 
@@ -23,11 +23,11 @@ namespace backend.Services
             return _mapper.Map<AuctionDTO>(auction);
         }
 
-        public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auctionDto)
+        public async Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auctionDto)
         {
-            var product = await _productRepository.CreateProductAsync(auctionDto.Product);
+            ProductDTO product = await _productService.AddProductAsync(auctionDto.Product);
 
-            var dbAuction = new DbAuction
+            DbAuction dbAuction = new()
             {
                 EndsAt = auctionDto.EndsAt,
                 CreatedAt = DateTime.Now,
@@ -36,14 +36,16 @@ namespace backend.Services
                 StartingPrice = auctionDto.StartingPrice,
                 ReservePrice = auctionDto.MinimumPrice,
                 ProductId = product.Id,
+                IsArchived = false
             };
 
-            return await _auctionRepository.CreateAuctionAsync(dbAuction);
+            DbAuction auction = await _auctionRepository.CreateAuctionAsync(dbAuction);
+            return _mapper.Map<AuctionDTO>(auction);
         }
 
         public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
         {
-            var auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
+            DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
             if (auction == null) return;
 
             await _auctionRepository.UpdateAuctionAsync(_mapper.Map<DbAuction>(auctionDto));
@@ -51,7 +53,7 @@ namespace backend.Services
 
         public async Task DeleteAuctionsAsync(int id)
         {
-            var auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
             await _auctionRepository.DeleteAuctionAsync(auction.Id);
         }

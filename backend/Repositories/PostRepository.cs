@@ -22,15 +22,8 @@ namespace backend.Repositories
             return post;
         }
 
-        public async Task<DbPost> CreatePostAsync(PostCreationDTO post)
+        public async Task<DbPost> CreatePostAsync(DbPost dbPost)
         {
-            var dbPost = new DbPost
-            { 
-               UserId = post.UserId,
-               Text = post.Text,
-               CreatedAt = DateTime.Now
-            };
-
             await _context.Posts.AddAsync(dbPost);
             await _context.SaveChangesAsync();
             
@@ -49,47 +42,5 @@ namespace backend.Repositories
             _context.Posts.Remove(Post);
             await _context.SaveChangesAsync();
         }
-
-        // /////////////////     Move to separate repositories     /////////////////
-        // public async Task<IList<Like>> GetLikesByPostIdAsync(int postId)
-        // {
-        //     return await _context.Likes.Where(like => like.PostId == postId).ToListAsync() ?? throw new ArgumentException("Like not found");
-        // }
-
-        // public async Task<IList<Comment>> GetCommentsByPostIdAsync(int postId)
-        // {
-        //     return await _context.Comments.Where(comment => comment.PostId == postId).ToListAsync() ?? throw new ArgumentException("Comment not found");
-        // }
-
-        // public async Task<IList<Picture>> GetPicturesByPostIdAsync(int postId)
-        // {
-        //     return await _context.Pictures.Where(picture => picture.PostId == postId).ToListAsync() ?? throw new ArgumentException("Picture not found");
-        // }
-
-        // public async Task DeleteLikeAsync(Like like)
-        // {
-        //     _context.Likes.Remove(like);
-        //     await _context.SaveChangesAsync();
-        // }
-
-        // public async Task DeleteCommentAsync(Comment comment)
-        // {
-        //     _context.Comments.Remove(comment);
-        //     await _context.SaveChangesAsync();
-        // }
-
-        // public async Task DeletePictureAsync(Picture picture)
-        // {
-        //     _context.Pictures.Remove(picture);
-        //     await _context.SaveChangesAsync();
-        // }
-        /*
-        public async Task<IList<Auction>> GetAuctionsAsync()
-        {
-            return await _context.Auctions.Include(auction => auction.Product)
-            .ThenInclude(product => product.Artist)
-            .ToListAsync();
-        }
-        */
     }
 }

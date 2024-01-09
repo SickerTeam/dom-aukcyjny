@@ -11,32 +11,34 @@ namespace backend.Services
         private readonly IMapper _mapper = mapper;
         public async Task<PostDTO> GetPostByIdAsync(int id)
         {
-            var post = await _postRepository.GetPostByIdAsync(id);
+            DbPost post = await _postRepository.GetPostByIdAsync(id);
             return _mapper.Map<PostDTO>(post);
         }
 
-        public async Task<DbPost> CreatePostAsync(PostCreationDTO postCreationDto)
+        public async Task<PostDTO> CreatePostAsync(PostCreationDTO postCreationDto)
         {
-            DbPost dbPost = await _postRepository.CreatePostAsync(postCreationDto);
-            PostDTO postDtoFromDb = _mapper.Map<PostDTO>(dbPost);
+            DbPost dbPost = new()
+            { 
+               UserId = postCreationDto.UserId,
+               Text = postCreationDto.Text,
+               CreatedAt = DateTime.Now
+            };
 
-            await UpdatePostAsync(postDtoFromDb);
-
-            return dbPost;
+            DbPost post = await _postRepository.CreatePostAsync(dbPost);
+            return _mapper.Map<PostDTO>(post);
         }
 
         public async Task UpdatePostAsync(PostDTO postDto)
         {          
-            var post = await _postRepository.GetPostByIdAsync(postDto.Id);
+            DbPost post = await _postRepository.GetPostByIdAsync(postDto.Id);
             if (post == null) return;
-
-            _mapper.Map(postDto, post);
+            
             await _postRepository.UpdatePostAsync(post);
         }
 
         public async Task DeletePostsAsync(int id)
         {
-            var post = await _postRepository.GetPostByIdAsync(id);
+            DbPost post = await _postRepository.GetPostByIdAsync(id);
             if (post == null) return;
 
             await _postRepository.DeletePostAsync(post.Id);

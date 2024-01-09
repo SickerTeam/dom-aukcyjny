@@ -1,6 +1,5 @@
 ﻿using backend.Data;
 using backend.Data.Models;
-using backend.Models;
 using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,29 +25,17 @@ namespace backend.Repositories
                 .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
         }
 
-        public async Task<DbProduct> CreateProductAsync(ProductCreationDTO product)
+        public async Task<DbProduct> CreateProductAsync(DbProduct dbProduct)
         {
-            var dbProduct = new DbProduct
-            {
-                Height = product.Height,
-                Width = product.Width,
-                Depth = product.Depth,
-                Weight = product.Weight,
-                Title = product.Title,
-                Description = product.Description,
-                Artist = product.Artist,
-                SellerId = product.SellerId,
-            };
-
             _context.Products.Add(dbProduct);
             await _context.SaveChangesAsync();
 
             return dbProduct;
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(DbProduct product)
         {
-            // _context.Products.Update(product);
+            _context.Products.Update(product);
             await _context.SaveChangesAsync();
         }
 

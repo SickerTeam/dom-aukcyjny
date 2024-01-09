@@ -1,21 +1,14 @@
 ﻿using AutoMapper;
 using backend.Data.Models;
 using backend.DTOs;
-using backend.Models;
 using backend.Repositories;
 
 namespace backend.Services
 {
-    public class UserService : IUserService
+    public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-
-        public UserService(IUserRepository userRepository, IMapper mapper)
-        {
-            _userRepository = userRepository;
-            _mapper = mapper;
-        }
+        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IMapper _mapper = mapper;
 
         public int GetNumberOfUsers()
         {
@@ -60,8 +53,7 @@ namespace backend.Services
             var user = await _userRepository.GetUserByIdAsync(id);
             if (user == null) return;
 
-            await _userRepository.DeleteUserAsync((int)user.Id);
+            await _userRepository.DeleteUserAsync(user.Id);
         }
     }
-
 }

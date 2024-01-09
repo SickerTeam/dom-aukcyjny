@@ -1,7 +1,6 @@
 using Xunit;
 using backend.DTOs;
 using System.ComponentModel.DataAnnotations;
-using backend.Models;
 using backend.Enums;
 
 namespace Testing.Validation
