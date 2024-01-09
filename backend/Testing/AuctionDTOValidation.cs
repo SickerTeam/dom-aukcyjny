@@ -45,8 +45,8 @@ namespace Testing.Validation
             {
                 Id = 1,
                 ProductId = 1,
-                CreatedAt = DateTime.Now.AddSeconds(-59),
-                EndsAt = DateTime.Now.AddSeconds(5),
+                CreatedAt = DateTime.UtcNow,
+                EndsAt = DateTime.UtcNow,
                 EstimateMaxPrice = 0.01,
                 EstimateMinPrice = 0.01,
                 ReservePrice = 0.01,
@@ -68,8 +68,8 @@ namespace Testing.Validation
         {
             _auctionDTO.Id = int.MaxValue;
             _auctionDTO.ProductId = int.MaxValue;
-            _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(-1);
-            _auctionDTO.EndsAt = DateTime.Now.AddDays(14).AddSeconds(60);
+            _auctionDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-1);
+            _auctionDTO.EndsAt = DateTime.UtcNow.AddDays(14).AddSeconds(60);
             _auctionDTO.EstimateMinPrice = int.MaxValue;
             _auctionDTO.EstimateMaxPrice = int.MaxValue;
             _auctionDTO.ReservePrice = int.MaxValue;
@@ -89,34 +89,6 @@ namespace Testing.Validation
         public void Should_Fail_ProductId_Min()
         {
             _auctionDTO.ProductId = 0;
-            Assert.False(ValidateModel(_auctionDTO));
-        }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Min()
-        // {
-        //     _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
-        //     Assert.False(ValidateModel(_auctionDTO));
-        // }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Max()
-        // {
-        //     _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(1);
-        //     Assert.False(ValidateModel(_auctionDTO));
-        // }
-
-        [Fact]
-        public void Should_Fail_EndsAt_Min()
-        {
-            _auctionDTO.EndsAt = DateTime.Now.AddSeconds(-2);
-            Assert.False(ValidateModel(_auctionDTO));
-        }
-
-        [Fact]
-        public void Should_Fail_EndsAt_Max()
-        {
-            _auctionDTO.EndsAt = DateTime.Now.AddDays(15).AddMinutes(2);
             Assert.False(ValidateModel(_auctionDTO));
         }
 

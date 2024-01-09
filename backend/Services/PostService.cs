@@ -21,7 +21,7 @@ namespace backend.Services
             { 
                UserId = postCreationDto.UserId,
                Text = postCreationDto.Text,
-               CreatedAt = DateTime.Now
+               CreatedAt = DateTime.UtcNow
             };
 
             DbPost post = await _postRepository.CreatePostAsync(dbPost);

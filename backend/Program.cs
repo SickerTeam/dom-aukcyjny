@@ -20,6 +20,8 @@ namespace backend
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddControllers().AddNewtonsoftJson();
+
             builder.Services.AddAuthentication().AddJwtBearer();
             builder.Services.AddAuthorization();
 
@@ -47,16 +49,16 @@ namespace backend
             builder.Services.AddScoped<ICommentService, CommentService>();
 
             builder.Services.AddCors(options =>
-{
-            options.AddPolicy(name: policyName,
-                      builder =>
-                      {
-                          builder
+            {
+                options.AddPolicy(name: policyName,
+                    builder =>
+                    {
+                        builder
                             .WithOrigins("http://localhost:3000") // specifying the allowed origin
                             .WithMethods("GET") // defining the allowed HTTP method
                             .AllowAnyHeader(); // allowing any header to be sent
-                      });
-});
+                    });
+            });
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

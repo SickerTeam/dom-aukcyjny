@@ -2,6 +2,7 @@
 using backend.DTOs;
 using backend.Data.Models;
 using backend.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -27,18 +28,26 @@ namespace backend.Services
         {
             var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;
-            fixedPriceListing.CreatedAt = DateTime.Now;
+            fixedPriceListing.CreatedAt = DateTime.UtcNow;
             fixedPriceListing.Product = await _productService.GetProductByIdAsync(fixedPriceListingDto.ProductId);
             await _fixedPriceListingRepository.AddFixedPriceListingAsync(fixedPriceListing);
         }
 
-        public async Task UpdateFixedPriceListingAsync(FixedPriceListingDTO fixedPriceListingDto)
+        public async Task<FixedPriceListingDTO?> UpdateFixedPriceListingAsync(int id, JsonPatchDocument<FixedPriceListingDTO> patchDoc)
         {
-            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(fixedPriceListingDto.Id);
-            if (fixedPriceListing == null) return;
+            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
+            if (fixedPriceListing == null)
+            {
+                return null;
+            }
+
+            var fixedPriceListingDto = _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
+            patchDoc.ApplyTo(fixedPriceListingDto);
 
             _mapper.Map(fixedPriceListingDto, fixedPriceListing);
             await _fixedPriceListingRepository.UpdateFixedPriceListingAsync(fixedPriceListing);
+
+            return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
         }
 
         public async Task DeleteFixedPriceListingAsync(int id)

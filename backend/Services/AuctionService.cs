@@ -2,6 +2,7 @@
 using backend.DTOs;
 using backend.Data.Models;
 using backend.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -29,8 +30,8 @@ namespace backend.Services
 
             DbAuction dbAuction = new()
             {
-                EndsAt = auctionDto.EndsAt,
-                CreatedAt = DateTime.Now,
+                EndsAt = DateTime.UtcNow.AddDays(14),
+                CreatedAt = DateTime.UtcNow,
                 EstimateMinPrice = auctionDto.EstimatedMinimum,
                 EstimateMaxPrice = auctionDto.EstimatedMaximum,
                 StartingPrice = auctionDto.StartingPrice,
@@ -43,20 +44,28 @@ namespace backend.Services
             return _mapper.Map<AuctionDTO>(auction);
         }
 
-        public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
+        public async Task<AuctionDTO?> UpdateAuctionAsync(int id, JsonPatchDocument<AuctionDTO> patchDoc)
         {
-            DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
-            if (auction == null) return;
+            var auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            if (auction == null)
+            {
+                return null;
+            }
+
+            var auctionDto = _mapper.Map<AuctionDTO>(auction);
+            patchDoc.ApplyTo(auctionDto);
 
             _mapper.Map(auctionDto, auction);
             await _auctionRepository.UpdateAuctionAsync(auction);
+
+            return _mapper.Map<AuctionDTO>(auction);
         } 
 
         public async Task DeleteAuctionsAsync(int id)
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
-            
+
             await _auctionRepository.DeleteAuctionAsync(auction.Id);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -32,11 +33,22 @@ namespace backend.Controllers
             return Ok(dto);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAuction(AuctionDTO auctionDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAuction(int id, [FromBody] JsonPatchDocument<AuctionDTO> patchDoc)
         {
-            await _auctionService.UpdateAuctionAsync(auctionDto);
-            return Ok();
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var result = await _auctionService.UpdateAuctionAsync(id, patchDoc);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

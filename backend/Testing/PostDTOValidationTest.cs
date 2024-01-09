@@ -34,7 +34,7 @@ namespace Testing.Validation
             _postDTO.Id = int.MaxValue;
             _postDTO.UserId = int.MaxValue;
             _postDTO.Text = new string('a', 2047);
-            _postDTO.CreatedAt = DateTime.Now.AddSeconds(-59);
+            _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-59);
             _postDTO.Comments = new List<CommentDTO> { new() };
             _postDTO.Likes = new List<LikeDTO> { new() };
             var result = ValidateModel(_postDTO);
@@ -76,7 +76,7 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Min()
         // {
-        //     _postDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
         //     var result = ValidateModel(_postDTO);
         //     Assert.False(result);
         // }
@@ -84,7 +84,7 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Max()
         // {
-        //     _postDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
+        //     _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-61);
         //     var result = ValidateModel(_postDTO);
         //     Assert.False(result);
         // }

@@ -33,7 +33,7 @@ namespace backend.Services
                 Description = productDTO.Description,
                 Artist = productDTO.Artist,
                 SellerId = productDTO.SellerId,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 Year = productDTO.Year
             };
             

@@ -34,7 +34,7 @@ namespace Testing.Validation
             _instaBuyDTO.ProductId = int.MaxValue;
             _instaBuyDTO.Price = decimal.MaxValue;
             _instaBuyDTO.IsArchived = false;
-            _instaBuyDTO.CreatedAt = DateTime.Now.AddSeconds(-1);
+            _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-1);
             var result = ValidateModel(_instaBuyDTO);
             Assert.True(result);
         }
@@ -66,7 +66,7 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Min()
         // {
-        //     _instaBuyDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
+        //     _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-61);
         //     var result = ValidateModel(_instaBuyDTO);
         //     Assert.False(result);
         // }
@@ -74,7 +74,7 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Max()
         // {
-        //     _instaBuyDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
         //     var result = ValidateModel(_instaBuyDTO);
         //     Assert.False(result);
         // }

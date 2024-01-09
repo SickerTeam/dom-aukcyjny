@@ -15,7 +15,7 @@ namespace Testing.Validation
                 Id = 1,
                 PostId = 1,
                 Text = "Test text",
-                CreatedAt = DateTime.Now.AddSeconds(-59),
+                CreatedAt = DateTime.UtcNow.AddSeconds(-59),
                 UserId = 1
             };
         }
@@ -33,7 +33,7 @@ namespace Testing.Validation
             _commentDTO.UserId = int.MaxValue;
             _commentDTO.PostId = int.MaxValue;
             _commentDTO.Text = new string('a', 1023);
-            _commentDTO.CreatedAt = DateTime.Now;
+            _commentDTO.CreatedAt = DateTime.UtcNow;
             Assert.True(ValidateModel(_commentDTO));
         }
 
@@ -68,14 +68,14 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Min()
         // {
-        //     _commentDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
+        //     _commentDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-62);
         //     Assert.False(ValidateModel(_commentDTO));
         // }
 
         // [Fact]
         // public void Should_Fail_CreatedAt_Max()
         // {
-        //     _commentDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     _commentDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
         //     Assert.False(ValidateModel(_commentDTO));
         // }
 

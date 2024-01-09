@@ -15,7 +15,7 @@ namespace Testing.Validation
                 Id = 1,
                 PostId = 1,
                 UserId = 1,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
         }
 
@@ -28,7 +28,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _likeDTO.CreatedAt = DateTime.Now;
+            _likeDTO.CreatedAt = DateTime.UtcNow;
             _likeDTO.Id = int.MaxValue;
             _likeDTO.PostId = int.MaxValue;
             _likeDTO.UserId = int.MaxValue;
@@ -59,14 +59,14 @@ namespace Testing.Validation
         // [Fact]
         // public void Should_Fail_CreatedAt_Min()
         // {
-        //     _likeDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
+        //     _likeDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-62);
         //     Assert.False(ValidateModel(_likeDTO));
         // }
 
         // [Fact]
         // public void Should_Fail_CreatedAt_Max()
         // {
-        //     _likeDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     _likeDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
         //     Assert.False(ValidateModel(_likeDTO));
         // }
 
