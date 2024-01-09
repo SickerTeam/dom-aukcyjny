@@ -5,14 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers
 {
     [ApiController]
-    public class MigrationsController : ControllerBase
+    public class MigrationsController(DatabaseContext context) : ControllerBase
     {
-        private readonly DatabaseContext _context;
-
-        public MigrationsController(DatabaseContext context)
-        {
-            _context = context;
-        }
+        private readonly DatabaseContext _context = context;
 
         [HttpPost("applyMigrations")]
         public IActionResult ApplyMigrations()

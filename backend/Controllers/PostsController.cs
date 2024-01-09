@@ -25,7 +25,7 @@ namespace backend.Controllers
             return Ok(dto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ActionResult> UpdatePostAsync(PostDTO postDto)
         {
             await _postService.UpdatePostAsync(postDto);

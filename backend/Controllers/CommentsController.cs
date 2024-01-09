@@ -10,19 +10,17 @@ namespace backend.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
-        private readonly IMapper _mapper;
 
         public CommentsController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCommentsAsync()
         {
-            var comments = await _commentService.GetCommentsAsync();
-            return Ok(_mapper.Map<IEnumerable<CommentDTO>>(comments));
+            IEnumerable<CommentDTO> comments = await _commentService.GetCommentsAsync();
+            return Ok(comments);
         }
 
         [HttpGet("count/{postId}")]
@@ -35,8 +33,8 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCommentsByIdAsync(int id)
         {
-            var comment = await _commentService.GetCommentsByIdAsync(id);
-            return Ok(_mapper.Map<CommentDTO>(comment));
+            CommentDTO comment = await _commentService.GetCommentsByIdAsync(id);
+            return Ok(comment);
         }
 
         [HttpPost]

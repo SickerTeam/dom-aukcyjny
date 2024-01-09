@@ -7,10 +7,9 @@ namespace backend.Controllers
 {
    [ApiController]
    [Route("[controller]")]
-   public class UsersController(IUserService userService, IMapper mapper) : ControllerBase
+   public class UsersController(IUserService userService) : ControllerBase
    {
       private readonly IUserService _userService = userService;
-      private readonly IMapper _mapper = mapper;
 
       [HttpGet]
       [Route("count")]
@@ -41,7 +40,7 @@ namespace backend.Controllers
          return Ok();
       }
 
-      [HttpPut("{id}")]
+      [HttpPut]
       public async Task<IActionResult> UpdateUser(UserDTO userDto)
       {
          await _userService.UpdateUserAsync(userDto);
