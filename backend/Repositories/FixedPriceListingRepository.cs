@@ -16,34 +16,32 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
             .ToListAsync();
         }
 
-        public async Task AddFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
+        public async Task AddFixedPriceListingAsync(DbFixedPriceListing listing)
         {
-            _context.FixedPriceListings.Add(fixedPriceListing);
+            _context.FixedPriceListings.Add(listing);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
+        public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing listing)
         {
-            _context.FixedPriceListings.Update(fixedPriceListing);
+            _context.FixedPriceListings.Update(listing);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteFixedPriceListingAsync(int id)
+        public async Task DeleteFixedPriceListingAsync(DbFixedPriceListing listing)
         {
-            DbFixedPriceListing fixedPriceListing = await _context.FixedPriceListings.FindAsync(id)  ?? throw new ArgumentException("FixedPriceListing not found");
-
-            _context.FixedPriceListings.Remove(fixedPriceListing);
+            _context.FixedPriceListings.Remove(listing);
             await _context.SaveChangesAsync();
         }
 
         public async Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id)
         {
-            DbFixedPriceListing? fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
+            DbFixedPriceListing? listing = await _context.FixedPriceListings.Where(x => x.Id == id)
                 .Include(fixedPriceListing => fixedPriceListing.Product)
                 .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
                 .FirstOrDefaultAsync();
                 
-            return fixedPriceListing ?? throw new ArgumentException("FixedPriceListing not found");
+            return listing ?? throw new ArgumentException("Fixed price listing not found");
         }
     }
 }

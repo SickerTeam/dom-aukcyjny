@@ -39,7 +39,7 @@ namespace backend.Services
             DbComment comment = await _commentRepository.GetCommentsByIdAsync(id);
             if (comment == null) return;
 
-            await _commentRepository.DeleteCommentsAsync(id);
+            await _commentRepository.DeleteCommentsAsync(comment);
         }
     }
 }

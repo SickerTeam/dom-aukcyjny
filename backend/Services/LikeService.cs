@@ -39,7 +39,7 @@ namespace backend.Services
             DbLike like = await _likeRepository.GetLikeByIdAsync(id);
             if (like == null) return;
 
-            await _likeRepository.DeleteLikeAsync(id);
+            await _likeRepository.DeleteLikeAsync(like);
         }   
     }
 }

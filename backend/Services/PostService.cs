@@ -52,7 +52,7 @@ namespace backend.Services
             DbPost post = await _postRepository.GetPostByIdAsync(id);
             if (post == null) return;
 
-            await _postRepository.DeletePostAsync(post.Id);
+            await _postRepository.DeletePostAsync(post);
         }
     }
 }

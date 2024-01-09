@@ -47,13 +47,17 @@ namespace backend.Services
         public async Task<AuctionDTO?> UpdateAuctionAsync(int id, JsonPatchDocument<AuctionDTO> patchDoc)
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
-            if (auction == null)
-            {
-                return null;
-            }
+            if (auction == null) return null;
 
             AuctionDTO auctionDto = _mapper.Map<AuctionDTO>(auction);
-            patchDoc.ApplyTo(auctionDto);
+
+            foreach (var operation in patchDoc.Operations)
+            {
+                if (operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                {
+                    throw new InvalidOperationException("Updating the Seller information is not allowed.");
+                }
+            }
 
             _mapper.Map(auctionDto, auction);
             await _auctionRepository.UpdateAuctionAsync(auction);
@@ -66,7 +70,7 @@ namespace backend.Services
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
 
-            await _auctionRepository.DeleteAuctionAsync(auction.Id);
+            await _auctionRepository.DeleteAuctionAsync(auction);
         }
     }
 }

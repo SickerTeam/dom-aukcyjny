@@ -31,9 +31,8 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteLikeAsync(int id)
+        public async Task DeleteLikeAsync(DbLike like)
         {
-            DbLike like = await _context.Likes.FindAsync(id) ?? throw new ArgumentException("Like not found");
             _context.Likes.Remove(like);
             await _context.SaveChangesAsync();
         }

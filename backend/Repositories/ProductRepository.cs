@@ -39,18 +39,10 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(DbProduct product)
         {
-            DbProduct? product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Product not found");
-            }
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
     }
 }

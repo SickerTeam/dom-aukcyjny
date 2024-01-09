@@ -9,7 +9,7 @@ namespace backend.Repositories
         Task<DbPost> GetPostByIdAsync(int id);
         Task<DbPost> CreatePostAsync(DbPost post);
         Task UpdatePostAsync(DbPost post);
-        Task DeletePostAsync(int id);       
+        Task DeletePostAsync(DbPost post);       
     }
 }
         

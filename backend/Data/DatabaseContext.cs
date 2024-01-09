@@ -229,6 +229,9 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.PersonalLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.ProfilePictureLink)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

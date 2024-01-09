@@ -6,56 +6,61 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
-    public class FixedPriceListingService(IFixedPriceListingRepository fixedPriceListingRepository, IMapper mapper, IProductService productService) : IFixedPriceListingService
+    public class FixedPriceListingService(IFixedPriceListingRepository listingRepository, IMapper mapper, IProductService productService) : IFixedPriceListingService
     {
-        private readonly IFixedPriceListingRepository _fixedPriceListingRepository = fixedPriceListingRepository;
+        private readonly IFixedPriceListingRepository _listingRepository = listingRepository;
         private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<FixedPriceListingDTO>> GetAllFixedPriceListingsAsync()
         {
-            IEnumerable<DbFixedPriceListing> fixedPriceListings = await _fixedPriceListingRepository.GetAllFixedPriceListingsAsync();
-            return _mapper.Map<IEnumerable<FixedPriceListingDTO>>(fixedPriceListings);
+            IEnumerable<DbFixedPriceListing> listings = await _listingRepository.GetAllFixedPriceListingsAsync();
+            return _mapper.Map<IEnumerable<FixedPriceListingDTO>>(listings);
         }
 
         public async Task<FixedPriceListingDTO> GetFixedPriceListingByIdAsync(int id)
         {
-            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
+            DbFixedPriceListing fixedPriceListing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
             return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
         }
 
-        public async Task AddFixedPriceListingAsync(FixedPriceListingCreationDTO fixedPriceListingDto)
+        public async Task AddFixedPriceListingAsync(FixedPriceListingCreationDTO listingDto)
         {
-            DbFixedPriceListing fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
-            fixedPriceListing.IsArchived = false;
-            fixedPriceListing.CreatedAt = DateTime.UtcNow;
-            fixedPriceListing.Product = await _productService.GetProductByIdAsync(fixedPriceListingDto.ProductId);
-            await _fixedPriceListingRepository.AddFixedPriceListingAsync(fixedPriceListing);
+            DbFixedPriceListing listing = _mapper.Map<DbFixedPriceListing>(listingDto);
+            listing.IsArchived = false;
+            listing.CreatedAt = DateTime.UtcNow;
+            listing.Product = await _productService.GetProductByIdAsync(listingDto.ProductId);
+            await _listingRepository.AddFixedPriceListingAsync(listing);
         }
 
         public async Task<FixedPriceListingDTO?> UpdateFixedPriceListingAsync(int id, JsonPatchDocument<FixedPriceListingDTO> patchDoc)
         {
-            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
-            if (fixedPriceListing == null)
+            DbFixedPriceListing listing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
+            if (listing == null) return null;
+
+            FixedPriceListingDTO listingDto = _mapper.Map<FixedPriceListingDTO>(listing);
+            patchDoc.ApplyTo(listingDto);
+
+            foreach (var operation in patchDoc.Operations)
             {
-                return null;
+                if (operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                {
+                    throw new InvalidOperationException("Updating the Seller information is not allowed.");
+                }
             }
 
-            FixedPriceListingDTO fixedPriceListingDto = _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
-            patchDoc.ApplyTo(fixedPriceListingDto);
+            _mapper.Map(listingDto, listing);
+            await _listingRepository.UpdateFixedPriceListingAsync(listing);
 
-            _mapper.Map(fixedPriceListingDto, fixedPriceListing);
-            await _fixedPriceListingRepository.UpdateFixedPriceListingAsync(fixedPriceListing);
-
-            return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
+            return _mapper.Map<FixedPriceListingDTO>(listing);
         }
 
         public async Task DeleteFixedPriceListingAsync(int id)
         {
-            DbFixedPriceListing insta = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
-            if (insta == null) return;
+            DbFixedPriceListing listing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
+            if (listing == null) return;
 
-            await _fixedPriceListingRepository.DeleteFixedPriceListingAsync(id);
+            await _listingRepository.DeleteFixedPriceListingAsync(listing);
         }
     }
 }

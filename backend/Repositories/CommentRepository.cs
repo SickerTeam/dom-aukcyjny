@@ -32,11 +32,8 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentsAsync(int id)
-        {
-            DbComment? comment = await _context.Comments.FindAsync(id);
-            if (comment == null) return;
-            
+        public async Task DeleteCommentsAsync(DbComment comment)
+        {         
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
         }

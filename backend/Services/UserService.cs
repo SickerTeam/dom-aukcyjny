@@ -43,10 +43,7 @@ namespace backend.Services
         public async Task<UserDTO?> UpdateUserAsync(int id, JsonPatchDocument<UserDTO> patchDoc)
         {
             DbUser user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return null;
-            }
+            if (user == null) return null;
 
             UserDTO userDto = _mapper.Map<UserDTO>(user);
             patchDoc.ApplyTo(userDto);
@@ -62,7 +59,7 @@ namespace backend.Services
             DbUser user = await _userRepository.GetUserByIdAsync(id);
             if (user == null) return;
 
-            await _userRepository.DeleteUserAsync(user.Id);
+            await _userRepository.DeleteUserAsync(user);
         }
     }
 }

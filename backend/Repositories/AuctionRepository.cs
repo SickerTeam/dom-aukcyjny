@@ -41,9 +41,8 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAuctionAsync(int id)
+        public async Task DeleteAuctionAsync(DbAuction auction)
         {
-            DbAuction auction = await _context.Auctions.FindAsync(id) ?? throw new ArgumentException("Auction not found");
             _context.Auctions.Remove(auction);
             await _context.SaveChangesAsync();
         }

@@ -54,7 +54,7 @@ namespace backend.Services
             DbProduct product = await _productRepository.GetProductByIdAsync(id);
             if (product == null) return;
 
-            await _productRepository.DeleteProductAsync(id);
+            await _productRepository.DeleteProductAsync(product);
         }
     }
 }

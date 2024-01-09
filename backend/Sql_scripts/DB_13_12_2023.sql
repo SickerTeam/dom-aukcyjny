@@ -60,6 +60,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(2048),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
+    ProfilePictureLink VARCHAR(255),
     Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );

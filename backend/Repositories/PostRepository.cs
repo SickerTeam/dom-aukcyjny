@@ -1,6 +1,5 @@
 ﻿using backend.Data;
 using backend.Data.Models;
-using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -11,7 +10,6 @@ namespace backend.Repositories
 
         public async Task<IEnumerable<DbPost>> GetAllPostsAsync()
         {
-
             return await _context.Posts.ToListAsync();
         }
 
@@ -36,10 +34,9 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePostAsync(int id)
+        public async Task DeletePostAsync(DbPost post)
         {
-            DbPost Post = await _context.Posts.FindAsync(id) ?? throw new ArgumentException("Post not found");
-            _context.Posts.Remove(Post);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
     }

@@ -43,9 +43,8 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteUserAsync(DbUser user)
         {
-            DbUser user = await _context.Users.FindAsync(id) ?? throw new ArgumentException("User not found");
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

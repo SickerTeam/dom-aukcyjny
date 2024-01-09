@@ -8,6 +8,6 @@ namespace backend.Repositories
         Task<int> GetAmountOfLikesForPostById(int postId);
         Task<DbLike> GetLikeByIdAsync(int id);
         Task AddLikeAsync(DbLike like);
-        Task DeleteLikeAsync(int id);
+        Task DeleteLikeAsync(DbLike like);
     }
 }
