@@ -51,7 +51,7 @@ namespace backend.Repositories
                 .Where(x => x.Id == bidId)
                 .Include(x => x.Auction)
                 .Include(x => x.User)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
 
             return _mapper.Map<BidDTO>(bid);
         }

@@ -1,24 +1,23 @@
-"use client";
+'use client'
 
-import React, { ChangeEvent, useState } from "react";
-import RegistrationPage from "../../../components/RegistrationPage";
+import React, { ChangeEvent, useState } from 'react';
+import RegistrationPage from '../../../components/RegistrationPage';
 
 const Registration = () => {
+
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-    bio: "",
-    country: "",
-    personalLink: "",
-    profilePictureLink: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+    bio: '',
+    country: '',
+    personalLink: '',
+    profilePictureLink: '',
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -29,13 +28,14 @@ const Registration = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch("http://localhost:5156/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+        await fetch('http://localhost:5156/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
   };
 
   return (

@@ -10,9 +10,9 @@ namespace backend.Controllers
     public class BidsController : ControllerBase
     {
         private readonly IBidService _bidService;
-        private readonly IHubContext<BidHub> _hubContext;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public BidsController(IBidService bidService, IHubContext<BidHub> hubContext)
+        public BidsController(IBidService bidService, IHubContext<ChatHub> hubContext)
         {
             _bidService = bidService;
             _hubContext = hubContext;
@@ -34,7 +34,7 @@ namespace backend.Controllers
             var createdBid = await _bidService.CreateBid(bid);
 
             var dto = await _bidService.GetBidById(createdBid.Id);
-            await _hubContext.Clients.All.SendAsync("CurrentPriceChanged", dto.Amount);
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", dto.Amount);
 
             return Ok(dto);
         }

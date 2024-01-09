@@ -1,34 +1,14 @@
 // add column to the auciton table which is updated when new bid is placed - it would store current bid id
 // create custom classes to reduce classnames spam in divs
 
-import { useEffect } from "react";
 import CountdownTimer from "../CountdownTimer";
 import BidHistory from "./BidHistory";
-import * as signalR from "@microsoft/signalr";
 
 type AuctionPanelType = {
   auction: any;
 };
 
 const AuctionPanel = ({ auction }: AuctionPanelType) => {
-  useEffect(() => {
-    const connection = new signalR.HubConnectionBuilder()
-      .withUrl("/bidHub")
-      .build();
-
-    connection.start().then(() => {
-      console.log("Connected to SignalR Hub");
-    });
-
-    connection.on("CurrentPriceChanged", (amount) => {
-      console.log(`New bid: ${amount}`);
-    });
-
-    return () => {
-      connection.stop();
-    };
-  }, []);
-
   return (
     <div>
       <CountdownTimer endsAt={auction.endsAt} />
