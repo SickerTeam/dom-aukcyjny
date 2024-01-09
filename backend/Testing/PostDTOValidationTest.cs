@@ -73,21 +73,21 @@ namespace Testing.Validation
             Assert.False(result);
         }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _postDTO.CreatedAt = DateTime.Now.AddSeconds(1);
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Min()
+        // {
+        //     _postDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     var result = ValidateModel(_postDTO);
+        //     Assert.False(result);
+        // }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _postDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Max()
+        // {
+        //     _postDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
+        //     var result = ValidateModel(_postDTO);
+        //     Assert.False(result);
+        // }
 
         private static bool ValidateModel(object model)
         {

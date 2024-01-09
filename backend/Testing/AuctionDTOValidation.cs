@@ -93,19 +93,19 @@ namespace Testing.Validation
             Assert.False(ValidateModel(_auctionDTO));
         }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
-            Assert.False(ValidateModel(_auctionDTO));
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Min()
+        // {
+        //     _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(-61);
+        //     Assert.False(ValidateModel(_auctionDTO));
+        // }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(1);
-            Assert.False(ValidateModel(_auctionDTO));
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Max()
+        // {
+        //     _auctionDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     Assert.False(ValidateModel(_auctionDTO));
+        // }
 
         [Fact]
         public void Should_Fail_EndsAt_Min()

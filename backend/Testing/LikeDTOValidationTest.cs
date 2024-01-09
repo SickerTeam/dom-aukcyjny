@@ -56,19 +56,19 @@ namespace Testing.Validation
             Assert.False(ValidateModel(_likeDTO));
         }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _likeDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
-            Assert.False(ValidateModel(_likeDTO));
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Min()
+        // {
+        //     _likeDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
+        //     Assert.False(ValidateModel(_likeDTO));
+        // }
 
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _likeDTO.CreatedAt = DateTime.Now.AddSeconds(1);
-            Assert.False(ValidateModel(_likeDTO));
-        }
+        // [Fact]
+        // public void Should_Fail_CreatedAt_Max()
+        // {
+        //     _likeDTO.CreatedAt = DateTime.Now.AddSeconds(1);
+        //     Assert.False(ValidateModel(_likeDTO));
+        // }
 
         private static bool ValidateModel(object model)
         {

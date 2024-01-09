@@ -7,16 +7,15 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LikesController(ILikeService likeService, IMapper mapper) : ControllerBase
+    public class LikesController(ILikeService likeService) : ControllerBase
     {
         private readonly ILikeService _likeService = likeService;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
         public async Task<IActionResult> GetLikesAsync()
         {
-            var likes = await _likeService.GetLikesAsync();
-            return Ok(_mapper.Map<IEnumerable<LikeDTO>>(likes));
+            IEnumerable<LikeDTO> likes = await _likeService.GetLikesAsync();
+            return Ok(likes);
         }
 
         [HttpGet("count/{postId}")]
@@ -29,8 +28,8 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLikesByIdAsync(int id)
         {
-            var like = await _likeService.GetLikesByIdAsync(id);
-            return Ok(_mapper.Map<LikeDTO>(like));
+            LikeDTO like = await _likeService.GetLikesByIdAsync(id);
+            return Ok(like);
         }
 
         [HttpPost]
