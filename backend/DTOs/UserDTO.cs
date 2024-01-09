@@ -1,7 +1,6 @@
 ﻿#nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using backend.Validation;
 
 using backend.Enums;
 

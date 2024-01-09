@@ -1,9 +1,4 @@
-﻿using backend.DTOs;
-using backend.Models;
-using backend.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using backend.Data.Models;
+﻿using backend.Data.Models;
 
 namespace backend.Repositories
 {

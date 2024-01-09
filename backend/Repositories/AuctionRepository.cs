@@ -1,9 +1,6 @@
 ﻿using backend.Data;
 using backend.Data.Models;
-using backend.Models;
-using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace backend.Repositories
 {

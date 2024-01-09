@@ -30,6 +30,7 @@ namespace backend.Services
             var dbAuction = new DbAuction
             {
                 EndsAt = auctionDto.EndsAt,
+                CreatedAt = DateTime.Now,
                 EstimateMinPrice = auctionDto.EstimatedMinimum,
                 EstimateMaxPrice = auctionDto.EstimatedMaximum,
                 StartingPrice = auctionDto.StartingPrice,
