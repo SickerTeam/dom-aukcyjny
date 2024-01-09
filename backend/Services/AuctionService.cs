@@ -48,13 +48,15 @@ namespace backend.Services
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
             if (auction == null) return;
 
-            await _auctionRepository.UpdateAuctionAsync(_mapper.Map<DbAuction>(auctionDto));
+            _mapper.Map(auctionDto, auction);
+            await _auctionRepository.UpdateAuctionAsync(auction);
         } 
 
         public async Task DeleteAuctionsAsync(int id)
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
+            
             await _auctionRepository.DeleteAuctionAsync(auction.Id);
         }
     }

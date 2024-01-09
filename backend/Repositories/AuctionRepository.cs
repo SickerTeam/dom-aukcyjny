@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IList<DbAuction>> GetAuctionsAsync()
+        public async Task<IEnumerable<DbAuction>> GetAuctionsAsync()
         {
             return await _context.Auctions
                 .Include(auction => auction.Product)

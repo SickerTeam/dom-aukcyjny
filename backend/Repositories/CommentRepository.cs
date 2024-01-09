@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
         
-        public async Task<IList<DbComment>> GetCommentsAsync()
+        public async Task<IEnumerable<DbComment>> GetCommentsAsync()
         {
             return await _context.Comments.ToListAsync();
         }
@@ -35,11 +35,10 @@ namespace backend.Repositories
         public async Task DeleteCommentsAsync(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
-            if (comment != null)
-            {
-                _context.Comments.Remove(comment);
-                await _context.SaveChangesAsync();
-            }
+            if (comment == null) return;
+            
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
         }
     }
 }

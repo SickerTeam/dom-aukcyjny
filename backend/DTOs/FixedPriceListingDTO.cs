@@ -21,7 +21,7 @@ namespace backend.DTOs
         public decimal Price { get; set; }
 
         [Required]
-        [MustBeFalse]
+        // [MustBeFalse]
         public bool IsArchived { get; set; }
 
         // [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]

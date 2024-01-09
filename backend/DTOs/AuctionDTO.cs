@@ -35,7 +35,7 @@ namespace backend.DTOs
         public double ReservePrice { get; set; }
 
         [Required]
-        [MustBeFalse]
+        // [MustBeFalse]
         public bool IsArchived { get; set; }
 
         [Required]
