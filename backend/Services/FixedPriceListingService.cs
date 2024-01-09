@@ -14,19 +14,19 @@ namespace backend.Services
 
         public async Task<IEnumerable<FixedPriceListingDTO>> GetAllFixedPriceListingsAsync()
         {
-            var fixedPriceListings = await _fixedPriceListingRepository.GetAllFixedPriceListingsAsync();
+            IEnumerable<DbFixedPriceListing> fixedPriceListings = await _fixedPriceListingRepository.GetAllFixedPriceListingsAsync();
             return _mapper.Map<IEnumerable<FixedPriceListingDTO>>(fixedPriceListings);
         }
 
         public async Task<FixedPriceListingDTO> GetFixedPriceListingByIdAsync(int id)
         {
-            var fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
+            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
             return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
         }
 
         public async Task AddFixedPriceListingAsync(FixedPriceListingCreationDTO fixedPriceListingDto)
         {
-            var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
+            DbFixedPriceListing fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;
             fixedPriceListing.CreatedAt = DateTime.UtcNow;
             fixedPriceListing.Product = await _productService.GetProductByIdAsync(fixedPriceListingDto.ProductId);
@@ -41,7 +41,7 @@ namespace backend.Services
                 return null;
             }
 
-            var fixedPriceListingDto = _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
+            FixedPriceListingDTO fixedPriceListingDto = _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
             patchDoc.ApplyTo(fixedPriceListingDto);
 
             _mapper.Map(fixedPriceListingDto, fixedPriceListing);

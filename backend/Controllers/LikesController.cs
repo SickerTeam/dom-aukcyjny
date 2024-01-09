@@ -21,7 +21,7 @@ namespace backend.Controllers
         [HttpGet("count/{postId}")]
         public async Task<IActionResult> GetAmountOfLikesForPostById(int postId)
         {
-            var count = await _likeService.GetAmountOfLikesForPostById(postId);
+            int count = await _likeService.GetAmountOfLikesForPostById(postId);
             return Ok(count);
         }
 

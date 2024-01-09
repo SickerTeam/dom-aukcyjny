@@ -26,7 +26,7 @@ namespace backend.Controllers
         [HttpGet("count/{postId}")]
         public async Task<IActionResult> GetAmountOfCommentsForPostById(int postId)
         {
-            var count = await _commentService.GetAmountOfCommentsForPostById(postId);
+            int count = await _commentService.GetAmountOfCommentsForPostById(postId);
             return Ok(count);
         }
 

@@ -15,14 +15,14 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FixedPriceListingDTO>>> GetAllFixedPriceListings()
         {
-            var fixedPriceListings = await _fixedPriceListingService.GetAllFixedPriceListingsAsync();
+            IEnumerable<FixedPriceListingDTO> fixedPriceListings = await _fixedPriceListingService.GetAllFixedPriceListingsAsync();
             return Ok(fixedPriceListings);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
         {
-            var fixedPriceListing = await _fixedPriceListingService.GetFixedPriceListingByIdAsync(id);
+            FixedPriceListingDTO fixedPriceListing = await _fixedPriceListingService.GetFixedPriceListingByIdAsync(id);
             if (fixedPriceListing == null) return NotFound();
             return Ok(fixedPriceListing);
         }
@@ -43,7 +43,7 @@ namespace backend.Controllers
                 return BadRequest();
             }
 
-            var result = await _fixedPriceListingService.UpdateFixedPriceListingAsync(id, patchDoc);
+            FixedPriceListingDTO? result = await _fixedPriceListingService.UpdateFixedPriceListingAsync(id, patchDoc);
 
             if (result == null)
             {

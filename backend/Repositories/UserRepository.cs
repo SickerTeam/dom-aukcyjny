@@ -10,7 +10,7 @@ namespace backend.Repositories
 
         public int GetNumberOfUsers()
         {
-            var numberOfUsers = _context.Users.Count();
+            int numberOfUsers = _context.Users.Count();
             return numberOfUsers;
         }
 
@@ -21,13 +21,13 @@ namespace backend.Repositories
 
         public async Task<DbUser> GetUserByIdAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            DbUser? user = await _context.Users.FindAsync(id);
             return user ?? throw new ArgumentException("User not found");
         }
 
         public async Task<DbUser> GetUserByEmailAsync(string email)
         {
-            DbUser dbUser = await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+            DbUser? dbUser = await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
             return dbUser ?? throw new ArgumentException("User not found");
         }
 
@@ -45,7 +45,7 @@ namespace backend.Repositories
 
         public async Task DeleteUserAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id) ?? throw new ArgumentException("User not found");
+            DbUser user = await _context.Users.FindAsync(id) ?? throw new ArgumentException("User not found");
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

@@ -17,7 +17,7 @@ namespace backend.Repositories
 
         public async Task<DbPost> GetPostByIdAsync(int id)
         {
-            var post = await _context.Posts
+            DbPost post = await _context.Posts
                 .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
             return post;
         }
@@ -38,7 +38,7 @@ namespace backend.Repositories
 
         public async Task DeletePostAsync(int id)
         {
-            var Post = await _context.Posts.FindAsync(id) ?? throw new ArgumentException("Post not found");
+            DbPost Post = await _context.Posts.FindAsync(id) ?? throw new ArgumentException("Post not found");
             _context.Posts.Remove(Post);
             await _context.SaveChangesAsync();
         }

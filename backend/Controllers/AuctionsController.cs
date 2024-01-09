@@ -14,23 +14,22 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAuctions()
         {
-            var auctions = await _auctionService.GetAuctionsAsync();
+            IEnumerable<AuctionDTO> auctions = await _auctionService.GetAuctionsAsync();
             return Ok(auctions);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAuctionById(int id)
         {
-            var auction = await _auctionService.GetAuctionByIdAsync(id);
+            AuctionDTO auction = await _auctionService.GetAuctionByIdAsync(id);
             return Ok(auction);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {
-            var auction = await _auctionService.CreateAuctionAsync(auctionDto);
-            var dto = await _auctionService.GetAuctionByIdAsync(auction.Id);
-            return Ok(dto);
+            AuctionDTO auction = await _auctionService.CreateAuctionAsync(auctionDto);
+            return Ok(auction);
         }
 
         [HttpPut("{id}")]
@@ -41,7 +40,7 @@ namespace backend.Controllers
                 return BadRequest();
             }
 
-            var result = await _auctionService.UpdateAuctionAsync(id, patchDoc);
+            AuctionDTO? result = await _auctionService.UpdateAuctionAsync(id, patchDoc);
 
             if (result == null)
             {

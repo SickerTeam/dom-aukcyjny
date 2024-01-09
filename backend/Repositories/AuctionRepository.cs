@@ -18,7 +18,7 @@ namespace backend.Repositories
 
         public async Task<DbAuction> GetAuctionByIdAsync(int id)
         {
-            var auction = await _context.Auctions
+            DbAuction? auction = await _context.Auctions
                 .Where(x => x.Id == id)
                 .Include(auction => auction.Product)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
@@ -43,7 +43,7 @@ namespace backend.Repositories
 
         public async Task DeleteAuctionAsync(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id) ?? throw new ArgumentException("Auction not found");
+            DbAuction auction = await _context.Auctions.FindAsync(id) ?? throw new ArgumentException("Auction not found");
             _context.Auctions.Remove(auction);
             await _context.SaveChangesAsync();
         }

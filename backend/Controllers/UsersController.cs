@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using backend.Services;
+﻿using backend.Services;
 using backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Controllers
 {
@@ -22,14 +22,14 @@ namespace backend.Controllers
       [HttpGet]
       public async Task<IActionResult> GetUsers()
       {
-         var users = await _userService.GetUsersAsync();
+         IEnumerable<UserDTO> users = await _userService.GetUsersAsync();
          return Ok(users);
       }
 
       [HttpGet("{id}")]
       public async Task<IActionResult> GetUserById(int id)
       {
-         var user = await _userService.GetUserByIdAsync(id);
+         UserDTO user = await _userService.GetUserByIdAsync(id);
          return Ok(user);
       }
 
@@ -41,10 +41,21 @@ namespace backend.Controllers
       }
 
       [HttpPut]
-      public async Task<IActionResult> UpdateUser(UserDTO userDto)
+      public async Task<IActionResult> UpdateUser(int id, [FromBody] JsonPatchDocument<UserDTO> patchDoc)
       {
-         await _userService.UpdateUserAsync(userDto);
-         return Ok();
+         if (patchDoc == null)
+         {
+           return BadRequest();
+         }
+
+         UserDTO? result = await _userService.UpdateUserAsync(id, patchDoc);
+
+         if (result == null)
+         {
+           return NotFound();
+         }
+
+         return Ok(result);
       }
 
       [HttpDelete("{id}")]

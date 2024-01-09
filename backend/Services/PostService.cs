@@ -2,6 +2,7 @@
 using backend.Data.Models;
 using backend.DTOs;
 using backend.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -9,6 +10,7 @@ namespace backend.Services
     {
         private readonly IPostRepository _postRepository = postRepository;
         private readonly IMapper _mapper = mapper;
+        
         public async Task<PostDTO> GetPostByIdAsync(int id)
         {
             DbPost post = await _postRepository.GetPostByIdAsync(id);
@@ -28,12 +30,21 @@ namespace backend.Services
             return _mapper.Map<PostDTO>(post);
         }
 
-        public async Task UpdatePostAsync(PostDTO postDto)
+        public async Task<PostDTO?> UpdatePostAsync(int id, JsonPatchDocument<PostDTO> patchDoc)
         {          
-            DbPost post = await _postRepository.GetPostByIdAsync(postDto.Id);
-            if (post == null) return;
-            
+            DbPost post = await _postRepository.GetPostByIdAsync(id);
+            if (post == null)
+            {
+                return null;
+            }
+
+            PostDTO postDto = _mapper.Map<PostDTO>(post);
+            patchDoc.ApplyTo(postDto);
+
+            _mapper.Map(postDto, post);
             await _postRepository.UpdatePostAsync(post);
+
+            return _mapper.Map<PostDTO>(post);
         }
 
         public async Task DeletePostsAsync(int id)

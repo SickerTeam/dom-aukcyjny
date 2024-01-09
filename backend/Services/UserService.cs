@@ -2,6 +2,7 @@
 using backend.Data.Models;
 using backend.DTOs;
 using backend.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -39,13 +40,21 @@ namespace backend.Services
             return await _userRepository.GetUserByEmailAsync(email);
         }
 
-        public async Task UpdateUserAsync(UserDTO userDto)
+        public async Task<UserDTO?> UpdateUserAsync(int id, JsonPatchDocument<UserDTO> patchDoc)
         {
-            DbUser user = await _userRepository.GetUserByIdAsync(userDto.Id);
-            if (user == null) return;
+            DbUser user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return null;
+            }
+
+            UserDTO userDto = _mapper.Map<UserDTO>(user);
+            patchDoc.ApplyTo(userDto);
 
             _mapper.Map(userDto, user);
             await _userRepository.UpdateUserAsync(user);
+
+            return _mapper.Map<UserDTO>(user);
         }
 
         public async Task DeleteUserAsync(int id)

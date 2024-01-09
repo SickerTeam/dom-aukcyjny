@@ -22,7 +22,7 @@ namespace backend.Repositories
 
         public async Task<DbComment> GetCommentsByIdAsync(int id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            DbComment? comment = await _context.Comments.FindAsync(id);
             return comment ?? throw new ArgumentException("Comment not found");            
         }
 
@@ -34,7 +34,7 @@ namespace backend.Repositories
 
         public async Task DeleteCommentsAsync(int id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            DbComment? comment = await _context.Comments.FindAsync(id);
             if (comment == null) return;
             
             _context.Comments.Remove(comment);

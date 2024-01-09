@@ -30,7 +30,7 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
 
         public async Task DeleteFixedPriceListingAsync(int id)
         {
-            var fixedPriceListing = await _context.FixedPriceListings.FindAsync(id)  ?? throw new ArgumentException("FixedPriceListing not found");
+            DbFixedPriceListing fixedPriceListing = await _context.FixedPriceListings.FindAsync(id)  ?? throw new ArgumentException("FixedPriceListing not found");
 
             _context.FixedPriceListings.Remove(fixedPriceListing);
             await _context.SaveChangesAsync();
@@ -38,7 +38,7 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
 
         public async Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id)
         {
-            var fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
+            DbFixedPriceListing? fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
                 .Include(fixedPriceListing => fixedPriceListing.Product)
                 .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
                 .FirstOrDefaultAsync();

@@ -46,13 +46,13 @@ namespace backend.Services
 
         public async Task<AuctionDTO?> UpdateAuctionAsync(int id, JsonPatchDocument<AuctionDTO> patchDoc)
         {
-            var auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null)
             {
                 return null;
             }
 
-            var auctionDto = _mapper.Map<AuctionDTO>(auction);
+            AuctionDTO auctionDto = _mapper.Map<AuctionDTO>(auction);
             patchDoc.ApplyTo(auctionDto);
 
             _mapper.Map(auctionDto, auction);
