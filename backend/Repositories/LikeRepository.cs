@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
 
-        public async Task<IList<DbLike>> GetLikesAsync()
+        public async Task<IEnumerable<DbLike>> GetLikesAsync()
         {
             return await _context.Likes.ToListAsync();
         }
@@ -20,18 +20,18 @@ namespace backend.Repositories
                 .CountAsync();
         }
 
-        public async Task<DbLike> GetLikesByIdAsync(int id)
+        public async Task<DbLike> GetLikeByIdAsync(int id)
         {
             return await _context.Likes.FindAsync(id) ?? throw new ArgumentException("Like not found");
         }
 
-        public async Task AddLikesAsync(DbLike like)
+        public async Task AddLikeAsync(DbLike like)
         {
             await _context.Likes.AddAsync(like);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteLikesAsync(int id)
+        public async Task DeleteLikeAsync(int id)
         {
             var like = await _context.Likes.FindAsync(id) ?? throw new ArgumentException("Like not found");
             _context.Likes.Remove(like);

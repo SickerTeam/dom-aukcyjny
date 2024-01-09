@@ -26,23 +26,23 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLikesByIdAsync(int id)
+        public async Task<IActionResult> GetLikeByIdAsync(int id)
         {
-            LikeDTO like = await _likeService.GetLikesByIdAsync(id);
+            LikeDTO like = await _likeService.GetLikeByIdAsync(id);
             return Ok(like);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLikesAsync(LikeCreationDTO likeDto)
+        public async Task<IActionResult> AddLikeAsync(LikeCreationDTO likeDto)
         {
-            await _likeService.AddLikesAsync(likeDto);
+            await _likeService.AddLikeAsync(likeDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLikesAsync(int id)
+        public async Task<IActionResult> DeleteLikeAsync(int id)
         {
-            await _likeService.DeleteLikesAsync(id);
+            await _likeService.DeleteLikeAsync(id);
             return Ok();
         }
     }

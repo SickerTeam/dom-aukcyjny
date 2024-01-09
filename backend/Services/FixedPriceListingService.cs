@@ -34,7 +34,7 @@ namespace backend.Services
 
         public async Task UpdateFixedPriceListingAsync(FixedPriceListingDTO fixedPriceListingDto)
         {
-            var fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(fixedPriceListingDto.Id);
+            DbFixedPriceListing fixedPriceListing = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(fixedPriceListingDto.Id);
             if (fixedPriceListing == null) return;
 
             _mapper.Map(fixedPriceListingDto, fixedPriceListing);
@@ -43,10 +43,10 @@ namespace backend.Services
 
         public async Task DeleteFixedPriceListingAsync(int id)
         {
-            var insta = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
-            if (insta != null) {
-                await _fixedPriceListingRepository.DeleteFixedPriceListingAsync(id);
-            }
+            DbFixedPriceListing insta = await _fixedPriceListingRepository.GetFixedPriceListingByIdAsync(id);
+            if (insta == null) return;
+
+            await _fixedPriceListingRepository.DeleteFixedPriceListingAsync(id);
         }
     }
 }

@@ -36,6 +36,9 @@ namespace backend.Services
 
         public async Task DeleteCommentsAsync(int id)
         {
+            DbComment comment = await _commentRepository.GetCommentsByIdAsync(id);
+            if (comment == null) return;
+            
             await _commentRepository.DeleteCommentsAsync(id);
         }
     }

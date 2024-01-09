@@ -17,19 +17,19 @@ namespace backend.Services
 
         public async Task<IEnumerable<UserDTO>> GetUsersAsync()
         {
-            var users = await _userRepository.GetAllUsersAsync();
+            IEnumerable<DbUser> users = await _userRepository.GetAllUsersAsync();
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
         public async Task<UserDTO> GetUserByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            DbUser user = await _userRepository.GetUserByIdAsync(id);
             return _mapper.Map<UserDTO>(user);
         }
         
         public async Task AddUserAsync(UserCreationDTO userDto)
         {
-            var user = _mapper.Map<DbUser>(userDto);
+            DbUser user = _mapper.Map<DbUser>(userDto);
             await _userRepository.AddUserAsync(user);
 
         }
@@ -41,7 +41,7 @@ namespace backend.Services
 
         public async Task UpdateUserAsync(UserDTO userDto)
         {
-            var user = await _userRepository.GetUserByIdAsync(userDto.Id);
+            DbUser user = await _userRepository.GetUserByIdAsync(userDto.Id);
             if (user == null) return;
 
             _mapper.Map(userDto, user);
@@ -50,7 +50,7 @@ namespace backend.Services
 
         public async Task DeleteUserAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            DbUser user = await _userRepository.GetUserByIdAsync(id);
             if (user == null) return;
 
             await _userRepository.DeleteUserAsync(user.Id);
