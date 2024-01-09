@@ -1,6 +1,7 @@
 // add column to the auciton table which is updated when new bid is placed - it would store current bid id
 // create custom classes to reduce classnames spam in divs
 
+import CountdownTimer from "../CountdownTimer";
 import BidHistory from "./BidHistory";
 
 type AuctionPanelType = {
@@ -10,7 +11,7 @@ type AuctionPanelType = {
 const AuctionPanel = ({ auction }: AuctionPanelType) => {
   return (
     <div>
-      <h2>Closes in 3d 21h 47m 15s</h2>
+      <CountdownTimer endsAt={auction.endsAt} />
       <div className="panel-container bg-light-gray p-2 ">
         <div className="panel-price-container my-2">
           <p className="current-bid uppercase">current bid</p>
