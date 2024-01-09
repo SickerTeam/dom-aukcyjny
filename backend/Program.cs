@@ -66,7 +66,6 @@ namespace backend
             IMapper mapper = mapperConfig.CreateMapper();
             builder.Services.AddSingleton(mapper);
             builder.Services.AddMvc();
-            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -75,14 +74,6 @@ namespace backend
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<ChatHub>("/chatHub");
-                // Other endpoint mappings...
-            });
 
             app.UseHttpsRedirection();
 

@@ -46,5 +46,6 @@ namespace backend.Controllers
             await _auctionService.DeleteAuctionsAsync(id);
             return Ok();
         }
+
     }
 }

@@ -2,7 +2,7 @@ import { Artworks, Filters, Path } from "..";
 
 const AuctionsListPage = () => {
   return (
-    <div>
+    <div className=" ">
       <Path />
       <Filters />
 
