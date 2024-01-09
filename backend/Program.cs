@@ -27,17 +27,18 @@ namespace backend
 
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DatabaseContext")));
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IFixedPriceListingRepository, FixedPriceListingRepository>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<IBidRepository, BidRepository>();
 
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IFixedPriceListingService, FixedPriceListingService>();
             builder.Services.AddScoped<IAuctionService, AuctionService>();
@@ -45,6 +46,7 @@ namespace backend
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IBidService, BidService>();
 
             builder.Services.AddCors(options =>
 {
@@ -80,7 +82,7 @@ namespace backend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHub<BidHub>("/bidHub");
                 // Other endpoint mappings...
             });
 
