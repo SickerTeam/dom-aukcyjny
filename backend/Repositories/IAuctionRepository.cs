@@ -8,8 +8,8 @@ namespace backend.Repositories
     {
         Task<IList<DbAuction>> GetAuctionsAsync();
         Task<DbAuction> GetAuctionByIdAsync(int id);
-        Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction, int productId);
-        Task UpdateAuctionAsync(Auction auction);
+        Task<DbAuction> CreateAuctionAsync(DbAuction auction);
+        Task UpdateAuctionAsync(DbAuction auction);
         Task DeleteAuctionAsync(int id);
     }
 }

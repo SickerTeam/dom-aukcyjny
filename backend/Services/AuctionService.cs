@@ -26,7 +26,18 @@ namespace backend.Services
         public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auctionDto)
         {
             var product = await _productRepository.CreateProductAsync(auctionDto.Product);
-            return await _auctionRepository.CreateAuctionAsync(auctionDto, product.Id);
+
+            var dbAuction = new DbAuction
+            {
+                EndsAt = auctionDto.EndsAt,
+                EstimateMinPrice = auctionDto.EstimatedMinimum,
+                EstimateMaxPrice = auctionDto.EstimatedMaximum,
+                StartingPrice = auctionDto.StartingPrice,
+                ReservePrice = auctionDto.MinimumPrice,
+                ProductId = product.Id,
+            };
+
+            return await _auctionRepository.CreateAuctionAsync(dbAuction);
         }
 
         public async Task UpdateAuctionAsync(AuctionDTO auctionDto)
@@ -34,14 +45,14 @@ namespace backend.Services
             var auction = await _auctionRepository.GetAuctionByIdAsync(auctionDto.Id);
             if (auction == null) return;
 
-            _mapper.Map(auctionDto, auction);
+            await _auctionRepository.UpdateAuctionAsync(_mapper.Map<DbAuction>(auctionDto));
         } 
 
         public async Task DeleteAuctionsAsync(int id)
         {
             var auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return;
-            await _auctionRepository.DeleteAuctionAsync((int)auction.Id);
+            await _auctionRepository.DeleteAuctionAsync(auction.Id);
         }
     }
 }

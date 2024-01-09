@@ -19,7 +19,7 @@ namespace backend.DTOs
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public string Text { get; set; }
 
-        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
+        // [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
         public DateTime? CreatedAt { get; set; }
 
         public virtual ICollection<CommentDTO> Comments { get; set; }

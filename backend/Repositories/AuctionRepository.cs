@@ -3,6 +3,7 @@ using backend.Data.Models;
 using backend.Models;
 using backend.DTOs;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace backend.Repositories
 {
@@ -14,7 +15,7 @@ namespace backend.Repositories
         {
             return await _context.Auctions
                 .Include(auction => auction.Product)
-                .Include(auction => auction.Product.Seller)
+                .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .ToListAsync();
         }
 
@@ -23,33 +24,23 @@ namespace backend.Repositories
             var auction = await _context.Auctions
                 .Where(x => x.Id == id)
                 .Include(auction => auction.Product)
-                .Include(auction => auction.Product.Seller)
+                .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .FirstOrDefaultAsync();
 
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
-        public async Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction, int productId)
+        public async Task<DbAuction> CreateAuctionAsync(DbAuction dbAuction)
         {
-            var dbAuction = new DbAuction
-            {
-                EndsAt = auction.EndsAt,
-                EstimateMinPrice = auction.EstimatedMinimum,
-                EstimateMaxPrice = auction.EstimatedMaximum,
-                StartingPrice = auction.StartingPrice,
-                ReservePrice = auction.MinimumPrice,
-                ProductId = productId,
-            };
-
             await _context.Auctions.AddAsync(dbAuction);
             await _context.SaveChangesAsync();
 
             return dbAuction;
         }
 
-        public async Task UpdateAuctionAsync(Auction auction)
+        public async Task UpdateAuctionAsync(DbAuction auction)
         {
-            // _context.Auctions.Update(auction);
+            _context.Auctions.Update(auction);
             await _context.SaveChangesAsync();
         }
 
