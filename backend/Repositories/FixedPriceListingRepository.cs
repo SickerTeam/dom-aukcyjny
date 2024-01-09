@@ -39,9 +39,10 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
         public async Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id)
         {
             var fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
-            .Include(fixedPriceListing => fixedPriceListing.Product)
-            .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
-            .FirstOrDefaultAsync();
+                .Include(fixedPriceListing => fixedPriceListing.Product)
+                .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
+                .FirstOrDefaultAsync();
+                
             return fixedPriceListing ?? throw new ArgumentException("FixedPriceListing not found");
         }
     }
