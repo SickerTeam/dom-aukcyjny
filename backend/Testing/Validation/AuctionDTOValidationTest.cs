@@ -41,7 +41,6 @@ namespace Testing.Validation
 
             _auctionDTO = new AuctionDTO(1, DateTime.UtcNow)
             {
-                ProductId = 1,
                 EstimateMaxPrice = 0.01,
                 EstimateMinPrice = 0.01,
                 ReservePrice = 0.01,
@@ -62,7 +61,6 @@ namespace Testing.Validation
         {
             AuctionDTO _auctionDTO = new(1, DateTime.UtcNow)
             {
-                ProductId = int.MaxValue,
                 Product = _productDTO,
                 EstimateMinPrice = int.MaxValue,
                 EstimateMaxPrice = int.MaxValue,
@@ -70,13 +68,6 @@ namespace Testing.Validation
                 StartingPrice = int.MaxValue
             };
             Assert.True(ValidateModel(_auctionDTO));
-        }
-
-        [Fact]
-        public void Should_Fail_ProductId_Min()
-        {
-            _auctionDTO.ProductId = 0;
-            Assert.False(ValidateModel(_auctionDTO));
         }
 
         [Fact]

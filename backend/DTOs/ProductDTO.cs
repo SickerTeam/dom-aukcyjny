@@ -46,8 +46,18 @@ namespace backend.DTOs
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int SellerId { get; set; }
+        public int SellerId { get; private set; }
 
-        public UserDTO Seller { get; set; }
+        private UserDTO _seller;
+        public UserDTO Seller 
+        { 
+            get => _seller; 
+            set 
+            { 
+                _seller = value;
+                SellerId = _seller?.Id ?? default;
+            } 
+        }
+        
     }
 }

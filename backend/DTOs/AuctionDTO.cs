@@ -36,8 +36,17 @@ namespace backend.DTOs
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int ProductId { get; set; }
+        public int ProductId { get; private set; }
 
-        public ProductDTO Product { get; set; }
+        private ProductDTO _product;
+        public ProductDTO Product 
+        { 
+            get => _product; 
+            set 
+            { 
+                _product = value;
+                ProductId = _product?.Id ?? default;
+            } 
+        }
     }
 }
