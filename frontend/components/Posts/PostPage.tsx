@@ -1,72 +1,58 @@
 "use client"
-import React, { use, useEffect, useState } from "react";
-import PostCard from "./PostCard";
-import SideRecommendation from "./SideRecommendation";
 
-const PostPage = () => {
+import { useState, useEffect } from 'react'
+
+
+import PostCard from "./PostCard";
+import UserCard from "./UserCard";
+import SideNavigation from "./SideNavigation";
+import PostAPost from "./PostAPost";
+
+
+interface User {
+  id: number;
+}
+
+export default function PostPage() {
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const postsr = [...posts].reverse();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const postsResponse = await fetch("http://localhost:5156/Posts");
-        const usersResponse = await fetch("http://localhost:5156/Users");
+    fetch('http://localhost:5156/Users')
+      .then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          setUsers(data);
+        });
+      }).catch((error) => console.error(error));
 
-        if (!postsResponse.ok) {
-          throw new Error("Failed to fetch posts");
-        }
-
-        if (!usersResponse.ok) {
-          throw new Error("Failed to fetch users");
-        }
-
-        const postsData = await postsResponse.json();
-        const usersData = await usersResponse.json();
-
-        setPosts(postsData);
-        setUsers(usersData);
-      } catch (error) {
-        console.error("Error fetching data:", error as Error);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
-
-  const postPost = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevent page refresh
-    console.log("posting post");
-    // Add logic for posting a new post if needed
-  };
+    fetch('http://localhost:5156/Posts')
+      .then((res) => {
+        res.json().then((data) => {
+          setPosts(data);
+        });
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
-    <div>
-      <div className="flex flex-col items-center">
-        <form>
-          <button
-            className="6 m-2 flex border-solid border-2 border-grey-500 inline-block rounded-lg"
-            onClick={postPost}
-          >
-            Post
-          </button>
-        </form>
-        <div className="flex justify-around">
-          <div>
-            <p>fuck this shit im not implementing it</p>
-          </div>
-          <div>
-            {posts.map((post: any, index: number) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </div>
-          <div>
-            <SideRecommendation user={users} />
-          </div>
+      <div className="ml-10 ...">
+      <div className="flex justify-around h-full">
+        <div className='w-1/3'>
+          <SideNavigation/>
+        </div>
+        <div className='w-1/3'>
+            <PostAPost/>
+            {postsr.map((post: any, index: number) => <PostCard key={index} post={post}/>)}
+        </div>
+        <div className='w-1/3 '>
+          {users.map((user: User) => (
+            <UserCard key={user.id} user={user} />
+          ))}
         </div>
       </div>
-    </div>
+      </div>
   );
-};
+}
 
-export default PostPage;

@@ -6,9 +6,10 @@ interface PictureCardProps {
 
 const PictureCard: React.FC<PictureCardProps> = ({ imageUrl }) => {
     return (
-        <div>
-            <img className="rounded-md" src={imageUrl} alt="Post Image" />
+        <div className='flex flex-column'>
+             <img className="rounded-md h-auto max-w-full content-stretch" src={imageUrl} alt="Post Image" style={{objectFit: 'cover'}} />
         </div>
+
     );
 };
 

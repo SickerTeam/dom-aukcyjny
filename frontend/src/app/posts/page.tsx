@@ -1,11 +1,11 @@
-
 import PostPage from "../../../components/Posts/PostPage";
 
+export default function Post() {
 
-const Posts = () => {
-   
-
-    return <PostPage />;
-};
-
-export default Posts;
+ 
+  return (
+    <div>
+        <PostPage/>
+    </div>
+  );
+}
