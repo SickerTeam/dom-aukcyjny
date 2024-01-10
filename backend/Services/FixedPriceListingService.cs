@@ -32,7 +32,7 @@ namespace backend.Services
             var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);
             fixedPriceListing.IsArchived = false;
             fixedPriceListing.CreatedAt = DateTime.Now;
-            return await _fixedPriceListingRepository.AddFixedPriceListingAsync(fixedPriceListing);
+            return await _listingRepository.AddFixedPriceListingAsync(fixedPriceListing);
         }
 
         public async Task<FixedPriceListingDTO?> UpdateFixedPriceListingAsync(int id, JsonPatchDocument<FixedPriceListingDTO> patchDoc)
