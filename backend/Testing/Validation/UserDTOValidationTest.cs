@@ -33,7 +33,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            UserDTO _userDTO = new(1, DateTime.UtcNow)
+            UserDTO _userDTO = new(int.MaxValue, DateTime.UtcNow)
             {
                 Email = new string('a', 244) + "@login.com",
                 FirstName = "first",
@@ -58,70 +58,70 @@ namespace Testing.Validation
         public void Should_Fail_Email_Min()
         {
             _userDTO.Email = "";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }
 
         [Fact]
         public void Should_Fail_Email_Max()
         {
             _userDTO.Email = new string('a', 245) + "@login.com";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }
         
         [Fact]
         public void Should_Fail_FirstName_Min()
         {
             _userDTO.FirstName = "";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }   
 
         [Fact]
         public void Should_Fail_FirstName_Max()
         {
             _userDTO.FirstName = new string('a', 255);
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         } 
 
         [Fact]
         public void Should_Fail_LastName_Min()
         {
             _userDTO.LastName = "";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }   
 
         [Fact]
         public void Should_Fail_LastName_Max()
         {
             _userDTO.LastName = new string('a', 255);
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }  
 
         [Fact]
         public void Should_Fail_Bio_Min()
         {
             _userDTO.Bio = "";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }   
 
         [Fact]
         public void Should_Fail_Bio_Max()
         {
             _userDTO.Bio = new string('a', 2048);
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         } 
 
         [Fact]
         public void Should_Fail_Country_Min()
         {
             _userDTO.Country = "";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }   
 
         [Fact]
         public void Should_Fail_Country_Max()
         {
             _userDTO.Country = new string('a', 255);
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }     
 
         [Fact]
@@ -135,7 +135,7 @@ namespace Testing.Validation
         public void Should_Fail_PersonalLink_Max()
         {
             _userDTO.PersonalLink = "https:// " + new string('a', 242) + ".com";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }    
 
         [Fact]
@@ -149,7 +149,7 @@ namespace Testing.Validation
         public void Should_Fail_ProfilePictureLink_Max()
         {
             _userDTO.ProfilePictureLink = "https:// " + new string('a', 242) + ".com";
-            Assert.True(ValidateModel(_userDTO));
+            Assert.False(ValidateModel(_userDTO));
         }
 
         private static bool ValidateModel(object model)

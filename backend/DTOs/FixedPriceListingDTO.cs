@@ -12,8 +12,6 @@ namespace backend.DTOs
 
         public DateTime? CreatedAt { get; private set; } = createdAt;
 
-        [Required]
-        [Range(1, int.MaxValue)]
         public int ProductId { get; private set; }
 
         private ProductDTO _product;

@@ -21,7 +21,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            Assert.False(ValidateModel(_userLoginDTO));
+            Assert.True(ValidateModel(_userLoginDTO));
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Testing.Validation
             _userLoginDTO.Email = new string('a', 244) + "@login.com";
             _userLoginDTO.Password = new string('a', 253);
             _userLoginDTO.KeepLoggedIn = true;
-            Assert.False(ValidateModel(_userLoginDTO));
+            Assert.True(ValidateModel(_userLoginDTO));
         }     
 
         [Fact]

@@ -48,7 +48,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            ProductDTO _productDTO = new(1, DateTime.UtcNow)
+            ProductDTO _productDTO = new(int.MaxValue, DateTime.UtcNow)
             {
                 Height = double.MaxValue,
                 Width = double.MaxValue,

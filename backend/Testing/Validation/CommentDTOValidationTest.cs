@@ -27,7 +27,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            CommentDTO _commentDTO = new(1, DateTime.UtcNow)
+            CommentDTO _commentDTO = new(int.MaxValue, DateTime.UtcNow)
             {
                 UserId = int.MaxValue,
                 PostId = int.MaxValue,
