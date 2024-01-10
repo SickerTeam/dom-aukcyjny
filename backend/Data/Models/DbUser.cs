@@ -18,7 +18,7 @@ namespace backend.Data.Models
 
         public string? PersonalLink { get; set; }
 
-        public ICollection<DbPicture>? ProfilePictureLink { get; set; }
+        public DbPicture? ProfilePictureLink { get; set; }
 
         public UserRole Role { get; set; }
 
