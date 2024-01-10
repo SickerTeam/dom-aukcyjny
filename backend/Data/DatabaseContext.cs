@@ -53,6 +53,10 @@ public partial class DatabaseContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Auction__Product__6C190EBB");
+
+            // entity.HasMany(a => a.Bids)
+            //     .WithOne(b => b.Auction)
+            //     .HasForeignKey(b => b.AuctionId);
         });
 
         modelBuilder.Entity<DbBid>(entity =>
