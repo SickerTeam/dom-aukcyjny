@@ -3,6 +3,8 @@ using backend.Data.Models;
 using backend.DTOs;
 using backend.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -10,7 +12,7 @@ namespace backend.Services
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IMapper _mapper = mapper;
-
+        protected internal ModelStateDictionary modelState = new();
         public int GetNumberOfUsers()
         {
             return _userRepository.GetNumberOfUsers();
@@ -45,9 +47,19 @@ namespace backend.Services
             DbUser user = await _userRepository.GetUserByIdAsync(id);
             if (user == null) return null;
 
-            UserDTO userDto = _mapper.Map<UserDTO>(user);
-            patchDoc.ApplyTo(userDto);
+            foreach (var operation in patchDoc.Operations)
+            {
+                if (operation.path == "id" || operation.path == "role")
+                {
+                    throw new InvalidOperationException("Updating one or more fields is not allowed.");
+                }
+            }
 
+            UserDTO userDto = _mapper.Map<UserDTO>(user);
+            patchDoc.ApplyTo(userDto, modelState);
+
+            if (!modelState.IsValid) return null;
+            
             _mapper.Map(userDto, user);
             await _userRepository.UpdateUserAsync(user);
 

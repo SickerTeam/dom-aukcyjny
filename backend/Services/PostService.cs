@@ -3,6 +3,8 @@ using backend.Data.Models;
 using backend.DTOs;
 using backend.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -10,6 +12,7 @@ namespace backend.Services
     {
         private readonly IPostRepository _postRepository = postRepository;
         private readonly IMapper _mapper = mapper;
+        protected internal ModelStateDictionary modelState = new();
         
         public async Task<PostDTO> GetPostByIdAsync(int id)
         {
@@ -33,13 +36,20 @@ namespace backend.Services
         public async Task<PostDTO?> UpdatePostAsync(int id, JsonPatchDocument<PostDTO> patchDoc)
         {          
             DbPost post = await _postRepository.GetPostByIdAsync(id);
-            if (post == null)
+            if (post == null) return null;
+
+            foreach (var operation in patchDoc.Operations)
             {
-                return null;
+                if (operation.path != "text")
+                {
+                    throw new InvalidOperationException("Updating one or more fields is not allowed.");
+                }
             }
 
             PostDTO postDto = _mapper.Map<PostDTO>(post);
-            patchDoc.ApplyTo(postDto);
+            patchDoc.ApplyTo(postDto, modelState);
+
+            if (!modelState.IsValid) return null;
 
             _mapper.Map(postDto, post);
             await _postRepository.UpdatePostAsync(post);

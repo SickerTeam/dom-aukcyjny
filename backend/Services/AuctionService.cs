@@ -3,6 +3,8 @@ using backend.DTOs;
 using backend.Data.Models;
 using backend.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -11,6 +13,7 @@ namespace backend.Services
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
         private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
+        protected internal ModelStateDictionary modelState = new();
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
@@ -48,16 +51,20 @@ namespace backend.Services
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return null;
-
-            AuctionDTO auctionDto = _mapper.Map<AuctionDTO>(auction);
-
+            
             foreach (var operation in patchDoc.Operations)
             {
-                if (operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                if (operation.path == "id" || operation.path == "createdAt" ||
+                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
                 {
-                    throw new InvalidOperationException("Updating the Seller information is not allowed.");
+                    throw new InvalidOperationException("Updating one or more fields is not allowed.");
                 }
             }
+
+            AuctionDTO auctionDto = _mapper.Map<AuctionDTO>(auction);
+            patchDoc.ApplyTo(auctionDto, modelState);
+
+            if (!modelState.IsValid) return null;
 
             _mapper.Map(auctionDto, auction);
             await _auctionRepository.UpdateAuctionAsync(auction);

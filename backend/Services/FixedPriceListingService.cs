@@ -3,6 +3,8 @@ using backend.DTOs;
 using backend.Data.Models;
 using backend.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -11,6 +13,7 @@ namespace backend.Services
         private readonly IFixedPriceListingRepository _listingRepository = listingRepository;
         private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
+        protected internal ModelStateDictionary modelState = new();
 
         public async Task<IEnumerable<FixedPriceListingDTO>> GetAllFixedPriceListingsAsync()
         {
@@ -38,16 +41,19 @@ namespace backend.Services
             DbFixedPriceListing listing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
             if (listing == null) return null;
 
-            FixedPriceListingDTO listingDto = _mapper.Map<FixedPriceListingDTO>(listing);
-            patchDoc.ApplyTo(listingDto);
-
             foreach (var operation in patchDoc.Operations)
             {
-                if (operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                if (operation.path == "id" || operation.path == "createdAt" ||
+                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
                 {
-                    throw new InvalidOperationException("Updating the Seller information is not allowed.");
+                    throw new InvalidOperationException("Updating one or more fields is not allowed.");
                 }
             }
+
+            FixedPriceListingDTO listingDto = _mapper.Map<FixedPriceListingDTO>(listing);
+            patchDoc.ApplyTo(listingDto, modelState);
+
+            if (!modelState.IsValid) return null;
 
             _mapper.Map(listingDto, listing);
             await _listingRepository.UpdateFixedPriceListingAsync(listing);
