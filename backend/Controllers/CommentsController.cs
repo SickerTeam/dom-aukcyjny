@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using backend.DTOs;
+﻿using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,36 +6,29 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CommentsController : ControllerBase
+    public class CommentsController(ICommentService commentService) : ControllerBase
     {
-        private readonly ICommentService _commentService;
-        private readonly IMapper _mapper;
-
-        public CommentsController(ICommentService commentService, IMapper mapper)
-        {
-            _commentService = commentService;
-            _mapper = mapper;
-        }
+        private readonly ICommentService _commentService = commentService;
 
         [HttpGet]
         public async Task<IActionResult> GetCommentsAsync()
         {
-            var comments = await _commentService.GetCommentsAsync();
-            return Ok(_mapper.Map<IEnumerable<CommentDTO>>(comments));
+            IEnumerable<CommentDTO> comments = await _commentService.GetCommentsAsync();
+            return Ok(comments);
         }
 
         [HttpGet("count/{postId}")]
         public async Task<IActionResult> GetAmountOfCommentsForPostById(int postId)
         {
-            var count = await _commentService.GetAmountOfCommentsForPostById(postId);
+            int count = await _commentService.GetAmountOfCommentsForPostById(postId);
             return Ok(count);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCommentsByIdAsync(int id)
         {
-            var comment = await _commentService.GetCommentsByIdAsync(id);
-            return Ok(_mapper.Map<CommentDTO>(comment));
+            CommentDTO comment = await _commentService.GetCommentsByIdAsync(id);
+            return Ok(comment);
         }
 
         [HttpPost]

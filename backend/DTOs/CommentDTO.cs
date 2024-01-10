@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using backend.Validation;
+﻿#nullable disable
+
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class CommentDTO
+    public class CommentDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
+
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
         [Range(1, int.MaxValue)]
@@ -16,25 +19,9 @@ namespace backend.DTOs
         [Required]
         [StringLength(1023, ErrorMessage = "Text cannot exceed 1023 characters.")]
         public string Text { get; set; }
-
-        //[CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        // Sorry Ondrej
-        public DateTime? CreatedAt { get; set; }
         
         [Required]
         [Range(1, int.MaxValue)]
-        public int? UserId { get; set; }
-
-
-        public CommentDTO(){}
-
-        public CommentDTO(int id, int postId, string text, DateTime? timePosted, int userId)
-        {
-            Id = id;
-            PostId = postId;
-            Text = text;
-            CreatedAt = timePosted;
-            UserId = userId;
-        }
+        public int UserId { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using backend.Data;
 using backend.Data.Models;
-using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
@@ -24,27 +23,26 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
             return fixedPriceListing;
         }
 
-        public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
+        public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing listing)
         {
-            _context.FixedPriceListings.Update(fixedPriceListing);
+            _context.FixedPriceListings.Update(listing);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteFixedPriceListingAsync(int id)
+        public async Task DeleteFixedPriceListingAsync(DbFixedPriceListing listing)
         {
-            var fixedPriceListing = await _context.FixedPriceListings.FindAsync(id)  ?? throw new ArgumentException("FixedPriceListing not found");
-
-            _context.FixedPriceListings.Remove(fixedPriceListing);
+            _context.FixedPriceListings.Remove(listing);
             await _context.SaveChangesAsync();
         }
 
         public async Task<DbFixedPriceListing> GetFixedPriceListingByIdAsync(int id)
         {
-            var fixedPriceListing = await _context.FixedPriceListings.Where(x => x.Id == id)
-            .Include(fixedPriceListing => fixedPriceListing.Product)
-            .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
-            .FirstOrDefaultAsync();
-            return fixedPriceListing ?? throw new ArgumentException("FixedPriceListing not found");
+            DbFixedPriceListing? listing = await _context.FixedPriceListings.Where(x => x.Id == id)
+                .Include(fixedPriceListing => fixedPriceListing.Product)
+                .Include(fixedPriceListing => fixedPriceListing.Product.Seller)
+                .FirstOrDefaultAsync();
+                
+            return listing ?? throw new ArgumentException("Fixed price listing not found");
         }
     }
 }

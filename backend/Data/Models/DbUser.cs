@@ -1,4 +1,6 @@
-﻿using backend.Enums;
+﻿#nullable disable
+
+using backend.Enums;
 
 namespace backend.Data.Models
 {
@@ -17,6 +19,8 @@ namespace backend.Data.Models
         public string Country { get; set; }
 
         public string PersonalLink { get; set; }
+
+        public string ProfilePictureLink { get; set; }
 
         public UserRole Role { get; set; }
 

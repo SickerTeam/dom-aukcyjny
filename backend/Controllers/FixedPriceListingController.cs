@@ -1,5 +1,6 @@
 ﻿using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -13,14 +14,14 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FixedPriceListingDTO>>> GetAllFixedPriceListings()
         {
-            var fixedPriceListings = await _fixedPriceListingService.GetAllFixedPriceListingsAsync();
+            IEnumerable<FixedPriceListingDTO> fixedPriceListings = await _fixedPriceListingService.GetAllFixedPriceListingsAsync();
             return Ok(fixedPriceListings);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
         {
-            var fixedPriceListing = await _fixedPriceListingService.GetFixedPriceListingByIdAsync(id);
+            FixedPriceListingDTO fixedPriceListing = await _fixedPriceListingService.GetFixedPriceListingByIdAsync(id);
             if (fixedPriceListing == null) return NotFound();
             return Ok(fixedPriceListing);
         }
@@ -34,11 +35,23 @@ namespace backend.Controllers
             return Ok(dto);
         }
 
-        [HttpPut]
-        public async Task<ActionResult> UpdateFixedPriceListing(FixedPriceListingDTO fixedPriceListingDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateFixedPriceListing(int id, [FromBody] JsonPatchDocument<FixedPriceListingDTO> patchDoc)
         {
-            await _fixedPriceListingService.UpdateFixedPriceListingAsync(fixedPriceListingDto);
-            return Ok();
+
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            FixedPriceListingDTO? result = await _fixedPriceListingService.UpdateFixedPriceListingAsync(id, patchDoc);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

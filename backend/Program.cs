@@ -20,6 +20,8 @@ namespace backend
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddControllers().AddNewtonsoftJson();
+
             builder.Services.AddAuthentication().AddJwtBearer();
             builder.Services.AddAuthorization();
 

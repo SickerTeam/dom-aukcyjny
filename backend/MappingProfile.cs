@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using backend.Data.Models;
 using backend.DTOs;
-using backend.Models;
 
 namespace backend
 {
@@ -11,6 +10,7 @@ namespace backend
         {
             CreateMap<AuctionCreationDTO, DbAuction>();
             CreateMap<DbAuction, AuctionDTO>();
+            CreateMap<AuctionDTO, DbAuction>();
 
             CreateMap<UserCreationDTO, DbUser>();
             CreateMap<DbUser, UserDTO>();
@@ -22,6 +22,7 @@ namespace backend
 
             CreateMap<CommentCreationDTO, DbComment>();
             CreateMap<DbComment, CommentDTO>();
+            CreateMap<CommentDTO, DbComment>();
 
             CreateMap<FixedPriceListingCreationDTO, DbFixedPriceListing>();
             CreateMap<FixedPriceListingDTO, DbFixedPriceListing>();
@@ -29,9 +30,11 @@ namespace backend
 
             CreateMap<ProductCreationDTO, DbProduct>();
             CreateMap<DbProduct, ProductDTO>();
+            CreateMap<ProductDTO, DbProduct>();
 
             CreateMap<LikeCreationDTO, DbLike>();         
             CreateMap<DbLike, LikeDTO>();
+            CreateMap<LikeDTO, DbLike>();
 
             CreateMap<BidCreationDTO, DbBid>();         
             CreateMap<DbBid, BidDTO>();

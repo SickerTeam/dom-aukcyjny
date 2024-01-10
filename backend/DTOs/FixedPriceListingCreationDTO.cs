@@ -1,3 +1,5 @@
+#nullable disable
+
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
@@ -7,7 +9,7 @@ namespace backend.DTOs
         [Required]
         [Range(0.01, double.MaxValue)]
         public decimal Price { get; set; }
-        
+
         [Required]
         public ProductCreationDTO Product { get; set; }
     }

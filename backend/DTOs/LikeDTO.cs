@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using backend.Validation;
 
 namespace backend.DTOs
 {
-    public class LikeDTO
+    public class LikeDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
+
+        public DateTime? CreatedAt { get; private set; } = createdAt;
         
         [Required]
         [Range(1, int.MaxValue)]
@@ -16,19 +17,5 @@ namespace backend.DTOs
         [Required]
         [Range(1, int.MaxValue)]
         public int UserId { get; set; }
-
-        //[CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        // Sorry Ondrej
-        public DateTime? CreatedAt { get; set; }
-
-        public LikeDTO(){}
-
-        public LikeDTO(int id, int postId, int userId, DateTime? timeLiked)
-        {
-            Id = id;
-            PostId = postId;
-            UserId = userId;
-            CreatedAt = timeLiked;
-        }
     }
 }

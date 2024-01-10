@@ -13,6 +13,5 @@ namespace backend.DTOs
         [Required]
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public string Text { get; set; }
-        public DateTime CreatedAt {get; set; }
     }
 }
