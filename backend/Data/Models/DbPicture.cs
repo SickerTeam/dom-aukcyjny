@@ -1,4 +1,6 @@
-﻿namespace backend.Data.Models;
+﻿#nullable disable
+
+namespace backend.Data.Models;
 
 public class DbPicture : BaseDbModel
 {

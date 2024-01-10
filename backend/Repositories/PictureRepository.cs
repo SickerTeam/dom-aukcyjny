@@ -12,49 +12,22 @@ namespace backend.Repositories
             return await _context.Pictures.ToListAsync();
         }
 
-        public async Task<int> GetAmountOfCommentsForPostById(int postId)
+        public async Task<DbPicture> GetPicturesByIdAsync(int id)
         {
-            return await _context.Comments
-                .Where(p => p.PostId == postId)
-                .CountAsync();
+            DbPicture? picture = await _context.Pictures.FindAsync(id);
+            return picture ?? throw new ArgumentException("Picture not found");            
         }
 
-        public async Task<DbComment> GetCommentsByIdAsync(int id)
+        public async Task AddPictureAsync(DbPicture picture)
         {
-            DbComment? comment = await _context.Comments.FindAsync(id);
-            return comment ?? throw new ArgumentException("Comment not found");            
-        }
-
-        public async Task AddCommentsAsync(DbComment comment)
-        {
-            _context.Comments.Add(comment);
+            _context.Pictures.Add(picture);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentsAsync(DbComment comment)
+        public async Task DeletePictureAsync(DbPicture picture)
         {         
-            _context.Comments.Remove(comment);
+            _context.Pictures.Remove(picture);
             await _context.SaveChangesAsync();
-        }
-
-        public Task<IEnumerable<DbPicture>> GetPictureAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<DbPicture> GetPicturesByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddPictureAsync(DbPicture picture)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeletePictureAsync(DbPicture picture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

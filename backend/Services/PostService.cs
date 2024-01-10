@@ -8,16 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
-    public class PostService(IPostRepository postRepository, IMapper mapper) : IPostService
+    public class PostService(IPostRepository postRepository, CommentService commentService, LikeService likeService,
+        PictureService pictureService, IMapper mapper) : IPostService
     {
         private readonly IPostRepository _postRepository = postRepository;
+        private readonly CommentService _commentService = commentService;
+        private readonly LikeService _likeService = likeService;
+        private readonly PictureService _pictureService = pictureService;
         private readonly IMapper _mapper = mapper;
         protected internal ModelStateDictionary modelState = new();
         
         public async Task<PostDTO> GetPostByIdAsync(int id)
         {
             DbPost post = await _postRepository.GetPostByIdAsync(id);
-            return _mapper.Map<PostDTO>(post);
+            PostDTO postDto = _mapper.Map<PostDTO>(post);
+            postDto.Comments = await _commentService.GetCommentsByIdAsync(post.Id);
+            return postDto;
         }
 
         public async Task<PostDTO> CreatePostAsync(PostCreationDTO postCreationDto)
