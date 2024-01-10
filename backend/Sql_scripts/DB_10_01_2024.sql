@@ -11,6 +11,9 @@ BEGIN
     ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_Post;
     ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_User;
 
+    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_Post;
+    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_User;
+
     ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_Post;
     ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_User;
 
@@ -34,6 +37,9 @@ IF OBJECT_ID('[Like]', 'U') IS NOT NULL
 
 IF OBJECT_ID('Comment', 'U') IS NOT NULL
     DROP TABLE Comment;
+
+IF OBJECT_ID('Picture', 'U') IS NOT NULL
+    DROP TABLE Picture;
     
 IF OBJECT_ID('Auction', 'U') IS NOT NULL
     DROP TABLE Auction;
@@ -118,6 +124,14 @@ CREATE TABLE [Like] (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     PostId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
     UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
+    CreatedAt DATETIME NOT NULL
+);
+
+CREATE TABLE Picture (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PostId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
+    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
+    Link VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
@@ -208,3 +222,11 @@ VALUES
     (3, 4, '2023-11-28T12:45:00'),
     (4, 5, '2023-11-28T13:00:00'),
     (5, 1, '2023-11-28T13:15:00');
+
+INSERT INTO Picture (PostId, UserId, Link, CreatedAt)
+VALUES
+    (1, 2, "https://upload.wikimedia.org/wikipedia/commons/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg", '2023-10-01T12:15:00'),
+    (2, 3, "https://upload.wikimedia.org/wikipedia/commons/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg", '2023-10-01T12:15:00'),
+    (3, 4, "https://upload.wikimedia.org/wikipedia/commons/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg", '2023-10-01T12:15:00'),
+    (4, 5, "https://upload.wikimedia.org/wikipedia/commons/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg", '2023-10-01T12:15:00'),
+    (5, 1, "https://upload.wikimedia.org/wikipedia/commons/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg", '2023-10-01T12:15:00');

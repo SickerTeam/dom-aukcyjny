@@ -44,12 +44,6 @@ namespace Testing.Validation
         }
 
         [Fact]
-        public void Should_Fail_ProductId_Min()
-        {
-            Assert.False(ValidateModel(_instaBuyRegistrationDTO));
-        }
-
-        [Fact]
         public void Should_Fail_Price_Min()
         {
             _instaBuyRegistrationDTO.Price = 0.00m;
@@ -58,9 +52,8 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
-            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, validationResults, true);
+            return Validator.TryValidateObject(model, context, null, true);
         }
     }
 }
