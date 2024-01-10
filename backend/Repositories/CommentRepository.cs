@@ -8,7 +8,7 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
         
-        public async Task<IList<DbComment>> GetCommentsAsync()
+        public async Task<IEnumerable<DbComment>> GetCommentsAsync()
         {
             return await _context.Comments.ToListAsync();
         }
@@ -22,7 +22,7 @@ namespace backend.Repositories
 
         public async Task<DbComment> GetCommentsByIdAsync(int id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            DbComment? comment = await _context.Comments.FindAsync(id);
             return comment ?? throw new ArgumentException("Comment not found");            
         }
 
@@ -32,14 +32,10 @@ namespace backend.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentsAsync(int id)
-        {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment != null)
-            {
-                _context.Comments.Remove(comment);
-                await _context.SaveChangesAsync();
-            }
+        public async Task DeleteCommentsAsync(DbComment comment)
+        {         
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
         }
     }
 }

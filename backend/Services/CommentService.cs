@@ -12,7 +12,7 @@ namespace backend.Services
 
         public async Task<IList<CommentDTO>> GetCommentsAsync()
         {
-            var comments = await _commentRepository.GetCommentsAsync();
+            IEnumerable<DbComment> comments = await _commentRepository.GetCommentsAsync();
             return _mapper.Map<IList<CommentDTO>>(comments);
         }
 
@@ -23,20 +23,23 @@ namespace backend.Services
 
         public async Task<CommentDTO> GetCommentsByIdAsync(int id)
         {
-            var comment = await _commentRepository.GetCommentsByIdAsync(id);
+            DbComment comment = await _commentRepository.GetCommentsByIdAsync(id);
             return _mapper.Map<CommentDTO>(comment);
         }
 
         public async Task AddCommentsAsync(CommentCreationDTO commentDto)
         {
-            var comment = _mapper.Map<DbComment>(commentDto);
-            comment.CreatedAt = DateTime.Now;
+            DbComment comment = _mapper.Map<DbComment>(commentDto);
+            comment.CreatedAt = DateTime.UtcNow;
             await _commentRepository.AddCommentsAsync(comment);
         }
 
         public async Task DeleteCommentsAsync(int id)
         {
-            await _commentRepository.DeleteCommentsAsync(id);
+            DbComment comment = await _commentRepository.GetCommentsByIdAsync(id);
+            if (comment == null) return;
+
+            await _commentRepository.DeleteCommentsAsync(comment);
         }
     }
 }

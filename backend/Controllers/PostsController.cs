@@ -1,5 +1,6 @@
 using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -13,23 +14,33 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
         {
-            var posts = await _postService.GetPostByIdAsync(id);
+            PostDTO posts = await _postService.GetPostByIdAsync(id);
             return Ok(posts);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreatePostAsync(PostCreationDTO postDto)
         {
-            var dbPost = await _postService.CreatePostAsync(postDto);
-            var dto = await _postService.GetPostByIdAsync(dbPost.Id);
-            return Ok(dto);
+            PostDTO dbPost = await _postService.CreatePostAsync(postDto);
+            return Ok(dbPost);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdatePostAsync(PostDTO postDto)
+        public async Task<ActionResult> UpdatePostAsync(int id, [FromBody] JsonPatchDocument<PostDTO> patchDoc)
         {
-            await _postService.UpdatePostAsync(postDto);
-            return Ok();
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            PostDTO? result = await _postService.UpdatePostAsync(id, patchDoc);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

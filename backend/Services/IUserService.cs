@@ -1,5 +1,6 @@
 ﻿using backend.DTOs;
 using backend.Data.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -10,7 +11,7 @@ namespace backend.Services
         Task<UserDTO> GetUserByIdAsync(int id);
         Task AddUserAsync(UserCreationDTO userDto);
         Task<DbUser> GetUserByEmailAsync(string email);
-        Task UpdateUserAsync(UserDTO userDto);
+        Task<UserDTO?> UpdateUserAsync(int id, JsonPatchDocument<UserDTO> patchDoc);
         Task DeleteUserAsync(int id);
     }
 }

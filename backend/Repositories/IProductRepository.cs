@@ -1,5 +1,4 @@
-﻿using backend.Models;
-using backend.Data.Models;
+﻿using backend.Data.Models;
 using backend.DTOs;
 
 namespace backend.Repositories
@@ -8,9 +7,9 @@ namespace backend.Repositories
     {
         Task<DbProduct> GetProductByIdAsync(int id);
         Task<IEnumerable<DbProduct>> GetAllProductsAsync();
-        Task<DbProduct> CreateProductAsync(ProductCreationDTO product);
-        Task UpdateProductAsync(Product product);
-        Task DeleteProductAsync(int id);
+        Task<DbProduct> CreateProductAsync(DbProduct product);
+        Task UpdateProductAsync(DbProduct product);
+        Task DeleteProductAsync(DbProduct product);
     }
 
 }
