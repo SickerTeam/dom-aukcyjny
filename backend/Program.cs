@@ -83,10 +83,7 @@ namespace backend
 
             app.UseCors(policyName);
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<BidHub>("/bidHub");
-            });
+            app.MapHub<BidHub>("/bidHub");
 
             app.UseHttpsRedirection();
 
