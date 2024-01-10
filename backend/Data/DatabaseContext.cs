@@ -159,11 +159,6 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Post).WithMany(p => p.Pictures)
                 .HasForeignKey(d => d.PostId)
                 .HasConstraintName("FK__Picture__PostId__5EAA0504");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ProfilePictureLink)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Picture__UserId__5F9E293D");
         });
 
         modelBuilder.Entity<DbPost>(entity =>

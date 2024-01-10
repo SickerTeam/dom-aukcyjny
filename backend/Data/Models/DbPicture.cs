@@ -8,7 +8,5 @@ public class DbPicture : BaseDbModel
 
     public int UserId { get; set; }
 
-    public virtual DbUser? User { get; set; }
-
     public required string Link { get; set; }
 }
