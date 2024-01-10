@@ -12,9 +12,9 @@ namespace Testing.Validation
         {
             _userLoginDTO = new UserLoginDTO
             {
-                Email = "login@login.com",
+                Email = "admin@email.com",
                 KeepLoggedIn = true,
-                Password = "Crear text LOL"
+                Password = "c24799b51c2e3d7263c3c447ec1e8001e6f0b98e9a516f76f9b5e1b6a34166a5"
             };
         }
 
@@ -56,9 +56,8 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
-            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, validationResults, true);
+            return Validator.TryValidateObject(model, context, null, true);
         }
     }
 }

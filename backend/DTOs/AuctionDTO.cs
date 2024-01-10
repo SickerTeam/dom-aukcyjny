@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
@@ -36,7 +34,7 @@ namespace backend.DTOs
 
         public int ProductId { get; set; }
 
-        public ProductDTO Product { get; set; }
+        public required ProductDTO Product { get; set; }
 
         public List<BidDTO>? Bids { get; set; }
     }

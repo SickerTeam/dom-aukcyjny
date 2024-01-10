@@ -37,6 +37,7 @@ namespace backend
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<IPictureRepository, PictureRepository>();
             builder.Services.AddScoped<IBidRepository, BidRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
@@ -47,6 +48,7 @@ namespace backend
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IPictureService, PictureService>();
             builder.Services.AddScoped<IBidService, BidService>();
 
             builder.Services.AddCors(options =>
@@ -81,10 +83,7 @@ namespace backend
 
             app.UseCors(policyName);
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<BidHub>("/bidHub");
-            });
+            app.MapHub<BidHub>("/bidHub");
 
             app.UseHttpsRedirection();
 

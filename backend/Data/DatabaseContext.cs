@@ -24,18 +24,19 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<DbLike> Likes { get; set; }
 
+    public virtual DbSet<DbPicture> Pictures { get; set; }
+
     public virtual DbSet<DbPost> Posts { get; set; }
 
     public virtual DbSet<DbProduct> Products { get; set; }
 
     public virtual DbSet<DbUser> Users { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DbAuction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC07DC09A5AE");
+            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC0779CEFC9A");
 
             entity.ToTable("Auction");
 
@@ -48,18 +49,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.ProductId)
-
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Auction__Product__10766AC2");
-
-            entity.HasMany(a => a.Bids)
-                .WithOne(b => b.Auction)
-                .HasForeignKey(b => b.AuctionId);
+                .HasConstraintName("FK__Auction__Product__4D7F7902");
         });
 
         modelBuilder.Entity<DbBid>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC075D652D40");
+            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC071DB40570");
 
             entity.ToTable("Bid");
 
@@ -68,17 +63,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__Bid__AuctionId__1352D76D");
+                .HasConstraintName("FK__Bid__AuctionId__505BE5AD");
 
             entity.HasOne(d => d.User).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Bid__UserId__1446FBA6");
+                .HasConstraintName("FK__Bid__UserId__515009E6");
         });
 
         modelBuilder.Entity<DbComment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC0799269DA1");
+            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC0776998D79");
 
             entity.ToTable("Comment");
 
@@ -90,17 +85,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Post).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Comment__PostId__19FFD4FC");
+                .HasConstraintName("FK__Comment__PostId__5708E33C");
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comment__UserId__1AF3F935");
+                .HasConstraintName("FK__Comment__UserId__57FD0775");
         });
 
         modelBuilder.Entity<DbFixedPriceListing>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07B51C3D6F");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC0705E9511E");
 
             entity.ToTable("FixedPriceListing");
 
@@ -109,12 +104,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.FixedPriceListings)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__FixedPric__Produ__21A0F6C4");
+                .HasConstraintName("FK__FixedPric__Produ__627A95E8");
         });
 
         modelBuilder.Entity<DbFixedPriceListingPurchase>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07C4B451D9");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC078534C151");
 
             entity.ToTable("FixedPriceListingPurchase");
 
@@ -123,17 +118,17 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Buyer).WithMany(p => p.FixedPriceListingPurchases)
                 .HasForeignKey(d => d.BuyerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__FixedPric__Buyer__247D636F");
+                .HasConstraintName("FK__FixedPric__Buyer__65570293");
 
             entity.HasOne(d => d.FixedPriceListing).WithMany(p => p.FixedPriceListingPurchases)
                 .HasForeignKey(d => d.FixedPriceListingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__FixedPric__Fixed__257187A8");
+                .HasConstraintName("FK__FixedPric__Fixed__664B26CC");
         });
 
         modelBuilder.Entity<DbLike>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Like__3214EC07CAEBDF12");
+            entity.HasKey(e => e.Id).HasName("PK__Like__3214EC07FB1DE2BF");
 
             entity.ToTable("Like");
 
@@ -141,17 +136,39 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Post).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Like__PostId__1DD065E0");
+                .HasConstraintName("FK__Like__PostId__5AD97420");
 
             entity.HasOne(d => d.User).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Like__UserId__1EC48A19");
+                .HasConstraintName("FK__Like__UserId__5BCD9859");
+        });
+
+        modelBuilder.Entity<DbPicture>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Picture__3214EC07FBF0D980");
+
+            entity.ToTable("Picture");
+
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Link)
+                .IsRequired()
+                .HasMaxLength(1024)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Post).WithMany(p => p.Pictures)
+                .HasForeignKey(d => d.PostId)
+                .HasConstraintName("FK__Picture__PostId__5EAA0504");
+
+            entity.HasOne(d => d.User).WithMany(p => p.ProfilePictureLink)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Picture__UserId__5F9E293D");
         });
 
         modelBuilder.Entity<DbPost>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC0706AB4771");
+            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC07A5E93D98");
 
             entity.ToTable("Post");
 
@@ -163,12 +180,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Post__UserId__17236851");
+                .HasConstraintName("FK__Post__UserId__542C7691");
         });
 
         modelBuilder.Entity<DbProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC0732A7422F");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07FB004E95");
 
             entity.ToTable("Product");
 
@@ -192,12 +209,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Seller).WithMany(p => p.Products)
                 .HasForeignKey(d => d.SellerId)
-                .HasConstraintName("FK__Product__SellerI__0D99FE17");
+                .HasConstraintName("FK__Product__SellerI__4AA30C57");
         });
 
         modelBuilder.Entity<DbUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC0767E510BF");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07D47784D4");
 
             entity.ToTable("User");
 
@@ -237,6 +254,7 @@ public partial class DatabaseContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
+    
     public List<string> ApplyMigrations()
     {
         var pending = Database.GetPendingMigrations();
