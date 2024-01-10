@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using backend.DTOs;
-using backend.Models;
+﻿using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
