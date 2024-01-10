@@ -12,13 +12,13 @@ namespace backend.Data.Models
 
         public required string LastName { get; set; }
 
-        public string Bio { get; set; }
+        public string? Bio { get; set; }
 
         public required string Country { get; set; }
 
-        public string PersonalLink { get; set; }
+        public string? PersonalLink { get; set; }
 
-        public ICollection<DbPicture> ProfilePictureLink { get; set; }
+        public ICollection<DbPicture>? ProfilePictureLink { get; set; }
 
         public UserRole Role { get; set; }
 
