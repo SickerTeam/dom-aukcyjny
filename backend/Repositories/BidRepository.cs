@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using backend.Data;
 using backend.Data.Models;
 using backend.DTOs;
-using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
