@@ -44,6 +44,16 @@ p {
   z-index: 1;
 }
 
+.full-bleed {
+  box-shadow: 0 0 0 1000px #627a6e;
+  clip-path: inset(0 -100vmax);
+}
+
+.full-bleed-gray {
+  box-shadow: 0 0 0 1000px #c6c9c9;
+  clip-path: inset(0 -100vmax);
+}
+
 .scroll-arrows button {
   background: none;
   border: none;

@@ -39,6 +39,9 @@ namespace backend
             CreateMap<LikeCreationDTO, DbLike>();         
             CreateMap<DbLike, LikeDTO>();
             CreateMap<LikeDTO, DbLike>();
+
+            CreateMap<BidCreationDTO, DbBid>();         
+            CreateMap<DbBid, BidDTO>();
         }
     }
 }

@@ -28,8 +28,10 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {
-            AuctionDTO auction = await _auctionService.CreateAuctionAsync(auctionDto);
-            return Ok(auction);
+            auctionDto.Product.SellerId = 1; // change it to the current user id
+            var auction = await _auctionService.CreateAuctionAsync(auctionDto);
+            var dto = await _auctionService.GetAuctionByIdAsync(auction.Id);
+            return Ok(dto);
         }
 
         [HttpPut("{id}")]
@@ -56,6 +58,5 @@ namespace backend.Controllers
             await _auctionService.DeleteAuctionsAsync(id);
             return Ok();
         }
-
     }
 }

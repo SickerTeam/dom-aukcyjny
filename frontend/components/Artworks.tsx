@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ArtworkCard from "./ArtworkCard";
 import apiService from "../services/apiService";
 
-const Artworks = async () => {
+const Artworks = () => {
   const [auctions, setAuctions] = useState<[]>([]);
 
   useEffect(() => {

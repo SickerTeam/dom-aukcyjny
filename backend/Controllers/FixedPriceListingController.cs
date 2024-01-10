@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using backend.DTOs;
+﻿using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -30,8 +29,10 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult> AddFixedPriceListing(FixedPriceListingCreationDTO fixedPriceListingDto)
         {
-            await _fixedPriceListingService.AddFixedPriceListingAsync(fixedPriceListingDto);
-            return Ok();
+            fixedPriceListingDto.Product.SellerId = 1; // change it to the current user id
+            var fixedPriceListing = await _fixedPriceListingService.AddFixedPriceListingAsync(fixedPriceListingDto);
+            var dto = await _fixedPriceListingService.GetFixedPriceListingByIdAsync(fixedPriceListing.Id);
+            return Ok(dto);
         }
 
         [HttpPut("{id}")]
