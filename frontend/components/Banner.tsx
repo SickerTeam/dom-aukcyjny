@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[700px] bg-main-green shadow-md px-40">
+    <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[700px] bg-main-green shadow-md  ">
       <div className="w-fit self-center">
         <h1 className="w-auto text-3xl text-white">
           Here put some{" "}

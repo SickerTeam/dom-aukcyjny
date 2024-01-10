@@ -16,10 +16,11 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
             .ToListAsync();
         }
 
-        public async Task AddFixedPriceListingAsync(DbFixedPriceListing listing)
+        public async Task<DbFixedPriceListing> AddFixedPriceListingAsync(DbFixedPriceListing fixedPriceListing)
         {
-            _context.FixedPriceListings.Add(listing);
+            await _context.FixedPriceListings.AddAsync(fixedPriceListing);
             await _context.SaveChangesAsync();
+            return fixedPriceListing;
         }
 
         public async Task UpdateFixedPriceListingAsync(DbFixedPriceListing listing)

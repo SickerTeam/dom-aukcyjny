@@ -1,8 +1,8 @@
 import { Artworks, Filters, Path } from "..";
 
-const AuctionsListPage = async () => {
+const AuctionsListPage = () => {
   return (
-    <div className="px-40">
+    <div>
       <Path />
       <Filters />
 

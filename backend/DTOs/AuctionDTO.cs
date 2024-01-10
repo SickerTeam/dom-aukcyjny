@@ -34,19 +34,10 @@ namespace backend.DTOs
         [Required]
         public bool IsArchived { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
-        public int ProductId { get; private set; }
+        public int ProductId { get; set; }
 
-        private ProductDTO _product;
-        public ProductDTO Product 
-        { 
-            get => _product; 
-            set 
-            { 
-                _product = value;
-                ProductId = _product?.Id ?? default;
-            } 
-        }
+        public ProductDTO Product { get; set; }
+
+        public List<BidDTO>? Bids { get; set; }
     }
 }

@@ -72,7 +72,7 @@ const ArtistsOverview = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <h2 className="text-xl px-40">
+      <h2 className="text-xl  ">
         Buy or bid on over{" "}
         <span className="italic text-main-green">2,137 objects</span> every
         week, created by{" "}
@@ -95,7 +95,7 @@ const ArtistsOverview = () => {
         </div>
       </div>
       <div className="artists-scroll-container" ref={scrollContainer}>
-        <div className="flex gap-6 flex-nowrap my-2 px-40">
+        <div className="flex gap-6 flex-nowrap my-2  ">
           {artists.map((artist, index) => (
             <ArtistCard key={index} artist={artist} />
           ))}

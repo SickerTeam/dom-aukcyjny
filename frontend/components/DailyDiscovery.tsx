@@ -4,7 +4,7 @@ const DailyDiscovery = () => {
   const discoveryPictures = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <div className="grid bg-light-gray h-[400px] shadow-md px-40">
+    <div className="grid bg-light-gray h-[400px] shadow-md full-bleed-gray">
       <div className="self-center h-[300px] grid grid-cols-4 grid-rows-2 gap-4">
         <div className="self-center row-span-2 flex flex-col justify-between w-fit h-[200px]">
           <h3 className="text-2xl text-black tracking-wide">
