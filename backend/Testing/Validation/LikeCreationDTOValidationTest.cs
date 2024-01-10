@@ -35,16 +35,14 @@ namespace Testing.Validation
         public void Should_Fail_PostId_Min()
         {
             _likeRegistrationDTO.PostId = 0;
-            var result = ValidateModel(_likeRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_likeRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_UserId_Min()
         {
             _likeRegistrationDTO.UserId = 0;
-            var result = ValidateModel(_likeRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_likeRegistrationDTO));
         }
 
         private static bool ValidateModel(object model)

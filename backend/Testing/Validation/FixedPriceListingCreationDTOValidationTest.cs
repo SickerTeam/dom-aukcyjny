@@ -16,8 +16,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
@@ -25,24 +24,21 @@ namespace Testing.Validation
         {
             _instaBuyRegistrationDTO.ProductId = int.MaxValue;
             _instaBuyRegistrationDTO.Price = decimal.MaxValue;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
             _instaBuyRegistrationDTO.ProductId = 0;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_Price_Min()
         {
             _instaBuyRegistrationDTO.Price = 0.00m;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         private static bool ValidateModel(object model)

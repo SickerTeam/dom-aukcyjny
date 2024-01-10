@@ -6,11 +6,13 @@ using backend.Enums;
 
 namespace backend.DTOs
 {
-    public class UserDTO
+    public class UserDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
+
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
         [EmailAddress(ErrorMessage = "Invalid email address.")]

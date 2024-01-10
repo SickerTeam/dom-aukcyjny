@@ -13,9 +13,8 @@ namespace Testing.Validation
 
         public AuctionDTOValidationTest()
         {
-            _userDTO = new UserDTO
+            _userDTO = new UserDTO(1, DateTime.UtcNow)
             {
-                Id = 1,
                 Bio = "Bardzo fajny seller",
                 Email = "seller@gmail.com",
                 Country = "Poland",
@@ -26,7 +25,7 @@ namespace Testing.Validation
                 Role = UserRole.User
             };
 
-            _productDTO = new ProductDTO
+            _productDTO = new ProductDTO(1, DateTime.UtcNow)
             {
                 Artist = "Da Vinky?",
                 Height = 1,
@@ -34,19 +33,15 @@ namespace Testing.Validation
                 Depth = 1,
                 Weight = 1,
                 Description = "Oil painting",
-                Id = 1,
                 Seller = _userDTO,
                 SellerId = 1,
                 Title = "Flowers",
                 Year = 1989
             };
 
-            _auctionDTO = new AuctionDTO
+            _auctionDTO = new AuctionDTO(1, DateTime.UtcNow)
             {
-                Id = 1,
                 ProductId = 1,
-                CreatedAt = DateTime.UtcNow,
-                EndsAt = DateTime.UtcNow,
                 EstimateMaxPrice = 0.01,
                 EstimateMinPrice = 0.01,
                 ReservePrice = 0.01,
@@ -59,30 +54,22 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_auctionDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_auctionDTO));
         }
 
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _auctionDTO.Id = int.MaxValue;
-            _auctionDTO.ProductId = int.MaxValue;
-            _auctionDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-1);
-            _auctionDTO.EndsAt = DateTime.UtcNow.AddDays(14).AddSeconds(60);
-            _auctionDTO.EstimateMinPrice = int.MaxValue;
-            _auctionDTO.EstimateMaxPrice = int.MaxValue;
-            _auctionDTO.ReservePrice = int.MaxValue;
-            _auctionDTO.StartingPrice = int.MaxValue;
-            var result = ValidateModel(_auctionDTO);
-            Assert.True(result);
-        }
-
-        [Fact]
-        public void Should_Fail_Id_Min()
-        {
-            _auctionDTO.Id = 0;
-            Assert.False(ValidateModel(_auctionDTO));
+            AuctionDTO _auctionDTO = new(1, DateTime.UtcNow)
+            {
+                ProductId = int.MaxValue,
+                Product = _productDTO,
+                EstimateMinPrice = int.MaxValue,
+                EstimateMaxPrice = int.MaxValue,
+                ReservePrice = int.MaxValue,
+                StartingPrice = int.MaxValue
+            };
+            Assert.True(ValidateModel(_auctionDTO));
         }
 
         [Fact]

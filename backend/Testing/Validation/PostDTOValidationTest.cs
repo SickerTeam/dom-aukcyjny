@@ -10,12 +10,10 @@ namespace Testing.Validation
 
         public PostDTOValidationTest()
         {
-            _postDTO = new PostDTO
+            _postDTO = new PostDTO(1, DateTime.UtcNow)
             {
-                Id = 1,
                 UserId = 1,
                 Text = "Text",
-                CreatedAt = null,
                 Comments = new List<CommentDTO>(),
                 Likes = new List<LikeDTO>(),
             };
@@ -24,70 +22,42 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_postDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_postDTO));
         }
 
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _postDTO.Id = int.MaxValue;
-            _postDTO.UserId = int.MaxValue;
-            _postDTO.Text = new string('a', 2047);
-            _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-59);
-            _postDTO.Comments = new List<CommentDTO> { new() };
-            _postDTO.Likes = new List<LikeDTO> { new() };
-            var result = ValidateModel(_postDTO);
-            Assert.True(result);
-        }
-
-        [Fact]
-        public void Should_Fail_Id_Min()
-        {
-            _postDTO.Id = 0;
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
+            PostDTO postDTO = new(int.MaxValue, DateTime.UtcNow)
+            {
+                UserId = int.MaxValue,
+                Text = new string('a', 2047),
+                Comments = new List<CommentDTO> { new(1, DateTime.UtcNow) },
+                Likes = new List<LikeDTO> { new(1, DateTime.UtcNow) }
+            };
+            Assert.True(ValidateModel(_postDTO));
         }
 
         [Fact]
         public void Should_Fail_UserId_Min()
         {
             _postDTO.UserId = 0;
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postDTO));
         }
 
         [Fact]
         public void Should_Fail_Text_Min()
         {
             _postDTO.Text = "";
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postDTO));
         }
 
         [Fact]
         public void Should_Fail_Text_Max()
         {
             _postDTO.Text = new string('a', 2048);
-            var result = ValidateModel(_postDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postDTO));
         }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Min()
-        // {
-        //     _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
-        //     var result = ValidateModel(_postDTO);
-        //     Assert.False(result);
-        // }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Max()
-        // {
-        //     _postDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-61);
-        //     var result = ValidateModel(_postDTO);
-        //     Assert.False(result);
-        // }
 
         private static bool ValidateModel(object model)
         {

@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class FixedPriceListingDTO
+    public class FixedPriceListingDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
+
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
         [Range(1, int.MaxValue)]
@@ -21,7 +23,5 @@ namespace backend.DTOs
 
         [Required]
         public bool IsArchived { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
     }
 }

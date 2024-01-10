@@ -27,8 +27,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_productDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_productDTO));
         }
 
         [Fact]
@@ -42,72 +41,63 @@ namespace Testing.Validation
             _productDTO.Description = new string('a', 2047);
             _productDTO.Artist = new string('a', 254);
             _productDTO.SellerId = int.MaxValue;
-            var result = ValidateModel(_productDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_productDTO));
         }
 
         [Fact]
         public void Should_Fail_SellerId_Min()
         {
             _productDTO.SellerId = 0;
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }
 
         [Fact]
         public void Should_Fail_Height_Min()
         {
             _productDTO.Height = 0;
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }
 
         [Fact]
         public void Should_Fail_Width_Min()
         {
             _productDTO.Width = 0;
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }
 
         [Fact]
         public void Should_Fail_Depth_Min()
         {
             _productDTO.Depth = 0;
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }
 
         [Fact]
         public void Should_Fail_Weight_Min()
         {
             _productDTO.Weight = 0;
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }     
 
         [Fact]
         public void Should_Fail_Title_Min()
         {
             _productDTO.Title = "";
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }
         
         [Fact]
         public void Should_Fail_Description_Min()
         {
             _productDTO.Description = "";
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }        
 
         [Fact]
         public void Should_Fail_Artist_Min()
         {
             _productDTO.Artist = "";
-            var result = ValidateModel(_productDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_productDTO));
         }                       
 
         private static bool ValidateModel(object model)

@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class PostDTO
+    public class PostDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
+
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
         [Range(1, int.MaxValue)]
@@ -17,8 +19,6 @@ namespace backend.DTOs
         [Required]
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public string Text { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
 
         public virtual ICollection<CommentDTO> Comments { get; set; }
         public virtual ICollection<LikeDTO> Likes { get; set; }

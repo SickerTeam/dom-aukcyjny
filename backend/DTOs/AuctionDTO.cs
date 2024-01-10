@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class AuctionDTO
+    public class AuctionDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
 
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
-        public DateTime EndsAt { get; set; }
+        public DateTime EndsAt { get; private set; } = DateTime.UtcNow.AddDays(14);
 
         [Required]
         [Range(0.01, double.MaxValue)]

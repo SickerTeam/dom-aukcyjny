@@ -6,7 +6,7 @@ namespace Testing.Validation
 {
     public class AuctionRegistrationValidationTest
     {
-        private readonly AuctionCreationDTO _auctionRegistrationDTO;
+        private readonly AuctionCreationDTO _auctionCreationDTO;
         private readonly ProductCreationDTO _productCreationDTO;
 
         public AuctionRegistrationValidationTest()
@@ -23,7 +23,7 @@ namespace Testing.Validation
                 SellerId = 1
             };
 
-            _auctionRegistrationDTO = new AuctionCreationDTO
+            _auctionCreationDTO = new AuctionCreationDTO
             {
                 StartingPrice = 0.01,
                 EstimatedMinimum = 0.01,
@@ -36,43 +36,38 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_auctionCreationDTO));
         }
 
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _auctionRegistrationDTO.StartingPrice = double.MaxValue;
-            _auctionRegistrationDTO.EstimatedMinimum = double.MaxValue;
-            _auctionRegistrationDTO.EstimatedMaximum = double.MaxValue;
-            _auctionRegistrationDTO.MinimumPrice = double.MaxValue;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.True(result);
+            _auctionCreationDTO.StartingPrice = double.MaxValue;
+            _auctionCreationDTO.EstimatedMinimum = double.MaxValue;
+            _auctionCreationDTO.EstimatedMaximum = double.MaxValue;
+            _auctionCreationDTO.MinimumPrice = double.MaxValue;
+            Assert.True(ValidateModel(_auctionCreationDTO));
         }
 
         [Fact]
         public void Should_Fail_StartingPrice_Min()
         {
-            _auctionRegistrationDTO.StartingPrice = 0;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
+            _auctionCreationDTO.StartingPrice = 0;
+            Assert.False(ValidateModel(_auctionCreationDTO));
         }
 
         [Fact]
         public void Should_Fail_EstimatedMinimum_Min()
         {
-            _auctionRegistrationDTO.EstimatedMinimum = 0;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
+            _auctionCreationDTO.EstimatedMinimum = 0;
+            Assert.False(ValidateModel(_auctionCreationDTO));
         }
 
         [Fact]
         public void Should_Fail_EstimatedMaximum_Min()
         {
-            _auctionRegistrationDTO.EstimatedMaximum = 0;
-            var result = ValidateModel(_auctionRegistrationDTO);
-            Assert.False(result);
+            _auctionCreationDTO.EstimatedMaximum = 0;
+            Assert.False(ValidateModel(_auctionCreationDTO));
         }
 
         private static bool ValidateModel(object model)

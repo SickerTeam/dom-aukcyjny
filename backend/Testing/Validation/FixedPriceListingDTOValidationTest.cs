@@ -6,86 +6,49 @@ namespace Testing.Validation
 {
     public class FixedPriceListingDTOValidationTest
     {
-        private readonly FixedPriceListingDTO _instaBuyDTO;
+        private readonly FixedPriceListingDTO _listingDto;
 
         public FixedPriceListingDTOValidationTest()
         {
-            _instaBuyDTO = new FixedPriceListingDTO
+            _listingDto = new FixedPriceListingDTO(1, DateTime.UtcNow)
             {
-                Id = 1,
                 ProductId = 1,
                 Price = 0.01m,
                 IsArchived = false,
-                CreatedAt = null
             };
         }
 
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_instaBuyDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_listingDto));
         }
 
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _instaBuyDTO.Id = int.MaxValue;
-            _instaBuyDTO.ProductId = int.MaxValue;
-            _instaBuyDTO.Price = decimal.MaxValue;
-            _instaBuyDTO.IsArchived = false;
-            _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-1);
-            var result = ValidateModel(_instaBuyDTO);
-            Assert.True(result);
-        }
-
-        [Fact]
-        public void Should_Fail_Id_Min()
-        {
-            _instaBuyDTO.Id = 0;
-            var result = ValidateModel(_instaBuyDTO);
-            Assert.False(result);
+            FixedPriceListingDTO _listingDto = new(1, DateTime.UtcNow)
+            {
+                ProductId = int.MaxValue,
+                Price = decimal.MaxValue,
+                IsArchived = false,
+            };    
+            Assert.True(ValidateModel(_listingDto));
         }
 
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
-            _instaBuyDTO.ProductId = 0;
-            var result = ValidateModel(_instaBuyDTO);
-            Assert.False(result);
+            _listingDto.ProductId = 0;
+            Assert.False(ValidateModel(_listingDto));
         }
 
         [Fact]
         public void Should_Fail_Price_Min()
         {
-            _instaBuyDTO.Price = 0.00m;
-            var result = ValidateModel(_instaBuyDTO);
-            Assert.False(result);
+            _listingDto.Price = 0.00m;
+            Assert.False(ValidateModel(_listingDto));
         }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Min()
-        // {
-        //     _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(-61);
-        //     var result = ValidateModel(_instaBuyDTO);
-        //     Assert.False(result);
-        // }
-
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Max()
-        // {
-        //     _instaBuyDTO.CreatedAt = DateTime.UtcNow.AddSeconds(1);
-        //     var result = ValidateModel(_instaBuyDTO);
-        //     Assert.False(result);
-        // }
-        
-        // [Fact]
-        // public void Should_Fail_CreatedAt_Null()
-        // {
-        //     _instaBuyDTO.CreatedAt = null;
-        //     var result = ValidateModel(_instaBuyDTO);
-        //     Assert.True(result);
-        // }
 
         private static bool ValidateModel(object model)
         {
