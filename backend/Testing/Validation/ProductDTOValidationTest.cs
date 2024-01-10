@@ -34,7 +34,6 @@ namespace Testing.Validation
                 Description = "Nice product to own",
                 Artist = "Gabriel",
                 Year = 0,
-                SellerId = 1,
                 Seller = _userDTO
             };
         }
@@ -59,18 +58,10 @@ namespace Testing.Validation
                 Description = new string('a', 2047),
                 Artist = new string('a', 254),
                 Year = 2024,
-                SellerId = int.MaxValue,
                 Seller = _userDTO
             };
             var result = ValidateModel(_productDTO);
             Assert.True(result);
-        }
-
-        [Fact]
-        public void Should_Fail_SellerId_Min()
-        {
-            _productDTO.SellerId = 0;
-            Assert.False(ValidateModel(_productDTO));
         }
 
         [Fact]

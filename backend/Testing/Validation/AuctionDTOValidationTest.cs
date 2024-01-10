@@ -34,7 +34,6 @@ namespace Testing.Validation
                 Weight = 1,
                 Description = "Oil painting",
                 Seller = _userDTO,
-                SellerId = 1,
                 Title = "Flowers",
                 Year = 1989
             };

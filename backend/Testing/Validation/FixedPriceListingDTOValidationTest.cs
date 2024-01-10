@@ -12,7 +12,6 @@ namespace Testing.Validation
         {
             _listingDto = new FixedPriceListingDTO(1, DateTime.UtcNow)
             {
-                ProductId = 1,
                 Price = 0.01m,
                 IsArchived = false,
             };
@@ -29,7 +28,6 @@ namespace Testing.Validation
         {
             FixedPriceListingDTO _listingDto = new(1, DateTime.UtcNow)
             {
-                ProductId = int.MaxValue,
                 Price = decimal.MaxValue,
                 IsArchived = false,
             };    
@@ -39,7 +37,6 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
-            _listingDto.ProductId = 0;
             Assert.False(ValidateModel(_listingDto));
         }
 
