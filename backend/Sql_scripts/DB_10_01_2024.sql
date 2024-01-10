@@ -129,8 +129,7 @@ CREATE TABLE [Like] (
 
 CREATE TABLE Picture (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    PostId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
-    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
+    ReferenceId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
     Link VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -223,10 +222,10 @@ VALUES
     (4, 5, '2023-11-28T13:00:00'),
     (5, 1, '2023-11-28T13:15:00');
 
-INSERT INTO Picture (PostId, UserId, Link, CreatedAt)
+INSERT INTO Picture (ReferenceId, Link, CreatedAt)
 VALUES
-    (1, 2, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
-    (2, 3, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
-    (3, 4, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
-    (4, 5, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
-    (5, 1, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00');
+    (1, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (2, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (3, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (4, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (5, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00');
