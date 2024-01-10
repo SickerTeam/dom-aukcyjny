@@ -1,5 +1,6 @@
 ﻿using backend.DTOs;
 using backend.Data.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
@@ -7,8 +8,8 @@ namespace backend.Services
     {
         Task<IEnumerable<AuctionDTO>> GetAuctionsAsync();
         Task<AuctionDTO> GetAuctionByIdAsync(int id);
-        Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction);
-        Task UpdateAuctionAsync(AuctionDTO auctionDto);
+        Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auction);
+        Task<AuctionDTO?> UpdateAuctionAsync(int id, JsonPatchDocument<AuctionDTO> patchDoc);
         Task DeleteAuctionsAsync(int id);
     }
 }

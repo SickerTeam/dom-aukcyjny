@@ -1,15 +1,13 @@
 ﻿using backend.Data.Models;
-using backend.Models;
-using backend.DTOs; 
 
 namespace backend.Repositories
 {
     public interface IAuctionRepository
     {
-        Task<IList<DbAuction>> GetAuctionsAsync();
+        Task<IEnumerable<DbAuction>> GetAuctionsAsync();
         Task<DbAuction> GetAuctionByIdAsync(int id);
-        Task<DbAuction> CreateAuctionAsync(AuctionCreationDTO auction, int productId);
-        Task UpdateAuctionAsync(Auction auction);
-        Task DeleteAuctionAsync(int id);
+        Task<DbAuction> CreateAuctionAsync(DbAuction auction);
+        Task UpdateAuctionAsync(DbAuction auction);
+        Task DeleteAuctionAsync(DbAuction auction);
     }
 }

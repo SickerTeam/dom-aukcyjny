@@ -7,14 +7,10 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AmazonController : ControllerBase
+    public class AmazonController(IConfiguration configuration) : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        public AmazonController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-        
+        private readonly IConfiguration _configuration = configuration;
+
         [HttpGet]
         public async Task<IActionResult> Get(string key)
         {

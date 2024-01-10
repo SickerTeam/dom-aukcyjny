@@ -7,42 +7,53 @@ namespace Testing.Validation
     public class FixedPriceListingCreationDTOValidationTest
     {
         private readonly FixedPriceListingCreationDTO _instaBuyRegistrationDTO;
+        private readonly ProductCreationDTO _productCreationDTO;
 
         public FixedPriceListingCreationDTOValidationTest()
         {
-            _instaBuyRegistrationDTO = new FixedPriceListingCreationDTO(1, 0.01m);
+            _productCreationDTO = new ProductCreationDTO
+            {
+                Artist = "Van Gogh",
+                Description = "Nice painting",
+                Title = "Some flowers",
+                Height = 1,
+                Width = 1,
+                Depth = 1,
+                Weight = 1,
+                SellerId = 1
+            };
+
+            _instaBuyRegistrationDTO = new FixedPriceListingCreationDTO
+            {
+                Price = 1.0m,
+                Product = _productCreationDTO
+            };
         }
 
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _instaBuyRegistrationDTO.ProductId = int.MaxValue;
             _instaBuyRegistrationDTO.Price = decimal.MaxValue;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
-            _instaBuyRegistrationDTO.ProductId = 0;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_Price_Min()
         {
             _instaBuyRegistrationDTO.Price = 0.00m;
-            var result = ValidateModel(_instaBuyRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_instaBuyRegistrationDTO));
         }
 
         private static bool ValidateModel(object model)

@@ -1,6 +1,5 @@
 ﻿#nullable disable
 
-using backend.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs

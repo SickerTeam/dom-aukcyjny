@@ -20,8 +20,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Min_Values()
         {
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_postRegistrationDTO));
         }
 
         [Fact]
@@ -29,32 +28,28 @@ namespace Testing.Validation
         {
             _postRegistrationDTO.UserId = int.MaxValue;
             _postRegistrationDTO.Text = new string('a', 2047);
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.True(result);
+            Assert.True(ValidateModel(_postRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_UserId_Min()
         {
             _postRegistrationDTO.UserId = 0;
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postRegistrationDTO));
         }
 
         [Fact]
         public void Should_Pass_Text_Min()
         {
             _postRegistrationDTO.Text = "";
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postRegistrationDTO));
         }
 
         [Fact]
         public void Should_Fail_Text_Max()
         {
             _postRegistrationDTO.Text = new string('a', 2048);
-            var result = ValidateModel(_postRegistrationDTO);
-            Assert.False(result);
+            Assert.False(ValidateModel(_postRegistrationDTO));
         }
 
         private static bool ValidateModel(object model)

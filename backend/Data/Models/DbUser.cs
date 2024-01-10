@@ -20,6 +20,8 @@ namespace backend.Data.Models
 
         public string PersonalLink { get; set; }
 
+        public string ProfilePictureLink { get; set; }
+
         public UserRole Role { get; set; }
 
         public virtual ICollection<DbBid>? Bids { get; set; } = new List<DbBid>();

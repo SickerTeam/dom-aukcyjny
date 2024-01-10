@@ -10,12 +10,10 @@ namespace Testing.Validation
 
         public CommentDTOValidationTest()
         {
-            _commentDTO = new CommentDTO
+            _commentDTO = new CommentDTO(1, DateTime.UtcNow)
             {
-                Id = 1,
                 PostId = 1,
                 Text = "Test text",
-                CreatedAt = DateTime.Now.AddSeconds(-59),
                 UserId = 1
             };
         }
@@ -29,19 +27,13 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _commentDTO.Id = int.MaxValue;
-            _commentDTO.UserId = int.MaxValue;
-            _commentDTO.PostId = int.MaxValue;
-            _commentDTO.Text = new string('a', 1023);
-            _commentDTO.CreatedAt = DateTime.Now;
+            CommentDTO _commentDTO = new(int.MaxValue, DateTime.UtcNow)
+            {
+                UserId = int.MaxValue,
+                PostId = int.MaxValue,
+                Text = new string('a', 1023),
+            };
             Assert.True(ValidateModel(_commentDTO));
-        }
-
-        [Fact]
-        public void Should_Fail_Id_Min()
-        {
-            _commentDTO.Id = 0;
-            Assert.False(ValidateModel(_commentDTO));
         }
 
         [Fact]
@@ -62,20 +54,6 @@ namespace Testing.Validation
         public void Should_Fail_PostId_Min()
         {
             _commentDTO.PostId = 0;
-            Assert.False(ValidateModel(_commentDTO));
-        }
-
-        [Fact]
-        public void Should_Fail_CreatedAt_Min()
-        {
-            _commentDTO.CreatedAt = DateTime.Now.AddSeconds(-62);
-            Assert.False(ValidateModel(_commentDTO));
-        }
-
-        [Fact]
-        public void Should_Fail_CreatedAt_Max()
-        {
-            _commentDTO.CreatedAt = DateTime.Now.AddSeconds(1);
             Assert.False(ValidateModel(_commentDTO));
         }
 

@@ -1,22 +1,19 @@
 ﻿#nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using backend.Validation;
 
 namespace backend.DTOs
 {
-    public class AuctionDTO
+    public class AuctionDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
 
-        [CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
         [Required]
-        [FutureDate]
-        public DateTime EndsAt { get; set; }
+        public DateTime EndsAt { get; private set; } = DateTime.UtcNow.AddDays(14);
 
         [Required]
         [Range(0.01, double.MaxValue)]
@@ -35,13 +32,21 @@ namespace backend.DTOs
         public double ReservePrice { get; set; }
 
         [Required]
-        [MustBeFalse]
         public bool IsArchived { get; set; }
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int ProductId { get; set; }
+        public int ProductId { get; private set; }
 
-        public ProductDTO Product { get; set; }
+        private ProductDTO _product;
+        public ProductDTO Product 
+        { 
+            get => _product; 
+            set 
+            { 
+                _product = value;
+                ProductId = _product?.Id ?? default;
+            } 
+        }
     }
 }
