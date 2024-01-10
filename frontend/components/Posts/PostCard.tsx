@@ -83,7 +83,7 @@ export default function PostCard({post}: PostCardType){
           </div>
         </div>
         <p>{post.text}</p>
-        <div className='w-1/3'>
+        <div>
           <PictureCard imageUrl={imageUrl} />
         </div>        
         <div className="likes-comments mt-4">

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface PictureCardProps {
     imageUrl: string;
@@ -6,8 +7,8 @@ interface PictureCardProps {
 
 const PictureCard: React.FC<PictureCardProps> = ({ imageUrl }) => {
     return (
-        <div className='flex flex-column'>
-             <img className="rounded-md h-auto max-w-full content-stretch" src={imageUrl} alt="Post Image" style={{objectFit: 'cover'}} />
+        <div className=''>
+             <Image className="rounded-md" src={imageUrl} alt="Post Image" width={500} height={500}  objectFit="cover" />
         </div>
 
     );
