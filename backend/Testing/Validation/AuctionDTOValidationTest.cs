@@ -58,7 +58,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            AuctionDTO _auctionDTO = new(1, DateTime.UtcNow)
+            AuctionDTO _auctionDTO = new(int.MaxValue, DateTime.UtcNow)
             {
                 Product = _productDTO,
                 EstimateMinPrice = int.MaxValue,

@@ -40,7 +40,7 @@ namespace backend.Services
 
             foreach (var operation in patchDoc.Operations)
             {
-                if (operation.path != "text")
+                if (operation.path != "text" || operation.op != "replace")
                 {
                     throw new InvalidOperationException("Updating one or more fields is not allowed.");
                 }

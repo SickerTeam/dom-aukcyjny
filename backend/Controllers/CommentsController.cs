@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using backend.DTOs;
+﻿using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +6,9 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CommentsController : ControllerBase
+    public class CommentsController(ICommentService commentService) : ControllerBase
     {
-        private readonly ICommentService _commentService;
-
-        public CommentsController(ICommentService commentService, IMapper mapper)
-        {
-            _commentService = commentService;
-        }
+        private readonly ICommentService _commentService = commentService;
 
         [HttpGet]
         public async Task<IActionResult> GetCommentsAsync()

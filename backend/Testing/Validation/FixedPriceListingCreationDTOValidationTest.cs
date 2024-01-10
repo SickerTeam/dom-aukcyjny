@@ -7,10 +7,27 @@ namespace Testing.Validation
     public class FixedPriceListingCreationDTOValidationTest
     {
         private readonly FixedPriceListingCreationDTO _instaBuyRegistrationDTO;
+        private readonly ProductCreationDTO _productCreationDTO;
 
         public FixedPriceListingCreationDTOValidationTest()
         {
-            _instaBuyRegistrationDTO = new FixedPriceListingCreationDTO(1, 0.01m);
+            _productCreationDTO = new ProductCreationDTO
+            {
+                Artist = "Van Gogh",
+                Description = "Nice painting",
+                Title = "Some flowers",
+                Height = 1,
+                Width = 1,
+                Depth = 1,
+                Weight = 1,
+                SellerId = 1
+            };
+
+            _instaBuyRegistrationDTO = new FixedPriceListingCreationDTO
+            {
+                Price = 1.0m,
+                Product = _productCreationDTO
+            };
         }
 
         [Fact]
@@ -22,7 +39,6 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            _instaBuyRegistrationDTO.ProductId = int.MaxValue;
             _instaBuyRegistrationDTO.Price = decimal.MaxValue;
             Assert.True(ValidateModel(_instaBuyRegistrationDTO));
         }
@@ -30,7 +46,6 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_ProductId_Min()
         {
-            _instaBuyRegistrationDTO.ProductId = 0;
             Assert.False(ValidateModel(_instaBuyRegistrationDTO));
         }
 

@@ -30,9 +30,10 @@ namespace backend.Services
         public async Task AddFixedPriceListingAsync(FixedPriceListingCreationDTO listingDto)
         {
             DbFixedPriceListing listing = _mapper.Map<DbFixedPriceListing>(listingDto);
+            
             listing.IsArchived = false;
             listing.CreatedAt = DateTime.UtcNow;
-            listing.Product = await _productService.GetProductByIdAsync(listingDto.ProductId);
+
             await _listingRepository.AddFixedPriceListingAsync(listing);
         }
 
@@ -44,7 +45,8 @@ namespace backend.Services
             foreach (var operation in patchDoc.Operations)
             {
                 if (operation.path == "id" || operation.path == "createdAt" ||
-                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId") ||
+                    operation.op != "replace")
                 {
                     throw new InvalidOperationException("Updating one or more fields is not allowed.");
                 }

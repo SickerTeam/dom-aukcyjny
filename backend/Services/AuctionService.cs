@@ -29,19 +29,15 @@ namespace backend.Services
 
         public async Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auctionDto)
         {
-            ProductDTO product = await _productService.AddProductAsync(auctionDto.Product);
+            DbAuction dbAuction = _mapper.Map<DbAuction>(auctionDto);
 
-            DbAuction dbAuction = new()
-            {
-                EndsAt = DateTime.UtcNow.AddDays(14),
-                CreatedAt = DateTime.UtcNow,
-                EstimateMinPrice = auctionDto.EstimatedMinimum,
-                EstimateMaxPrice = auctionDto.EstimatedMaximum,
-                StartingPrice = auctionDto.StartingPrice,
-                ReservePrice = auctionDto.MinimumPrice,
-                ProductId = product.Id,
-                IsArchived = false
-            };
+            dbAuction.EndsAt = DateTime.UtcNow.AddDays(14);
+            dbAuction.CreatedAt = DateTime.UtcNow;
+            dbAuction.EstimateMinPrice = auctionDto.EstimatedMinimum;
+            dbAuction.EstimateMaxPrice = auctionDto.EstimatedMaximum;
+            dbAuction.StartingPrice = auctionDto.StartingPrice;
+            dbAuction.ReservePrice = auctionDto.MinimumPrice;
+            dbAuction.IsArchived = false;
 
             DbAuction auction = await _auctionRepository.CreateAuctionAsync(dbAuction);
             return _mapper.Map<AuctionDTO>(auction);
@@ -55,7 +51,8 @@ namespace backend.Services
             foreach (var operation in patchDoc.Operations)
             {
                 if (operation.path == "id" || operation.path == "createdAt" ||
-                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId"))
+                    operation.path.StartsWith("/product/seller") || operation.path.StartsWith("/product/sellerId") ||
+                    operation.op != "replace")
                 {
                     throw new InvalidOperationException("Updating one or more fields is not allowed.");
                 }
