@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-namespace backend.Data.Models
+﻿namespace backend.Data.Models
 {
     public class DbProduct : BaseDbModel
     {
@@ -12,11 +10,11 @@ namespace backend.Data.Models
 
         public double Weight { get; set; }
 
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
-        public string Description { get; set; }
+        public required string Description { get; set; }
 
-        public string Artist { get; set; }
+        public required string Artist { get; set; }
 
         public int? Year { get; set; }
 

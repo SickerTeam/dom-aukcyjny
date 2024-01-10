@@ -1,12 +1,10 @@
-﻿#nullable disable
-
-namespace backend.Data.Models;
+﻿namespace backend.Data.Models;
 
 public class DbPost : BaseDbModel
 {
     public int UserId { get; set; }
 
-    public string Text { get; set; }
+    public required string Text { get; set; }
 
     public virtual DbUser? User { get; set; }
 

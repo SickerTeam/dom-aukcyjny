@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-namespace backend.Data.Models;
+﻿namespace backend.Data.Models;
 
 public class DbPicture : BaseDbModel
 {
@@ -12,5 +10,5 @@ public class DbPicture : BaseDbModel
 
     public virtual DbUser? User { get; set; }
 
-    public string Link { get; set; }
+    public required string Link { get; set; }
 }
