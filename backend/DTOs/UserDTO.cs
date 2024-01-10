@@ -43,7 +43,7 @@ namespace backend.DTOs
         [Required]
         [Url]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
-        public string ProfilePictureLink { get; set; }
+        public PictureDTO ProfilePictureLink { get; set; }
 
         [Required]
         [EnumDataType(typeof(UserRole))]

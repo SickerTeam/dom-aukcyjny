@@ -36,7 +36,7 @@ namespace backend.DTOs
         [Required]
         [Url]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
-        public string ProfilePictureLink {get; set;}
+        public PictureCreationDTO ProfilePictureLink {get; set;}
 
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
