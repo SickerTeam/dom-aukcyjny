@@ -36,7 +36,7 @@ public partial class DatabaseContext : DbContext
     {
         modelBuilder.Entity<DbAuction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC0779CEFC9A");
+            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC07D2F3DD36");
 
             entity.ToTable("Auction");
 
@@ -49,12 +49,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Auction__Product__4D7F7902");
+                .HasConstraintName("FK__Auction__Product__0D64F3ED");
         });
 
         modelBuilder.Entity<DbBid>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC071DB40570");
+            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC0716162237");
 
             entity.ToTable("Bid");
 
@@ -63,17 +63,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__Bid__AuctionId__505BE5AD");
+                .HasConstraintName("FK__Bid__AuctionId__10416098");
 
             entity.HasOne(d => d.User).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Bid__UserId__515009E6");
+                .HasConstraintName("FK__Bid__UserId__113584D1");
         });
 
         modelBuilder.Entity<DbComment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC0776998D79");
+            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC07CAF234CD");
 
             entity.ToTable("Comment");
 
@@ -85,17 +85,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Post).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Comment__PostId__5708E33C");
+                .HasConstraintName("FK__Comment__PostId__16EE5E27");
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comment__UserId__57FD0775");
+                .HasConstraintName("FK__Comment__UserId__17E28260");
         });
 
         modelBuilder.Entity<DbFixedPriceListing>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC0705E9511E");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07ADB77535");
 
             entity.ToTable("FixedPriceListing");
 
@@ -104,12 +104,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.FixedPriceListings)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__FixedPric__Produ__627A95E8");
+                .HasConstraintName("FK__FixedPric__Produ__216BEC9A");
         });
 
         modelBuilder.Entity<DbFixedPriceListingPurchase>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC078534C151");
+            entity.HasKey(e => e.Id).HasName("PK__FixedPri__3214EC07758BF6CE");
 
             entity.ToTable("FixedPriceListingPurchase");
 
@@ -118,17 +118,17 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Buyer).WithMany(p => p.FixedPriceListingPurchases)
                 .HasForeignKey(d => d.BuyerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__FixedPric__Buyer__65570293");
+                .HasConstraintName("FK__FixedPric__Buyer__24485945");
 
             entity.HasOne(d => d.FixedPriceListing).WithMany(p => p.FixedPriceListingPurchases)
                 .HasForeignKey(d => d.FixedPriceListingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__FixedPric__Fixed__664B26CC");
+                .HasConstraintName("FK__FixedPric__Fixed__253C7D7E");
         });
 
         modelBuilder.Entity<DbLike>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Like__3214EC07FB1DE2BF");
+            entity.HasKey(e => e.Id).HasName("PK__Like__3214EC0796948DCD");
 
             entity.ToTable("Like");
 
@@ -136,17 +136,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Post).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Like__PostId__5AD97420");
+                .HasConstraintName("FK__Like__PostId__1ABEEF0B");
 
             entity.HasOne(d => d.User).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Like__UserId__5BCD9859");
+                .HasConstraintName("FK__Like__UserId__1BB31344");
         });
 
         modelBuilder.Entity<DbPicture>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Picture__3214EC07FBF0D980");
+            entity.HasKey(e => e.Id).HasName("PK__Picture__3214EC0736C9F286");
 
             entity.ToTable("Picture");
 
@@ -156,14 +156,14 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(1024)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Post).WithMany(p => p.Pictures)
-                .HasForeignKey(d => d.PostId)
-                .HasConstraintName("FK__Picture__PostId__5EAA0504");
+            entity.HasOne(d => d.ReferenceId).WithMany(p => p.Id)
+                .HasForeignKey(d => d.ReferenceId)
+                .HasConstraintName("FK__Picture__Referen__1E8F7FEF");
         });
 
         modelBuilder.Entity<DbPost>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC07A5E93D98");
+            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC07F1F83D44");
 
             entity.ToTable("Post");
 
@@ -175,12 +175,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Post__UserId__542C7691");
+                .HasConstraintName("FK__Post__UserId__1411F17C");
         });
 
         modelBuilder.Entity<DbProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07FB004E95");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07714D983D");
 
             entity.ToTable("Product");
 
@@ -204,12 +204,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Seller).WithMany(p => p.Products)
                 .HasForeignKey(d => d.SellerId)
-                .HasConstraintName("FK__Product__SellerI__4AA30C57");
+                .HasConstraintName("FK__Product__SellerI__0A888742");
         });
 
         modelBuilder.Entity<DbUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07D47784D4");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC079EEAACD3");
 
             entity.ToTable("User");
 
@@ -239,9 +239,6 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.PersonalLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ProfilePictureLink)
-                .HasMaxLength(255)
-                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);
@@ -249,8 +246,7 @@ public partial class DatabaseContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    
-    public List<string> ApplyMigrations()
+        public List<string> ApplyMigrations()
     {
         var pending = Database.GetPendingMigrations();
 

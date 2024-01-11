@@ -7,12 +7,12 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Models",
+   "OutputPath": "",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "backend",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 2,
-   "SelectedToBeGenerated": 0,
+   "SelectedToBeGenerated": 1,
    "T4TemplatePath": null,
    "Tables": [
       {
@@ -37,6 +37,10 @@
       },
       {
          "Name": "[dbo].[Like]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Picture]",
          "ObjectType": 0
       },
       {

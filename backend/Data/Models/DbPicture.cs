@@ -2,11 +2,13 @@
 
 public class DbPicture : BaseDbModel
 {
-    public int PostId { get; set; }
+    public int ReferenceId { get; set; }
 
-    public virtual DbPost? Post { get; set; }
+    public DbPost? dbPost { get; set; }
 
-    public int UserId { get; set; }
+    public DbUser? dbUser { get; set; }
+
+    public DbProduct? dbProduct { get; set; }
 
     public required string Link { get; set; }
 }
