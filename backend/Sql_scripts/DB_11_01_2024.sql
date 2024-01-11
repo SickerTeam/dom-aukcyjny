@@ -126,11 +126,11 @@ CREATE TABLE FixedPriceListingPurchase (
 -- Insert mock data into the tables
 INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ImageLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', '$2y$10$LlOJPlB32pvLticp4IOtzOaGEuSpYc2rbXaCP3y.SMZpKqdkT6gfe', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', '$2y$10$ezuuJVVZjoWN55kb/V28F.s.c/GXHAJ0UuyZHWcaHxL2tuk1v0uCm', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', '$2y$10$qDNITugQYSgDR/BnVhnkUeic1ipEpoqZWj0TNGLVNhoUOMuCFSOdC', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', '$2y$10$ZP7hcURMc5C6Kkns2cRLr.lw4CyoJcSIcHdAMB4EAn18X2SYBQk2y', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', '$2y$10$El6ffgJWv7qt/T8ickI8lewVyu92jh0xsWg2rH6oMoMAh28sC/9r.', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
