@@ -15,7 +15,7 @@ namespace backend.Controllers
         [HttpGet]
        public async Task<IList<ProductImageDTO>> GetProductImagesAsync()
        {
-           return await _productImageService.GetProductImagesAsync();
+           return (IList<ProductImageDTO>)await _productImageService.GetProductImagesAsync();
        }
 
        [HttpGet("{id}")]

@@ -5,9 +5,10 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-    public class ProductService(IProductRepository productRepository, IMapper mapper) : IProductService
+    public class ProductService(IProductRepository productRepository, IProductImageService productImageService, IMapper mapper) : IProductService
     {
         private readonly IProductRepository _productRepository = productRepository;
+        private readonly IProductImageService _productImageService = productImageService;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
@@ -19,6 +20,8 @@ namespace backend.Services
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
             DbProduct product =  await _productRepository.GetProductByIdAsync(id);
+            IEnumerable<ProductImageDTO> products = await _productImageService.GetProductImagesByProductIdAsync(product.Id);;
+            product.ProductImages = _mapper.Map<ICollection<DbProductImage>>(products);
             return  _mapper.Map<ProductDTO>(product);
         }
 

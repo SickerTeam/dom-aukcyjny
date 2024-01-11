@@ -13,30 +13,19 @@ namespace backend.Repositories
         
         public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
         {
-            IEnumerable<DbProduct> products = await _context.Products
+            return await _context.Products
                 .Include(p => p.Seller)
                 .Include(p => p.ProductImages)
                 .ToListAsync();
-
-            foreach (var product in products)
-            {
-                product.ProductImages = await _productImageRepository.GetProductImagesByProductIdAsync(product.Id);
-            }
-
-            return products;
         }
 
         public async Task<DbProduct> GetProductByIdAsync(int id)
         {
-            DbProduct product =  await _context.Products
+            return await _context.Products
                 .Where(x => x.Id == id)
                 .Include(p => p.Seller)
                 .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
-
-            product.ProductImages = await _productImageRepository.GetProductImagesByProductIdAsync(product.Id);
-
-            return product;
         }
 
         public async Task<DbProduct> CreateProductAsync(DbProduct dbProduct)

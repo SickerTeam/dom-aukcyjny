@@ -10,16 +10,22 @@ namespace backend.Services
         private readonly IProductImageRepository _ProductImageRepository = ProductImageRepository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<IList<ProductImageDTO>> GetProductImagesAsync()
+        public async Task<IEnumerable<ProductImageDTO>> GetProductImagesAsync()
         {
             IEnumerable<DbProductImage> ProductImages = await _ProductImageRepository.GetProductImageAsync();
-            return _mapper.Map<IList<ProductImageDTO>>(ProductImages);
+            return _mapper.Map<IEnumerable<ProductImageDTO>>(ProductImages);
         }
 
         public async Task<ProductImageDTO> GetProductImageByIdAsync(int id)
         {
             DbProductImage ProductImage = await _ProductImageRepository.GetProductImagesByIdAsync(id);
             return _mapper.Map<ProductImageDTO>(ProductImage);
+        }
+
+        public async Task<IEnumerable<ProductImageDTO>> GetProductImagesByProductIdAsync(int id)
+        {
+            IEnumerable<DbProductImage> ProductImage = await _ProductImageRepository.GetProductImagesByProductIdAsync(id);
+            return _mapper.Map< IEnumerable<ProductImageDTO>>(ProductImage);
         }
 
         public async Task AddProductImageAsync(ProductImageCreationDTO commentDto)
