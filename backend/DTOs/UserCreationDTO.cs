@@ -36,16 +36,11 @@ namespace backend.DTOs
         [Required]
         [Url]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
-        public string ProfilePictureLink {get; set;}
+        public string ImageLink {get; set;}
 
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public string Password { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
 
         [Required]
         [EnumDataType(typeof(UserRole))]

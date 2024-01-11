@@ -186,7 +186,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           className="bg-black text-white w-full py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto block"
           type="submit"
         >
-          <a href="/your-profile">Register</a>
+          Register
         </button>
       </div>
     </form>

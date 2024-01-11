@@ -37,5 +37,19 @@ namespace backend.DTOs
         public required ProductDTO Product { get; set; }
 
         public List<BidDTO>? Bids { get; set; }
+
+        public double CurrentPrice => CalculateCurrentPrice();
+
+        private double CalculateCurrentPrice()
+        {
+            if (Bids == null || Bids.Count == 0)
+            {
+                return StartingPrice; // No bids, initial price
+            }
+
+            // Find the highest bid amount
+            double highestBid = (double)Bids.Max(bid => bid.Amount);
+            return highestBid;
+        }
     }
 }

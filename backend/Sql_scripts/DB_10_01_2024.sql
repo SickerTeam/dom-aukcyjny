@@ -66,7 +66,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(2048),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
-    ProfilePictureLink VARCHAR(255),
+    ImageLink VARCHAR(255),
     Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -150,7 +150,7 @@ CREATE TABLE FixedPriceListingPurchase (
 );
 
 -- Insert mock data into the tables
-INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ProfilePictureLink, Role, CreatedAt)
+INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ImageLink, Role, CreatedAt)
 VALUES
     ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
     ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://personal.link/user1', 0, '2023-11-28T12:15:00'),

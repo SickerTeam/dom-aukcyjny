@@ -10,11 +10,13 @@ namespace backend.Controllers
     public class BidsController : ControllerBase
     {
         private readonly IBidService _bidService;
+        private readonly IAuctionService _auctionService;
         private readonly IHubContext<BidHub> _hubContext;
 
-        public BidsController(IBidService bidService, IHubContext<BidHub> hubContext)
+        public BidsController(IBidService bidService, IAuctionService auctionService, IHubContext<BidHub> hubContext)
         {
             _bidService = bidService;
+            _auctionService = auctionService;
             _hubContext = hubContext;
         }
 
@@ -29,6 +31,14 @@ namespace backend.Controllers
         public async Task<IActionResult> CreateBid([FromRoute] int auctionId, BidCreationDTO bid)
         {
             bid.UserId = 1; // change to currently logged in user
+
+            var auction = await _auctionService.GetAuctionByIdAsync(auctionId);  
+
+            if(bid.CreatedAt > auction.EndsAt)
+            {
+                return BadRequest("Auction has ended");
+            }
+
             bid.AuctionId = auctionId;
 
             var createdBid = await _bidService.CreateBid(bid);

@@ -21,7 +21,7 @@ namespace Testing.Validation
                 FirstName = "First name",
                 LastName = "Last name",
                 PersonalLink = "www.google.com",
-                ProfilePictureLink = "www.google.com",
+                ImageLink = "www.google.com",
                 Role = UserRole.User
             };
 

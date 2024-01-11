@@ -13,7 +13,7 @@ namespace backend.Repositories
             return await _context.Auctions
                 .Include(auction => auction.Product)
                 //.Include(auction => auction.Product.Seller)
-                //.Include(auction => auction.Bids)
+                .Include(auction => auction.Bids)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .ToListAsync();
         }
@@ -23,6 +23,7 @@ namespace backend.Repositories
             DbAuction? auction = await _context.Auctions
                 .Where(x => x.Id == id)
                 .Include(auction => auction.Product)
+                .Include(auction => auction.Bids)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .FirstOrDefaultAsync();
 

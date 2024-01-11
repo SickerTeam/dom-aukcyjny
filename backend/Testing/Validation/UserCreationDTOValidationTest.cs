@@ -20,9 +20,8 @@ namespace Testing.Validation
                 Bio = "Bio",
                 Country = "Poland",
                 PersonalLink = "http://www.google.com",
-                ProfilePictureLink = "http://www.google.com",
+                ImageLink = "http://www.google.com",
                 Password = "CLEARTEXTBUDDY",
-                ConfirmPassword = "CLEARTEXTBUDDY",
                 Role = UserRole.User
             };
         }
@@ -44,9 +43,8 @@ namespace Testing.Validation
             _userCreationDTO.Bio = new string('a', 2047);
             _userCreationDTO.Country = new string('a', 254);
             _userCreationDTO.PersonalLink = "http://www." + new string('a', 239) + ".com";
-            _userCreationDTO.ProfilePictureLink = "http://www." + new string('a', 239) + ".com";
+            _userCreationDTO.ImageLink = "http://www." + new string('a', 239) + ".com";
             _userCreationDTO.Password = samePassword;
-            _userCreationDTO.ConfirmPassword = samePassword;
             _userCreationDTO.Role = UserRole.Admin;
             var result = ValidateModel(_userCreationDTO);
             Assert.True(result);
@@ -157,17 +155,17 @@ namespace Testing.Validation
         }    
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Min()
+        public void Should_Fail_ImageLink_Min()
         {
-            _userCreationDTO.ProfilePictureLink = "http://.m";
+            _userCreationDTO.ImageLink = "http://.m";
             var result = ValidateModel(_userCreationDTO);
             Assert.True(result);
         }   
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Max()
+        public void Should_Fail_ImageLink_Max()
         {
-            _userCreationDTO.ProfilePictureLink = "https:// " + new string('a', 242) + ".com";
+            _userCreationDTO.ImageLink = "https:// " + new string('a', 242) + ".com";
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }
@@ -177,7 +175,6 @@ namespace Testing.Validation
         {
             var pass = "";
             _userCreationDTO.Password = pass;
-            _userCreationDTO.ConfirmPassword = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }
@@ -187,7 +184,6 @@ namespace Testing.Validation
         {
             var pass = new string('a', 255);
             _userCreationDTO.Password = pass;
-            _userCreationDTO.ConfirmPassword = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }

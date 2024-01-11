@@ -1,13 +1,14 @@
-'use client'
+"use client";
 
-import React, { ChangeEvent, useState } from 'react';
-import LoginPage from '../../../components/LoginPage';
-import Link from 'next/link';
+import React, { ChangeEvent, useState } from "react";
+import LoginPage from "../../../components/LoginPage";
+import Link from "next/link";
+import apiService from "../../../services/apiService";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +21,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your registration logic here
+    apiService.login(formData);
   };
 
   return (
@@ -37,16 +37,16 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <p>You don`t have an account? Create one! </p>
         <Link href="/registration">
-        <button
-          className="bg-black text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-10"
-          type="button"
-        >
-          Register
-        </button>
+          <button
+            className="bg-black text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-10"
+            type="button"
+          >
+            Register
+          </button>
         </Link>
       </div>
     </div>
-   );
-  };
+  );
+};
 
 export default Login;

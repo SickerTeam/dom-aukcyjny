@@ -239,7 +239,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.PersonalLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ProfilePictureLink)
+            entity.Property(e => e.ImageLink)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });
