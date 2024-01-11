@@ -17,8 +17,8 @@ DROP TABLE [dbo].[FixedPriceListing]
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Auction]') AND type in (N'U'))
 DROP TABLE [dbo].[Auction]
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Picture]') AND type in (N'U'))
-DROP TABLE [dbo].[Picture]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductImage]') AND type in (N'U'))
+DROP TABLE [dbo].[ProductImage]
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND type in (N'U'))
 DROP TABLE [dbo].[Post]
@@ -39,6 +39,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(2048),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
+    ImageLink VARCHAR(1024) NOT NULL,
     Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -81,6 +82,7 @@ CREATE TABLE Post (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE CASCADE NOT NULL,
     Text VARCHAR(2048) NOT NULL,
+    ImageLink VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
@@ -99,9 +101,9 @@ CREATE TABLE [Like] (
     CreatedAt DATETIME NOT NULL
 );
 
-CREATE TABLE Picture (
+CREATE TABLE ProductImage (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    ReferenceId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
+    ProductId INT FOREIGN KEY REFERENCES Product(Id) ON DELETE CASCADE NOT NULL,
     Link VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -122,13 +124,23 @@ CREATE TABLE FixedPriceListingPurchase (
 );
 
 -- Insert mock data into the tables
-INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, Role, CreatedAt)
+INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ImageLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 0, '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 0, '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 0, '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 0, '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1
+', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2
+', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3
+', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4
+', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5
+', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
@@ -170,13 +182,18 @@ VALUES
     (4, 5, 95.00, '2023-12-04T12:15:00'),
     (5, 1, 115.00, '2023-12-05T12:15:00');
 
-	INSERT INTO Post (UserId, Text, CreatedAt)
+	INSERT INTO Post (UserId, Text, ImageLink, CreatedAt)
 VALUES
-    (1, 'This is the first post.', '2023-11-28T12:00:00'),
-    (2, 'A post by user 2.', '2023-11-28T12:15:00'),
-    (3, 'Post number 3.', '2023-11-28T12:30:00'),
-    (4, 'User 4s post.', '2023-11-28T12:45:00'),
-    (5, 'Post by the last user.', '2023-11-28T13:00:00');
+    (1, 'This is the first post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', '2023-11-28T12:00:00'),
+    (2, 'A post by user 2.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', '2023-11-28T12:15:00'),
+    (3, 'Post number 3.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', '2023-11-28T12:30:00'),
+    (4, 'User 4s post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', '2023-11-28T12:45:00'),
+    (5, 'Post by the last user.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
+', '2023-11-28T13:00:00');
 
 INSERT INTO Comment (PostId, UserId, Text, CreatedAt)
 VALUES
@@ -194,7 +211,7 @@ VALUES
     (4, 5, '2023-11-28T13:00:00'),
     (5, 1, '2023-11-28T13:15:00');
 
-INSERT INTO Picture (ReferenceId, Link, CreatedAt)
+INSERT INTO ProductImage (ProductId, Link, CreatedAt)
 VALUES
     (1, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
     (2, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
