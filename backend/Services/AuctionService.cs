@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
-   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper) : IAuctionService
-   {
+    public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductImageService productImageService) : IAuctionService
+    {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
+
+        private readonly IProductImageService _productImageService = productImageService;
         private readonly IMapper _mapper = mapper;
         protected internal ModelStateDictionary modelState = new();
 
@@ -23,6 +25,13 @@ namespace backend.Services
         public async Task<AuctionDTO> GetAuctionByIdAsync(int id)
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
+
+            if (auction != null && auction.Product != null)
+            {
+                IEnumerable<ProductImageDTO> products = await _productImageService.GetProductImagesByProductIdAsync(auction.Product.Id);
+                auction.Product.ProductImages = _mapper.Map<ICollection<DbProductImage>>(products);
+            }
+
             return _mapper.Map<AuctionDTO>(auction);
         }
 

@@ -18,7 +18,5 @@ namespace backend.DTOs
         [Url]
         [StringLength(1023, ErrorMessage = "Text cannot exceed 1023 characters.")]
         public required string Link { get; set; }
-        
-        public ProductDTO? Product { get; set; }
     }
 }
