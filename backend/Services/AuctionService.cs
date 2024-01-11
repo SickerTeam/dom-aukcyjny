@@ -8,31 +8,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
-    public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductImageService productImageService) : IAuctionService
+    public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
     {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
-
-        private readonly IProductImageService _productImageService = productImageService;
         private readonly IMapper _mapper = mapper;
+        private readonly IProductService _productService = productService;
+
         protected internal ModelStateDictionary modelState = new();
 
         public async Task<IEnumerable<AuctionDTO>> GetAuctionsAsync()
         {
             IEnumerable<DbAuction> auctions = await _auctionRepository.GetAuctionsAsync();
-            return  _mapper.Map<IEnumerable<AuctionDTO>>(auctions);
+
+            var auctionDtos = new List<AuctionDTO>();
+
+            foreach (var auction in auctions)
+            {
+                var productDto = await _productService.GetProductByIdAsync(auction.ProductId);
+                var auctionDto = _mapper.Map<AuctionDTO>(auction);
+                auctionDto.Product = productDto;
+                auctionDtos.Add(auctionDto);
+            }
+
+            return auctionDtos;
         }
 
         public async Task<AuctionDTO> GetAuctionByIdAsync(int id)
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
+            var productDto = await _productService.GetProductByIdAsync(auction.ProductId);
+            var auctionDto = _mapper.Map<AuctionDTO>(auction);
+            auctionDto.Product = productDto;
+            return auctionDto;
 
-            if (auction != null && auction.Product != null)
-            {
-                IEnumerable<ProductImageDTO> products = await _productImageService.GetProductImagesByProductIdAsync(auction.Product.Id);
-                auction.Product.ProductImages = _mapper.Map<ICollection<DbProductImage>>(products);
-            }
-
-            return _mapper.Map<AuctionDTO>(auction);
         }
 
         public async Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auctionDto)
@@ -55,7 +63,7 @@ namespace backend.Services
         {
             DbAuction auction = await _auctionRepository.GetAuctionByIdAsync(id);
             if (auction == null) return null;
-            
+
             foreach (var operation in patchDoc.Operations)
             {
                 if (operation.path == "id" || operation.path == "createdAt" ||
@@ -75,7 +83,7 @@ namespace backend.Services
             await _auctionRepository.UpdateAuctionAsync(auction);
 
             return _mapper.Map<AuctionDTO>(auction);
-        } 
+        }
 
         public async Task DeleteAuctionsAsync(int id)
         {

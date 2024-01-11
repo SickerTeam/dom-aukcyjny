@@ -14,15 +14,18 @@ namespace backend.Services
         public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
         {
             IEnumerable<DbProduct> products = await _productRepository.GetAllProductsAsync();
-            return  _mapper.Map<IEnumerable<ProductDTO>>(products);
+            return _mapper.Map<IEnumerable<ProductDTO>>(products);
         }
 
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
-            DbProduct product =  await _productRepository.GetProductByIdAsync(id);
-            IEnumerable<ProductImageDTO> products = await _productImageService.GetProductImagesByProductIdAsync(product.Id);;
-            product.ProductImages = _mapper.Map<ICollection<DbProductImage>>(products);
-            return  _mapper.Map<ProductDTO>(product);
+            DbProduct product = await _productRepository.GetProductByIdAsync(id);
+            if (product != null)
+            {
+                IEnumerable<ProductImageDTO> productImages = await _productImageService.GetProductImagesByProductIdAsync(id);
+                product.ProductImages = _mapper.Map<ICollection<DbProductImage>>(productImages);
+            }
+            return _mapper.Map<ProductDTO>(product);
         }
 
         public async Task<ProductDTO> AddProductAsync(ProductCreationDTO productDTO)
@@ -41,7 +44,7 @@ namespace backend.Services
                 CreatedAt = DateTime.UtcNow,
                 Year = productDTO.Year
             };
-            
+
             DbProduct product = await _productRepository.CreateProductAsync(dbProduct);
             return _mapper.Map<ProductDTO>(product);
         }
