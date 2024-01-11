@@ -12,5 +12,5 @@ public class DbPost : BaseDbModel
 
     public virtual ICollection<DbLike>? Likes { get; set; } = new List<DbLike>();
 
-    public virtual ICollection<DbPicture>? Pictures { get; set; } = new List<DbPicture>();
+    public virtual ICollection<DbProductImage>? Pictures { get; set; } = new List<DbProductImage>();
 }

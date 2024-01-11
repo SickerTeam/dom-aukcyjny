@@ -12,26 +12,26 @@ namespace backend.Services
 
         public async Task<IList<PictureDTO>> GetPicturesAsync()
         {
-            IEnumerable<DbPicture> pictures = await _pictureRepository.GetPictureAsync();
+            IEnumerable<DbProductImage> pictures = await _pictureRepository.GetPictureAsync();
             return _mapper.Map<IList<PictureDTO>>(pictures);
         }
 
         public async Task<PictureDTO> GetPictureByIdAsync(int id)
         {
-            DbPicture picture = await _pictureRepository.GetPicturesByIdAsync(id);
+            DbProductImage picture = await _pictureRepository.GetPicturesByIdAsync(id);
             return _mapper.Map<PictureDTO>(picture);
         }
 
         public async Task AddPictureAsync(PictureCreationDTO commentDto)
         {
-            DbPicture picture = _mapper.Map<DbPicture>(commentDto);
+            DbProductImage picture = _mapper.Map<DbProductImage>(commentDto);
             picture.CreatedAt = DateTime.UtcNow;
             await _pictureRepository.AddPictureAsync(picture);
         }
 
         public async Task DeletePictureAsync(int id)
         {
-            DbPicture picture = await _pictureRepository.GetPicturesByIdAsync(id);
+            DbProductImage picture = await _pictureRepository.GetPicturesByIdAsync(id);
             if (picture == null) return;
 
             await _pictureRepository.DeletePictureAsync(picture);
