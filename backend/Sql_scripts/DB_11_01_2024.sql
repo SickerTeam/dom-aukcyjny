@@ -126,21 +126,11 @@ CREATE TABLE FixedPriceListingPurchase (
 -- Insert mock data into the tables
 INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ImageLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1
-', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', 0, '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2
-', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', 0, '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3
-', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', 0, '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4
-', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', 0, '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5
-', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', 0, '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
@@ -184,16 +174,11 @@ VALUES
 
 	INSERT INTO Post (UserId, Text, ImageLink, CreatedAt)
 VALUES
-    (1, 'This is the first post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', '2023-11-28T12:00:00'),
-    (2, 'A post by user 2.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', '2023-11-28T12:15:00'),
-    (3, 'Post number 3.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', '2023-11-28T12:30:00'),
-    (4, 'User 4s post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', '2023-11-28T12:45:00'),
-    (5, 'Post by the last user.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5
-', '2023-11-28T13:00:00');
+    (1, 'This is the first post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:00:00'),
+    (2, 'A post by user 2.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:15:00'),
+    (3, 'Post number 3.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:30:00'),
+    (4, 'User 4s post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:45:00'),
+    (5, 'Post by the last user.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T13:00:00');
 
 INSERT INTO Comment (PostId, UserId, Text, CreatedAt)
 VALUES
