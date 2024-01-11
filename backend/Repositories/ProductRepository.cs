@@ -13,12 +13,17 @@ namespace backend.Repositories
         
         public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
         {
-            IEnumerable<DbProduct> var = await _context.Products
+            IEnumerable<DbProduct> products = await _context.Products
                 .Include(p => p.Seller)
-                // .Include(p => p.ProductImages)
+                .Include(p => p.ProductImages)
                 .ToListAsync();
 
-            return var;
+            foreach (var product in products)
+            {
+                product.ProductImages = await _productImageRepository.GetProductImagesByProductIdAsync(product.Id);
+            }
+
+            return products;
         }
 
         public async Task<DbProduct> GetProductByIdAsync(int id)
@@ -26,10 +31,10 @@ namespace backend.Repositories
             DbProduct product =  await _context.Products
                 .Where(x => x.Id == id)
                 .Include(p => p.Seller)
-                // .Include(p => p.ProductImages)
+                .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
 
-            product.ProductImages = (ICollection<DbProductImage>?)_productImageRepository.GetProductImagesByProductIdAsync(product.Id);
+            product.ProductImages = await _productImageRepository.GetProductImagesByProductIdAsync(product.Id);
 
             return product;
         }
