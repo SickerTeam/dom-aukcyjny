@@ -8,26 +8,26 @@ namespace backend.Repositories
     {
         private readonly DatabaseContext _context = context;
         
-        public async Task<IEnumerable<DbPicture>> GetPictureAsync()
+        public async Task<IEnumerable<DbProductImage>> GetPictureAsync()
         {
-            return await _context.Pictures.ToListAsync();
+            return await _context.ProductImages.ToListAsync();
         }
 
-        public async Task<DbPicture> GetPicturesByIdAsync(int id)
+        public async Task<DbProductImage> GetPicturesByIdAsync(int id)
         {
-            DbPicture? picture = await _context.Pictures.FindAsync(id);
+            DbProductImage? picture = await _context.ProductImages.FindAsync(id);
             return picture ?? throw new ArgumentException("Picture not found");            
         }
 
-        public async Task AddPictureAsync(DbPicture picture)
+        public async Task AddPictureAsync(DbProductImage picture)
         {
-            _context.Pictures.Add(picture);
+            _context.ProductImages.Add(picture);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePictureAsync(DbPicture picture)
+        public async Task DeletePictureAsync(DbProductImage picture)
         {         
-            _context.Pictures.Remove(picture);
+            _context.ProductImages.Remove(picture);
             await _context.SaveChangesAsync();
         }
     }

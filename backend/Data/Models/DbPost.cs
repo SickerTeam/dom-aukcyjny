@@ -8,6 +8,8 @@ public class DbPost : BaseDbModel
 
     public virtual DbUser? User { get; set; }
 
+    public string? ImageLink { get; set; }
+
     public virtual ICollection<DbComment>? Comments { get; set; } = new List<DbComment>();
 
     public virtual ICollection<DbLike>? Likes { get; set; } = new List<DbLike>();

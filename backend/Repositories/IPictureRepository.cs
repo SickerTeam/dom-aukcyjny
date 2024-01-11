@@ -4,9 +4,9 @@ namespace backend.Repositories
 {
     public interface IPictureRepository
     {
-        Task<IEnumerable<DbPicture>> GetPictureAsync();
-        Task<DbPicture> GetPicturesByIdAsync(int id);
-        Task AddPictureAsync(DbPicture picture);
-        Task DeletePictureAsync(DbPicture picture);
+        Task<IEnumerable<DbProductImage>> GetPictureAsync();
+        Task<DbProductImage> GetPicturesByIdAsync(int id);
+        Task AddPictureAsync(DbProductImage picture);
+        Task DeletePictureAsync(DbProductImage picture);
     }
 }

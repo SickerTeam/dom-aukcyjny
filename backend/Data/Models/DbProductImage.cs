@@ -1,10 +1,10 @@
 ﻿namespace backend.Data.Models;
 
-public class DbPicture : BaseDbModel
+public class DbProductImage : BaseDbModel
 {
-    public int ReferenceId { get; set; }
+    public int ProductId { get; set; }
 
-    public DbProduct? DbProduct { get; set; }
+    public DbProduct? Product { get; set; }
 
     public required string Link { get; set; }
 }
