@@ -23,6 +23,5 @@ namespace backend.DTOs
 
         public virtual List<CommentDTO>? Comments { get; set; }
         public virtual List<LikeDTO>? Likes { get; set; }
-
     }
 }

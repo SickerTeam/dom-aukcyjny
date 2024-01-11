@@ -6,7 +6,7 @@ namespace backend.Repositories
     {
         Task<IEnumerable<DbProductImage>> GetProductImageAsync();
         Task<DbProductImage> GetProductImagesByIdAsync(int id);
-        Task<ICollection<DbProductImage>> GetProductImagesByProductIdAsync(int id);
+        Task<IEnumerable<DbProductImage>> GetProductImagesByProductIdAsync(int id);
         Task AddProductImageAsync(DbProductImage ProductImage);
         Task DeleteProductImageAsync(DbProductImage ProductImage);
     }

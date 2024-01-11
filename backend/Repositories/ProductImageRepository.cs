@@ -19,7 +19,7 @@ namespace backend.Repositories
             return ProductImage ?? throw new ArgumentException("ProductImage not found");            
         }
 
-        public async Task<ICollection<DbProductImage>> GetProductImagesByProductIdAsync(int productId)
+        public async Task<IEnumerable<DbProductImage>> GetProductImagesByProductIdAsync(int productId)
         {
             var productImages = await _context.ProductImages
                 .Where(p => p.ProductId == productId)
