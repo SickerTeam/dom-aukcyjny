@@ -34,6 +34,10 @@ namespace backend.DTOs
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public required string Password { get; set; }
 
+        [Url]
+        [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
+        public string? ImageLink { get; set; }
+
         [Required]
         [EnumDataType(typeof(UserRole))]
         public UserRole Role { get; set; } = UserRole.User;
