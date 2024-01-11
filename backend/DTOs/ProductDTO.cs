@@ -1,6 +1,7 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+using backend.Data.Models;
 
 namespace backend.DTOs
 {
@@ -27,6 +28,8 @@ namespace backend.DTOs
         [Required]
         [Range(0.01, double.MaxValue)]
         public double Weight { get; set; }
+
+        public virtual ICollection<ProductImageDTO> ProductImages { get; set; }
 
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
