@@ -7,43 +7,42 @@ namespace backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LikesController(ILikeService likeService, IMapper mapper) : ControllerBase
+    public class LikesController(ILikeService likeService) : ControllerBase
     {
         private readonly ILikeService _likeService = likeService;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
         public async Task<IActionResult> GetLikesAsync()
         {
-            var likes = await _likeService.GetLikesAsync();
-            return Ok(_mapper.Map<IEnumerable<LikeDTO>>(likes));
+            IEnumerable<LikeDTO> likes = await _likeService.GetLikesAsync();
+            return Ok(likes);
         }
 
         [HttpGet("count/{postId}")]
         public async Task<IActionResult> GetAmountOfLikesForPostById(int postId)
         {
-            var count = await _likeService.GetAmountOfLikesForPostById(postId);
+            int count = await _likeService.GetAmountOfLikesForPostById(postId);
             return Ok(count);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLikesByIdAsync(int id)
+        public async Task<IActionResult> GetLikeByIdAsync(int id)
         {
-            var like = await _likeService.GetLikesByIdAsync(id);
-            return Ok(_mapper.Map<LikeDTO>(like));
+            LikeDTO like = await _likeService.GetLikeByIdAsync(id);
+            return Ok(like);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLikesAsync(LikeCreationDTO likeDto)
+        public async Task<IActionResult> AddLikeAsync(LikeCreationDTO likeDto)
         {
-            await _likeService.AddLikesAsync(likeDto);
+            await _likeService.AddLikeAsync(likeDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLikesAsync(int id)
+        public async Task<IActionResult> DeleteLikeAsync(int id)
         {
-            await _likeService.DeleteLikesAsync(id);
+            await _likeService.DeleteLikeAsync(id);
             return Ok();
         }
     }

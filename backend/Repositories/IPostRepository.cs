@@ -7,9 +7,9 @@ namespace backend.Repositories
     {
         Task<IEnumerable<DbPost>> GetAllPostsAsync();
         Task<DbPost> GetPostByIdAsync(int id);
-        Task<DbPost> CreatePostAsync(PostCreationDTO post);
+        Task<DbPost> CreatePostAsync(DbPost post);
         Task UpdatePostAsync(DbPost post);
-        Task DeletePostAsync(int id);
+        Task DeletePostAsync(DbPost post);       
     }
 }
         

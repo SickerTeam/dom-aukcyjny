@@ -1,14 +1,14 @@
 ﻿using backend.Data.Models;
 using backend.DTOs;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace backend.Services
 {
     public interface IPostService
     {
         Task<PostDTO> GetPostByIdAsync(int id);
-        Task<List<PostDTO>> GetAllPostsAsync();
-        Task<DbPost> CreatePostAsync(PostCreationDTO PostDto);
-        Task UpdatePostAsync(PostDTO PostDto);
+        Task<PostDTO> CreatePostAsync(PostCreationDTO PostDto);
+        Task<PostDTO?> UpdatePostAsync(int id, JsonPatchDocument<PostDTO> patchDoc);
         Task DeletePostsAsync(int id);
     }
 }

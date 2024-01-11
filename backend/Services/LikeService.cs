@@ -12,7 +12,7 @@ namespace backend.Services
 
         public async Task<IList<LikeDTO>> GetLikesAsync()
         {
-            var likes = await _likeRepository.GetLikesAsync();
+            IEnumerable<DbLike> likes = await _likeRepository.GetLikesAsync();
             return _mapper.Map<IList<LikeDTO>>(likes);
         }
 
@@ -21,22 +21,25 @@ namespace backend.Services
             return await _likeRepository.GetAmountOfLikesForPostById(postId);
         }
 
-        public async Task<LikeDTO> GetLikesByIdAsync(int id)
+        public async Task<LikeDTO> GetLikeByIdAsync(int id)
         {
-            var like = await _likeRepository.GetLikesByIdAsync(id);
+            DbLike like = await _likeRepository.GetLikeByIdAsync(id);
             return _mapper.Map<LikeDTO>(like);
         }
 
-        public async Task AddLikesAsync(LikeCreationDTO likeDto)
+        public async Task AddLikeAsync(LikeCreationDTO likeDto)
         {
-            var like = _mapper.Map<DbLike>(likeDto);
-            like.CreatedAt = DateTime.Now;
-            await _likeRepository.AddLikesAsync(like);
+            DbLike like = _mapper.Map<DbLike>(likeDto);
+            like.CreatedAt = DateTime.UtcNow;
+            await _likeRepository.AddLikeAsync(like);
         }
 
-        public async Task DeleteLikesAsync(int id)
+        public async Task DeleteLikeAsync(int id)
         {
-            await _likeRepository.DeleteLikesAsync(id);
+            DbLike like = await _likeRepository.GetLikeByIdAsync(id);
+            if (like == null) return;
+
+            await _likeRepository.DeleteLikeAsync(like);
         }   
     }
 }

@@ -4,19 +4,21 @@ namespace backend.Data.Models
 {
     public class DbUser : BaseDbModel
     {
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
-        public string FirstName { get; set; }
+        public required string FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public required string LastName { get; set; }
 
-        public string Bio { get; set; }
+        public string? Bio { get; set; }
 
-        public string Country { get; set; }
+        public required string Country { get; set; }
 
-        public string PersonalLink { get; set; }
+        public string? PersonalLink { get; set; }
+
+        public DbPicture? ProfilePictureLink { get; set; }
 
         public UserRole Role { get; set; }
 

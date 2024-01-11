@@ -1,9 +1,4 @@
-﻿using backend.DTOs;
-using backend.Models;
-using backend.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using backend.Data.Models;
+﻿using backend.Data.Models;
 
 namespace backend.Repositories
 {
@@ -15,6 +10,6 @@ namespace backend.Repositories
         Task<DbUser> GetUserByEmailAsync(string email);
         Task AddUserAsync(DbUser user);
         Task UpdateUserAsync(DbUser user);
-        Task DeleteUserAsync(int id);
+        Task DeleteUserAsync(DbUser id);
     }
 }

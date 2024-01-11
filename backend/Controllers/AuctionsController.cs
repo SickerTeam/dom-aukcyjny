@@ -1,5 +1,6 @@
 ﻿using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -13,30 +14,42 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAuctions()
         {
-            var auctions = await _auctionService.GetAuctionsAsync();
+            IEnumerable<AuctionDTO> auctions = await _auctionService.GetAuctionsAsync();
             return Ok(auctions);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAuctionById(int id)
         {
-            var auction = await _auctionService.GetAuctionByIdAsync(id);
+            AuctionDTO auction = await _auctionService.GetAuctionByIdAsync(id);
             return Ok(auction);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {
+            auctionDto.Product.SellerId = 1; // change it to the current user id
             var auction = await _auctionService.CreateAuctionAsync(auctionDto);
             var dto = await _auctionService.GetAuctionByIdAsync(auction.Id);
             return Ok(dto);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAuction(AuctionDTO auctionDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAuction(int id, [FromBody] JsonPatchDocument<AuctionDTO> patchDoc)
         {
-            await _auctionService.UpdateAuctionAsync(auctionDto);
-            return Ok();
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            AuctionDTO? result = await _auctionService.UpdateAuctionAsync(id, patchDoc);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -45,6 +58,5 @@ namespace backend.Controllers
             await _auctionService.DeleteAuctionsAsync(id);
             return Ok();
         }
-
     }
 }

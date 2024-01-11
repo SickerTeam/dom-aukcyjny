@@ -35,7 +35,7 @@ const PopularAuctions = () => {
   ];
 
   return (
-    <div className="px-40">
+    <div className=" ">
       <h3 className="text-xl">Popular auctions</h3>
       <div className="flex gap-6">
         {popularAuctions.map((auction, index) => (

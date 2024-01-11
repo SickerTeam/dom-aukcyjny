@@ -1,27 +1,41 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using backend.Validation;
+
 namespace backend.DTOs
 {
-    public class AuctionDTO
+    public class AuctionDTO(int id, DateTime? createdAt)
     {
-        public int Id { get; set; }
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int Id { get; private set; } = id;
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; private set; } = createdAt;
 
-        public DateTime EndsAt { get; set; }
+        [Required]
+        public DateTime EndsAt { get; private set; } = DateTime.UtcNow.AddDays(14);
 
+        [Required]
+        [Range(0.01, double.MaxValue)]
         public double EstimateMinPrice { get; set; }
 
+        [Required]
+        [Range(0.01, double.MaxValue)]
         public double EstimateMaxPrice { get; set; }
 
+        [Required]
+        [Range(0.01, double.MaxValue)]
         public double StartingPrice { get; set; }
 
+        [Required]
+        [Range(0.01, double.MaxValue)]
         public double ReservePrice { get; set; }
 
+        [Required]
         public bool IsArchived { get; set; }
 
         public int ProductId { get; set; }
 
-        public ProductDTO Product { get; set; }
+        public required ProductDTO Product { get; set; }
+
+        public List<BidDTO>? Bids { get; set; }
     }
 }

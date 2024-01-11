@@ -1,21 +1,47 @@
-// add column to the auciton table which is updated when new bid is placed - it would store current bid id
-// create custom classes to reduce classnames spam in divs
+"use client";
 
+import { useEffect, useState } from "react";
+import CountdownTimer from "../CountdownTimer";
 import BidHistory from "./BidHistory";
+import * as signalR from "@microsoft/signalr";
 
 type AuctionPanelType = {
   auction: any;
 };
 
 const AuctionPanel = ({ auction }: AuctionPanelType) => {
+  const [currentPrice, setCurrentPrice] = useState(auction.currentPrice);
+
+  useEffect(() => {
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl("http://localhost:5156/bidHub")
+      .build();
+
+    connection.start().then(() => {
+      console.log("Connected to SignalR Hub");
+    });
+
+    connection.on("CurrentPriceChanged", (amount) => {
+      console.log(`New bid: ${amount}`);
+    });
+
+    return () => {
+      connection.stop();
+    };
+  }, []);
+
   return (
     <div>
-      <h2>Closes in 3d 21h 47m 15s</h2>
+      <CountdownTimer endsAt={auction.endsAt} />
       <div className="panel-container bg-light-gray p-2 ">
         <div className="panel-price-container my-2">
           <p className="current-bid uppercase">current bid</p>
-          <h2>€ 12,400</h2>
-          <h4>Reserve price met</h4>
+          <h2>€ {currentPrice}</h2>
+          <h4>
+            {currentPrice >= auction.reservePrice
+              ? "Reserve price met"
+              : "Reserve price not met"}
+          </h4>
         </div>
         <div className="panel-owner-container flex gap-2 my-2">
           <div className="w-[100px] h-[100px] bg-gray-500 rounded-full"></div>

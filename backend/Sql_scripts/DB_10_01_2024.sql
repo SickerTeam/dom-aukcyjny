@@ -11,6 +11,9 @@ BEGIN
     ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_Post;
     ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_User;
 
+    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_Post;
+    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_User;
+
     ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_Post;
     ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_User;
 
@@ -34,6 +37,9 @@ IF OBJECT_ID('[Like]', 'U') IS NOT NULL
 
 IF OBJECT_ID('Comment', 'U') IS NOT NULL
     DROP TABLE Comment;
+
+IF OBJECT_ID('Picture', 'U') IS NOT NULL
+    DROP TABLE Picture;
     
 IF OBJECT_ID('Auction', 'U') IS NOT NULL
     DROP TABLE Auction;
@@ -57,9 +63,10 @@ CREATE TABLE [User] (
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
-    Bio VARCHAR(MAX),
+    Bio VARCHAR(2048),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
+    ProfilePictureLink VARCHAR(255),
     Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -71,16 +78,16 @@ CREATE TABLE Product (
     Depth DECIMAL(18,2) NOT NULL,
     Weight DECIMAL(18,2) NOT NULL,
     Title VARCHAR(255) NOT NULL,
-    Description VARCHAR(MAX) NOT NULL,
+    Description VARCHAR(2048) NOT NULL,
     Artist VARCHAR(255) NOT NULL,
-    SellerId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
+    SellerId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE CASCADE NOT NULL,
     Year INT,
     CreatedAt DATETIME NOT NULL
 );
 
 CREATE TABLE Auction (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    ProductId INT FOREIGN KEY REFERENCES Product(Id) NOT NULL,
+    ProductId INT FOREIGN KEY REFERENCES Product(Id) ON DELETE CASCADE NOT NULL,
     StartingPrice DECIMAL(18,2) NOT NULL,
     ReservePrice DECIMAL(18,2) NOT NULL,
     EstimateMinPrice DECIMAL(18,2) NOT NULL,
@@ -93,14 +100,14 @@ CREATE TABLE Auction (
 CREATE TABLE Bid (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     AuctionId INT FOREIGN KEY REFERENCES Auction(Id) ON DELETE CASCADE NOT NULL,
-    UserId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
+    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
     Amount DECIMAL(18,2) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
 CREATE TABLE Post (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    UserId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
+    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE CASCADE NOT NULL,
     Text VARCHAR(2048) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -108,7 +115,7 @@ CREATE TABLE Post (
 CREATE TABLE Comment (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     PostId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
-    UserId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
+    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
     Text VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -116,13 +123,20 @@ CREATE TABLE Comment (
 CREATE TABLE [Like] (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     PostId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
-    UserId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
+    UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
+    CreatedAt DATETIME NOT NULL
+);
+
+CREATE TABLE Picture (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ReferenceId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
+    Link VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
 CREATE TABLE FixedPriceListing (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    ProductId INT FOREIGN KEY REFERENCES Product(Id) NOT NULL,
+    ProductId INT FOREIGN KEY REFERENCES Product(Id) ON DELETE CASCADE NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
     IsArchived BIT NOT NULL,
     CreatedAt DATETIME NOT NULL
@@ -130,19 +144,19 @@ CREATE TABLE FixedPriceListing (
 
 CREATE TABLE FixedPriceListingPurchase (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    BuyerId INT FOREIGN KEY REFERENCES [User](Id) NOT NULL,
-    FixedPriceListingId INT FOREIGN KEY REFERENCES FixedPriceListing(Id) ON DELETE CASCADE NOT NULL,
+    BuyerId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE NO ACTION NOT NULL,
+    FixedPriceListingId INT FOREIGN KEY REFERENCES FixedPriceListing(Id) ON DELETE NO ACTION NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
 -- Insert mock data into the tables
-INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, Role, CreatedAt)
+INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ProfilePictureLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 0, '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 0, '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 0, '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 0, '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://personal.link/user1', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://personal.link/user1', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://personal.link/user1', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://personal.link/user1', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
@@ -207,3 +221,11 @@ VALUES
     (3, 4, '2023-11-28T12:45:00'),
     (4, 5, '2023-11-28T13:00:00'),
     (5, 1, '2023-11-28T13:15:00');
+
+INSERT INTO Picture (ReferenceId, Link, CreatedAt)
+VALUES
+    (1, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (2, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (3, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (4, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
+    (5, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00');

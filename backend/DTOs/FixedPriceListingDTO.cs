@@ -1,17 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#nullable disable
+
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class FixedPriceListingDTO
+    public class FixedPriceListingDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int Id { get; set; }
+        public int Id { get; private set; } = id;
 
-        [Required]
-        [Range(1, int.MaxValue)]
-        public int ProductId { get; set; }
-        public ProductDTO Product { get; set; }
+        public DateTime? CreatedAt { get; private set; } = createdAt;
+
+        public int ProductId { get; private set; }
+
+        private ProductDTO _product;
+        public ProductDTO Product 
+        { 
+            get => _product; 
+            set 
+            { 
+                _product = value;
+                ProductId = _product?.Id ?? default;
+            } 
+        }
 
         [Required]
         [Range(0.01, double.MaxValue)]
@@ -19,9 +31,5 @@ namespace backend.DTOs
 
         [Required]
         public bool IsArchived { get; set; }
-
-        //[CurrentDateTime(ErrorMessage = "CreatedAt must be within the range of the current time minus 1 minute to the current time.")]
-        // Sorry Ondrej
-        public DateTime? CreatedAt { get; set; }
     }
 }

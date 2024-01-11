@@ -1,8 +1,10 @@
-﻿namespace backend.Data.Models;
+﻿#nullable disable
+
+namespace backend.Data.Models;
 
 public class DbFixedPriceListing : BaseDbModel
 {
-    public int ProductId { get; set; }
+    public int? ProductId { get; set; }
 
     public decimal Price { get; set; }
 
