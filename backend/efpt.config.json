@@ -40,7 +40,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Picture]",
+         "Name": "[dbo].[ProductImage]",
          "ObjectType": 0
       },
       {

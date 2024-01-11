@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
-   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper, IProductService productService) : IAuctionService
+   public class AuctionService(IAuctionRepository auctionRepository, IMapper mapper) : IAuctionService
    {
         private readonly IAuctionRepository _auctionRepository = auctionRepository;
-        private readonly IProductService _productService = productService;
         private readonly IMapper _mapper = mapper;
         protected internal ModelStateDictionary modelState = new();
 

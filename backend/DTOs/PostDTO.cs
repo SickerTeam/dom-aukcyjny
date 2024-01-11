@@ -22,6 +22,6 @@ namespace backend.DTOs
 
         public virtual ICollection<CommentDTO> Comments { get; set; }
         public virtual ICollection<LikeDTO> Likes { get; set; }
-        public virtual ICollection<PictureDTO> Pictures { get; set; }
+        public virtual ICollection<ProductImageDTO> ProductImages { get; set; }
     }
 }

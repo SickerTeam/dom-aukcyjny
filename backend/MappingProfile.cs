@@ -24,7 +24,7 @@ namespace backend
             CreateMap<DbComment, CommentDTO>();
             CreateMap<CommentDTO, DbComment>();
 
-            CreateMap<PictureCreationDTO, DbProductImage>();
+            CreateMap<ProductImageCreationDTO, DbProductImage>();
             CreateMap<DbProductImage, ProductImageDTO>();
             CreateMap<ProductImageDTO, DbProductImage>();
 
