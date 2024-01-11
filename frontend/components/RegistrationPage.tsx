@@ -10,7 +10,7 @@ type RegistrationPageProps = {
     bio: string;
     country: string;
     personalLink: string;
-    profilePictureLink: string;
+    imageLink: string;
   };
   handleChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -173,10 +173,10 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="profilePictureLink"
+          id="imageLink"
           type="text"
-          name="profilePictureLink"
-          value={formData.profilePictureLink}
+          name="imageLink"
+          value={formData.imageLink}
           onChange={handleChange}
           placeholder="Enter your profile picture link"
         />

@@ -14,7 +14,7 @@ const Registration = () => {
     bio: "",
     country: "",
     personalLink: "",
-    profilePictureLink: "",
+    imageLink: "",
   });
 
   const handleChange = (
