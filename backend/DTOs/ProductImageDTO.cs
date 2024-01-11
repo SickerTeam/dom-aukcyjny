@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace backend.DTOs;
 
 public class ProductImageDTO
@@ -6,5 +8,6 @@ public class ProductImageDTO
 
     public ProductDTO? Product { get; set; }
 
+    [Required]
     public required string Link { get; set; }
 }

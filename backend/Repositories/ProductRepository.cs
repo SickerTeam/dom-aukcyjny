@@ -14,6 +14,7 @@ namespace backend.Repositories
         {
             return await _context.Products
                 .Include(product => product.Seller)
+                .Include(product => product.ProductImages)
                 .ToListAsync();
         }
 
@@ -22,6 +23,7 @@ namespace backend.Repositories
             return await _context.Products
                 .Where(x => x.Id == id)
                 .Include(product => product.Seller)
+                .Include(product => product.ProductImages)
                 .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
         }
 

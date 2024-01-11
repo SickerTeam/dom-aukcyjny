@@ -29,6 +29,7 @@ namespace backend.Services
                 Width = productDTO.Width,
                 Depth = productDTO.Depth,
                 Weight = productDTO.Weight,
+                ProductImages = _mapper.Map<ICollection<DbProductImage>>(productDTO.ProductImages),
                 Title = productDTO.Title,
                 Description = productDTO.Description,
                 Artist = productDTO.Artist,

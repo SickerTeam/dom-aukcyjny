@@ -1,7 +1,6 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using backend.Data.Models;
 
 namespace backend.DTOs
 {
