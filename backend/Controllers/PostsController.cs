@@ -12,7 +12,7 @@ namespace backend.Controllers
         private readonly IPostService _postService = postService;
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
+        public async Task<ActionResult<FixedPriceListingDTO>> GetPostById(int id)
         {
             PostDTO posts = await _postService.GetPostByIdAsync(id);
             return Ok(posts);

@@ -18,7 +18,6 @@ namespace backend.DTOs
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
         public required string Text { get; set; }
 
-
         public string? ImageLink { get; set; }
 
         public virtual List<CommentDTO>? Comments { get; set; }
