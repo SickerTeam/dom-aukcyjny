@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import apiService from "../../services/apiService";
-import { v4 as uuidv4 } from 'uuid';
+
 
 export default function PostAPost() {
+ const { v4: uuidv4 } = require('uuid');
  const [text, setText] = useState('');
  const [fileName, setFileName] = useState("");
  const [Link, setLink] = useState("");

@@ -44,7 +44,7 @@ export default function PostPage() {
         </div>
         <div className='w-1/3'>
             <PostAPost/>
-            {postsr.map((post: any, index: number) => <PostCard key={index} post={post}/>)}
+            {postsr.map((post: any, index: number) => <PostCard key={index} post={post} user={post.user} />)}
         </div>
         <div className='w-1/3 '>
           {users.map((user: User) => (
