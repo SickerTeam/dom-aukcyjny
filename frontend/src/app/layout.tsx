@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Footer, Navbar } from "../../components";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
   title: "Dom Aukcyjny",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Analytics />
+        <SpeedInsights />
         <Footer />
       </body>
     </html>
