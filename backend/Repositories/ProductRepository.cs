@@ -6,14 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
-    public class ProductRepository(DatabaseContext context) : IProductRepository
+    public class ProductRepository(DatabaseContext context, IProductImageRepository productImageRepository) : IProductRepository
     {
         private readonly DatabaseContext _context = context;
+        private readonly IProductImageRepository _productImageRepository = productImageRepository;
         
         public async Task<IEnumerable<DbProduct>> GetAllProductsAsync()
         {
             return await _context.Products
-                .Include(product => product.Seller)
+                .Include(p => p.Seller)
+                .Include(p => p.ProductImages)
                 .ToListAsync();
         }
 
@@ -21,7 +23,8 @@ namespace backend.Repositories
         {
             return await _context.Products
                 .Where(x => x.Id == id)
-                .Include(product => product.Seller)
+                .Include(p => p.Seller)
+                .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync() ?? throw new Exception("Product not found");
         }
 

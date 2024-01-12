@@ -25,5 +25,7 @@
         public virtual ICollection<DbAuction>? Auctions { get; set; } = new List<DbAuction>();
 
         public virtual ICollection<DbFixedPriceListing>? FixedPriceListings { get; set; } = new List<DbFixedPriceListing>();
+
+        public virtual ICollection<DbProductImage>? ProductImages { get; set; }
     }
 }

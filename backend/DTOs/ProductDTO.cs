@@ -28,6 +28,8 @@ namespace backend.DTOs
         [Range(0.01, double.MaxValue)]
         public double Weight { get; set; }
 
+        public virtual ICollection<ProductImageDTO> ProductImages { get; set; }
+
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
         public string Title { get; set; }

@@ -12,8 +12,6 @@ namespace backend.Repositories
         {
             return await _context.Auctions
                 .Include(auction => auction.Product)
-                //.Include(auction => auction.Product.Seller)
-                //.Include(auction => auction.Bids)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .ToListAsync();
         }

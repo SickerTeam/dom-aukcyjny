@@ -11,9 +11,3 @@ namespace backend.Services
         Task DeleteLikeAsync(int id);
     }
 }
-
-
-
-
-
-

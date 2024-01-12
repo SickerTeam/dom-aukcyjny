@@ -1,5 +1,3 @@
-#nullable disable
-
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
@@ -18,10 +16,12 @@ namespace backend.DTOs
 
         [Required]
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
-        public string Text { get; set; }
+        public required string Text { get; set; }
 
-        public virtual ICollection<CommentDTO> Comments { get; set; }
-        public virtual ICollection<LikeDTO> Likes { get; set; }
-        public virtual ICollection<PictureDTO> Pictures { get; set; }
+
+        public string? ImageLink { get; set; }
+
+        public virtual List<CommentDTO>? Comments { get; set; }
+        public virtual List<LikeDTO>? Likes { get; set; }
     }
 }
