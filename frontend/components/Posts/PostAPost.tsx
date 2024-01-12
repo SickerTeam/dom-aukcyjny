@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import apiService from "../../services/apiService";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PostAPost() {
  const [text, setText] = useState('');
  const [fileName, setFileName] = useState("");
- const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+ const [Link, setLink] = useState("");
+ const [imageLink, setimageLink] = useState("");
  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
  let isRunning = false
 
@@ -15,30 +17,20 @@ export default function PostAPost() {
     return
   }
   isRunning = true
+  const name = uuidv4();
 
    try {
-     const createdAt = new Date().toISOString();
-     let url;
+    
+    const accessUrl = (`https://zongbucket.s3.eu-north-1.amazonaws.com/Posts/${name}`)
+     const uploadResponse = await fetch(`https://localhost:5156/Amazon?key=Posts/${name}`);
+     let fileUpload;
+     const uploadurl = await uploadResponse.text()
+     console.log(uploadurl+" url")
 
-     const response = await fetch("http://localhost:5156/Posts", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify({ userId, text, createdAt }),
-     });    
-
-     if (response.ok) {
-      const data = await response.json();
-      const postId = data.id;
-       const response2 = await fetch(`http://localhost:5156/Amazon?key=Posts/${postId}`);
-       url = await response2.text();
-     }
-
-     if (url && selectedFiles) {
+     if (uploadResponse.ok && selectedFiles) {
        const data = new FormData();
        data.append('file', selectedFiles[0], selectedFiles[0].name);
-       const fileUpload = await fetch(url, {
+       fileUpload = await fetch(uploadurl, {
          method: "PUT",
          headers: {
             "Content-Type": "image/jpeg",
@@ -50,11 +42,21 @@ export default function PostAPost() {
      } else {
        console.log("Failed to create post");
      }
+
+     if (fileUpload) {
+     const response2 = await fetch("https://localhost:5156/Posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, text, imageLink: accessUrl}),
+      });
+     }
    } catch (error) {
      console.error("Error:", error);
    }
    setText("");
-   setImagePreviewUrl("");
+   setLink("");
    setSelectedFiles(null)
    window.location.reload();
    isRunning = false
@@ -64,7 +66,7 @@ export default function PostAPost() {
    const { files } = event.target;
    setFileName(files?.[0]?.name || "");
    if (files?.[0]) {
-     setImagePreviewUrl(URL.createObjectURL(files[0]));
+     setLink(URL.createObjectURL(files[0]));
      setSelectedFiles(files);
    }
  };
@@ -75,11 +77,11 @@ export default function PostAPost() {
        <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Whats on your mind?" className="w-full focus:outline-none m-4"/>
      </div>
      
-     {imagePreviewUrl && <img src={imagePreviewUrl} alt="Selected" />}
+     {Link && <img src={Link} alt="Selected" />}
      <div className="flex justify-between">
      <input type="file" id="fileInput" style={{display: 'none'}} onChange={handleFileChange}/>
        <label htmlFor="fileInput" className="upload-icon">
-         <img src="/../../like.ico" alt="Search Icon" className="w-6 h-6 m-4"  />
+         <img src="/../../image.svg" alt="Search Icon" className="w-6 h-6 m-4"  />
        </label>
        <button 
           onClick={() => handleSubmit(text)} 

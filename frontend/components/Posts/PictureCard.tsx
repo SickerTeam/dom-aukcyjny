@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 
 interface PictureCardProps {
-    imageUrl: string;
+    image: string;
 }
 
-const PictureCard: React.FC<PictureCardProps> = ({ imageUrl }) => {
+const PictureCard: React.FC<PictureCardProps> = ({ image }) => {
     return (
         <div className=''>
-             <Image className="rounded-md" src={imageUrl} alt="Post Image" width={500} height={500}  objectFit="cover" />
+             <Image className="rounded-md" src={image} alt="Post Image" width={500} height={500}  objectFit="cover" />
         </div>
 
     );

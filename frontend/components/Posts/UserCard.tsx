@@ -6,7 +6,7 @@ const UserCard = ({user: user} : {user:any} ) => {
         user && (
             <div>
                 <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6">
-                    <Image src={`https://zongbucket.s3.eu-north-1.amazonaws.com/Users/${user.id}` || '/../../cv3.png'} alt="" className="mr-3 w-9 h-9 rounded-full bg-slate-50 dark:bg-slate-800" decoding="async" width={500} height={500}/>
+                    <Image src={`${user.imageLink}` || '/../../cv3.png'} alt="" className="mr-3 w-9 h-9 rounded-full bg-slate-50 dark:bg-slate-800" decoding="async" width={500} height={500}/>
                     <div className="text-sm leading-4">
                         <div className="text-slate-900 dark:text-slate-800">{user.firstName} {user.lastName}</div>
                     </div>

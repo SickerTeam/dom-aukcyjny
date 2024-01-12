@@ -32,6 +32,7 @@ namespace backend.Services
             { 
                UserId = postCreationDto.UserId,
                Text = postCreationDto.Text,
+               ImageLink = postCreationDto.ImageLink,
                CreatedAt = DateTime.UtcNow
             };
 

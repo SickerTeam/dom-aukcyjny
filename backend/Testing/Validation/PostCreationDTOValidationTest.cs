@@ -14,6 +14,7 @@ namespace Testing.Validation
             {
                 UserId = 1,
                 Text = "Sample text",
+                ImageLink = "Sample image link"
             };
         }
 

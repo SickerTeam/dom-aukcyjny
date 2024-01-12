@@ -19,7 +19,7 @@ export default function PostPage() {
   const postsr = [...posts].reverse();
 
   useEffect(() => {
-    fetch('http://localhost:5156/Users')
+    fetch('https://localhost:5156/Users')
       .then((res) => {
         res.json().then((data) => {
           console.log(data)
@@ -27,7 +27,7 @@ export default function PostPage() {
         });
       }).catch((error) => console.error(error));
 
-    fetch('http://localhost:5156/Posts')
+    fetch('https://localhost:5156/Posts')
       .then((res) => {
         res.json().then((data) => {
           setPosts(data);

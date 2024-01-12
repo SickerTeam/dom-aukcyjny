@@ -3,10 +3,14 @@
 import { useEffect, useState } from 'react';
 import PictureCard from './PictureCard';
 import UserCard from './UserCard';
+import User from '@/app/users/[id]/page';
 
 
 type PostCardType = {
   post: any;
+  user: {
+    imageLink: string;
+  }
 };
 
 const calculateTimeAgo = (post: any) => {
@@ -26,14 +30,14 @@ const calculateTimeAgo = (post: any) => {
     : `${minutesDifference} minutes ago`;
 };
 
+
+
 export default function PostCard({post}: PostCardType){
-
-
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState();
   const userId = 4;
 
   useEffect(() => {
-    fetch(`http://localhost:5156/Users/${post.userId}`)
+    fetch(`https://localhost:5156/Users/${post.userId}`)
       .then((res) => {
         res.json().then((data) => {
           console.log(data+"user")
@@ -43,7 +47,6 @@ export default function PostCard({post}: PostCardType){
   }, []);
 
   const timeAgo = calculateTimeAgo(post);
-  const imageUrl = `https://zongbucket.s3.eu-north-1.amazonaws.com/Posts/${post.id}`;
 
   
   function handleLike() {
@@ -52,7 +55,7 @@ export default function PostCard({post}: PostCardType){
       postId: post.id,
     };
   
-    fetch("http://localhost:5156/Likes", {
+    fetch("https://localhost:5156/Likes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +76,7 @@ export default function PostCard({post}: PostCardType){
         <div className=" ">
           <div className="mt-6">
             <ul className="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
-              <div> <UserCard user={user} /> </div>
+              <div> <UserCard user={post && post.user} /> </div>
               <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6 ml-auto">
                 <div className="text-sm leading-4">
                   <div className="text-slate-900 dark:text-slate-400">{timeAgo}</div>
@@ -82,9 +85,9 @@ export default function PostCard({post}: PostCardType){
             </ul>
           </div>
         </div>
-        <p>{post.text}</p>
+        <p>{post && post.text}</p>
         <div>
-          <PictureCard imageUrl={imageUrl} />
+          <PictureCard image={post && post.imageLink} />
         </div>        
         <div className="likes-comments mt-4">
           <div>
@@ -93,7 +96,7 @@ export default function PostCard({post}: PostCardType){
           </div>
           <div className="flex items-center space-x-2">
             {/* Use space-x utility class for horizontal spacing */}
-            <img src="/../../comment.ico" alt="" />
+            <img src="/../../comment.ico " alt="" />
             <img src="/../../like.ico" alt="" />
           </div>
         </div>
