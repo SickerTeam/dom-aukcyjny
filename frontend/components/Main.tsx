@@ -8,7 +8,6 @@ import UsersList from "@/app/users/page";
 const Main = () => {
   return (
     <div className="flex flex-col gap-14">
-      <Banner />
       <ArtistsOverview />
       <DailyDiscovery />
       <PopularAuctions />

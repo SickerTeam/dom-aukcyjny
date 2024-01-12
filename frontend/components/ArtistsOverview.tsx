@@ -9,20 +9,16 @@ import {
 import ArtistCard from "./ArtistCard";
 
 const ArtistsOverview = () => {
-  const artists = [
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-  ];
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://localhost:5156/Users`)
+      .then((res) => {
+        res.json().then((data) => {
+          setArtists(data);
+        });
+      }).catch((error) => console.error(error));
+  }, []);
 
   const scrollContainer = useRef<HTMLDivElement>(null);
   const [showArrows, setShowArrows] = useState({ left: false, right: false });
@@ -71,12 +67,12 @@ const ArtistsOverview = () => {
   }, []);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }}>  
       <h2 className="text-xl  ">
         Buy or bid on over{" "}
-        <span className="italic text-main-green">2,137 objects</span> every
+        <span className="italic text-main-green">372 objects</span> every
         week, created by{" "}
-        <span className="italic text-main-green">420+ artists</span>
+        <span className="italic text-main-green">211 artists</span>
       </h2>
       <div className="flex justify-center">
         <div className="scroll-arrows">
