@@ -20,12 +20,19 @@ namespace backend.Services
             return _mapper.Map<PostDTO>(post);
         }
 
+        public async Task<IEnumerable<PostDTO>> GetAllPostsAsync()
+        {
+            IEnumerable<DbPost> posts = await _postRepository.GetAllPostsAsync();
+            return _mapper.Map<IEnumerable<PostDTO>>(posts);
+        }
+
         public async Task<PostDTO> CreatePostAsync(PostCreationDTO postCreationDto)
         {
             DbPost dbPost = new()
             { 
                UserId = postCreationDto.UserId,
                Text = postCreationDto.Text,
+               ImageLink = postCreationDto.ImageLink,
                CreatedAt = DateTime.UtcNow
             };
 
