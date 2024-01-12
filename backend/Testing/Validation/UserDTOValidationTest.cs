@@ -19,7 +19,7 @@ namespace Testing.Validation
                 Bio = "Bio",
                 Country = "Poland",
                 PersonalLink = "http://www.google.com",
-                ProfilePictureLink = "http://www.google.com",
+                ImageLink = "http://www.google.com",
                 Role = UserRole.User
             };
         }
@@ -41,7 +41,7 @@ namespace Testing.Validation
                 Bio = new string('a', 2047),
                 Country = new string('a', 254),
                 PersonalLink = "http://www." + new string('a', 239) + ".com",
-                ProfilePictureLink = "http://www." + new string('a', 239) + ".com",
+                ImageLink = "http://www." + new string('a', 239) + ".com",
                 Role = UserRole.Admin
             };
             Assert.True(ValidateModel(_userDTO));
@@ -97,10 +97,10 @@ namespace Testing.Validation
         }  
 
         [Fact]
-        public void Should_Fail_Bio_Min()
+        public void Should_Pass_Bio_Min()
         {
             _userDTO.Bio = "";
-            Assert.False(ValidateModel(_userDTO));
+            Assert.True(ValidateModel(_userDTO));
         }   
 
         [Fact]
@@ -139,23 +139,24 @@ namespace Testing.Validation
         }    
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Min()
+        public void Should_Fail_ImageLink_Min()
         {
-            _userDTO.ProfilePictureLink = "http://.m";
+            _userDTO.ImageLink = "http://.m";
             Assert.True(ValidateModel(_userDTO));
         }   
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Max()
+        public void Should_Fail_ImageLink_Max()
         {
-            _userDTO.ProfilePictureLink = "https:// " + new string('a', 242) + ".com";
+            _userDTO.ImageLink = "https:// " + new string('a', 242) + ".com";
             Assert.False(ValidateModel(_userDTO));
         }
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

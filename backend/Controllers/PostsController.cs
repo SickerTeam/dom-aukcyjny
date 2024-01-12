@@ -20,7 +20,7 @@ namespace backend.Controllers
         /// <param name="id">The ID of the fixed price listing.</param>
         /// <returns>An ActionResult containing the fixed price listing as a FixedPriceListingDTO.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<FixedPriceListingDTO>> GetFixedPriceListingById(int id)
+        public async Task<ActionResult<FixedPriceListingDTO>> GetPostById(int id)
         {
             PostDTO posts = await _postService.GetPostByIdAsync(id);
             return Ok(posts);

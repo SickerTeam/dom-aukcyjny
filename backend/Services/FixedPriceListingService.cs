@@ -18,13 +18,36 @@ namespace backend.Services
         public async Task<IEnumerable<FixedPriceListingDTO>> GetAllFixedPriceListingsAsync()
         {
             IEnumerable<DbFixedPriceListing> listings = await _listingRepository.GetAllFixedPriceListingsAsync();
-            return _mapper.Map<IEnumerable<FixedPriceListingDTO>>(listings);
+
+            var listingDtos = new List<FixedPriceListingDTO>();
+
+            foreach (var listing in listings)
+            {
+                var listingDto = _mapper.Map<FixedPriceListingDTO>(listing);
+
+                if (listing.ProductId.HasValue)
+                {
+                    var productDto = await _productService.GetProductByIdAsync(listing.ProductId.Value);
+                    listingDto.Product = productDto;
+                    listingDtos.Add(listingDto);
+                }
+            }
+
+            return listingDtos;
         }
 
         public async Task<FixedPriceListingDTO> GetFixedPriceListingByIdAsync(int id)
         {
-            DbFixedPriceListing fixedPriceListing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
-            return _mapper.Map<FixedPriceListingDTO>(fixedPriceListing);
+            DbFixedPriceListing listing = await _listingRepository.GetFixedPriceListingByIdAsync(id);
+            var listingDto = _mapper.Map<FixedPriceListingDTO>(listing);
+
+            if (listing.ProductId.HasValue)
+            {
+                var productDto = await _productService.GetProductByIdAsync(listing.ProductId.Value);
+                listingDto.Product = productDto;
+            }
+
+            return listingDto;
         }
 
         public async Task<DbFixedPriceListing> AddFixedPriceListingAsync(FixedPriceListingCreationDTO fixedPriceListingDto)

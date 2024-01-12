@@ -37,7 +37,7 @@ namespace backend
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-            builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+            builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
             builder.Services.AddScoped<IBidRepository, BidRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
@@ -48,7 +48,7 @@ namespace backend
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
-            builder.Services.AddScoped<IPictureService, PictureService>();
+            builder.Services.AddScoped<IProductImageService, ProductImageService>();
             builder.Services.AddScoped<IBidService, BidService>();
 
             builder.Services.AddCors(options =>

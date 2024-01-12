@@ -13,7 +13,6 @@ namespace backend.Repositories
             return await _context.Posts
                 .Include(p => p.Comments)
                 .Include(p => p.Likes)
-                .Include(p => p.Pictures)
                 .ToListAsync();
         }
 
@@ -22,7 +21,6 @@ namespace backend.Repositories
             DbPost post = await _context.Posts
                 .Include(p => p.Comments)
                 .Include(p => p.Likes)
-                .Include(p => p.Pictures)
                 .FirstOrDefaultAsync(p => p.Id == id) ?? throw new ArgumentException("Post not found");
             return post;
         }

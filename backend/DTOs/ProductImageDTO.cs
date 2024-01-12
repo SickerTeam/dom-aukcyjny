@@ -1,10 +1,8 @@
-#nullable disable
-
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class PictureDTO(int id, DateTime? createdAt)
+    public class ProductImageDTO(int id, DateTime? createdAt)
     {
         [Required]
         [Range(1, int.MaxValue)]
@@ -14,15 +12,11 @@ namespace backend.DTOs
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int PostId { get; set; }
+        public int ProductId { get; set; }
 
         [Required]
         [Url]
         [StringLength(1023, ErrorMessage = "Text cannot exceed 1023 characters.")]
-        public string Link { get; set; }
-        
-        [Required]
-        [Range(1, int.MaxValue)]
-        public int UserId { get; set; }
+        public required string Link { get; set; }
     }
 }

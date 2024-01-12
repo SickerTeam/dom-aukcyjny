@@ -34,7 +34,6 @@ namespace backend.Services
         {
             DbUser user = _mapper.Map<DbUser>(userDto);
             await _userRepository.AddUserAsync(user);
-
         }
 
         public async Task<DbUser> GetUserByEmailAsync(string email)

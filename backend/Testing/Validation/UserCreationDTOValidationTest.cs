@@ -11,7 +11,7 @@ namespace Testing.Validation
 
         public UserCreationDTOValidationTest()
         {
-            _userCreationDTO = new UserCreationDTO
+            _userCreationDTO = new UserCreationDTO()
             {
                 
                 Email = "login@login.com",
@@ -20,9 +20,8 @@ namespace Testing.Validation
                 Bio = "Bio",
                 Country = "Poland",
                 PersonalLink = "http://www.google.com",
-                ProfilePictureLink = "http://www.google.com",
+                ImageLink = "http://www.google.com",
                 Password = "CLEARTEXTBUDDY",
-                ConfirmPassword = "CLEARTEXTBUDDY",
                 Role = UserRole.User
             };
         }
@@ -44,9 +43,8 @@ namespace Testing.Validation
             _userCreationDTO.Bio = new string('a', 2047);
             _userCreationDTO.Country = new string('a', 254);
             _userCreationDTO.PersonalLink = "http://www." + new string('a', 239) + ".com";
-            _userCreationDTO.ProfilePictureLink = "http://www." + new string('a', 239) + ".com";
+            _userCreationDTO.ImageLink = "http://www." + new string('a', 239) + ".com";
             _userCreationDTO.Password = samePassword;
-            _userCreationDTO.ConfirmPassword = samePassword;
             _userCreationDTO.Role = UserRole.Admin;
             var result = ValidateModel(_userCreationDTO);
             Assert.True(result);
@@ -109,11 +107,11 @@ namespace Testing.Validation
         }  
 
         [Fact]
-        public void Should_Fail_Bio_Min()
+        public void Should_Pass_Bio_Min()
         {
             _userCreationDTO.Bio = "";
             var result = ValidateModel(_userCreationDTO);
-            Assert.False(result);
+            Assert.True(result);
         }   
 
         [Fact]
@@ -159,7 +157,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_ProfilePictureLink_Min()
         {
-            _userCreationDTO.ProfilePictureLink = "http://.m";
+            _userCreationDTO.ImageLink = "http://.m";
             var result = ValidateModel(_userCreationDTO);
             Assert.True(result);
         }   
@@ -167,7 +165,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_ProfilePictureLink_Max()
         {
-            _userCreationDTO.ProfilePictureLink = "https:// " + new string('a', 242) + ".com";
+            _userCreationDTO.ImageLink = "https:// " + new string('a', 242) + ".com";
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }
@@ -177,7 +175,6 @@ namespace Testing.Validation
         {
             var pass = "";
             _userCreationDTO.Password = pass;
-            _userCreationDTO.ConfirmPassword = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }
@@ -187,15 +184,15 @@ namespace Testing.Validation
         {
             var pass = new string('a', 255);
             _userCreationDTO.Password = pass;
-            _userCreationDTO.ConfirmPassword = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
         }
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

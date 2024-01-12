@@ -20,7 +20,7 @@ namespace Testing.Validation
                 FirstName = "First name",
                 LastName = "Last name",
                 PersonalLink = "www.google.com",
-                ProfilePictureLink = "www.google.com",
+                ImageLink = "www.google.com",
                 Role = UserRole.User
             };
 
@@ -129,8 +129,9 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }
