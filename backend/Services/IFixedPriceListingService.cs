@@ -11,5 +11,6 @@ namespace backend.Services
         Task DeleteFixedPriceListingAsync(int id);
         Task<IEnumerable<FixedPriceListingDTO>> GetAllFixedPriceListingsAsync();
         Task<FixedPriceListingDTO> GetFixedPriceListingByIdAsync(int id);
+        Task<int> GetNumberOfFixedPriceListingsAsync();
     }
 }

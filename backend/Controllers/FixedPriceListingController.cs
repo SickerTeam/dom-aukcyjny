@@ -26,6 +26,13 @@ namespace backend.Controllers
             return Ok(fixedPriceListing);
         }
 
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetNumberOfFixedPriceListings()
+        {
+            int count = await _fixedPriceListingService.GetNumberOfFixedPriceListingsAsync();
+            return Ok(count);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddFixedPriceListing(FixedPriceListingCreationDTO fixedPriceListingDto)
         {

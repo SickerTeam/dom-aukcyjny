@@ -44,5 +44,10 @@ public class FixedPriceListingRepository(DatabaseContext context) : IFixedPriceL
                 
             return listing ?? throw new ArgumentException("Fixed price listing not found");
         }
+
+        public async Task<int> GetNumberOfFixedPriceListingsAsync()
+        {
+            return await _context.FixedPriceListings.CountAsync();
+        }
     }
 }

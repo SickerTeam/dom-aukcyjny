@@ -6,6 +6,7 @@ namespace backend.Repositories
     {
         Task<IEnumerable<DbAuction>> GetAuctionsAsync();
         Task<DbAuction> GetAuctionByIdAsync(int id);
+        Task<int> GetNumberOfAuctions();
         Task<DbAuction> CreateAuctionAsync(DbAuction auction);
         Task UpdateAuctionAsync(DbAuction auction);
         Task DeleteAuctionAsync(DbAuction auction);

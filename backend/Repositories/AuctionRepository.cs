@@ -27,6 +27,11 @@ namespace backend.Repositories
             return auction ?? throw new ArgumentException("Auction not found");
         }
 
+        public async Task<int> GetNumberOfAuctions()
+        {
+            return await _context.Auctions.CountAsync();
+        }
+
         public async Task<DbAuction> CreateAuctionAsync(DbAuction dbAuction)
         {
             await _context.Auctions.AddAsync(dbAuction);

@@ -43,6 +43,11 @@ namespace backend.Services
 
         }
 
+        public async Task<int> GetNumberOfAuctions()
+        {
+            return await _auctionRepository.GetNumberOfAuctions();
+        }
+
         public async Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auctionDto)
         {
             DbAuction dbAuction = _mapper.Map<DbAuction>(auctionDto);
