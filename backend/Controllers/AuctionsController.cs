@@ -25,7 +25,15 @@ namespace backend.Controllers
             return Ok(auction);
         }
 
-        [HttpPost]
+        [HttpGet("count")]
+        public async Task<IActionResult> GetNumberOfAuctions()
+        {
+            int numberOfAuctions = await _auctionService.GetNumberOfAuctions();
+            return 
+        }
+
+
+        public async Ta        [HttpPost]
         public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {
             auctionDto.Product.SellerId = 1; // change it to the current user id

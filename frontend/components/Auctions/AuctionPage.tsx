@@ -12,6 +12,7 @@ import apiService from "../../services/apiService";
 
 type AuctionPageType = {
   id: string;
+  photos: string[];
 };
 
 const AuctionPage = ({ id }: AuctionPageType) => {
@@ -29,7 +30,7 @@ const AuctionPage = ({ id }: AuctionPageType) => {
       <div className="col-span-3 row-span-5">
         <Path title={auction.product.title} />
         <ArtworkTitle title={auction.product.title} />
-        {/* <PhotoDisplay photos={auction.photos} /> */}
+        { <PhotoDisplay photos={auction.photos} /> }
       </div>
       <div className="row-span-3 col-start-4">
         <AuctionPanel auction={auction} />

@@ -7,17 +7,29 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import ArtistCard from "./ArtistCard";
+import apiService from "../services/apiService";
 
-const ArtistsOverview = () => {
+const ArtistsOverview =  () => {
   const [artists, setArtists] = useState([]);
+  const [artistNubmer, setArtistNumber] = useState(0);
+  const [artNubmer, setArtNumber] = useState(0);
 
   useEffect(() => {
-    fetch(`https://localhost:5156/Users`)
-      .then((res) => {
-        res.json().then((data) => {
-          setArtists(data);
-        });
-      }).catch((error) => console.error(error));
+    // fetch(`https://localhost:5156/Users`)
+    //   .then((res) => {
+    //     res.json().then((data) => {
+    //       setArtists(data);
+    //     });
+    //   }).catch((error) => console.error(error));
+    const fetchArtists = async () => {
+      try {
+        const response = await apiService.get(`/Users`);
+        setArtists(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchArtists();
   }, []);
 
   const scrollContainer = useRef<HTMLDivElement>(null);
@@ -72,7 +84,7 @@ const ArtistsOverview = () => {
         Buy or bid on over{" "}
         <span className="italic text-main-green">372 objects</span> every
         week, created by{" "}
-        <span className="italic text-main-green">211 artists</span>
+        <span className="italic text-main-green">{artists.length} artists</span>
       </h2>
       <div className="flex justify-center">
         <div className="scroll-arrows">
