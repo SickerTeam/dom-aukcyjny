@@ -11,18 +11,34 @@ import apiService from "../services/apiService";
 
 const ArtistsOverview = () => {
   const [artists, setArtists] = useState([]);
-  const [artistNubmer, setArtistNumber] = useState(0);
-  const [artNubmer, setArtNumber] = useState(0);
+  const [fixedNumber, setFixedNumber] = useState(0);
+  const [AuctionNumber, setAuctionNumber] = useState(0);
 
   useEffect(() => {
     const fetchArtists = async () => {
       try {
         const response = await apiService.get(`/Users`);
         setArtists(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        const response = await apiService.get(`/FixedPriceListings/count`);
+        setFixedNumber(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        const response = await apiService.get(`/Auctions/count`);
+        setAuctionNumber(response);
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchArtists();
   }, []);
 
@@ -76,7 +92,7 @@ const ArtistsOverview = () => {
     <div style={{ position: "relative" }}>
       <h2 className="text-xl  ">
         Buy or bid on over{" "}
-        <span className="italic text-main-green">372 objects</span> every week,
+        <span className="italic text-main-green">{AuctionNumber+fixedNumber} objects</span> every week,
         created by{" "}
         <span className="italic text-main-green">{artists.length} artists</span>
       </h2>

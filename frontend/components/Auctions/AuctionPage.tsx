@@ -11,24 +11,16 @@ import {
 import apiService from "../../services/apiService";
 
 type AuctionPageType = {
-  id: string;
+  auction: any;
   photos: string[];
 };
 
-const AuctionPage = ({ id }: AuctionPageType) => {
-  const [auction, setAuction] = useState({ product: { title: "" } });
-
-  useEffect(() => {
-    apiService
-      .get(`/auctions/${id}`)
-      .then((data) => setAuction(data))
-      .catch((error) => console.error("Error: ", error));
-  }, [id]);
+const AuctionPage = ({ auction }: AuctionPageType) => {
 
   return (
     <div className="grid grid-cols-4 grid-rows-7 gap-4  ">
       <div className="col-span-3 row-span-5">
-        <Path title={auction.product.title} />
+        
         <ArtworkTitle title={auction.product.title} />
         { <PhotoDisplay photos={auction.photos} /> }
       </div>

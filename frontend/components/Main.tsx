@@ -10,7 +10,7 @@ const Main = () => {
     <div className="flex flex-col gap-14">
       <Banner/>
       <ArtistsOverview />
-      <DailyDiscovery />
+      
       <PopularAuctions />
     </div>
   );

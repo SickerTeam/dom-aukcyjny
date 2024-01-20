@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import Link from "next/link";
 
 const Banner = () => {
 
@@ -8,18 +8,20 @@ const Banner = () => {
       <div className="w-fit self-center mx-2">
         <h1 className="w-auto text-3xl text-white">
           We connect{" "}
-          <span className="italic text-light-gray">Artists</span> and
-          <span className="italic text-light-gray">Art lovers</span> 
+          <span className="italic text-light-gray">Artists</span> and 
+          <span className="italic text-light-gray"> Art lovers</span> 
         </h1>
         <p className="w-80 pb-6 text-darker-white">
           We don't make mistakes, just happy little accidents. -Bob Ross
         </p>
-        <button
-          type="button"
+        <div
+          
           className="bg-light-gray italic text-black text-xl py-2 w-full rounded shadow-sm"
         >
-          <h2>Start browsing</h2>
-        </button>
+
+          <Link href="/auctions" className="text-center"><h2>Start browsing</h2></Link>
+          
+        </div>
       </div>
 
       <div className="self-center col-span-2  h-3/5">

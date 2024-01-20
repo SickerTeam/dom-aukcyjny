@@ -1,38 +1,23 @@
+"use client";
+import {  useEffect, useState } from "react";
 import PopularAuctionCard from "./PopularAuctionCard";
+import apiService from "../services/apiService";
 
 const PopularAuctions = () => {
-  const popularAuctions = [
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-    {
-      title: "Mona Lisa by Leonardo da Vinci (1503 - 1506)",
-      currentBid: "€1,300,000",
-      daysLeft: 2,
-    },
-  ];
+  const [popularAuctions, setpopularAuctions] = useState([]);
+  useEffect(() => {
+    const fetchAuction = async () => {
+      try {
+        const response = await apiService.get(`/Auctions`);
+        setpopularAuctions(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchAuction();
+  }, []);
+  
 
   return (
     <div className=" ">

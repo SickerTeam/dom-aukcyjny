@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import PictureCard from './PictureCard';
 import UserCard from './UserCard';
 import User from '@/app/users/[id]/page';
+import timerAgoCalculator from '../../services/timerAgoCalculator';
 
 
 type PostCardType = {
@@ -13,22 +14,7 @@ type PostCardType = {
   }
 };
 
-const calculateTimeAgo = (post: any) => {
-  const postTime = new Date(post.createdAt);
-  postTime.setHours(postTime.getHours() + 1 );
-  const currentTime = new Date();
-  const timeDifference = currentTime.getTime() - postTime.getTime();
 
-  const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-  return daysDifference > 0
-    ? `${daysDifference} days ago`
-    : hoursDifference > 0
-    ? `${hoursDifference} hours ago`
-    : `${minutesDifference} minutes ago`;
-};
 
 
 
@@ -46,7 +32,7 @@ export default function PostCard({post}: PostCardType){
       }).catch((error) => console.error(error));
   }, []);
 
-  const timeAgo = calculateTimeAgo(post);
+  const timeAgo = timerAgoCalculator.calculateTimeAgo(post.createdAt);
 
   
   function handleLike() {
