@@ -65,11 +65,11 @@ namespace backend.Controllers
          return Ok();
       }
 
-      [HttpGet]
-      public async Task<IActionResult> GetUsersInfo()
-      {
-         IEnumerable<UserInfoDTO> usersInfo = await _userService.GetUsersInfoAsync();
-         return Ok(usersInfo);
-      }
+      // [HttpGet]
+      // public async Task<IActionResult> GetUsersInfo()
+      // {
+      //    IEnumerable<UserInfoDTO> usersInfo = await _userService.GetUsersInfoAsync();
+      //    return Ok(usersInfo);
+      // }
    }
 }

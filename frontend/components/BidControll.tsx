@@ -64,7 +64,7 @@ const BidControll = ({
 
   return (
     <div className="bid-controll">
-      <div className="suggested-bids flex gap-1">
+      <div className="suggested-bids w-full flex gap-2 justify-between">
         {suggestedBids.map((bid: any, index: number) => (
           <PanelButton
             key={index}
@@ -73,23 +73,23 @@ const BidControll = ({
           />
         ))}
       </div>
-      <div className="my-2">
+      <div className="my-2 flex justify-between gap-2">
         <input
           type="text"
           inputMode="numeric"
           pattern="[0-9]+"
           placeholder={`€ 12,600 or up`}
-          className="px-4 py-1 border-dark-gray border-2 rounded bg-white"
+          className="px-4 py-1 shadow-sm rounded bg-white w-full"
           value={customBid || ""}
           onChange={handleInputChange}
         />
+        <button
+          className="px-4 py-1 shadow-sm rounded text-white bg-main-green min-w-max"
+          onClick={handleSubmit}
+        >
+          Place bid
+        </button>
       </div>
-      <button
-        className="px-4 py-1 border-dark-gray border-2 rounded bg-white"
-        onClick={handleSubmit}
-      >
-        Place bid
-      </button>
     </div>
   );
 };

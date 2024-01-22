@@ -20,11 +20,13 @@ const BidHistory = ({ history }: BidHistoryType) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 w-full">
       {history.map((bid, index) => (
-        <div key={index}>{`${
-          bid.user ? bid.user.firstName : "empty user"
-        } | ${formatDate(bid.createdAt)} | € ${bid.amount}`}</div>
+        <div key={index} className="flex justify-between">
+          <p>{bid.user?.firstName}</p>
+          <p>{formatDate(bid.createdAt)}</p>
+          <p>€ {bid.amount}</p>
+        </div>
       ))}
     </div>
   );
