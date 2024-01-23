@@ -3,7 +3,7 @@ import BuyNowControll from "./BuyNowControll";
 const BuyNowPanel = ({ buyNow }) => {
   return (
     <div className="panel-container bg-light-gray rounded-lg p-4">
-      <div className="panel-price-container mb-2">
+      <div className="panel-price-container mb-4">
         <p className="current-bid uppercase font-bold">Buy it now price</p>
         <h2 className="text-4xl">€ {buyNow.price}</h2>
       </div>
@@ -14,11 +14,10 @@ const BuyNowPanel = ({ buyNow }) => {
       <div className="my-4">
         <BuyNowControll buyNowId={buyNow.id} price={buyNow.price} />
       </div>
-      <div className="panel-info-container my-4">
+      <div className="panel-info-container mt-4">
         <p>Buyer protection</p>
         <p>Shipping information</p>
         <p>Buyer protection fee</p>
-        <p>Biding closes on ...</p>
       </div>
     </div>
   );

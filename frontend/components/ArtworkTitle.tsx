@@ -3,7 +3,11 @@ type ArtworkTitleType = {
 };
 
 const ArtworkTitle = ({ title }: ArtworkTitleType) => {
-  return <div>{title}</div>;
+  return (
+    <div>
+      <h1 className="text-4xl">{title}</h1>
+    </div>
+  );
 };
 
 export default ArtworkTitle;

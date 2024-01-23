@@ -87,7 +87,7 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
           </h4>
         </div>
         <div className="panel-owner-container flex gap-4 my-4 items-center">
-          <div className="w-[100px] h-[100px] bg-white rounded-full"></div>
+          {/* <div className="w-[100px] h-[100px] bg-white rounded-full"></div> */}
           <div className="owner-texts">
             <h3 className="text-lg">
               Estimates € {auction.estimateMinPrice} - €{" "}

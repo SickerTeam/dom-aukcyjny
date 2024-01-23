@@ -3,12 +3,11 @@ import { Artworks, Filters, Path } from "..";
 const AuctionsListPage = () => {
   return (
     <div>
-      <Path />
+      <div className="mb-4">
+        <Path />
+      </div>
       <Filters />
-
-      {/* <Suspense fallback={<div>Loading...</div>}> */}
       <Artworks />
-      {/* </Suspense> */}
     </div>
   );
 };
