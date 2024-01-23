@@ -1,21 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  ArtworkTitle,
-  AuctionDetails,
-  AuctionPanel,
-  Path,
-  PhotoDisplay,
-} from "..";
+import { ArtworkTitle, AuctionDetails, AuctionPanel, PhotoDisplay } from "..";
 import apiService from "../../services/apiService";
 
-type AuctionPageType = {
-  auction: any;
-  photos: string[];
-};
-
-const AuctionPage = ({ id }: AuctionPageType) => {
+const AuctionPage = ({ id }: any) => {
   const photos = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const [auction, setAuction] = useState({ product: { title: "" } });
