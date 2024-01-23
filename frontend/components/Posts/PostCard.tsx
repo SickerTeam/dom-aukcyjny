@@ -1,21 +1,20 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import PictureCard from './PictureCard';
-import UserCard from './UserCard';
-import User from '@/app/users/[id]/page';
-
+import { useEffect, useState } from "react";
+import PictureCard from "./PictureCard";
+import UserCard from "./UserCard";
+import User from "@/app/users/[id]/page";
 
 type PostCardType = {
   post: any;
   user: {
     imageLink: string;
-  }
+  };
 };
 
 const calculateTimeAgo = (post: any) => {
   const postTime = new Date(post.createdAt);
-  postTime.setHours(postTime.getHours() + 1 );
+  postTime.setHours(postTime.getHours() + 1);
   const currentTime = new Date();
   const timeDifference = currentTime.getTime() - postTime.getTime();
 
@@ -30,9 +29,7 @@ const calculateTimeAgo = (post: any) => {
     : `${minutesDifference} minutes ago`;
 };
 
-
-
-export default function PostCard({post}: PostCardType){
+export default function PostCard({ post }: PostCardType) {
   const [user, setUser] = useState();
   const userId = 4;
 
@@ -40,46 +37,50 @@ export default function PostCard({post}: PostCardType){
     fetch(`https://localhost:5156/Users/${post.userId}`)
       .then((res) => {
         res.json().then((data) => {
-          console.log(data+"user")
+          console.log(data + "user");
           setUser(data);
         });
-      }).catch((error) => console.error(error));
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   const timeAgo = calculateTimeAgo(post);
 
-  
   function handleLike() {
     const requestBody = {
       userId: userId,
       postId: post.id,
     };
-  
+
     fetch("https://localhost:5156/Likes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
-    })
-      .then((res) => {
-        res.json().then((data) => {
-          console.log("we just posted brother");
-          setUser(data);
-        });
-      })
+    }).then((res) => {
+      res.json().then((data) => {
+        console.log("we just posted brother");
+        setUser(data);
+      });
+    });
   }
 
   return (
-    <div className="flex justify-center items-center flex-row">      
+    <div className="flex justify-center items-center flex-row">
       <div className="mx-auto">
         <div className=" ">
           <div className="mt-6">
             <ul className="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
-              <div> <UserCard user={post && post.user} /> </div>
+              <div>
+                {" "}
+                <UserCard user={post && post.user} />{" "}
+              </div>
               <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6 ml-auto">
                 <div className="text-sm leading-4">
-                  <div className="text-slate-900 dark:text-slate-400">{timeAgo}</div>
+                  <div className="text-slate-900 dark:text-slate-400">
+                    {timeAgo}
+                  </div>
                 </div>
               </li>
             </ul>
@@ -88,7 +89,7 @@ export default function PostCard({post}: PostCardType){
         <p>{post && post.text}</p>
         <div>
           <PictureCard image={post && post.imageLink} />
-        </div>        
+        </div>
         <div className="likes-comments mt-4">
           <div>
             <span>{post.likes.length} likes </span>
@@ -103,9 +104,7 @@ export default function PostCard({post}: PostCardType){
       </div>
     </div>
   );
-};
-
-
+}
 
 /*
 

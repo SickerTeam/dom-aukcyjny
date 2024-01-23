@@ -11,7 +11,9 @@ namespace backend.Repositories
         public async Task<IEnumerable<DbAuction>> GetAuctionsAsync()
         {
             return await _context.Auctions
+                .Where(auction => auction.EndsAt > DateTime.UtcNow)
                 .Include(auction => auction.Product)
+                .Include(auction => auction.Bids)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .ToListAsync();
         }
@@ -21,6 +23,7 @@ namespace backend.Repositories
             DbAuction? auction = await _context.Auctions
                 .Where(x => x.Id == id)
                 .Include(auction => auction.Product)
+                .Include(auction => auction.Bids)
                 .Include(auction => auction.Product != null ? auction.Product.Seller : null)
                 .FirstOrDefaultAsync();
 

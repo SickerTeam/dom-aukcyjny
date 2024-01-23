@@ -77,7 +77,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(255),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
-    ProfilePictureLink VARCHAR(255)
+    ImageLink VARCHAR(255)
 );
 
 -- Create Post table

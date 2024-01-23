@@ -1,19 +1,32 @@
 type BidHistoryType = {
-  auctionId: string;
+  history: any[];
 };
 
-const BidHistory = ({ auctionId }: BidHistoryType) => {
-  // fetch all bids with auctionId
-  const history = [
-    { name: "Bidder 2137", time: "11h ago", bid: "€ 12,400" },
-    { name: "Bidder 8426", time: "23h ago", bid: "€ 12,000" },
-    { name: "Bidder 8192", time: "1 day ago", bid: "€ 11,800" },
-  ];
+const BidHistory = ({ history }: BidHistoryType) => {
+  if (!history) return <div>loading...</div>;
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: false,
+    };
+
+    return date.toLocaleString("en-US", options);
+  };
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 w-full">
       {history.map((bid, index) => (
-        <div key={index}>{`${bid.name} | ${bid.time} | ${bid.bid}`}</div>
+        <div key={index} className="flex justify-between">
+          <p>{bid.user?.firstName}</p>
+          <p>{formatDate(bid.createdAt)}</p>
+          <p>€ {bid.amount}</p>
+        </div>
       ))}
     </div>
   );

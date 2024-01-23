@@ -4,13 +4,21 @@ import { useEffect, useState } from "react";
 import CountdownTimer from "../CountdownTimer";
 import BidHistory from "./BidHistory";
 import * as signalR from "@microsoft/signalr";
+import BidControll from "../BidControll";
+import apiService from "../../services/apiService";
 
 type AuctionPanelType = {
   auction: any;
 };
 
 const AuctionPanel = ({ auction }: AuctionPanelType) => {
-  const [currentPrice, setCurrentPrice] = useState(auction.currentPrice);
+  const [currentPrice, setCurrentPrice] = useState(auction?.currentPrice || 0);
+
+  useEffect(() => {
+    if (auction) {
+      setCurrentPrice(auction.currentPrice);
+    }
+  }, [auction?.currentPrice]);
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
@@ -23,6 +31,7 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
 
     connection.on("CurrentPriceChanged", (amount) => {
       console.log(`New bid: ${amount}`);
+      setCurrentPrice(amount);
     });
 
     return () => {
@@ -30,66 +39,77 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const user = await apiService.getUserInfo();
+        console.log("User info:", user);
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    // Execute fetchUserInfo only on the client side
+    if (typeof window !== "undefined") {
+      fetchUserInfo();
+    }
+  }, []);
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    const formattedDate: string = date.toLocaleDateString("en-US", options);
+    return formattedDate;
+  };
+
+  if (!auction) return <div>loading...</div>;
+
   return (
-    <div>
-      <CountdownTimer endsAt={auction.endsAt} />
-      <div className="panel-container bg-light-gray p-2 ">
-        <div className="panel-price-container my-2">
-          <p className="current-bid uppercase">current bid</p>
-          <h2>€ {currentPrice}</h2>
+    <div className="w-full">
+      <div className="pl-4">
+        <CountdownTimer endsAt={auction.endsAt} />
+      </div>
+      <div className="bg-light-gray rounded-lg p-4 w-full">
+        <div className="panel-price-container mb-2">
+          <p className="current-bid uppercase font-bold">current bid</p>
+          <h2 className="text-4xl">€ {currentPrice}</h2>
           <h4>
             {currentPrice >= auction.reservePrice
               ? "Reserve price met"
               : "Reserve price not met"}
           </h4>
         </div>
-        <div className="panel-owner-container flex gap-2 my-2">
-          <div className="w-[100px] h-[100px] bg-gray-500 rounded-full"></div>
+        <div className="panel-owner-container flex gap-4 my-4 items-center">
+          {/* <div className="w-[100px] h-[100px] bg-white rounded-full"></div> */}
           <div className="owner-texts">
-            <h3 className="owner-estimate">Estimate € 12,000 - € 14,000</h3>
-            <p className="go-to-owner-profile">Go to "X" profile</p>
-          </div>
-          <div className="info-icon">
-            <p>i</p>
+            <h3 className="text-lg">
+              Estimates € {auction.estimateMinPrice} - €{" "}
+              {auction.estimateMaxPrice}
+            </h3>
           </div>
         </div>
-        <div className="panel-bid-container my-2">
-          <div className="suggested-bids flex gap-2">
-            <button className="border border-black rounded bg-white">
-              € 12,600
-            </button>
-            <button className="border border-black rounded bg-white">
-              € 12,800
-            </button>
-            <button className="border border-black rounded bg-white">
-              € 13,000
-            </button>
-          </div>
-          <input
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]+"
-            placeholder={`€ 12,600 or up`}
-            className="border border-black rounded my-2"
-            // min={currentPrice + minimumBidForThisPriceBracket}
+
+        <div className="panel-bid-container my-4 w-3/4">
+          <BidControll
+            auctionId={auction.id}
+            currentPrice={currentPrice ? currentPrice : auction.currentPrice}
           />
-          <div className="flex gap-2">
-            {/* change divs to buttons i guess */}
-            <button className="border border-black rounded bg-white">
-              Place bid
-            </button>
-            <button className="border border-black rounded bg-white">
-              Set max bid
-            </button>
-          </div>
         </div>
-        <div className="panel-info-container my-2">
+        <div className="panel-info-container my-4">
           <p>Buyer protection</p>
-          <p>Shipping from & when</p>
+          <p>Shipping information</p>
           <p>Buyer protection fee</p>
-          <p>Biding closes on ...</p>
+          <p>Biding closes on {formatDate(auction.endsAt)}</p>
         </div>
-        <BidHistory auctionId={auction.id} />
+        <hr className="my-4" />
+        <BidHistory history={auction.bids} />
       </div>
     </div>
   );

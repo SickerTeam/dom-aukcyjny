@@ -15,6 +15,8 @@ type AuctionPageType = {
 };
 
 const AuctionPage = ({ id }: AuctionPageType) => {
+  const photos = [1, 2, 3, 4, 5, 6, 7, 8];
+
   const [auction, setAuction] = useState({ product: { title: "" } });
 
   useEffect(() => {
@@ -25,17 +27,17 @@ const AuctionPage = ({ id }: AuctionPageType) => {
   }, [id]);
 
   return (
-    <div className="grid grid-cols-4 grid-rows-7 gap-4  ">
+    <div className="grid grid-cols-4 grid-rows-7 gap-4">
       <div className="col-span-3 row-span-5">
         <Path title={auction.product.title} />
         <ArtworkTitle title={auction.product.title} />
-        {/* <PhotoDisplay photos={auction.photos} /> */}
+        <PhotoDisplay photos={photos} />
       </div>
       <div className="row-span-3 col-start-4">
         <AuctionPanel auction={auction} />
       </div>
-      <div className="col-span-3 row-span-2 row-start-6 h-full bg-gray-300">
-        <AuctionDetails />
+      <div className="col-span-3 row-span-2 row-start-6">
+        <AuctionDetails auction={auction} />
       </div>
     </div>
   );

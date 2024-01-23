@@ -64,5 +64,12 @@ namespace backend.Controllers
          await _userService.DeleteUserAsync(id);
          return Ok();
       }
+
+      // [HttpGet]
+      // public async Task<IActionResult> GetUsersInfo()
+      // {
+      //    IEnumerable<UserInfoDTO> usersInfo = await _userService.GetUsersInfoAsync();
+      //    return Ok(usersInfo);
+      // }
    }
 }

@@ -1,5 +1,5 @@
 import Main from "./Main";
-import CustomButton from "./CustomButton";
+import CustomButton from "./PanelButton";
 import Navbar from "./Navbar";
 import ProfileDetails from "./UserProfile/ProfileDetails";
 import ProfilePhoto from "./UserProfile/ProfilePhoto";

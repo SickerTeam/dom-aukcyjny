@@ -11,7 +11,7 @@ const DailyDiscovery = () => {
             Your daily discovery
           </h3>
           <p className="text-dark-gray">
-            Log in and explore Zongers <br /> to get personalised finds.
+            Log in and explore BidHub <br /> to get personalised finds.
             <br />
             <span className="font-semibold">Updated daily.</span>
           </p>
