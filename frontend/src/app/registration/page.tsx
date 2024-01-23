@@ -1,7 +1,6 @@
 "use client";
 
 import React, { ChangeEvent, useState } from "react";
-import RegistrationPage from "../../../components/RegistrationPage";
 import apiService from "../../../services/apiService";
 
 const Registration = () => {
@@ -34,11 +33,11 @@ const Registration = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <RegistrationPage
+      {/* <RegistrationPage
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-      />
+      /> */}
     </div>
   );
 };
