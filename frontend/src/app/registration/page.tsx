@@ -15,6 +15,7 @@ const Registration = () => {
     country: '',
     personalLink: '',
     profilePictureLink: '',
+    role: 0
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -23,7 +24,8 @@ const Registration = () => {
       ...prevData,
       [name]: value,
     }));
-  };
+  }; 
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,12 +40,16 @@ const Registration = () => {
 
   };
 
+
+
+
   return (
     <div className="flex items-center justify-center">
       <RegistrationPage
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+
       />
     </div>
   );

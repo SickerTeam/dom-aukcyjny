@@ -62,7 +62,7 @@ export default function PostCard({post}: PostCardType){
         <div className=" ">
           <div className="mt-6">
             <ul className="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
-              <div> <UserCard user={post && post.user} /> </div>
+              <div> <UserCard user={post && user} /> </div>
               <li className="flex items-center font-medium whitespace-nowrap px-5 mt-6 ml-auto">
                 <div className="text-sm leading-4">
                   <div className="text-slate-900 dark:text-slate-400">{timeAgo}</div>

@@ -3,11 +3,14 @@
 import React, { ChangeEvent, useState } from 'react';
 import LoginPage from '../../../components/LoginPage';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,10 +21,18 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your registration logic here
+
+        const res = await fetch('https://localhost:5156/Authentication/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      sessionStorage.setItem('token', data.token);
   };
 
   return (

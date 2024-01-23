@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import apiService from "../../services/apiService";
 
 
@@ -7,11 +7,28 @@ export default function PostAPost() {
  const [text, setText] = useState('');
  const [fileName, setFileName] = useState("");
  const [Link, setLink] = useState("");
- const [imageLink, setimageLink] = useState("");
+ const [userId, setUserId] = useState("");
  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
  let isRunning = false
 
- const userId = 1
+useEffect(() => {
+  
+ let token = sessionStorage.getItem('token'); 
+ if (token) {
+     let base64Url = token.split('.')[1];
+     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+     let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+     }).join(''));
+ 
+     let payload = JSON.parse(jsonPayload);
+     let nameid = payload.nameid;
+     setUserId(nameid);
+ }
+}, []);
+
+
+
 
  const handleSubmit = async (text: string) => {
   if (isRunning) {
@@ -21,7 +38,7 @@ export default function PostAPost() {
   const name = uuidv4();
 
    try {
-    
+    console.log(userId + " user idsdgfhaasgdfhgsgdgfsjdfasgufjshdfjhaerjhfgwruzrguau");
     const accessUrl = (`https://zongbucket.s3.eu-north-1.amazonaws.com/Posts/${name}`)
      const uploadResponse = await fetch(`https://localhost:5156/Amazon?key=Posts/${name}`);
      let fileUpload;
