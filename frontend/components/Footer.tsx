@@ -6,8 +6,8 @@ export const Footer = () => {
     <footer className="bg-main-green text-light-gray mt-14 full-bleed">
       <div className="flex justify-between py-16">
         <div className="w-1/5 flex flex-col">
-          <h4 className="text-xl text-white">About Zongers</h4>
-          <Link href="/about">About Zongers</Link>
+          <h4 className="text-xl text-white">About BidHub</h4>
+          <Link href="/about">About BidHub</Link>
         </div>
         <div className="w-1/5 flex flex-col">
           <h4 className="text-xl text-white">Buy</h4>
@@ -22,7 +22,7 @@ export const Footer = () => {
           <Link href="/seller-terms">Seller terms</Link>
         </div>
         <div className="w-1/5 flex flex-col">
-          <h4 className="text-xl text-white">My Zongers</h4>
+          <h4 className="text-xl text-white">My BidHub</h4>
           <Link href="/sign-in">Sign in</Link>
           <Link href="/register">Register</Link>
           <Link href="/help">Help</Link>

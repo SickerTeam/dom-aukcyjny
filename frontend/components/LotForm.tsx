@@ -225,7 +225,10 @@ const LotForm = () => {
         />
         <ErrorMessage name="product.artist" component="div" />
 
-        <button type="submit" className="bg-main-green p-2 text-xl mt-2">
+        <button
+          type="submit"
+          className="bg-main-green p-2 text-xl mt-2 rounded-lg text-white"
+        >
           Submit
         </button>
       </Form>

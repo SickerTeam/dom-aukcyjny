@@ -14,16 +14,16 @@ const Navbar = () => {
     <header className="py-5 mb-8">
       <nav className="flex justify-between items-center">
         <Link href="/">
-          <p className="text-3xl font-bold tracking-wide">
-            BID<span className="text-main-green">HUB</span>
+          <p className="text-2xl font-bold tracking-wide">
+            Bid<span className="text-main-green">Hub</span>
           </p>
         </Link>
         <input
-          className="border-b border-light-gray text-center min-w-min py-1 px-8"
+          className="border-b border-light-gray text-center py-1 px-8"
           type="text"
-          placeholder="Search by title, artist or category..."
+          placeholder="Search by title or artist..."
         ></input>
-        <div className="flex gap-6 text-lg">
+        <div className="flex gap-6 text-xl">
           <Link href="/lots">Sell</Link>
           <div>
             <Dropdown>
