@@ -38,12 +38,10 @@ useEffect(() => {
   const name = uuidv4();
 
    try {
-    console.log(userId + " user idsdgfhaasgdfhgsgdgfsjdfasgufjshdfjhaerjhfgwruzrguau");
     const accessUrl = (`https://zongbucket.s3.eu-north-1.amazonaws.com/Posts/${name}`)
      const uploadResponse = await fetch(`https://localhost:5156/Amazon?key=Posts/${name}`);
      let fileUpload;
-     const uploadurl = await uploadResponse.text()
-     console.log(uploadurl+" url")
+     const uploadurl = await uploadResponse.text();
 
      if (uploadResponse.ok && selectedFiles) {
        const data = new FormData();

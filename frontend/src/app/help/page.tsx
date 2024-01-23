@@ -1,7 +1,8 @@
 export default function Help() {
-    return 
+    return (
     <div>
-        we are unable to help you at this moment
-    </div>;
+        <h1>we are unable to help you at this moment</h1>
+    </div>
+    )
 
 }

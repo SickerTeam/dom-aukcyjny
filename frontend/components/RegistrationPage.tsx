@@ -18,12 +18,45 @@ type RegistrationPageProps = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
+;
+
 const RegistrationPage: React.FC<RegistrationPageProps> = ({
   formData,
   handleChange,
   handleSubmit,
 
 }) => {
+
+  const { v4: uuidv4 } = require('uuid');
+
+
+  const handleFileUpload = async (event : any) => {
+    console.log("we should be uploading")
+    const file = event.target.files[0];
+    const fileName = `${uuidv4()}`;
+   const accessUrl = (`https://zongbucket.s3.eu-north-1.amazonaws.com/Users/${fileName}`)
+   const uploadResponse = await fetch(`https://localhost:5156/Amazon?key=Users/${fileName}`);
+    if (uploadResponse.ok && file) {
+      const link = await uploadResponse.text();
+      const data = new FormData();
+      data.append('file', file, file.name);
+      const fileUpload = await fetch(link, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+        body: file,
+      }).catch((error) => {
+        console.error("Failed to upload picture:", error);
+      });
+    }
+
+    console.log(accessUrl)
+    formData.profilePictureLink = accessUrl;
+    
+    handleSubmit;
+   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -176,16 +209,15 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="profilePictureLink"
-          type="text"
+          type="file"
           name="profilePictureLink"
-          onChange={handleChange}
           placeholder="Enter your profile picture link"
         />
       </div>
       <div className="flex items-center justify-end">
         <button
           className="bg-black text-white w-full py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto block"
-          type="submit"
+          type="submit" onClick={handleFileUpload} 
         >
           <a href="/your-profile">Register</a>
         </button>

@@ -26,11 +26,13 @@ const Registration = () => {
     }));
   }; 
 
+  
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-        await fetch('http://localhost:5156/user', {
+        console.log(formData)
+        await fetch('http://localhost:5156/Authentication/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
