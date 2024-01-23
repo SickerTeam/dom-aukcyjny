@@ -20,7 +20,7 @@ namespace backend.Data.Models
 
         public string? ImageLink { get; set; }
 
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
 
         public virtual ICollection<DbBid>? Bids { get; set; } = new List<DbBid>();
 

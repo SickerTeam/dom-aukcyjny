@@ -18,7 +18,7 @@ const Artworks = () => {
     <div className="grid grid-cols-6 gap-4">
       {auctions &&
         auctions.map((auction: any, index: number) => (
-          <ArtworkCard key={index} artwork={auction} />
+          <ArtworkCard key={index} artwork={auction} type="auction" />
         ))}
     </div>
   );

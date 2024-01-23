@@ -155,7 +155,7 @@ namespace Testing.Validation
         }    
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Min()
+        public void Should_Fail_ImageLink_Min()
         {
             _userCreationDTO.ImageLink = "http://.m";
             var result = ValidateModel(_userCreationDTO);
@@ -163,7 +163,7 @@ namespace Testing.Validation
         }   
 
         [Fact]
-        public void Should_Fail_ProfilePictureLink_Max()
+        public void Should_Fail_ImageLink_Max()
         {
             _userCreationDTO.ImageLink = "https:// " + new string('a', 242) + ".com";
             var result = ValidateModel(_userCreationDTO);

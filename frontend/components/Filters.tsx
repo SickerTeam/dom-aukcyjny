@@ -1,10 +1,10 @@
-import FiltersCaards from "./FiltersCaards"
-const Filters = () => {
+import FiltersCard from "./FiltersCard";
 
-    return (  
-        <div>
-            <FiltersCaards />   
-        </div>
-    )
-}
-export default Filters
+const Filters = () => {
+  return (
+    <div>
+      <FiltersCard />
+    </div>
+  );
+};
+export default Filters;

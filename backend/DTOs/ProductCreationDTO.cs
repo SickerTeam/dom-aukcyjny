@@ -38,8 +38,6 @@ namespace backend.DTOs
         [Range(0, 2024)]
         public int Year { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
         public int SellerId { get; set; }
     }
 }

@@ -1,49 +1,36 @@
-'use client'
+"use client";
 
-import React, { ChangeEvent, useState } from 'react';
-import RegistrationPage from '../../../components/RegistrationPage';
+import React, { ChangeEvent, useState } from "react";
+import RegistrationPage from "../../../components/RegistrationPage";
+import apiService from "../../../services/apiService";
 
 const Registration = () => {
-
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: '',
-    bio: '',
-    country: '',
-    personalLink: '',
-    profilePictureLink: '',
-    role: 0
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    bio: "",
+    country: "",
+    personalLink: "",
+    imageLink: "",
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  }; 
-
-  
-
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-        console.log(formData)
-        await fetch('http://localhost:5156/Authentication/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
+    apiService.register(formData);
   };
-
-
-
 
   return (
     <div className="flex items-center justify-center">
@@ -51,7 +38,6 @@ const Registration = () => {
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-
       />
     </div>
   );
