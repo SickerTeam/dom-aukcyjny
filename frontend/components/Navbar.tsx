@@ -40,6 +40,7 @@ const Navbar = () => {
               </DropdownMenu>
             </Dropdown>
           </div>
+          <Link href="/posts">Posts</Link>
           <Link href="/pricing">Pricing</Link>
           <Link href="/help">Help</Link>
           <Link href="/login">Log in</Link>

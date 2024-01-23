@@ -5,9 +5,16 @@ type ArtworkCardType = {
   artwork: any;
   type: string;
 };
-
 const ArtworkCard = ({ artwork, type }: ArtworkCardType) => {
   const [href, setHref] = useState("");
+
+  let imgSrc = "";
+  if (
+    artwork.product.productImages &&
+    artwork.product.productImages.length > 0
+  ) {
+    imgSrc = artwork.product.productImages[0].link;
+  }
 
   useEffect(() => {
     if (type === "instabuy") {
@@ -48,7 +55,7 @@ const ArtworkCard = ({ artwork, type }: ArtworkCardType) => {
     <a href={href}>
       <div className="cursor-pointer">
         <Image
-          src="/../cv2.png"
+          src={imgSrc}
           alt="Zong logo"
           className="rounded-md drop-shadow-md "
           width={300}

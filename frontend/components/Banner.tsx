@@ -1,31 +1,33 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div className="flex justify-between h-[700px] bg-main-green shadow-md p-20">
-      <div className="m-auto w-fit gap-4 self-center">
+    <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[700px] bg-main-green shadow-md  ">
+      <div className="w-fit self-center mx-2">
         <h1 className="w-auto text-3xl text-white">
-          Sell something <span className="italic text-light-gray">cool</span> or
-          not cool idgaf
+          We connect <span className="italic text-light-gray">Artists</span> and
+          <span className="italic text-light-gray"> Art lovers</span>
         </h1>
         <p className="w-80 pb-6 text-darker-white">
-          Lorem ipsum dolor. Minus quas, officiis itaque voluptatibus cupiditate
-          modi amet.
+          We don't make mistakes, just happy little accidents. -Bob Ross
         </p>
-        <button
-          type="button"
-          className="bg-light-gray italic text-black text-xl py-2 w-full rounded shadow-sm"
-        >
-          <h2 className="w-full">
-            <a href="/lots" className="block w-full">
-              Sell stuff
-            </a>
-          </h2>
-        </button>
+        <div className="bg-light-gray italic text-black text-xl py-2 w-full rounded shadow-sm">
+          <Link href="/auctions" className="text-center">
+            <h2>Start browsing</h2>
+          </Link>
+        </div>
       </div>
-      {/* <div>
-        <Image src="/../../corpoboi.jpg" alt="Post Image" fill={true} />
-      </div> */}
+
+      <div className="self-center col-span-2  h-3/5">
+        <Image
+          src="/../main.png"
+          alt="Zong logo"
+          className="object-fill  rounded-md"
+          width={650}
+          height={500}
+        ></Image>
+      </div>
     </div>
   );
 };

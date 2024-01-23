@@ -50,6 +50,11 @@ namespace backend.Services
             return listingDto;
         }
 
+        public async Task<int> GetNumberOfFixedPriceListingsAsync()
+        {
+            return await _listingRepository.GetNumberOfFixedPriceListingsAsync();
+        }
+
         public async Task<DbFixedPriceListing> AddFixedPriceListingAsync(FixedPriceListingCreationDTO fixedPriceListingDto)
         {
             var fixedPriceListing = _mapper.Map<DbFixedPriceListing>(fixedPriceListingDto);

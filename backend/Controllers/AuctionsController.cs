@@ -25,6 +25,13 @@ namespace backend.Controllers
             return Ok(auction);
         }
 
+        [HttpGet("count")]
+        public async Task<IActionResult> GetNumberOfAuctions()
+        {
+            int numberOfAuctions = await _auctionService.GetNumberOfAuctions();
+            return Ok(numberOfAuctions);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAuction(AuctionCreationDTO auctionDto)
         {

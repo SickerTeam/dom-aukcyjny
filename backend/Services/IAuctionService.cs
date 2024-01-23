@@ -8,6 +8,7 @@ namespace backend.Services
     {
         Task<IEnumerable<AuctionDTO>> GetAuctionsAsync();
         Task<AuctionDTO> GetAuctionByIdAsync(int id);
+        Task<int> GetNumberOfAuctions();
         Task<AuctionDTO> CreateAuctionAsync(AuctionCreationDTO auction);
         Task<AuctionDTO?> UpdateAuctionAsync(int id, JsonPatchDocument<AuctionDTO> patchDoc);
         Task DeleteAuctionsAsync(int id);

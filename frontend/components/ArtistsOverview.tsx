@@ -7,22 +7,40 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import ArtistCard from "./ArtistCard";
+import apiService from "../services/apiService";
 
 const ArtistsOverview = () => {
-  const artists = [
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-    { name: "John Johny", specialization: "Boss of all the bosses" },
-  ];
+  const [artists, setArtists] = useState([]);
+  const [fixedNumber, setFixedNumber] = useState(0);
+  const [AuctionNumber, setAuctionNumber] = useState(0);
+
+  useEffect(() => {
+    const fetchArtists = async () => {
+      try {
+        const response = await apiService.get(`/Users`);
+        setArtists(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        const response = await apiService.get(`/FixedPriceListings/count`);
+        setFixedNumber(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      try {
+        const response = await apiService.get(`/Auctions/count`);
+        setAuctionNumber(response);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchArtists();
+  }, []);
 
   const scrollContainer = useRef<HTMLDivElement>(null);
   const [showArrows, setShowArrows] = useState({ left: false, right: false });
@@ -74,9 +92,9 @@ const ArtistsOverview = () => {
     <div style={{ position: "relative" }}>
       <h2 className="text-xl  ">
         Buy or bid on over{" "}
-        <span className="italic text-main-green">2,137 objects</span> every
-        week, created by{" "}
-        <span className="italic text-main-green">420+ artists</span>
+        <span className="italic text-main-green">{AuctionNumber+fixedNumber} objects</span> every week,
+        created by{" "}
+        <span className="italic text-main-green">{artists.length} artists</span>
       </h2>
       <div className="flex justify-center">
         <div className="scroll-arrows">

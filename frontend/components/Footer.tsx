@@ -37,7 +37,7 @@ export const Footer = () => {
         <Link href="/help/cookies">Cookie Policy</Link>
         <Link href="/help/law-enforcement-policy">Law Enforments Policy</Link>
         <Link href="/help/buyer-terms/other-policies">Other Policies</Link>
-        <p>© 2023</p>
+        <p>© 2024</p>
       </div>
     </footer>
   );

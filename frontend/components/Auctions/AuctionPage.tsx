@@ -1,20 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  ArtworkTitle,
-  AuctionDetails,
-  AuctionPanel,
-  Path,
-  PhotoDisplay,
-} from "..";
+import { ArtworkTitle, AuctionDetails, AuctionPanel, PhotoDisplay } from "..";
 import apiService from "../../services/apiService";
 
-type AuctionPageType = {
-  id: string;
-};
-
-const AuctionPage = ({ id }: AuctionPageType) => {
+const AuctionPage = ({ id }: any) => {
   const photos = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const [auction, setAuction] = useState({ product: { title: "" } });
@@ -29,7 +19,6 @@ const AuctionPage = ({ id }: AuctionPageType) => {
   return (
     <div className="grid grid-cols-4 grid-rows-7 gap-4">
       <div className="col-span-3 row-span-5">
-        <Path title={auction.product.title} />
         <ArtworkTitle title={auction.product.title} />
         <PhotoDisplay photos={photos} />
       </div>

@@ -9,7 +9,7 @@ const Artworks = () => {
 
   useEffect(() => {
     apiService
-      .get(`/auctions`)
+      .get(`/Auctions`)
       .then((data) => setAuctions(data))
       .catch((error) => console.error("Error: ", error));
   }, []);
