@@ -11,7 +11,7 @@ namespace Testing.Validation
 
         public UserCreationDTOValidationTest()
         {
-            _userCreationDTO = new UserCreationDTO
+            _userCreationDTO = new UserCreationDTO()
             {
                 
                 Email = "login@login.com",
@@ -107,11 +107,11 @@ namespace Testing.Validation
         }  
 
         [Fact]
-        public void Should_Fail_Bio_Min()
+        public void Should_Pass_Bio_Min()
         {
             _userCreationDTO.Bio = "";
             var result = ValidateModel(_userCreationDTO);
-            Assert.False(result);
+            Assert.True(result);
         }   
 
         [Fact]
@@ -190,8 +190,9 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

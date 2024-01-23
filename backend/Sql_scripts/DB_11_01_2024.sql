@@ -1,60 +1,33 @@
--- Drop foreign key constraints if they exist
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'FOREIGN KEY')
-BEGIN
-    ALTER TABLE Bid DROP CONSTRAINT IF EXISTS FK_Bid_Auction;
-    ALTER TABLE Bid DROP CONSTRAINT IF EXISTS FK_Bid_User;
-
-    ALTER TABLE Product DROP CONSTRAINT IF EXISTS FK_Product_User;
-
-    ALTER TABLE Post DROP CONSTRAINT IF EXISTS FK_Post_User;
-
-    ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_Post;
-    ALTER TABLE Comment DROP CONSTRAINT IF EXISTS FK_Comment_User;
-
-    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_Post;
-    ALTER TABLE Picture DROP CONSTRAINT IF EXISTS FK_Picture_User;
-
-    ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_Post;
-    ALTER TABLE [Like] DROP CONSTRAINT IF EXISTS FK_Like_User;
-
-    ALTER TABLE Auction DROP CONSTRAINT IF EXISTS FK_Auction_Product;
-
-    ALTER TABLE FixedPriceListing DROP CONSTRAINT IF EXISTS FK_FixedPriceListing_Product;
-
-    ALTER TABLE FixedPriceListingPurchase DROP CONSTRAINT IF EXISTS FK_FixedPriceListingPurchase_User;
-    ALTER TABLE FixedPriceListingPurchase DROP CONSTRAINT IF EXISTS FK_FixedPriceListingPurchase_FixedPriceListing;
-END
-
 -- Drop tables if they exist
-IF OBJECT_ID('Bid', 'U') IS NOT NULL
-    DROP TABLE Bids;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bid]') AND type in (N'U'))
+DROP TABLE [dbo].[Bid]
 
-IF OBJECT_ID('FixedPriceListingPurchase', 'U') IS NOT NULL
-    DROP TABLE InstaBuyPurchases;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Comment]') AND type in (N'U'))
+DROP TABLE [dbo].[Comment]
 
-IF OBJECT_ID('[Like]', 'U') IS NOT NULL
-    DROP TABLE Likes;   
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FixedPriceListingPurchase]') AND type in (N'U'))
+DROP TABLE [dbo].[FixedPriceListingPurchase]
 
-IF OBJECT_ID('Comment', 'U') IS NOT NULL
-    DROP TABLE Comment;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Like]') AND type in (N'U'))
+DROP TABLE [dbo].[Like]
 
-IF OBJECT_ID('Picture', 'U') IS NOT NULL
-    DROP TABLE Picture;
-    
-IF OBJECT_ID('Auction', 'U') IS NOT NULL
-    DROP TABLE Auction;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FixedPriceListing]') AND type in (N'U'))
+DROP TABLE [dbo].[FixedPriceListing]
 
-IF OBJECT_ID('FixedPriceListing', 'U') IS NOT NULL
-    DROP TABLE InstaBuy;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Auction]') AND type in (N'U'))
+DROP TABLE [dbo].[Auction]
 
-IF OBJECT_ID('Post', 'U') IS NOT NULL
-    DROP TABLE Post;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductImage]') AND type in (N'U'))
+DROP TABLE [dbo].[ProductImage]
 
-IF OBJECT_ID('Product', 'U') IS NOT NULL
-    DROP TABLE Product;
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND type in (N'U'))
+DROP TABLE [dbo].[Post]
 
-IF OBJECT_ID('[User]', 'U') IS NOT NULL
-    DROP TABLE [User];
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Product]') AND type in (N'U'))
+DROP TABLE [dbo].[Product]
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User]') AND type in (N'U'))
+DROP TABLE [dbo].[User]
 
 -- Create tables
 CREATE TABLE [User] (
@@ -66,7 +39,7 @@ CREATE TABLE [User] (
     Bio VARCHAR(2048),
     Country VARCHAR(255),
     PersonalLink VARCHAR(255),
-    ImageLink VARCHAR(255),
+    ImageLink VARCHAR(1024) NOT NULL,
     Role INT NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -109,6 +82,7 @@ CREATE TABLE Post (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     UserId INT FOREIGN KEY REFERENCES [User](Id) ON DELETE CASCADE NOT NULL,
     Text VARCHAR(2048) NOT NULL,
+    ImageLink VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
 
@@ -127,9 +101,9 @@ CREATE TABLE [Like] (
     CreatedAt DATETIME NOT NULL
 );
 
-CREATE TABLE Picture (
+CREATE TABLE ProductImage (
     Id INT IDENTITY(1,1) PRIMARY KEY,
-    ReferenceId INT FOREIGN KEY REFERENCES Post(Id) ON DELETE CASCADE NOT NULL,
+    ProductId INT FOREIGN KEY REFERENCES Product(Id) ON DELETE CASCADE NOT NULL,
     Link VARCHAR(1024) NOT NULL,
     CreatedAt DATETIME NOT NULL
 );
@@ -152,11 +126,11 @@ CREATE TABLE FixedPriceListingPurchase (
 -- Insert mock data into the tables
 INSERT INTO [User] (FirstName, LastName, Email, Password, Bio, Country, PersonalLink, ImageLink, Role, CreatedAt)
 VALUES
-    ('John', 'Doe', 'user1@example.com', 'password1', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://personal.link/user1', 0, '2023-11-28T12:00:00'),
-    ('Jane', 'Smith', 'user2@example.com', 'password2', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://personal.link/user1', 0, '2023-11-28T12:15:00'),
-    ('Alice', 'Johnson', 'user3@example.com', 'password3', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://personal.link/user1', 0, '2023-11-28T12:30:00'),
-    ('Bob', 'Brown', 'user4@example.com', 'password4', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://personal.link/user1', 0, '2023-11-28T12:45:00'),
-    ('Eve', 'White', 'user5@example.com', 'password5', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://personal.link/user1', 0, '2023-11-28T13:00:00');
+    ('John', 'Doe', 'user1@example.com', '$2y$10$LlOJPlB32pvLticp4IOtzOaGEuSpYc2rbXaCP3y.SMZpKqdkT6gfe', 'A bio about John', 'USA', 'https://personal.link/user1', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:00:00'),
+    ('Jane', 'Smith', 'user2@example.com', '$2y$10$ezuuJVVZjoWN55kb/V28F.s.c/GXHAJ0UuyZHWcaHxL2tuk1v0uCm', 'A bio about Jane', 'Canada', 'https://personal.link/user2', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:15:00'),
+    ('Alice', 'Johnson', 'user3@example.com', '$2y$10$qDNITugQYSgDR/BnVhnkUeic1ipEpoqZWj0TNGLVNhoUOMuCFSOdC', 'A bio about Alice', 'UK', 'https://personal.link/user3', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:30:00'),
+    ('Bob', 'Brown', 'user4@example.com', '$2y$10$ZP7hcURMc5C6Kkns2cRLr.lw4CyoJcSIcHdAMB4EAn18X2SYBQk2y', 'A bio about Bob', 'Australia', 'https://personal.link/user4', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T12:45:00'),
+    ('Eve', 'White', 'user5@example.com', '$2y$10$El6ffgJWv7qt/T8ickI8lewVyu92jh0xsWg2rH6oMoMAh28sC/9r.', 'A bio about Eve', 'New Zealand', 'https://personal.link/user5', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', 0, '2023-11-28T13:00:00');
 
 INSERT INTO Product (Height, Width, Depth, Weight, Title, Description, Artist, SellerId, Year, CreatedAt)
 VALUES
@@ -198,13 +172,13 @@ VALUES
     (4, 5, 95.00, '2023-12-04T12:15:00'),
     (5, 1, 115.00, '2023-12-05T12:15:00');
 
-	INSERT INTO Post (UserId, Text, CreatedAt)
+	INSERT INTO Post (UserId, Text, ImageLink, CreatedAt)
 VALUES
-    (1, 'This is the first post.', '2023-11-28T12:00:00'),
-    (2, 'A post by user 2.', '2023-11-28T12:15:00'),
-    (3, 'Post number 3.', '2023-11-28T12:30:00'),
-    (4, 'User 4s post.', '2023-11-28T12:45:00'),
-    (5, 'Post by the last user.', '2023-11-28T13:00:00');
+    (1, 'This is the first post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:00:00'),
+    (2, 'A post by user 2.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:15:00'),
+    (3, 'Post number 3.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:30:00'),
+    (4, 'User 4s post.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T12:45:00'),
+    (5, 'Post by the last user.', 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-11-28T13:00:00');
 
 INSERT INTO Comment (PostId, UserId, Text, CreatedAt)
 VALUES
@@ -222,7 +196,7 @@ VALUES
     (4, 5, '2023-11-28T13:00:00'),
     (5, 1, '2023-11-28T13:15:00');
 
-INSERT INTO Picture (ReferenceId, Link, CreatedAt)
+INSERT INTO ProductImage (ProductId, Link, CreatedAt)
 VALUES
     (1, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),
     (2, 'https://zongbucket.s3.eu-north-1.amazonaws.com/posts/5', '2023-10-01T12:15:00'),

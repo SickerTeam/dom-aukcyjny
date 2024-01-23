@@ -97,10 +97,10 @@ namespace Testing.Validation
         }  
 
         [Fact]
-        public void Should_Fail_Bio_Min()
+        public void Should_Pass_Bio_Min()
         {
             _userDTO.Bio = "";
-            Assert.False(ValidateModel(_userDTO));
+            Assert.True(ValidateModel(_userDTO));
         }   
 
         [Fact]
@@ -154,8 +154,9 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

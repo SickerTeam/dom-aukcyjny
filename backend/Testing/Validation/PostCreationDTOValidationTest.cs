@@ -14,6 +14,7 @@ namespace Testing.Validation
             {
                 UserId = 1,
                 Text = "Sample text",
+                ImageLink = "Sample image link"
             };
         }
 
@@ -54,8 +55,9 @@ namespace Testing.Validation
 
         private static bool ValidateModel(object model)
         {
+            var validationResults = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            return Validator.TryValidateObject(model, context, null, true);
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

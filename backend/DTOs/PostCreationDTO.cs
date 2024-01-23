@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
@@ -12,6 +10,9 @@ namespace backend.DTOs
 
         [Required]
         [StringLength(2047, ErrorMessage = "Text cannot exceed 2047 characters.")]
-        public string Text { get; set; }
+        public required string Text { get; set; }
+
+        [Required]
+        public required string? ImageLink { get; set; }
     }
 }

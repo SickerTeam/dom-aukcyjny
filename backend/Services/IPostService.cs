@@ -7,6 +7,7 @@ namespace backend.Services
     public interface IPostService
     {
         Task<PostDTO> GetPostByIdAsync(int id);
+        Task<IEnumerable<PostDTO>> GetAllPostsAsync();
         Task<PostDTO> CreatePostAsync(PostCreationDTO PostDto);
         Task<PostDTO?> UpdatePostAsync(int id, JsonPatchDocument<PostDTO> patchDoc);
         Task DeletePostsAsync(int id);

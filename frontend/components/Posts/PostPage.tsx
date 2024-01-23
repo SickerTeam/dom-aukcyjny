@@ -1,48 +1,58 @@
-import { createVerify } from "crypto";
+"use client"
+
+import { useState, useEffect } from 'react'
+
+
 import PostCard from "./PostCard";
-import SideRecommendation from "./SideRecommendation";
+import UserCard from "./UserCard";
+import SideNavigation from "./SideNavigation";
+import PostAPost from "./PostAPost";
 
 
-
-async function getAllPosts() {
-    const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/Post");
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch auctions");
-    }
-  
-    return res.json();
+interface User {
+  id: number;
 }
 
-async function getAllUsers() {
-  const res = await fetch("https://sea-turtle-app-yvb56.ondigitalocean.app/User");
+export default function PostPage() {
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const postsr = [...posts].reverse();
 
-        
-    if (!res.ok) {
-      throw new Error("Failed to fetch auctions");
-    }
-  
-    return res.json();
-}
+  useEffect(() => {
+    fetch('https://localhost:5156/Users')
+      .then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          setUsers(data);
+        });
+      }).catch((error) => console.error(error));
 
+    fetch('https://localhost:5156/Posts')
+      .then((res) => {
+        res.json().then((data) => {
+          setPosts(data);
+        });
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
-const PostPage = async () => {
-    const posts = await getAllPosts();
-    const users = await getAllUsers();
-    
   return (
-    <div className="flex justify-around">
-      <div>
-        <p>fuck this shit im not implementing it</p>
+      <div className="ml-10 ...">
+      <div className="flex justify-around h-full">
+        <div className='w-1/3'>
+          <SideNavigation/>
+        </div>
+        <div className='w-1/3'>
+            <PostAPost/>
+            {postsr.map((post: any, index: number) => <PostCard key={index} post={post} user={post.user} />)}
+        </div>
+        <div className='w-1/3 '>
+          {users.map((user: User) => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </div>
       </div>
-      <div>
-      {posts.map((post: any, index: number) => <PostCard key={index} post={post} />)}
       </div>
-      <div> 
-        <SideRecommendation user={users}/>
-      </div>
-    </div>
   );
-};
+}
 
-export default PostPage;
