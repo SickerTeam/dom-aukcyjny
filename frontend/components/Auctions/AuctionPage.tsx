@@ -15,9 +15,10 @@ const AuctionPage = ({ id }: any) => {
 
   useEffect(() => {
     apiService
-      .get(`/auctions/${id}`)
+      .get(`/Auctions/${id}`)
       .then((data) => setAuction(data))
       .catch((error) => console.error("Error: ", error));
+      console.log(auction)
   }, [id]);
 
   return (

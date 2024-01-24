@@ -34,7 +34,7 @@ const PhotoDisplay = ({ photos }: PhotoDisplayType) => {
             index % 3 === 0 ? "2" : "1"
           } bg-main-green h-[500px] relative p-4 rounded-lg shadow-sm`}
         >
-          <img alt="" src={photo} />
+          <img alt="" src={photo} className="object-cover w-full h-full" />
           {index === lastVisibleIndex && photos.length > maxVisiblePhotos && (
             <button
               ref={buttonRef}
