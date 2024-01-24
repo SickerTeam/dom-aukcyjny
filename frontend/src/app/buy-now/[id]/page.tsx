@@ -18,7 +18,7 @@ type AuctionType = {
 };
 
 const BuyNowItemPage = ({ params }: AuctionType) => {
-  const photos = [1, 2, 3, 4, 5, 6, 7, 8];
+  const photos = ['1', '2', '3', '4', '5', '6', '7'];
   const [buyNow, setBuyNow] = useState({ product: { title: "" } });
 
   useEffect(() => {
