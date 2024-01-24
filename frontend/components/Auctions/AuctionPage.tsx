@@ -5,7 +5,11 @@ import { ArtworkTitle, AuctionDetails, AuctionPanel, PhotoDisplay } from "..";
 import apiService from "../../services/apiService";
 
 const AuctionPage = ({ id }: any) => {
-  const photos = [1, 2, 3, 4, 5, 6, 7, 8];
+  const photos = [
+    "https://zongbucket.s3.eu-north-1.amazonaws.com/Products/6",
+    "https://zongbucket.s3.eu-north-1.amazonaws.com/Products/7",
+    "https://zongbucket.s3.eu-north-1.amazonaws.com/Products/8",
+  ];
 
   const [auction, setAuction] = useState({ product: { title: "" } });
 

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 
 type PhotoDisplayType = {
-  photos: number[];
+  photos: string[];
 };
 
 const PhotoDisplay = ({ photos }: PhotoDisplayType) => {
@@ -34,7 +34,7 @@ const PhotoDisplay = ({ photos }: PhotoDisplayType) => {
             index % 3 === 0 ? "2" : "1"
           } bg-main-green h-[500px] relative p-4 rounded-lg shadow-sm`}
         >
-          {photo}
+          <img alt="" src={photo} />
           {index === lastVisibleIndex && photos.length > maxVisiblePhotos && (
             <button
               ref={buttonRef}
