@@ -22,7 +22,7 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:5156/bidHub")
+      .withUrl("https://localhost:5156/bidHub")
       .build();
 
     connection.start().then(() => {
@@ -37,22 +37,6 @@ const AuctionPanel = ({ auction }: AuctionPanelType) => {
     return () => {
       connection.stop();
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const user = await apiService.getUserInfo();
-        console.log("User info:", user);
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-      }
-    };
-
-    // Execute fetchUserInfo only on the client side
-    if (typeof window !== "undefined") {
-      fetchUserInfo();
-    }
   }, []);
 
   const formatDate = (dateString: string): string => {

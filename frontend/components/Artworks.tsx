@@ -7,6 +7,7 @@ import apiService from "../services/apiService";
 const Artworks = () => {
   const [auctions, setAuctions] = useState<[]>([]);
 
+
   useEffect(() => {
     apiService
       .get(`/Auctions`)
