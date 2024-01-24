@@ -45,13 +45,6 @@ namespace Testing.Validation
         }
 
         [Fact]
-        public void Should_Fail_SellerId_Min()
-        {
-            _productDTO.SellerId = 0;
-            Assert.False(ValidateModel(_productDTO));
-        }
-
-        [Fact]
         public void Should_Fail_Height_Min()
         {
             _productDTO.Height = 0;

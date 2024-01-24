@@ -32,6 +32,8 @@ namespace backend.DTOs
 
         [Required]
         [StringLength(254, ErrorMessage = "Text cannot exceed 254 characters.")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
+            ErrorMessage = "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.")]
         public required string Password { get; set; }
 
         [Url]

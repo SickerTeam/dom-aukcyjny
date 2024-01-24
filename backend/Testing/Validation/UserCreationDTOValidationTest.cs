@@ -21,7 +21,7 @@ namespace Testing.Validation
                 Country = "Poland",
                 PersonalLink = "http://www.google.com",
                 ImageLink = "http://www.google.com",
-                Password = "CLEARTEXTBUDDY",
+                Password = "1*aaaaaa",
                 Role = UserRole.User
             };
         }
@@ -36,7 +36,6 @@ namespace Testing.Validation
         [Fact]
         public void Should_Pass_With_Max_Values()
         {
-            var samePassword = new string('a', 254);
             _userCreationDTO.Email = new string('a', 244) + "@login.com";
             _userCreationDTO.FirstName = "first";
             _userCreationDTO.LastName = "last";
@@ -44,7 +43,7 @@ namespace Testing.Validation
             _userCreationDTO.Country = new string('a', 254);
             _userCreationDTO.PersonalLink = "http://www." + new string('a', 239) + ".com";
             _userCreationDTO.ImageLink = "http://www." + new string('a', 239) + ".com";
-            _userCreationDTO.Password = samePassword;
+            _userCreationDTO.Password = "*1a" + new string('a', 251);
             _userCreationDTO.Role = UserRole.Admin;
             var result = ValidateModel(_userCreationDTO);
             Assert.True(result);
@@ -171,9 +170,36 @@ namespace Testing.Validation
         }
 
         [Fact]
+        public void Should_Fail_Password_no_digit()
+        {
+            var pass = "a*aaaaaa";
+            _userCreationDTO.Password = pass;
+            var result = ValidateModel(_userCreationDTO);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Should_Fail_Password_no_special_character()
+        {
+            var pass = "a1aaaaaa";
+            _userCreationDTO.Password = pass;
+            var result = ValidateModel(_userCreationDTO);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Should_Fail_Password_no_letter()
+        {
+            var pass = "*******1";
+            _userCreationDTO.Password = pass;
+            var result = ValidateModel(_userCreationDTO);
+            Assert.False(result);
+        }
+
+        [Fact]
         public void Should_Fail_Password_Min()
         {
-            var pass = "";
+            var pass = "1a*aaaa";
             _userCreationDTO.Password = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
@@ -182,7 +208,7 @@ namespace Testing.Validation
         [Fact]
         public void Should_Fail_Password_Max()
         {
-            var pass = new string('a', 255);
+            var pass = "1*a" + new string('a', 252);
             _userCreationDTO.Password = pass;
             var result = ValidateModel(_userCreationDTO);
             Assert.False(result);
