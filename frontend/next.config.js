@@ -5,7 +5,11 @@ const nextConfig = {};
 
 module.exports = nextConfig;
 module.exports = {
-    images: {
-      domains: ['zongbucket.s3.eu-north-1.amazonaws.com'],
-    },
-   };
+  images: {
+    domains: [
+      "zongbucket.s3.eu-north-1.amazonaws.com",
+      "nextui.org",
+      "localhost",
+    ],
+  },
+};

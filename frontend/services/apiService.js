@@ -32,6 +32,7 @@ const apiService = {
     // If login is successful, store the token in localStorage
     if (response.token) {
       localStorage.setItem("token", response.token);
+      window.location.href = "/auctions";
     }
 
     return response;
@@ -47,22 +48,6 @@ const apiService = {
     if (response.token) {
       localStorage.setItem("token", response.token);
     }
-
-    return response;
-  },
-
-  getUserInfo: async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      return null; // No token, no user info
-    }
-
-    const response = await apiService.get("/users/info", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
     return response;
   },
